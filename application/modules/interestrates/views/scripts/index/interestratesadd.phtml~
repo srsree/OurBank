@@ -1,0 +1,55 @@
+
+
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/interestratesadd.js"></script>
+<div id = "searchDiv">
+<fieldset>
+<legend>Add interest rates</legend>
+	<form onsubmit="return validation()" name="interestForm" action="<?php echo $this->baseUrl();?>/interestrates/index/interestratesadd/creditline_id/<?php echo $this->creditline_id;?>" method="POST">
+	
+		<table id="hor-minimalist-b">
+			<?php echo $this->InterestratesForm->interestname;?>
+			<?php echo $this->InterestratesForm->creditlinename;?>
+			
+		</table>
+
+		<table id="hor-minimalist-b">
+			<TR>
+				<TH >* Start range - R$</TH>
+				<TH >* End range - R$</TH>
+				<TH >* Interest - % </TH>
+				<TH >* Fee - % </TH>
+				<TH >Billet - R$</TH>
+			</TR>
+			<TR>
+				<TD><input size="10" id="S_rangeID" type='text' name='start_range[]' onblur="isNumericVal()"></TD>
+				<TD><input size="10" id="e_rangeID"  type='text' name='end_range[]' onblur="isNumericVal()"></TD>
+				<TD><input size="10" id="interestID"  type='text' name='interest[]' onblur="isNumericVal()"></TD>
+				<TD><input size="10" id="feeID"  type='text' name='fee[]' onblur="isNumericVal()"></TD>
+				<TD><input size="10" id="balletID"  type='text' name='interest_ballet[]' onblur="isNumericVal()"></td>
+			</TR>
+			<TR>
+				<TD colspan="5">
+					<table  id="hor-minimalist-b">
+						<SPAN id="interest_ranges">
+						</SPAN>
+					</table>
+				</TD>
+			</TR>
+			
+			<tr><TD colspan="5"><input type="button" value="Add range" onClick="addInputADD('interest_ranges','<? echo $this->baseUrl();?>');"></TD></tr>
+			<?php echo $this->InterestratesForm->status;?>
+		</table>
+
+		<div class="btnhouse">
+			<div class="ltbtns">
+				<input type="Submit" name="Submit" name="Submit" value="Submit">
+			</div>
+			<div class="rtbtns">
+				<a href="<?php echo $this->baseUrl();?>/interestratesindex"><input type="button" value="Back"></a>
+			</div>
+		</div>
+ 	</form>
+</fieldset>
+</div>
+
+

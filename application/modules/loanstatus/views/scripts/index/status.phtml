@@ -1,0 +1,165 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<BODY onload="toggleField();"></BODY>   
+<?php $convertdate = new Creditline_Model_dateConvertor(); ?>
+<div style="float:left;width:350px"> 
+    <?php foreach($this->member as $memberdetails) { ?>
+        <table id="hor-minimalist-s">
+            <?php if($this->type=='3') { ?>
+            <TR>
+                <td>Group name</td>
+                <TD><? echo $memberdetails['group_name']; ?></TD>
+            </TR>
+            <?php } else { ?>
+            <TR>
+                <td> Name</td>
+                <TD><? echo $memberdetails['member_name']; ?></TD>
+            </TR>
+            <?php } ?>
+            <TR>
+                <td>Branch</td>
+                <TD><? echo $memberdetails['bank_name']; ?></TD>
+            </TR>
+            <TR>
+            <td>Member code</td>
+            <?php if($this->type=='3') { ?>
+                <TD><? echo $memberdetails['groupcode']; ?></TD>
+            <?php } else { ?>
+                <TD><? echo $memberdetails['membercode']; ?></TD>
+            <?php } ?>
+            </TR>
+            <TR>
+                <td> Account code</td>
+                <td><? echo $memberdetails['account_number']; ?></TD>
+            </TR>
+            <TR>
+                <td>Sector name:</b></td>
+                <TD><? echo $memberdetails['sector_name']; ?></TD>
+            </TR>
+            <TR>
+                <td>Activity name</b></td>
+                <td><? echo $memberdetails['activity_name']; ?></TD>
+            </TR>
+            <TR>
+                <td>Loan amount R$</b></td>
+                <td><? echo $memberdetails['loan_amount']; ?></TD>
+            </TR>
+            <TR>
+                <td>Fee amount R$</b></td>
+                <td><? echo $memberdetails['fee']; ?></TD>
+            </TR>
+            <TR>
+                <td>Interest rate %</td>
+                <TD><? echo $memberdetails['loan_interest']; ?></TD>
+            </TR>
+            <TR>
+                <td>Billet R$</td>
+                <TD><?php echo sprintf("%4.2f", $memberdetails['billet']); ?></TD>
+            </TR>
+            <TR>
+            <td>Installments</td>
+                <TD><? echo $memberdetails['loan_installments']; ?></TD>
+            </TR>
+            <TR>
+                <td>Sanctioned date</b></td>
+                <td><? echo $convertdate->phpnormalformat($memberdetails['loansanctioned_date']); ?></TD>
+            </TR>
+        </table> 
+    <?php } ?>
+    <br/>
+    <?php if($this->type=='3') { ?>
+        <div style="float:right;width:350px"> 
+            <DIV>
+                <a href="#" id="open">Group members</a>
+                <div class="box">
+                    <div id="content1">
+                        <table id="hor-minimalist-s">
+                            <tr class="tdbrownheading">
+                                <th>Name</th>
+                                <th>Member code</th>
+                            </tr>
+                            <?php foreach($this->groupmembers as $groupmembers) { ?>
+                            <tr>
+                                <td><?php echo $groupmembers['member_name'];?></td>
+                                <td><?php echo $groupmembers['membercode'];?></td>
+                            </tr>
+                            <?php } ?>
+                        </table>
+                        <p><a href="#" id="close">hide</a></p>
+                    </div>
+                </div>
+            </DIV>
+        </div>
+    <?php } ?>
+</div>
+
+<?php if($this->totladisburseAmount) { ?>
+<div style="float:right;width:350px"> 
+<table id="hor-minimalist-s">
+    <tr class="tdbrownheading">
+        <th>Type</th>
+        <th>Installment</th>
+        <th>Amount</th>
+        
+    </tr>
+    <tr>
+        <td>Paid</td>
+       <td><?php echo $this->noOfInstalmentPaid;?></td>
+       <td>R$ <?php echo $this->paidAmount;?></td>
+    </tr>
+    <tr>
+        <td>Due</td>
+       <td><?php echo $this->balanceInstallment;?></td>
+       <td>R$ <?php echo $this->stillHaveToPay;?></td>
+    </tr>
+</table>
+</div>
+<?php } ?>
+
+<div style="float:right;width:350px"> 
+    <fieldset>
+        <legend> Loan status </legend>
+        <form name="form1" action="<?php echo $this->baseUrl();?>/loanstatus/index/status/accountNumber/<?php echo $this->accountnumber;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+            <table class="fieldsets">
+                <TR>
+                    <TD><label for="fld1" class="mand">Status</label></TD>
+                    <TD><SPAN style="color:red"><strong><?php echo $this->presentstatus; ?></strong></SPAN></TD>
+                </TR>
+
+                <TR>
+                    <TD><label for="fld1" class="mand">New status</label></TD>
+                    <TD><?php echo $this->loan->newStatus;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Description</label></TD>
+                    <TD><?php echo $this->loan->description;?></TD>
+                </TR>
+            </table>
+            <div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->loan->Submit;?>
+                </div>
+                <div class="rtbtns">
+                    <a href="<?php echo $this->baseUrl();?>/loanstatus/index"><?php echo $this->loan->Back;?></a>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>

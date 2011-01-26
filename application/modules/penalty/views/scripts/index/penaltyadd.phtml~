@@ -1,0 +1,47 @@
+
+
+
+<div id = "searchDiv">
+<fieldset>
+<legend>Add penalty</legend>
+	<form action="<?php echo $this->baseUrl();?>/penalty/index/penaltyadd/creditline_id/<?php echo $this->creditline_id;?>" method="POST">
+		<table class="fieldsets">
+			
+				<TR >
+				<TD ><label for="fld1" class="mand">Penalty name</TD>
+				<TD ><?php echo $this->penaltyform->penaltyname;?></TD>
+			</TR>
+			<TR >
+				<TD ><label for="fld1" class="mand">Penalty per month</TD>
+				<TD ><?php echo $this->penaltyform->penalty_per_month;?></TD>
+			
+				<TD ><label for="fld1" class="mand">Unit per month</TD>
+				<TD ><?php echo $this->penaltyform->unit_per_month;?></TD>
+			</TR>
+			<TR >
+				<TD ><label for="fld1" class="mand">Penalty per day</TD>				
+				<TD ><?php echo $this->penaltyform->penalty_per_day;?></TD>
+			
+				<TD ><label for="fld1" class="mand">Unit per day</TD>
+				<TD ><?php echo $this->penaltyform->unit_per_day;?></TD>
+			</TR> 
+			<TR >
+				<TD ><label for="fld1" class="mand">Creditline name</TD>
+				<TD ><?php echo $this->penaltyform->creditlinename;?></TD>
+			</TR> 
+			<TR >
+				<TD ><label for="fld1" class="mand">Active</TD>
+				<TD ><?php echo $this->penaltyform->status;?></TD>
+			</TR> 
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<input type="Submit" name="Submit" name="Submit" value="Submit">
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/penaltyindex"><input type="button" value="Back"></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>

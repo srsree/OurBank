@@ -1,0 +1,36 @@
+<?php
+class Office_Model_office extends Zend_Db_Table_Abstract {
+
+    protected $_name = 'ourbank_officehierarchy';
+    public function SearchOffice($post = array()) {
+        $select = $this->select()
+                       ->setIntegrityCheck(false)  
+                       ->join(array('a' => 'ourbank_officenames'),array('a.id'))
+                       ->join(array('b'=>'ourbank_officehierarchy'),'b.id=a.officetype_id',array('b.type'))
+                       ->where('a.name like "%" ? "%"',$post['field4'])
+                       ->where('a.short_name like "%" ? "%"',$post['field2'])
+                       ->where('a.officetype_id like "%" ? "%"',$post['field1']);
+          // die($select->__toString());
+       $result = $this->fetchAll($select);
+       return $result->toArray();
+    }
+
+        public function getOfficetype() {
+              $select = $this->select()
+                       ->setIntegrityCheck(false)  
+                       ->join(array('a' => 'ourbank_officehierarchy'),array('a.id,a.type'));
+        //die($select->__toString());
+       $result = $this->fetchAll($select);
+       return $result->toArray();
+    }
+
+     public function getOffice() {
+              $select = $this->select()
+                       ->setIntegrityCheck(false)  
+                       ->join(array('a' => 'ourbank_officenames'),array('a.id'))
+                       ->join(array('b'=>'ourbank_officehierarchy'),'b.id=a.officetype_id',array('b.type'));
+       // die($select->__toString());
+       $result = $this->fetchAll($select);
+       return $result->toArray();
+    }
+}

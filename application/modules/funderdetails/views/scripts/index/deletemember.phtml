@@ -1,0 +1,44 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+ *  delete member view 
+--> 
+<form action="<?php echo $this->baseUrl();?>/funderdetails/index/delete/id/<?php echo $this->funderid; ?>/modId/<?php echo $this->mod_id; ?>/subId/<?php echo $this->sub_id; ?>" method="POST">
+<div class="register">
+	<div class="profile_tab"> 
+		<table id="hor-minimalist-b">
+	<!--to change language -->
+                          <tr><th class="firsttd"><?php echo $this->translate("Funder Information"); ?></th><th class = "secondtd"></th><th class = "secondtd"></th><th class="thirdtd"></th><th></th></tr>
+                        <?php foreach($this->funder as $funder_view){
+                          ?>
+                        <tr><td class="firsttd"><?php echo $this->translate("Funders Name:"); ?></td><td class = "secondtd"><?php echo $funder_view['funder_name']; ?></td><td class="thirdtd"></td><td></td><td></td></tr>
+                        <tr><td class="firsttd"><?php echo $this->translate("Funders Type:"); ?></td><?php if($funder_view['funder_type']==1){ ?><td class = "secondtd">Personal</td><td class="thirdtd"></td><?php } if($funder_view['funder_type']==2) { ?><td class = "secondtd">Organization</td> <?php } ?></td><td></td><td></td><td></td></tr>
+                        <tr><td class="firsttd"><?php echo $this->translate("Funders Status:"); ?></td><?php if($funder_view['funder_status']==1){ ?><td class = "secondtd"><?php echo $this->translate("Active"); ?></td><?php } else { ?><td class = "secondtd"><?php echo $this->translate("Deactive"); ?></td> <?php } ?> </td><td class="thirdtd"></td><td></td><td></td></tr>
+                        
+
+                        <?php } ?>
+			<tr><td><font color="red"><?php echo $this->translate("Do you want to delete"); ?></font><?php echo $this->delete; ?></td><td></td><td></td><td></td><td></td></tr> 
+			<tr><td></td><td><a href="<?php echo $this->baseUrl();?>/fundercommonview/index/commonview/id/<?php echo $this->funderid ?>"><input type="button" name="no" value="<?php echo $this->translate('Cancel'); ?>"></a></td></td><td></td><td></tr>
+			
+		</table>
+
+</div>
+</div>
+</form>

@@ -1,0 +1,38 @@
+<?php
+class Loancount_IndexController extends Zend_Controller_Action {
+	public function init() {
+		$this->view->pageTitle='Loan count';
+		$this->view->type='loans';
+                $sessionName = new Zend_Session_Namespace('ourbank');
+		$userid=$this->view->createdby = $sessionName->primaryuserid;
+		$login=new App_Model_Users();
+		$loginname=$login->username($userid);
+		foreach($loginname as $loginname) {
+		$this->view->username=$loginname['login_name'];
+		}
+
+	}
+
+	public function indexAction() 
+	{
+
+		$this->view->title = "Loan Count";
+		
+ 		$dbobj = new Loancount_Model_Loancount();
+ 		
+ 
+		$countaccount = $dbobj->countofloanaccount(); //clear task 1
+
+echo "<pre>";
+print_r($countaccount);
+
+ 
+		$page = $this->_getParam('page',1); 
+		$paginator = Zend_Paginator::factory($countaccount);
+		$paginator->setItemCountPerPage(5);
+		$paginator->setCurrentPageNumber($page);
+		$this->view->paginator = $paginator;
+	
+	}
+
+}

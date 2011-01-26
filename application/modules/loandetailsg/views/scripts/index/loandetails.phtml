@@ -1,0 +1,135 @@
+<div style="float:left;width:350px"> 
+    <?php foreach($this->details as $details) { ?>
+        <table id="hor-minimalist-s">
+            <TR>
+                <TH>Menber details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td>Name </td>
+                <TD><?php echo $details->name ?></TD>
+            </TR>
+
+            <TR>
+                <td>Branch</td>
+                <TD><?php echo $details->officename ?></TD>
+            </TR>
+            <TR>
+                <td>Code</td>
+                <TD><?php echo $details->code ?></TD>
+
+            </TR>
+            <TR>
+                <td> Account code</td>
+                <td><?php echo $details->number ?></TD>
+            </TR>
+            <TR>
+                <TH>Loan Details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td>Loan name</b></td>
+                <td><?php echo $details->loanname ?></TD>
+            </TR>
+            <TR>
+                <td>Loan amount R$</b></td>
+                <td><?php echo $details->amount ?></TD>
+            </TR>
+
+            <TR>
+                <td>Interest rate %</td>
+                <TD><?php echo $details->interest ?></TD>
+            </TR>
+
+            <TR>
+            <td>Installments</td>
+                <TD><?php echo $details->installments ?></TD>
+            </TR>
+            <TR>
+                <td>Sanctioned date</b></td>
+                <td><?php echo $details->sanctioned ?></TD>
+            </TR>
+            <TR>
+                <td>Fee</b></td>
+                <td></TD>
+            </TR> 
+        </table> 
+    <?php } ?>
+    <br/>
+</div>
+<div style="float:right;width:350px"> 
+        <table id="hor-minimalist-s" border="1">
+            <TR>
+                <TH colspan="9">Installment status</TH>
+                <TH>No.</TD>
+                <TH colspan="9">Amount</TH>
+            </TR>
+            <TR>
+                <TD colspan="9">Paid</TD>
+				<?php foreach ($this->paid as $paid) { ?>
+                <TD><?php echo $paid->paidCount ; ?></TD>
+                <TD colspan="9"><?php echo $paid->paidAmt ; ?></TD>
+				<?php } ?>
+            </TR>
+            <TR>
+                <TD colspan="9">Due</TD>
+				<?php foreach ($this->unpaid as $unpaid) { ?>
+                <TD><?php echo $unpaid->unpaidCount ; ?></TD>
+                <TD colspan="9"><?php echo $unpaid->unpaidAmt ; ?></TD>
+				<?php } ?>
+            </TR>
+		</table>
+</div>
+<?php $convertdate = new Creditline_Model_dateConvertor(); ?>
+
+    <table id="hor-minimalist-b">
+        <tr>
+            <th>Inst.</th>
+            <th>Inst.principal</th>
+            <th>Inst.interest</th>
+            <th>Inst. amt</th>
+            <th>Due date</th>
+            <th>Status</th>
+            <th>Current due</th>
+        </tr>
+        <?php 
+            $total1 = 0;
+            $total2 = 0;
+            $total3 = 0;
+            $total4 = 0;
+            $total5 = 0;
+        ?>
+        <?php foreach($this->instalments as $instalments) { ?>
+        <tr>
+            <td><?php echo $instalments['installment_id']; ?></td>
+            <td>R$. <?php echo $instalments['installment_principal_amount']; 
+                            $total1 = $total1 + $instalments['installment_principal_amount'];
+                        ?></td>
+            <td>R$. <?php echo $instalments['installment_interest_amount'];
+
+                            $total2 = $total2 + $instalments['installment_interest_amount'];
+                        ?></td>
+
+            <td>R$. <?php echo $instalments['installment_amount'];
+                            $total4 = $total4 + $instalments['installment_amount'];
+                             ?></td>
+
+
+            <td><?php echo $convertdate->phpnormalformat($instalments['installment_date']);  ?></td>
+            <td><?php echo $instalments['description'];  ?></td>
+
+            <td><?php echo $instalments['installment_amount']; 
+                $total5 = $total5 + $instalments['installment_amount'];
+                ?></td>
+        </tr>
+        <?php } ?>
+        <tr>
+            <th><b>Total</b></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total1); ?></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total2); ?></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total4); ?></th>
+            <th></th>
+            <th></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total5); ?></th>
+        </tr>
+    </table>

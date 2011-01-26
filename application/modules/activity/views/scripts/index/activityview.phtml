@@ -1,0 +1,84 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->  
+<div id = "searchDiv">
+    <table id="hor-minimalist-b">
+        <tr>
+            <th class = "firsttd"><?php echo $this->translate('Activity information'); ?></th>
+            <th class = "secondtd"></th>
+            <th class="thirdtd"><a href="<?php echo $this->baseUrl()."/activity/index/activityedit/id/".$this->id; ?>">
+                <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th>
+        </tr>
+        <?php foreach($this->activity as $act) {  ?>
+            <tr>
+                <td class = "firsttd"><?php echo $this->translate('Activity name'); ?></td>
+                <td class = "secondtd"><?php echo $act['name']; ?></td>
+                <td class = "thirdtd"></td>
+            </tr>
+    
+            <tr>
+                <td class = "firsttd"><?php echo $this->translate('Description'); ?></td>
+                <td class = "secondtd"><?php echo $act['description']; ?></td>
+                <td class = "thirdtd"></td>
+            </tr>
+    
+            <tr>
+                <td class = "firsttd"><?php echo $this->translate('Sector type'); ?></td>
+                <td class = "secondtd"><?php echo $act['sectorname']; ?></td>
+                <td class = "thirdtd"></td>
+            </tr>
+    
+            <tr>
+                <td class = "firsttd"><?php echo $this->translate('Active'); ?></td>
+                <td class = "secondtd"><?php if($act['status']==1) echo "Yes"; else echo "No";?></td>
+                <td class = "thirdtd"></td>
+            </tr>
+        <?php } ?>
+    </table>
+</div>
+
+ 
+
+
+
+
+
+
+
+
+

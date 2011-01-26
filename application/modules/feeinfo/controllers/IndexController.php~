@@ -1,0 +1,37 @@
+<?php
+class Feeinfo_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Fee info';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+    }
+
+    public function indexAction() {
+               
+$feeinfoForm = new Feeinfo_Form_Settings();
+        $this->view->form = $feeinfoForm;
+ if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+ //$uptodate=$this->_getParam('holidayupto');echo "<h1>".$uptodate."</h1>";
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                
+                if ($feeinfoForm->isValid($formData)) {  
+			       $feename=$this->_getParam('feename'); 
+			       $feeamount=$this->_getParam('feeamount'); 
+			       $feedescription=$this->_getParam('feedescription'); 
+
+				$model = new Management_Model_Setting();
+				$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+				$data['fee_id']='';
+				$dbAdapter->insert('ourbank_fees', $data);
+				$fee_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_fees','fee_id');
+                    		$createdby = $this->view->createdby;
+ $model = new Management_Model_Setting();
+				                $model->insertFee($feeinfoForm->getValues(),$createdby);
+
+}}}
+
+    }
+
+}

@@ -1,0 +1,142 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if($this->savings) { ?>
+
+<div style="float:left;width:380px">
+<fieldset>
+    <legend>Credit List</legend>
+    <?php $amountCredit = "0";
+          $amountDebit = "0";
+          $i = 0;
+          $j = 0;
+    ?>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH >Sl No.</TH>
+            <TH >Credit</TH>
+            <TH class = "label">Amount</TH>
+        </TR>
+        <?php foreach($this->savingsCredit as $savingsCredit) {
+              $i++; ?>
+        <TR>
+            <TD ><?php echo $i; ?></TD>
+            <TD ><?php echo $savingsCredit->account_number; ?></TD>
+            <TD align = "right"><?php echo $savingsCredit->transaction_amount;
+            $amountCredit = $amountCredit + $savingsCredit->transaction_amount; ?></TD>
+        </TR>
+        <?php } ?>
+
+
+            <td><b>Total</b></td>
+            <td></td>
+            <?php if($amountCredit != "0") { ?>
+            <TD align = "right" ><B><?php echo sprintf("%4.2f", $amountCredit); ?></B></TD>
+            <?php } else { ?>
+            <TD align = "right" ><B>----</B></TD>
+            <?php } ?>
+        </TR>
+    </table>
+<form action="<?php echo $this->baseUrl();?>/reports/transferscroll/pdftransaction" method="POST"
+onClick="window.open('/ourbank/public/reports/transferscroll/reportdisplay/file/transferscroll.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+            <input type="hidden" name="field1" value="<?php echo $this->field1; ?>">
+            <input type="hidden" name="field2" value="<?php echo $this->field2;?>">
+            <input type="submit" value="PDF" id="submit">
+</form>
+</fieldset>
+</div>
+<div style="float:left;width:380px">
+<fieldset>
+    <legend>Debit List</legend>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH >Sl No.</TH>
+            <TH >Debit</TH>
+            <TH class = "label">Amount</TH>
+        </TR>
+        <?php foreach($this->savingsDebit as $savingsDebit) { 
+              $j++; ?>
+        <TR>
+            <TD ><?php echo $j; ?></TD>
+            <TD ><?php echo $savingsDebit->account_number; ?></TD>
+            <TD align = "right" ><?php $savingsDebit->transaction_amount; 
+            echo $amountDebit = $amountDebit + $savingsDebit->transaction_amount?></TD>
+        </TR>
+        <?php } ?>
+
+
+        <TR>
+            <td><b>Total</b></td>
+            <td></td>
+            <?php if($amountDebit != "0") { ?>
+            <TD align = "right" ><B><?php echo sprintf("%4.2f", $amountDebit); ?></B></TD>
+            <?php } else { ?>
+            <TD align = "right" ><B>----</B></TD>
+            <?php } ?>
+        </TR>
+    </table>
+</div>
+</fieldset>
+<?php } else {?>
+
+<fieldset>
+    <legend> search </legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+                <form action="<?php echo $this->baseUrl();?>/reports/transferscroll/index" method="POST">
+                    <TR>
+                            <TD >Date From</TD>
+                            <TD ><?php echo $this->form->field1;?></TD>
+                            <TD >Date To</TD>
+                            <TD ><?php echo $this->form->field2;?></TD>
+                    </TR>
+                    <TR>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ><?php echo $this->form->Search;?></TD>
+                    </TR>
+
+                </form>
+            </table>
+        </div>
+</fieldset>
+
+
+<?php } ?>
+
+

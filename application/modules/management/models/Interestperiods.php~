@@ -1,0 +1,23 @@
+<?php
+class Management_Model_Interestperiods extends Zend_Db_Table {
+	protected $_name = 'ourbank_interest_periods';
+
+	public function deleteinterestperiods($offerproduct_id) {
+		$data = array('intereststatus_id'=> 5);
+		$where = 'offerproduct_id = '.$offerproduct_id;
+		$this->update($data,$where);
+	}
+
+	public function UpDateinterestperiods($offerproduct_id) {
+		$data = array('intereststatus_id'=> 2);
+		$where = 'offerproduct_id = '.$offerproduct_id;
+		$this->update($data,$where);
+	}
+
+	public function insertinterestperiods($data,$offerproduct_id,$count) {
+		for ($i = 1;$i<=$count; $i++) {
+			$where = 'offerproduct_id = '.$offerproduct_id;
+			$this->update($data,$where);
+		}
+	}
+}

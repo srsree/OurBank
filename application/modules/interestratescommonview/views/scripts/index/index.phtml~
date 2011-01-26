@@ -1,0 +1,44 @@
+
+
+		<table id="hor-minimalist-b" summary="">
+			<tr class="tdbrownheading">
+				<th>Interest category</th>
+				<th>Creditline</th>
+				<th></th>
+				<th>Loan start range (R$)</th>
+				<th>Loan end range (R$)</th>
+				<th>Interest (%)</th>
+				<th>Fee (%)</th>
+				<th>Billet (R$)</th>
+				<th><a href="<?php echo $this->baseUrl();?>/interestrates/index/interestratesedit/interest_id/<?php echo $this->interest_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+			</tr>
+			<?php $a='';?>
+			<?php foreach ($this->fetchinterest as $interest ){ ?>
+			<tr>
+			<? if($a!=$interest['interest_id']) { ?>
+			
+				<td><?php echo $this->escape($interest['name']);?></td>
+				<td><?php echo $this->escape($interest['creditline_name']);?></td>
+				<td></td>
+			<? } else {
+				echo "<td></td><td></td><td></td>";
+			} ?>
+				
+				<td><?php echo $this->escape($interest['start_range']);?></td>
+				<td ><?php echo $this->escape($interest['end_range']);?></td>
+				<td ><?php echo $this->escape($interest['rate']);?></td>
+				<td ><?php echo $this->escape($interest['fee']);?></td>
+				<td ><?php echo $this->escape($interest['ballet']);?></td>
+				<td></td>
+			</tr>
+				<?php $a=$interest['id'];
+			} ?>
+		</table>
+<div class="btnhouse">
+			<div class="ltbtns">
+				
+			</div>
+			<div class="rtbtns">
+				<a href="<?php echo $this->baseUrl();?>/interestratesindex"><input type="button" value="Back"></a>
+			</div>
+</div>

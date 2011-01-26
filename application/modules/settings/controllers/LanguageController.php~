@@ -1,0 +1,23 @@
+<?php
+class settings_LanguageController extends Zend_Controller_Action 
+
+{
+    public function init() 
+    {
+        $this->view->pageTitle='Settings';
+    }
+
+    public function indexAction() 
+    {	
+	   $settingsForm = new settings_Form_Settings();
+	   $this->view->form = $settingsForm;
+	   $settingModel=new settings_Model_Setting();
+	   $allLanguage=$settingModel->fetchAllLanguage();
+         //  print_r($allLanguage);
+	   foreach($allLanguage as $eacharraysent) 
+           {
+	   $this->view->form->languages->addMultiOption($eacharraysent['language_id'],$eacharraysent['langauge_name']);
+	   }
+    }
+}
+

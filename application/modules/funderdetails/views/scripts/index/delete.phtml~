@@ -1,0 +1,21 @@
+<form action="<?php echo $this->baseUrl();?>/funderdetails/index/delete/id/<?php echo $this->funderid; ?>/modId/<?php echo $this->mod_id; ?>/subId/<?php echo $this->sub_id; ?>" method="POST">
+<div class="register">
+	<div class="profile_tab"> 
+		<table id="hor-minimalist-b">
+                          <tr><th class="firsttd">Funder Information</th><th class = "secondtd"></th><th class = "secondtd"></th><th class="thirdtd"></th><th></th></tr>
+                        <?php foreach($this->funder as $funder_view){
+                          ?>
+                        <tr><td class="firsttd">Funders Name:</td><td class = "secondtd"><?php echo $funder_view['funder_name']; ?></td><td class="thirdtd"></td><td></td><td></td></tr>
+                        <tr><td class="firsttd">Funders Type:</td><?php if($funder_view['funder_type']==1){ ?><td class = "secondtd">Personal</td><td class="thirdtd"></td><?php } if($funder_view['funder_type']==2) { ?><td class = "secondtd">Organization</td> <?php } ?></td><td></td><td></td><td></td></tr>
+                        <tr><td class="firsttd">Funders Status:</td><?php if($funder_view['funder_status']==1){ ?><td class = "secondtd">Active</td><?php } else { ?><td class = "secondtd">Deactive</td> <?php } ?> </td><td class="thirdtd"></td><td></td><td></td></tr>
+                        
+
+                        <?php } ?>
+			<tr><td><font color="red">Do you want to delete</font><?php echo $this->delete; ?></td><td></td><td></td><td></td></tr> 
+			<tr><td></td><td><a href="<?php echo $this->baseUrl();?>/fundercommonview/index/commonview/id/<?php echo $this->funderid ?>"><input type="button" name="no" value="Cancel"></a></td></td><td></td><td></tr>
+			
+		</table>
+
+</div>
+</div>
+</form>

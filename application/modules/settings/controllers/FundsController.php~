@@ -1,0 +1,31 @@
+<?php
+class Management_FundsController extends Zend_Controller_Action{
+
+    public function init() {
+    }
+
+    public function indexAction() {
+        $this->view->title = "Funds";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+    }
+
+
+
+    public function viewAction() {
+
+    }
+
+    public function fundsaddAction() {
+
+    }
+
+    public function fundseditAction() {
+
+    }
+
+    public function fundsdeleteAction() {
+
+    }
+}

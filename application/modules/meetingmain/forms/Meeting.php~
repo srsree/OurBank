@@ -1,0 +1,76 @@
+<?php
+	class Meeting_Form_Meeting extends Zend_Form {
+
+	public function init() {
+        Zend_Dojo::enableForm($this);
+	}
+
+        public function __construct($path) {
+        Zend_Dojo::enableForm($this);
+        parent::__construct($path);
+
+		$meeting_name = new Zend_Form_Element_Text('meeting_name');
+		//$meeting_name->addValidator(new Zend_Validate_Db_NoRecordExists('ob_creditline_details','creditline_name','recordstatus_id=3'));
+		$meeting_name->setAttrib('class', 'txt_put');
+		$meeting_name->setAttrib('id', 'meetingname')
+		
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+		$group_head = new Zend_Form_Element_Text('group_head');
+		//$group_head->addValidator(new Zend_Validate_Db_NoRecordExists('ob_creditline_details','creditline_name','recordstatus_id=3'));
+		$group_head->setAttrib('class', 'txt_put');
+		$group_head->setAttrib('id', 'group_head')
+
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+		$meeting_place = new Zend_Form_Element_Text('meeting_place');
+		//$creditlinename->addValidator(new Zend_Validate_Db_NoRecordExists('ob_creditline_details','creditline_name','recordstatus_id=3'));
+		$meeting_place->setAttrib('class', 'txt_put');
+		$meeting_place->setAttrib('id', 'meeting_place')
+
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+		$meeting_time = new Zend_Form_Element_Text('meeting_time');
+		$meeting_time->addValidator(new Zend_Validate_Db_NoRecordExists('ob_creditline_details','creditline_name','recordstatus_id=3'));
+		$meeting_time->setAttrib('class', 'txt_put');
+		$meeting_time->setAttrib('id', 'meeting_time')
+
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+		$institute_bank_id = new Zend_Form_Element_Select('institute_bank_id');
+		$institute_bank_id->addMultiOption('','Select...');
+		$institute_bank_id->setAttrib('class', 'txt_put');
+		$institute_bank_id->setAttrib('onchange', 'getGroups(this.value,"'.$path.'")');
+		$institute_bank_id->addValidators(array(array('NotEmpty')));
+
+		$group_name = new Zend_Form_Element_Select('group_name');
+		$group_name->addMultiOption('','Select...');
+		$group_name->setAttrib('class', 'txt_put');
+		$group_name->setRequired(true)
+				->setRegisterInArrayValidator(false)
+				->addValidators(array(array('NotEmpty')));
+
+		$meeting_day = new Zend_Form_Element_Select('meeting_day');
+		$meeting_day->addMultiOption('','Select...');
+		//$meeting_day->addMultiOption('All','All');
+		$meeting_day->setAttrib('class', 'txt_put');
+		$meeting_day->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+		$Back = new Zend_Form_Element_Submit('Back');
+		$Back->setAttrib('class', 'Back');
+		$Back->setlabel('Back');
+
+		$submit = new Zend_Form_Element_Submit('Submit');
+		$submit->setAttrib('class', 'officesubmit');
+		$submit->setlabel('Submit');
+
+		$this->addElements( array ($meeting_name,$group_head,$meeting_place,$meeting_time,$institute_bank_id,$group_name,$meeting_day,$submit));
+
+//===================================================================================================================================
+	}
+}

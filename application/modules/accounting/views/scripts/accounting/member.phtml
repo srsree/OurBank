@@ -1,0 +1,95 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div style="float:left;width:350px">
+    <fieldset>
+        <legend>Member Details</legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <td>Membercode:</td><TD><? echo $this->membercode; ?></TD>
+                    </TR>
+                    <TR>
+                        <td><? echo $this->label; ?></td>
+                        <td><?php echo $this->groupname; echo $this->memberfirstname;?></TD>
+                    </TR>
+                    <TR>
+                        <td>Branch:</td><td><?php echo $this->branch ;?></td>
+                    </TR>
+                </table>
+        </div>
+<div id="loanRepayment" style="float:left;width:350px">
+    <fieldset>
+        <legend><?php if($this->Type==1) { 
+                                     echo "Savings"; 
+                                } else { 
+                                    echo "Loans"; } ?>  </legend>
+            <table id="hor-minimalist-b">
+                   <tr>
+                        <th><?php if($this->Type==1) { 
+                                     echo "Savings"; 
+                                } else { 
+                                    echo "Loans"; } ?>  
+                        </th>
+                    </tr>
+                        <?php if($this->Type==1) { foreach ($this->savingsProducts as $savingsProducts): ?>
+                    <tr>
+                        <td><a href = "<?php echo $this->baseUrl();?>/accounting/accounting/products/productId/<?php echo $savingsProducts->offerproduct_id;?>/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type;?>" >
+                        <?php echo $savingsProducts->offerproductname;?></a></td>
+                    </tr>
+                        <?php endforeach; } ?>
+                        <?php if($this->Type==2) { foreach ($this->fetchLoansProducts as $savingsProducts): ?>
+                    <tr>
+                        <td width="20%"><a href = "<?php echo $this->baseUrl();?>/accounting/accounting/loans/productId/<?php echo $savingsProducts->offerproduct_id;?>/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type;?>" ><?php echo $savingsProducts->offerproductname;?></a></td>
+                    </tr>
+                    <?php endforeach; }?>
+</table>
+</fieldset>
+        </div>
+    </fieldset>
+</div>
+<div style="float:right;width:400px">
+    <fieldset>
+        <legend>Active Accounts</legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <td>Account Number</td>
+                        <td>Products</td>
+
+                    </TR>
+                            <?php  if($this->Type==1) { ?>
+                            <?php foreach($this->account as $arrayroles2)  { ?>
+                    <TR>
+                        <TD><?php echo $arrayroles2->account_number;?></TD>
+                        <TD><?php echo $arrayroles2->offerproductname;?></TD>
+                    </TR>
+                    <? } } ?>
+                            <?php  if($this->Type == 2) { ?>
+                            <?php foreach($this->account1 as $arrayroles2)  { ?>
+                    <TR>
+                        <TD><?php echo $arrayroles2->account_number;?></TD>
+                        <TD><?php echo $arrayroles2->offerproductname;?></TD>
+                    </TR>
+                    <? }} ?>
+                </table>
+              </div>
+    </fieldset>
+</div>
+

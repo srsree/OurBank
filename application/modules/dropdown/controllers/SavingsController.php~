@@ -1,0 +1,177 @@
+<?php
+class Management_SavingsController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Savings';
+    }
+
+
+    public function indexAction() {
+        $this->view->title = "Savings";
+
+        $posts = new Management_Model_Loan();
+        $result = $posts->getSaving();
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+    }
+
+    public function savingsviewAction() {
+        $this->view->title = "view Savings";
+        $offerproductupdate_id = (int)$this->_getParam('id');
+
+        $loan = new Management_Model_Loan();
+        $result = $loan->viewLoan($offerproductupdate_id);
+        $this->view->loan = $result;
+
+        $fee = new Management_Model_Loan();
+        $result = $fee->viewLoan1($offerproductupdate_id);
+        $this->view->fee = $result;
+
+        $fund = new Management_Model_Loan();
+        $result = $fund->viewLoan2($offerproductupdate_id);
+        $this->view->fund = $result;
+
+        $interest = new Management_Model_Loan();
+        $result = $interest->viewLoan3($offerproductupdate_id);
+        $this->view->interest = $result;
+
+        $interestGlSubcode = new Management_Model_Loan();
+        $result = $interestGlSubcode->viewLoan4($offerproductupdate_id);
+        $this->view->interestGlSubcode = $result;
+
+        $feeGlSubcode = new Management_Model_Loan();
+        $result = $feeGlSubcode->viewLoan5($offerproductupdate_id);
+        $this->view->feeGlSubcode = $result;
+
+    }
+
+    public function savingsaddAction() {
+        $this->view->title = "New Savings";
+        $InsuranceForm = new Management_Form_Insurance();
+        $this->view->form = $InsuranceForm;
+
+        $product = new Management_Model_Product();
+        $product = $product->ProductDetailsSaving();
+        foreach($product as $product) {
+                $InsuranceForm->product_id->addMultiOption($product['product_id'], 
+                                                  $product['productname']);
+        }
+
+        $model = new Management_Model_Fee();
+        $fee_id = $model->getFeeDetails();
+        foreach($fee_id as $fee_id) {
+                $InsuranceForm->fee_id->addMultiOption($fee_id['fee_id'], 
+                                                  $fee_id['feename']);
+        }
+
+        $fund = new Management_Model_Funders();
+        $funder_id = $fund->getFundDetails();
+        foreach($funder_id as $funder_id) {
+                $InsuranceForm->fund_id->addMultiOption($funder_id['funder_id'], 
+                                                  $funder_id['fundername']);
+        }
+
+     $membertype = new Management_Model_Membertype();
+        $membertype_id = $membertype->getMembertypeDetails();
+        foreach($membertype_id as $membertype_id) {
+                $InsuranceForm->applicableto->addMultiOption($membertype_id['membertype_id'], 
+                                                  $membertype_id['membertype']);
+        }
+
+        $glsubcode_id = new Management_Model_Glsubcode();
+        $glsubcode_id = $glsubcode_id->getGlsubcode();
+        foreach($glsubcode_id as $glsubcode_id) {
+                $glsubcode_id['glsubcode'] = $glsubcode_id['glsubcode']." - ".$glsubcode_id['subheader'];
+                $InsuranceForm->capital_glsubcode_id->addMultiOption($glsubcode_id['glsubcode_id'], 
+                                                  $glsubcode_id['glsubcode']);
+        }
+
+        $glsubcode_id = new Management_Model_Glsubcode();
+        $glsubcode_id = $glsubcode_id->getGlsubcode();
+        foreach($glsubcode_id as $glsubcode_id) {
+                $glsubcode_id['glsubcode'] = $glsubcode_id['glsubcode']." - ".$glsubcode_id['subheader'];
+                $InsuranceForm->Interest_glsubcode_id->addMultiOption($glsubcode_id['glsubcode_id'], 
+                                                  $glsubcode_id['glsubcode']);
+        }
+
+        $glsubcode_id = new Management_Model_Glsubcode();
+        $glsubcode_id = $glsubcode_id->getGlsubcode();
+        foreach($glsubcode_id as $glsubcode_id) {
+                $glsubcode_id['glsubcode'] = $glsubcode_id['glsubcode']." - ".$glsubcode_id['subheader'];
+                $InsuranceForm->fee_glsubcode_id->addMultiOption($glsubcode_id['glsubcode_id'], 
+                                                  $glsubcode_id['glsubcode']);
+        }
+
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($InsuranceForm->isValid($formData)) {
+                                    $loan = new Management_Model_categoryi();
+                                    $result = $category->addCategoryi();
+                                    $this->_redirect('management/category/index/index');
+               }
+            }
+        }
+            $this->view->form = $InsuranceForm;
+
+    }
+
+    public function savingseditAction() {
+        $this->view->title = "Edit Savings";
+        $offerproductupdate_id = (int)$this->_getParam('id');
+        $loanForm = new Management_Form_Loan();
+        $this->view->form = $loanForm;
+
+        $model1 = new Management_Model_Loan();
+        $result = $model1->editloan($offerproductupdate_id);
+
+        $model = new Management_Model_Fee();
+        $fee_id = $model->getFeeDetails();
+//         foreach($fee_id as $fee_id1) {
+
+                $loanForm->fee_id->addMultiOption($fee_id1['fee_id'], 
+                                                  $fee_id1['feename']);
+
+            foreach($result as $result) {
+                   //$this->view->fee_id =  $result->fee_id;
+
+//                if($fee_id->fee_id = $result->fee_id) {
+        
+                    $loanForm->populate($result->toArray());
+                    echo "hi";
+//}
+//                 }
+}
+
+               
+            //$model = new Management_Model_Loan();
+            //$result = $model1->editloan($offerproductupdate_id);
+//             foreach($result as $result){
+//             if($fee_id->fee_id = $result->fee_id) {
+//              $loanForm->populate($result);
+                //echo "FIne";
+ 
+
+
+   }         
+
+
+
+
+            //$this->view->form = $loanForm;
+            //$this->view->form->Submit->setName('Update');
+
+
+
+    
+
+    public function savingsdeleteAction() {
+        $this->view->title = "Delete Savings";
+
+    }
+}

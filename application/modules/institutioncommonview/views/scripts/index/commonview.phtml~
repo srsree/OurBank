@@ -1,0 +1,82 @@
+<table id="hor-minimalist-b">
+    <tr>
+        <th class = "firsttd">Institution information</th>
+        <th class = "secondtd"></th>
+        <th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/institution/index/editinstitution/id/<?php echo $this->institutionid;?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+    </tr>
+        <?php foreach($this->institution as $institution){ ?>
+        <tr>
+            <td class = "firsttd">Institution name</td>
+            <td class = "secondtd"><?php echo $institution['name']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Active</td>
+            <?php if ($institution['status'] == 1) { ?>
+            <td class = "secondtd">Yes</td>
+            <?php } else { ?>
+            <td>No</td>
+            <?php } ?>
+            <td class = "thirdtd"></td>
+        </tr>
+        <?php } ?>
+    </table>
+<br>
+<table id="hor-minimalist-b">
+    <tr>
+        <th class = "firsttd">Address information</th>
+        <th class = "secondtd"></th>
+        <?php if (count($this->address)!=0) {?>
+        <th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->institutionid;?>/modId/<?php echo $this->mod_id ?>/subId/<?php echo $this->sub_id ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php } else { ?>
+        <th class = "firsttd"><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->institutionid; ?>/modId/<?php echo $this->mod_id ?>/subId/<?php echo $this->sub_id ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></th>
+        <?php } ?>
+    </tr>
+
+        <?php if (count($this->address)!=0) {?>
+        <?php foreach($this->address as $address){ ?>
+        <tr>
+            <td class = "firsttd">Address line1</td>
+            <td class = "secondtd"><?php echo $address['address1']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Address line2</td>
+            <td class = "secondtd"><?php echo $address['address2']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Address line3</td>
+            <td class = "secondtd"><?php echo $address['address3']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">City</td>
+            <td class = "secondtd"><?php echo $address['city']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Country</td>
+            <td class = "secondtd"><?php echo $address['country']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Pin code</td>
+            <td class = "secondtd"><?php echo $address['zipcode']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+ 
+        <?php } ?>
+        <?php } ?>
+
+        <?php  ?>
+    </table>
+<br>
+
+    <div class="btnhouse">
+	<div class="ltbtns">
+	</div>
+	<div class="rtbtns">
+	   <a href="<?php echo $this->baseUrl();?>/institution"><input type = "button" name = "Back" value = "Back"></a>
+	</div>
+    </div>    

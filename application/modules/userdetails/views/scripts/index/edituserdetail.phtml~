@@ -1,0 +1,43 @@
+<fieldset>
+	<legend>Edit user information</legend>
+	<form action="<?php echo $this->baseUrl();?>/userdetails/index/edituserdetail/id/<?php echo $this->user_id; ?>" method="POST">
+		<table class="fieldsets">
+			<?php echo $this->form->user_id;?>
+
+			<TR>
+				<TD><label for="fld1" class="mand">user name</label></TD>
+				<TD><?php echo $this->form->username;?></TD>
+<td><a href="<?php echo $this->baseUrl();?>/user/index/delete/id/<?php echo $this->user_id; ?>/sub_id/<?php echo $this->user_id;?>/mod_id/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+			</TR>
+
+			<TR>
+				<TD><label for="fld1" class="mand">Bank</label></TD>
+				<TD><?php echo $this->form->officebranch;?></TD>
+			</TR>
+
+			<TR>
+				<TD><label for="fld1" class="mand">Gender</label></TD>
+				<TD><?php echo $this->form->gender;?></TD>
+			</TR>
+
+			<TR>
+				<TD><label for="fld1" class="mand">Designation</label></TD>
+				<TD><?php echo $this->form->designation;?></TD>
+			</TR>
+  <tr>
+                             <TD><label for="fld1" class="mand">Grants</label></td>
+                             <td><?php echo $this->form->grant_id;?> </td>
+                            
+                        </tr>
+
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+				<?php echo $this->form->Update;?>
+			</div>
+			<div class="rtbtns">
+				<a href="<?php echo $this->baseUrl();?>/user"><?php echo $this->form->Back;?></a>
+			</div>
+		</div>
+	</form>
+</fieldset>

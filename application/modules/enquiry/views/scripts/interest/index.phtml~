@@ -1,0 +1,69 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if(!$this->transaction) { ?>   
+<div id="searchDiv">
+	<fieldset>
+		<legend>Interest Date Search</legend>
+		<div style="margin-left:20px;">
+		<TABLE width="100%" id = "hor-minimalist-b">
+		  <form action="<?php echo $this->baseUrl();?>/enquiry/interest/index" method="POST">
+		      <tr>
+                        <td class="label">interestDate</td>
+                        <td><?php  echo $this->form->field6;?></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" name="Search" value="search" class = "officebutton"></td>
+                    </tr>
+                    </form>
+   		</TABLE>
+		</div>
+ 	</fieldset> 
+</div> 
+<br>
+<?php } ?>
+<?php if($this->transaction) { ?>  
+<fieldset>
+    <legend><?php echo $this->ZendTranslate->_("transactionDetails"); ?></legend>
+	<div class="cont-rgt-data">
+            <TABLE id="hor-minimalist-b" width="80%">
+                <tr class="tdbrownheading">
+                   
+                    <th>Type</th>
+                    <th>Interest</th>
+                    <th>Mode</th>
+                    <th>ModeDetails</th>
+                    <th>CreatedBy</th>
+                    
+               </tr>
+                <?php foreach($this->transaction as $transaction) : ?>
+               <tr class="tdbrown">
+
+                   <td width = "150"><?php echo $transaction->transaction_type;?></td></td>
+                   <td width = "80"><?php echo $transaction->transaction_interest_amount;?></td></td>
+                   <td width = "100"><?php echo $transaction->paymenttype_description;?></td></td>
+                   <td width = "180"><?php echo $transaction->transaction_mode_details;?></td></td>
+                   <td width = "100"><?php echo $transaction->login_name;?></td></td>
+                </tr>
+                <?php endforeach; ?>
+                </TABLE>
+                
+    </div>
+</fieldset>
+<br>
+<?}?>

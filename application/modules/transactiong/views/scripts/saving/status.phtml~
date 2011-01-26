@@ -1,0 +1,161 @@
+<BODY onload="toggleField();"></BODY>  
+<table width="100%"><TR><TD><HR></HR></TD></TR></table>
+<div>
+	<?php If($this->type==3) { ?>
+	<a href="#" id="open">Group account members</a>
+		<div class="box">
+			<div id="content1">
+				<fieldset>
+				<legend> <?php echo $this->memberListtitle;?> </legend>
+					<div class="cont-rgt-data">
+						<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+							<tr>
+								<td width="30%">Name</td>
+								<td width="50%">Code</td>
+							</tr>
+							<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+								<tr class="tdbrown">
+									<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+									<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+								</tr>
+							<?php }?>
+						</table>
+					</div>
+				</fieldset>
+				<p><a href="#" id="close">Hide</a></p>
+			</div>
+		</div>
+	<?php }?>
+</div><br/><br/>
+
+<?php if(!$this->Submit) { ?>
+<div style="float:left;width:100%">
+<?php if(($this->balance!=0) || ($this->savingsbalance!=0)) {?>
+<fieldset>
+	<legend>Status details</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php  echo $this->baseUrl();?>/transaction/saving/view/block/Status" method="POST" name="joe" id="signupForm" class="cmxform">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+        		<TR>
+					<td>Status <?php echo $this->form3->accountcode; ?><?php echo $this->form3->membercode;  ?><?php echo $this->form3->categoryId; ?></td>
+					<TD><SPAN style="color:red">&nbsp;  &nbsp; &nbsp;<strong>
+					<?php echo $this->presentstatus; ?></strong></SPAN></TD>
+				</TR>
+				<TR>	
+					<td>Amount</td>
+					<TD><?php echo $this->form3->totalamount;?></TD>
+				</TR>
+				<TR>	
+					<td>Change status</td>
+					<TD><?php echo $this->form3->newStatus;?></TD>
+				</TR>
+				<TR>
+					<td>Description</td>
+					<TD><?php echo $this->form3->description;?></TD>
+				</TR>
+				<TR>
+					<td><?php echo $this->form3->confirm;?><?php } ?></td>
+					<TD></TD>
+				</TR>
+			</table><br>
+			<table>
+				<tr>
+					<td><SPAN style="color:red"><? echo $this->errorlogin_name;?></SPAN></td>
+					<td><B style="color:red"><? echo $this->noaccount1;?></B></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</fieldset>
+</div>
+<?php } ?>
+
+<?php if($this->Submit) { ?>
+<div style="float:left;width:100%">
+<?php if(($this->balance!=0) || ($this->savingsbalance!=0)) {?>
+<fieldset>
+	<legend>Status details</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php  echo $this->baseUrl();?>/transaction/saving/view/block/Status" method="POST" name="joe" id="signupForm" class="cmxform">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+        		<TR>
+					<td>Status <?php echo $this->form3->accountcode; ?><?php echo $this->form3->membercode;  ?><?php echo $this->form3->categoryId; ?><?php echo $this->form3->newStatus1; ?><?php echo $this->form3->description1; ?><?php echo $this->form3->totalamount1; ?></td>
+					<TD><SPAN style="color:red">&nbsp;  &nbsp; &nbsp;<strong>
+					<?php echo $this->presentstatus; ?></strong></SPAN></TD>
+				</TR>
+				<TR>	
+					<td>Amount</td>
+					<TD><?php echo $this->totalamount;?></TD>
+				</TR>
+				<TR>	
+					<td>Change status</td>
+					<TD><?php echo $this->newStatus;?></TD>
+				</TR>
+				<TR>
+					<td>Description</td>
+					<TD><?php echo $this->description;?></TD>
+				</TR>
+				<TR>
+					<td><?php echo $this->form3->Submit;?><?php } ?></td>
+					<TD><a href="<?php echo $this->baseUrl(); ?>/transaction/saving/view/accountcode/
+								<?php echo base64_encode($this->accountCode);?>/code/
+								<?php echo base64_encode($this->code);?>/categoryType/
+								<?php echo $this->categoryType;?>/block/Status"><input name="submit" type="submit" class="officebutton" value="back"></a></TD>
+				</TR>
+			</table><br>
+			<table>
+				<tr>
+					<td><SPAN style="color:red"><? echo $this->errorlogin_name;?></SPAN></td>
+					<td><B style="color:red"><? echo $this->noaccount1;?></B></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</fieldset>
+</div>
+<?php } ?>
+
+		<table width="100%"><TR><th><HR></HR></TD></TR></table>
+		<fieldset>
+		<legend>Savings transaction details</legend>
+			<div class="cont-rgt-data">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<tr>
+						<th >Tr number</th>
+						<th > date</th>
+						<th > type</th>
+						<th > mode</th>
+						<th >mode details</th>
+						<th >Credit</th>
+						<th >Debit</th>
+					</tr>
+					<?php foreach ($this->savingsDetails1 as $savingsdetails): ?>
+						<tr>
+							<td ><?php echo $this->escape($savingsdetails['transaction_id']);?></td>
+							<td ><?php echo $this->escape($savingsdetails['transaction_date']);?></td> 
+							<td ><?php echo $this->escape($savingsdetails['transactiontype']);?></td>
+							<td><?php echo $this->escape($savingsdetails['paymenttype_description']);?></td>  
+							<td ><?php echo $this->escape($savingsdetails['paymenttype_details']);?></td> 
+							<?php $transaction_type = $this->escape($savingsdetails['transactiontype']); ?>
+							<?php if($transaction_type=="credit - Deposit"){ ?>
+								<td ><?php echo $this->escape($savingsdetails['transaction_amount']);?></td>
+								<td >-</td></td>
+							<?php } ?>
+							<?php if($transaction_type=="debit - Withdrawal"){ ?>
+								<td >-</td></td>
+								<td ><?php echo $this->escape($savingsdetails['transaction_amount']);?></td>
+							<?php } ?>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+			</div>
+		</fieldset>
+
+		<fieldset>
+		<legend></legend>
+			<table summary="Employee Pay Sheet">
+				<tr>
+					<td ><B style="color:red;margin-left:600px;">Total balance = <?php echo $this->savingsbalance;?></B></td> 
+				</tr>
+			</table>
+		</fieldset>

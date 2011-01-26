@@ -1,0 +1,15 @@
+<?php
+class Loanduereport_Form_Search extends Zend_Form {
+    public function init() {
+   
+   	//$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+	$formfield = new App_Form_Field ();
+	$fromdate = $formfield->field('Text','fromdate','','','mand','',true,'','','','','',0,0);
+	$todate = $formfield->field('Text','todate','','','mand','',true,'','','','','',0,0);
+	$bank = $formfield->field('Select','bank','','','mand','',true,'','','','','',0,0);
+        $submit = new Zend_Form_Element_Submit('Search');
+	$pdf=new Zend_Form_Element_Submit('PDF');
+        $this->addElements(array($fromdate,$todate,$bank,$submit,$pdf));
+
+    }
+}

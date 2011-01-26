@@ -1,0 +1,24 @@
+<?php
+class Management_LedgerController extends Zend_Controller_Action{
+
+    public function init() {
+    }
+
+    public function indexAction() {
+
+    }
+
+    public function ledgerviewAction() {
+
+    }
+
+    public function ledgeraddAction() {
+
+    }
+
+    public function ledgereditAction() {
+
+    }
+    public function ledgerdeleteAction() {
+
+    }

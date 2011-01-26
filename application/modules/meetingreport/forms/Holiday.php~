@@ -1,0 +1,49 @@
+<?php
+class Management_Form_Holiday extends  ZendX_JQuery_Form {
+public function init() {
+
+    $holidayname = new Zend_Form_Element_Text('holidayname');
+    $holidayname->addValidator(new Zend_Validate_Db_NoRecordExists('ourbank_holidayupdates', 'holidayname'));
+    $holidayname->setAttrib('class', 'txt_put');
+    $holidayname->setRequired(true)
+                ->addValidators(array(array('NotEmpty')));
+
+
+	$office_id = new Zend_Form_Element_Select('office_id');
+	$office_id->addMultiOption('','Select...');
+	$office_id->addMultiOption('All','All');
+	$office_id->setAttrib('class', 'txt_put');
+    $office_id->setRequired(true)
+                 ->addValidators(array(array('NotEmpty')));
+
+    $holidayupdate_id = new Zend_Form_Element_Hidden('holidayupdate_id');
+
+    $holidayfrom = new ZendX_JQuery_Form_Element_DatePicker('holidayfrom');
+    $holidayfrom->setAttrib('class', 'txt_put');
+	$holidayfrom->setJQueryParam('dateFormat', 'yy-mm-dd');
+    $holidayfrom->setRequired(true)
+                ->addValidators(array(array('NotEmpty')));
+
+				
+				
+				
+    $holidayupto = new ZendX_JQuery_Form_Element_DatePicker('holidayupto');
+    $holidayupto->setAttrib('class', 'txt_put');
+	$holidayupto->setJQueryParam('dateFormat', 'yy-mm-dd');
+    $holidayupto->setRequired(true)
+	   ->addValidator(new Zend_Validate_Date('YYYY-MM-DD'),true,
+	   array('messages' =>array(Zend_Validate_Date::FALSEFORMAT => 'Enter the valid date')));
+
+
+    $repayment_date = new ZendX_JQuery_Form_Element_DatePicker('repayment_date');
+    $repayment_date->setAttrib('class', 'txt_put');
+	$repayment_date->setJQueryParam('dateFormat', 'yy-mm-dd');
+    $repayment_date->setRequired(true)
+                ->addValidators(array(array('NotEmpty')));
+
+    $submit = new Zend_Form_Element_Submit('Submit');
+	$submit->removeDecorator('DtDdWrapper');
+    $this->addElements(array($holidayname,$office_id,$holidayfrom,$holidayupto,$repayment_date,$holidayupdate_id,$submit));
+
+}
+}

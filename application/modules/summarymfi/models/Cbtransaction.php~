@@ -1,0 +1,30 @@
+<?php 
+class Cbtransaction_Model_Cbtransaction extends Zend_Db_Table { 
+ protected $_name = 'ob_accounts';
+
+ 
+public function getbankNames() {
+         $select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->from('ob_institute_bank_details')
+			->where('recordstatus_id=3');
+        return $result = $this->fetchAll($select);
+      // die ($select->__toString($select));
+
+    }
+ public function Searchbanktransaction($date1,$date2,$bank) {
+        $select = $this->select()
+        ->setIntegrityCheck(false)  
+        ->join(array('a' => 'ob_transaction'),array('account_id'),array('SUM(a.amount_to_bank) as credit','SUM(a.amount_from_bank) as debit'))
+        ->where('a.transaction_date >= "'.$date1.'"  AND a.transaction_date <= "'.$date2.'"')
+        ->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id')
+        ->join(array('c'=>'ob_member_details'),'b.member_id=c.member_id')
+        ->join(array('d'=>'ob_institute_bank_details'),'d.Institute_bank_id="'.$bank.'"')
+        ->join(array('e'=>'ob_activity_details'),'e.activity_id=b.activity_id');
+
+         //die($select->__toString());
+        $result = $this->fetchAll($select);
+        return $result->toArray();
+    }
+
+}

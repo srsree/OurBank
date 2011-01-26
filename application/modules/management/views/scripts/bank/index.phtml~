@@ -1,0 +1,103 @@
+<!--<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php  //foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php //echo $this->escape($changelog['filedname']);?></td>
+<td ><?php //echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php //echo $this->escape($changelog['current_data']);?></td>
+<td ><?php //echo $this->escape($changelog['login_name']);?></td>
+<td ><?php// echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php //endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+
+<br/><br/> -->
+
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/management/bank" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Bank name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                    <td class="label">Short name:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">City:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                    <td class="label">State:</td>
+                                    <td ><? echo $this->form->field6;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+
+<fieldset>
+	<legend>Bank</legend>
+	<table id="hor-minimalist-b" summary="">
+    	<tr class="tdbrownheading">
+        <th>Bank Name</th>
+        <th>short Name</td>
+        <th>City</td>
+        <th>State</td>
+       <th>Email_id</th>
+        <th>edit</td>
+        <th>delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $bank ): ?>
+    <tr>
+    <td><a href="<?php echo $this->baseUrl()."/management/bank/bankview/bank_id/".$bank['bank_id']; ?>"><?php echo $this->escape($bank['bankname']);?></a></td>
+     <td><?php echo $this->escape($bank['bankshortname']); ?></td>
+    <td><?php echo $this->escape($bank['city']);?></td>
+    <td><?php echo $this->escape($bank['state']);?></td>
+    <td><?php echo $this->escape($bank['email_Id']);?></div></td>
+    <td><a href="<?php echo $this->baseUrl()."/management/bank/bankedit/bank_id/".$bank['bank_id']; ?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl()."/management/bank/bankdelete/bank_id/".$bank['bank_id']; ?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+        <?php endforeach; ?>
+        <?php endif; ?>
+
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</tr>
+</table>
+<br>
+    <table>
+        <TR>        
+                   <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/bank/bankadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Bank"></a></td>
+        </TR>
+    </table>
+</fieldset>

@@ -1,0 +1,70 @@
+<SCRIPT LANGUAGE="JavaScript">
+
+
+function Check(chk)
+{
+if(document.myform.mainModule.checked==true){
+for (i = 0; i < chk.length; i++)
+chk[i].checked = true ;
+}else{
+
+for (i = 0; i < chk.length; i++)
+chk[i].checked = false ;
+}
+}
+
+</script>
+
+<fieldset>
+<legend>New Roles</legend>
+    <div class="register">
+        <div class="profile_tab">
+            <form action="<?php echo $this->baseUrl();?>/management/roles/rolesadd" method="POST" name="myform" class="cmxform"  id="signupForm">
+                <table id="hor-minimalist-b">
+                    <tr> 
+                        <th width = "20%">Role Name     <span class="reqMark">*</span></td>
+                        <th width = "40%"><?php echo $this->form->grantname;?><?php echo $this->errorgrantname;?></SPAN></th>
+                        <th width = "80%"></th>
+                    </tr>
+                </table>
+                <table id="hor-minimalist-b" >
+            	   <tr>
+                        <?php $i =0; foreach($this->module as $module) {?>
+                        <?php $i++; ?>
+                        <?php if ($i == 1) {?>
+                        <td width="30%"><input type="checkbox" onClick="Check(document.myform)" name="mainModule" value="<?php echo $module['module_id'] ?>"><?php echo $module['module_description']?></td>
+                        
+                        <?php } ?> 
+                        <?php } ?>
+                        <?php foreach($this->checkbox as $checkbox) {?>
+
+                                <tr>
+                        
+                                    <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="subModule[]" value="<?php echo $checkbox['submodule_id'] ?>"><?php echo $checkbox['submodule_description']?></td>
+                                </tr>
+                                <tr>
+                                    <?php foreach($this->subcheckbox as $subcheckbox) {?>
+                                    <?php if ($checkbox['submodule_id'] == $subcheckbox['submodule_id']) {?>
+                                    
+                                    <td></td>
+                                    <td ><input type="checkbox" name="activity[]" value="<?php echo $subcheckbox['submodule_id'] ?> - <?php echo $subcheckbox['activity_id'] ?> "> <?php echo $subcheckbox['activity_name']?></td>
+                                    <?php } ?> 
+                            
+                                </tr>
+                        
+                        <?php } ?>
+                        <?php } ?>
+                        
+                        <td ><?php echo $this->form->subactivity_id; ?></td>
+                        </tr>
+                        <tr>
+                              <td colspan="2" class="txt_rgt" style="font-weight:bold; padding-left:225px;padding-top:25px;padding-bottom:10px;">
+                              <div style="float:left"><?phpecho $this->form->Submit;?></div>
+                              <div style="float:left"><a href="<?php echo $this->baseUrl();?>/management/roles/index">
+                              <input name="submit" type="submit" class="officebutton" value="Back"></a></div> </td>
+                        </tr>
+                   </table>
+              </form>
+         </div>
+    </div>
+</fieldset>

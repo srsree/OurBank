@@ -1,0 +1,46 @@
+<div id = "searchDiv">
+	<table id="hor-minimalist-b">
+		<tr>
+			<th class = "firsttd"><?php echo $this->translate('Activity information'); ?></th>
+			<th class = "secondtd"></th>
+			<th class="thirdtd"><a href="<?php echo $this->baseUrl()."/activity/index/activityedit/id/".$this->id; ?>">
+						<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th>
+		</tr>
+		<?php foreach($this->activity as $act) {  ?>
+			<tr>
+				<td class = "firsttd"><?php echo $this->translate('Activity name'); ?></td>
+				<td class = "secondtd"><?php echo $act['name']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+		
+			<tr>
+				<td class = "firsttd"><?php echo $this->translate('Description'); ?></td>
+				<td class = "secondtd"><?php echo $act['description']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+		
+			<tr>
+				<td class = "firsttd"><?php echo $this->translate('Sector type'); ?></td>
+				<td class = "secondtd"><?php echo $act['sectorname']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+		
+			<tr>
+				<td class = "firsttd"><?php echo $this->translate('Active'); ?></td>
+				<td class = "secondtd"><?php if($act['status']==1) echo "Yes"; else echo "No";?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+		<?php } ?>
+	</table>
+</div>
+
+ 
+
+
+
+
+
+
+
+
+

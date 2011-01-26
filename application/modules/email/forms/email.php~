@@ -1,0 +1,31 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class Email_Form_email extends Zend_Form
+{
+	public function init()
+	{
+	$email= new Zend_Form_Element_Text('email');
+        $email->setAttrib('class', 'txt_put');
+        $email->setAttrib('id', 'email');
+        $email->setAttrib('tabindex', '5');
+        $email->setAttrib($value,'true');
+
+	$website = new Zend_Form_Element_Text('website');
+        $website->setAttrib('class', 'txt_put');
+        $website->setAttrib('id', 'website');
+        $website->setAttrib('tabindex', '6');
+        $website->setAttrib($value,'true');
+
+      
+         $submit = new Zend_Form_Element_Submit('Submit');
+	 $back= new Zend_Form_Element_Submit('Back');
+
+
+         $this->addElements( array ($email,$website,$submit,$back));
+
+		
+	}
+}
+/** end of class */

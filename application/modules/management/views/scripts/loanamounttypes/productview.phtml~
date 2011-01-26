@@ -1,0 +1,91 @@
+<!--<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php //foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php //echo $this->escape($changelog['fieldname']);?></td>
+<td ><?php //echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php// echo $this->escape($changelog['current_data']);?></td>
+<td ><?php //echo $this->escape($changelog['login_name']);?></td>
+<td ><?php //echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php //endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+
+<br/><br/>   -->
+<fieldset>
+    <legend>View Product</legend>
+	<div class="cont-rgt-data">
+        <?php foreach($this->product as $product) {  ?>
+            <TABLE id="hor-minimalist-b">
+                <TR>
+                    <TD>Category Name</TD>
+                    <TD><?php echo $product['categoryname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Product Name</TD>
+                    <TD><?php echo $product['productname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Product Short Name</TD>
+                    <TD><?php echo $product['productshortname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Product Description</TD>
+                    <TD><?php echo $product['product_description'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Bank names</TD>
+                    <TD><?php foreach($this->bankdetails as $bankdetails) { ?><?php echo $bankdetails['bankname']; ?><br/><br/><?php } ?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+        </TABLE>
+        <br>
+        <TABLE>
+                <TR>
+                    <TD><a href="<?php echo $this->baseUrl(); ?>/management/product/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+              </TR>
+      </TABLE>
+<?php } ?>
+    </div>
+</fieldset>
+
+

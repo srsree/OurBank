@@ -1,0 +1,114 @@
+<?php
+class Transaction_Model_Receipts extends Zend_Db_Table {
+	protected $_name = 'ourbank_Expenditure';
+
+	public function listOfglcode() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_glcodeupdates'),array('glcode_id'))
+			->where('a.recordstatus_id = 3 or a.recordstatus_id = 1')
+			->join(array('b' => 'ourbank_glcode'),'a.glcode_id=b.glcode_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+
+	public function listOfglsubcode($glcode) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_glcodeupdates'),array('glcode_id'))
+			->where('a.glcode_id = ?',$glcode)
+			->where('a.recordstatus_id = 3 or a.recordstatus_id = 1')
+			->join(array('b' => 'ourbank_glsubcodeupdates'),'a.glcode_id=b.glcode_id')
+			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1')
+			->join(array('c' => 'ourbank_glsubcode'),'b.glsubcode_id=c.glsubcode_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function listOfledgercode($glcode) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_glcodeupdates'),array('glcode_id'))
+			->where('a.glcode_id = ?',$glcode)
+			->where('a.recordstatus_id = 3 or a.recordstatus_id = 1')
+			->join(array('b' => 'ourbank_ledgertypes'),'a.ledgertype_id=b.ledgertype_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+        public function getHeadOffice() {
+            $db = $this->getAdapter();
+            $sql = "select office_id, office_name, officetype_id, parentoffice_id from 
+                ourbank_officenames where officetype_id = 
+                (select officetype_id from ourbank_officehierarchy where Hierarchy_level = (select max(Hierarchy_level)-1 from ourbank_officehierarchy))";
+            return $db->fetchAll($sql);
+        }
+
+	public function addtransactions($input = array())
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$result = $this->db->insert('ourbank_transaction',$input);
+		return $this->db->lastInsertId('ourbank_transaction');
+        }
+
+	public function fetchassetsaccount($memberbranch_id) 
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$sql = "select * from   ourbank_bankaccounts where (bank_branch_id='$memberbranch_id') LIMIT 1";
+		$result = $this->db->fetchAll($sql,array());
+		return $result;
+	}
+
+	public function fetchincomeaccount($memberbranch_id) 
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$sql = "select * from   ourbank_bankaccounts where (bank_branch_id='$memberbranch_id') LIMIT 1,1";
+		$result = $this->db->fetchAll($sql,array());
+		return $result;
+	}
+
+
+	public function fetchlibalitesaccount($memberbranch_id) 
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$sql = "select * from   ourbank_bankaccounts where (bank_branch_id='$memberbranch_id') LIMIT 2,1";
+		$result = $this->db->fetchAll($sql,array());
+		return $result;
+	}
+
+	public function fetchExpendituraccount($memberbranch_id) 
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$sql = "select * from   ourbank_bankaccounts where (bank_branch_id='$memberbranch_id') LIMIT 3,1";
+		$result = $this->db->fetchAll($sql,array());
+		return $result;
+	}
+
+	public function addfromaccounts($tablenamefrom,$bankIDfrom,$fromglsubcodeid,$toglsubcodeid,$transaction_id,$amount) {
+
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$data = array('bank_id'=> $bankIDfrom,
+				'glsubcode_id_from'=>$fromglsubcodeid,
+				'glsubcode_id_to'=>$toglsubcodeid,
+				'tranasction_number'=>$transaction_id,
+				'credit'=>'',
+				'debit'=>$amount,
+				'record_status'=>'3');
+		return $this->db->insert($tablenamefrom,$data);
+	}
+
+
+	public function addtoaccounts($tablenameto,$bankIDto,$fromglsubcodeid,$toglsubcodeid,$transaction_id,$amount) {
+
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$data = array('bank_id'=> $bankIDto,
+				'glsubcode_id_from'=>$fromglsubcodeid,
+				'glsubcode_id_to'=>$toglsubcodeid,
+				'tranasction_number'=>$transaction_id,
+				'credit'=>$amount,
+				'debit'=>'',
+				'record_status'=>'3');
+		return $this->db->insert($tablenameto,$data);
+	}
+}

@@ -1,0 +1,82 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+?>
+
+<?php
+class Individualdefault_Model_individualdefault extends Zend_Db_Table
+{
+    protected $_name = 'ourbank_member';
+
+//geting saving id from the product offer table
+    public function productoffers($savingname)
+    {
+        $select=$this->select()
+        ->setIntegrityCheck(false)
+        ->join(array('a'=>'ourbank_productsoffer'),array('a.id'),array('a.id as product_id'))
+        ->where('a.applicableto=1')
+        ->where('a.name like "%" ? "%"',$savingname);
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+        //die ($select->__toString($select));
+    }
+
+//delete record with respective to table name and parameter
+    public function deleteRecord($table,$param)  
+    {
+        $db = $this->getAdapter();
+        $condition = array('member_id = '.$param);
+        $db->delete($table, $condition);
+        return;
+    }
+
+//geting family details record with respective to table name and parameter
+    public function getfamilydetails($table,$param)
+    {
+        $select=$this->select()
+        ->setIntegrityCheck(false)
+        ->join(array('a'=>$table),array('a.id'))
+        ->where('a.member_id=?',$param);
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+        //die ($select->__toString($select));
+
+    }
+
+//find the active account number
+    public function findaccount($id)
+    {
+        $select = $this->select()
+                ->setIntegrityCheck(false)  
+                ->join(array('a' => 'ourbank_accounts'),array('a.id'),array('a.id','a.member_id'))
+                ->where('a.status_id=1')
+                ->where('a.member_id =?',$id);
+        $result = $this->fetchAll($select);
+        return $result->toArray();
+        //die($select->__toString($select));
+    }
+
+//update record with respective to table name and parameter
+    public function updateLog($table,$param)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->insert($table,$param);
+        return 1;
+    }
+}

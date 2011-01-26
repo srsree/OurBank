@@ -1,0 +1,137 @@
+<script type="text/javascript" language="JavaScript1.3" >
+function calculateTotalAmount() {
+    var amount = eval(document.form1.savings_amount.value);
+    var feeTotal = eval(document.form1.feeTotal.value);
+    var tAmount =  (amount + feeTotal);
+    document.form1.tAmount.value = tAmount;
+
+}
+</script>
+<body>
+<?php if(!$this->Submit) { ?>
+ <div style="float:right;width:350px">
+    <fieldset>
+        <legend>New Savings</legend>
+            <form name="form1" action="<?php echo $this->baseUrl();?>/accounting/accounting/savings/productId/<?php echo $this->productId;?>/member/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type ?>" method="POST">
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <TD>Date of Account</TD>
+                        <TD><?php echo $this->savingsForm->date1;?></TD>
+                        <td><?php echo $this->savingsForm->memberTypeIdv;?></td>
+                    </TR>
+                    <TR>
+                        <TD>Initial Deposit</TD>
+                        <TD><?php echo $this->savingsForm->productId; 
+                                   echo $this->savingsForm->memberId; 
+                                   echo $this->savingsForm->typeId;
+                                   echo $this->savingsForm->Type;
+                                   echo $this->savingsForm->savings_amount;?></TD>
+                    </TR>
+                    <?php if($this->Savingfee) { ?>
+                    <TR>
+                        <TD> Fee </TD>
+                        <TD><?php foreach($this->Savingfee as $fee ) { ?> 
+                        <input type = text name = "fee2" value = "<?php echo $fee->feevalue;?>" 
+                               readonly = "true" class="txt_put">
+                        <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                        <?php } ?>
+                        <input type = "hidden" name = "feeTotal" id = "feeTotal" 
+                               value = "<?php echo $this->feeTotal;?>" readonly = "" class="txt_put"></TD>
+                        <td></td>
+                    </TR>
+                    <input type = "hidden" name= "mindeposit" value="<?php echo $this->minimumDepositAmount;?>">
+                    <TR>
+                        <TD>Paying Amount </TD>
+                        <TD ><input type="text" name="tAmount" value="" id ="tAmount" class = "txt_put" readonly = "true"></TD>
+                        <td></td>
+                    </TR>
+                    <?php } ?>
+                   <?php if ($this->membertype_ID == 3 ) { ?>
+                    <TR>
+                        <TD>Members</TD>
+                        <TD><?php echo $this->savingsForm->memberfirstname;?><br>
+                            <?php echo $this->error1; ?></TD>
+                    </TR><? } ?>
+                </table>
+<br>
+                <table>
+                    <TR>
+                        <td><?php echo $this->savingsForm->Submit; ?></td>
+                        <td></td>
+                        <td></td>
+                        <TD><a href="<?php echo $this->baseUrl();?>/accounting/accounting/member/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type ?>">
+                            <?php echo $this->savingsForm->Back;?></a></TD>
+</TR>
+</table>
+</form>
+</fieldset>
+</div>
+<?php } ?>
+<?php if($this->Submit) { ?>
+ <div style="float:right;width:350px">
+    <fieldset>
+        <legend>New Savings1</legend>
+            <form name="form1" action="<?php echo $this->baseUrl();?>/accounting/accounting/savings/productId/<?php echo $this->productId;?>/member/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type ?>" method="POST">
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <TD>Date of Account</TD>
+                        <TD><?php echo $this->date1;?>
+                            <input type="hidden" name = 'date1' value =<?php echo $this->date1; ?>></TD>
+                        <td><?php echo $this->savingsForm->memberTypeIdv;?></td>
+                    </TR>
+                    <TR>
+                        <TD>Initial Deposit</TD>
+                        <TD><?php echo $this->savingsForm->productId; 
+                                   echo $this->savingsForm->memberId; 
+                                   echo $this->savingsForm->typeId;
+                                   echo $this->savingsForm->Type;
+                                   echo $this->savings_amount;?>
+                            <input type="hidden" name = 'savings_amount' value =<?php echo $this->savings_amount; ?>></TD>
+                    </TR>
+                    <?php if($this->Savingfee) { ?>
+                    <TR>
+                        <TD> Fee </TD>
+                        <TD><?php foreach($this->Savingfee as $fee ) { ?> 
+                        <input type = text name = "fee2" value = "<?php echo $fee->feevalue;?>" readonly = "true" class="txt_put">
+                        <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                        <?php } ?>
+                        <input type = "hidden" name = "feeTotal" id = "feeTotal" value = "<?php echo $this->feeTotal;?>" 
+                               readonly = "" class="txt_put"></TD>
+                        <td></td>
+                    </TR>
+                    <input type = "hidden" name= "mindeposit" value="<?php echo $this->minimumDepositAmount;?>">
+                    <TR>
+                        <TD>Paying Amount </TD>
+                        <TD><?php echo $this->tAmount;?>
+                         <input type="hidden" name = 'tAmount' value =<?php echo $this->tAmount; ?>></TD>
+                        <td></td>
+                    </TR>
+                    <?php } ?>
+                   <?php if ($this->membertype_ID == 3 ) { ?>
+                    <TR>
+                        <TD>Members</TD>
+                        <TD><?php echo $this->savingsForm->memberfirstname;?><br>
+                            <?php echo $this->error1; ?></TD>
+                    </TR><? } ?>
+                    <TR>
+                        <TD></TD>
+                        <TD><?php echo $this->message;?></TD>
+                        <td></td>
+                    </TR>
+
+                </table>
+<br>
+                <table>
+                    <TR>
+                        <td><?php echo $this->savingsForm->Yes; ?></td>
+                        <td></td>
+                        <td></td>
+                        <TD><a href="<?php echo $this->baseUrl();?>/accounting/accounting/savings/memberId/<?php echo $this->memberId;?>/productId/<?php echo $this->productId;?>">
+                            <?php echo $this->savingsForm->Back;?></a></TD>
+</TR>
+</table>
+</form>
+</fieldset>
+</div>
+<?php } ?>
+</body>

@@ -1,0 +1,21 @@
+<?php
+class Enquiry_Model_TransactionperDate extends Zend_Db_Table_Abstract 
+{
+protected $_name = 'ourbank_installmentdetails'; 
+
+public function fetchTransactionDetails($transaction_date)  {
+              $select = $this->select()
+                       ->setIntegrityCheck(false)  
+                       ->join(array('a' => 'ourbank_installmentdetails'),array('a.accountinstallment_date'))
+                       ->where('a.accountinstallment_amount like "%" ? "%"',$accountinstallment_amount)
+                       ->join(array('b' => 'ourbank_accounts'),'a.account_id = b.account_id ')
+                       ->where('b.accountstatus_id')
+                       ->join(array('c'=>'ourbank_membername'),'c.member_id = b.member_id')
+                       ->join(array('d'=>'ourbank_officenames'),'d.officetype_id = c.memberoffice_id')
+                       ->where('d.recordstatus_id=3')
+                       ->join(array('e'=>'ourbank_transaction'),'e.account_id = b.account_id')
+                       ->where('e.recordstatus_id=3');
+           //die($select->__toString());
+       return $this->fetchAll($select);
+    }
+}

@@ -1,0 +1,66 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/management/fundings" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Funders Name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Funding Name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Funding Amount:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Funding Currency:</td>
+                                    <td ><? echo $this->form->field5;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+<fieldset>
+        <legend>Fundings</legend>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Funders Name</th>
+        <th>Funding Name</td>
+        <th>Funding Amount</td>
+        <th>Funding Currency</th>
+        <th>edit</td>
+        <th>delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $fundings ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/management/fundings/fundingsview/id/".$fundings['fundingupdates_id']; ?>">
+                     <?php echo $this->escape($fundings['fundername']); ?></a></td>
+    <td><?php echo $this->escape($fundings['fundingname']);?></td>
+    <td><?php echo $this->escape($fundings['fundingamount']);?></td>
+    <td><?php echo $this->escape($fundings['currencyname']);?></div></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/fundings/fundingsedit/id/<?php echo $fundings['fundingupdates_id'];?>">
+                 <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/fundings/fundingsdelete/id/<?php echo $fundings['fundingupdates_id'];?>">
+                <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/fundings/fundingsadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Fundings"></a></td>
+    </tr>
+</table>
+</fieldset>

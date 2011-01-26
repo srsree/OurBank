@@ -1,0 +1,53 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php if ($this->recordstatus_id == 1) { ?>
+<TABLE id="hor-minimalist-b">
+        <TR>
+            <TD></TD><TD></TD>
+            <TD ><B style="color:red">No You Cannot Delete Role <?php echo $this->grantname; ?>  As it is Active</B></TD>
+        </TR>
+</TABLE>
+<?php } ?>
+<?php if ($this->recordstatus_id == 3) { ?>
+<form action="<?php echo $this->baseUrl();?>/management/roles/rolesdelete/id/<?php echo $this->grant_id; ?>" method="POST">
+    <TABLE id="hor-minimalist-b">
+        <TR>
+            <TD></TD><TD></TD>
+            <TD ><B style="color:red">Are You Sure To Delete Role <?php echo $this->grantname; ?></B></TD>
+        </TR>
+    </TABLE>
+    <table id="hor-minimalist-b">
+        <TR>
+            
+        </TR>
+        <TR>
+	   <TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+	   <TD  width="65%"  align="left" ><?php echo $this->form->remarks;?></TD>
+	</TR>
+	
+	<TR>
+            <TD width="35%" align="right"><?php echo $this->form->Yes;?></td>
+	    <TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/roles/">
+            <input name="submit" type="submit"  value="No" ></a></TD>
+	</TR>
+    </table>
+</form>
+
+<?php } ?>

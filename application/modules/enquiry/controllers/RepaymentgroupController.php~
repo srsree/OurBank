@@ -1,0 +1,25 @@
+<?php
+
+class Enquiry_RepaymentgroupController extends Zend_Controller_Action
+{
+
+   public function init()
+    {
+       $this->view->pageTitle='Current Loan List';
+    } 
+
+
+function indexAction()
+     {
+        $auth = Zend_Auth::getInstance();
+        if (!$auth->hasIdentity()) {
+            $this->_redirect('index/login');
+        }
+        $this->view->title = "loan Enquiry";
+		    $first = new Enquiry_Model_Repaymentgroup();//sending the input data in array for 4 fields in search
+		    $loanDetails = $first->fetchloanDetails();
+                    $this->view->loanDetails = $loanDetails;
+
+
+     }
+}

@@ -1,0 +1,70 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/membership/individual" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Member Code:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">First Name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Branch:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Last Name</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+ <fieldset>
+        <legend>Member</legend>
+        <table id="hor-minimalist-b">
+            <tr>
+                <th>Member Code</th>
+                <th>Member Name</td>
+                <th>Last Name</td>
+                <th>Member Branch</th>
+                <th>Edit</td>
+                <th>Delete</th>
+            </tr>
+
+                            <?php if (count($this->paginator)): ?>
+                <?php foreach ($this->paginator as $individual): ?>
+            <tr>
+                <td><a href="<?php echo $this->baseUrl()."/membership/individual/individualview/id/".$individual->zmember_id; ?>">
+                            <?php echo $this->escape($individual->membercode); ?></a></td>
+            <td><?php echo $this->escape($individual->memberfirstname);?></td>
+            <td><?php echo $this->escape($individual->memberlastname);?></td>
+            <td><?php echo $this->escape($individual->office_name);?></div></td>
+            <td><a href="<?php echo $this->baseUrl();?>/membership/individual/individualedit/id/<?php echo $individual->member_id;?>">
+                        <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+            <td><a href="<?php echo $this->baseUrl();?>/membership/individual/individualdelete/id/<?php echo $individual->member_id;?>">
+                        <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+            </tr>
+            <tr>
+                <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                            '/partials/my_pagination_control.phtml'); ?></div></td>
+            </tr>
+
+        </table>
+
+<br>
+<table>
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/membership/individual/individualadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Member"></a></td>
+    </tr>
+</table>
+</fieldset>

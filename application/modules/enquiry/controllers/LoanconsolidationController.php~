@@ -1,0 +1,27 @@
+<?php
+class Enquiry_LoanconsolidationController extends Zend_Controller_Action
+{
+
+   public function init()
+    {
+       $this->view->pageTitle='Loan Consolidation';
+    }
+
+    public function indexAction()
+    {
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $sessionName->primaryuserid;
+        $this->view->title = "Consolidation of Loan";
+
+                    $this->view->title = "Consolidation of Loan Amount with Interest";
+		    $first = new Enquiry_Model_Loanconsolidation();//sending the input data in array for 4 fields in search
+		    $loanDetails = $first->fetchloanDetails();
+                    $this->view->loanDetails = $loanDetails;
+               	    $period = $first->fetchPeriod();
+                    $this->view->period = $period;
+
+
+    }
+
+}
+

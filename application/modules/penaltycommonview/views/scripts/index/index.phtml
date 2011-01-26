@@ -1,0 +1,66 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+ 
+<table  id="hor-minimalist-b">
+	<TR>
+		<TH class = "firsttd">Penalty Information</TH>
+		<TH class = "secondtd"></TH>
+		<TH class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/penalty/index/penaltyedit/penalty_id/<?php echo $this->id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></TH>
+		
+	</TR>
+	<?php   
+	foreach($this->fetchpenalty as $fetchpenalty){ ?>
+		
+		<TR >
+			<TD class = "firsttd">Penalty name</TD>
+			<TD class = "secondtd"><?php echo $fetchpenalty['name'];?>
+			<TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd">Penalty for delay (%)</TD>
+			<TD class = "secondtd"><?php echo $fetchpenalty['penalty_per_delay']." %";?>
+			<TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd">Interest of delay / day (%)</TD>
+			<TD class = "secondtd"><?php echo $fetchpenalty['interest_of_delay']." %";?>
+			<TD class = "thirdtd"></TD>
+		<TR >
+			<TD class = "firsttd">Creditline name</TD>
+			<TD class = "secondtd"><?php echo $fetchpenalty['creditline_name'];?>
+			<TD class = "thirdtd"></TD>
+		</TR> 
+		<TR >
+			<TD class = "firsttd">Active</TD>
+			<TD class = "secondtd"><?php if($fetchpenalty['status']==0) echo "No"; else echo "Yes";?>
+			<TD class = "thirdtd"></TD>
+		</TR> 
+	<?php   } ?>
+
+</table>
+
+		<div class="btnhouse">
+			<div class="ltbtns">
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/penaltyindex"><input type="button" value="Back"></a>
+			</div>
+		</div>

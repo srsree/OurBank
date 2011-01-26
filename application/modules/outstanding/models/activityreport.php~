@@ -1,0 +1,32 @@
+<?php
+class Activityreport_Model_activityreport extends Zend_Db_Table {
+    protected $_name = 'ob_member';
+
+    public function getactivity_between($from_age,$to_age,$activityname) {
+                        $db = $this->getAdapter();
+                        $sql = "SELECT c.account_id, COUNT(c.account_id),d.activity_name FROM `ob_member` AS `a` INNER JOIN `ob_member_details` AS `b` ON a.member_id = b.member_id INNER JOIN `ob_accounts` AS `c` ON c.member_id = b.member_id INNER JOIN `ob_activity_details` AS `d` ON d.activity_id  = c.activity_id WHERE (b.recordstatus_id = 3) and ((YEAR(CURDATE())-YEAR(b.member_dateofbirth)) - (RIGHT(CURDATE(),5)<RIGHT(b.member_dateofbirth,5))>=$from_age) and ((YEAR(CURDATE())-YEAR(b.member_dateofbirth)) - (RIGHT(CURDATE(),5)<RIGHT(b.member_dateofbirth,5))<=$to_age) and (c.accountstatus_id=1) and (c.activity_id=$activityname) and (d.recordstatus_id=3)";
+                        $result = $db->fetchAll($sql);
+                        return $result;
+    }
+
+     public function getactivity_above($age,$activityname) {
+                        $db = $this->getAdapter();
+                        $sql = "SELECT c.account_id, COUNT(c.account_id),d.activity_name FROM `ob_member` AS `a` INNER JOIN `ob_member_details` AS `b` ON a.member_id = b.member_id INNER JOIN `ob_accounts` AS `c` ON c.member_id = b.member_id INNER JOIN `ob_activity_details` AS `d` ON d.activity_id  = c.activity_id WHERE (b.recordstatus_id = 3) and ((YEAR(CURDATE())-YEAR(b.member_dateofbirth)) - (RIGHT(CURDATE(),5)<RIGHT(b.member_dateofbirth,5))>=$age) and (c.accountstatus_id=1) and (c.activity_id=$activityname) and (d.recordstatus_id=3)";
+                        $result = $db->fetchAll($sql);
+                        return $result;
+    }
+
+    public function getActvity()
+    {
+          $select=$this->select()
+                ->setIntegrityCheck(false)
+                ->join(array('a'=>'ob_activity_details'),array('a.member_id'),array('a.activity_name'))
+                ->join(array('b'=>'ob_activity'),'a.activity_id=b.activity_id')
+                ->where('a.activity_status=1')
+                ->where('a.recordstatus_id=3');
+       $result=$this->fetchAll($select);
+        return $result->toArray();
+       //die ($select->__toString($select));
+    }
+
+ }

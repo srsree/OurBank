@@ -1,0 +1,73 @@
+<?php
+class Creditline_Model_Creditline extends Zend_Db_Table {
+	protected $_name = 'ob_creditline';
+
+ 	
+
+
+	public function deletecreditlineinfo($id) {
+	$this->db = Zend_Db_Table::getDefaultAdapter();
+		$post = array('recordstatus_id' => 5);
+		$where = 'id = '.$id;
+		$this->db->update('ob_creditline',$post , $where );
+	}
+	
+	public function Insert_Deleted_Info($post,$id) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$data = array('module_id'=> 1,
+					
+					'submodule_id'=> 5,
+					'id' => $id,
+					'remarks'=>$post['remarks'],
+					'deleted_by' => 'admin',
+					'deleted_date'=> date('Y-m-d'));
+		$this->db->insert('ob_deleted_details',$data);
+	}
+
+	public function SearchCreditline($post) {
+
+		$convertdate = new Creditline_Model_dateConvertor();
+
+		if($post['searchCreditline'] && $post['search_from_credit'] && $post['search_to_credit']) {
+			$search_from_credit=$convertdate->phpmysqlformat($post['search_from_credit']);
+			$search_to_credit=$convertdate->phpmysqlformat($post['search_to_credit']);
+			$select = $this->select()
+					->setIntegrityCheck(false)  
+					->from('ob_creditline')
+					
+					->where('name like "%" ? "%" ',$post['searchCreditline'])
+					->where('start_date >="'. $search_from_credit.'" AND end_date <= "'.$search_to_credit.'"');
+			$result = $this->fetchAll($select);
+			return $result->toArray();
+		}
+		if(!$post['searchCreditline'] && !$post['search_from_credit'] && !$post['search_to_credit']) {
+			$select = $this->select()
+				->setIntegrityCheck(false)
+				->from('ob_creditline')
+				
+				->order(array('id DESC'));
+			$result = $this->fetchAll($select);
+			return $result->toArray();
+		}
+		if($post['searchCreditline'] && !$post['search_from_credit'] && !$post['search_to_credit']) {
+			$select = $this->select()
+				->setIntegrityCheck(false)  
+				->from('ob_creditline')
+				
+				->where('name like "%" ? "%" ',$post['searchCreditline']);
+			$result = $this->fetchAll($select);
+			return $result->toArray();
+		}
+		if(!$post['searchCreditline'] && $post['search_from_credit'] && $post['search_to_credit']) {
+			$search_from_credit=$convertdate->phpmysqlformat($post['search_from_credit']);
+		$search_to_credit=$convertdate->phpmysqlformat($post['search_to_credit']);
+			$select = $this->select()
+				->setIntegrityCheck(false)  
+				->from('ob_creditline')
+				
+				->where('start_date >="'. $search_from_credit.'" AND end_date <= "'.$search_to_credit.'"');
+			$result = $this->fetchAll($select);
+			return $result->toArray();
+		}
+       }
+}

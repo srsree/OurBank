@@ -1,0 +1,93 @@
+<?php
+
+class Reports_ProductwiseController extends Zend_Controller_Action
+{
+
+function init()
+{ 
+$this->view->pageTitle = "productwise receipts";
+$this->view->tilte = "Reports";
+	
+}
+function indexAction()
+{ 
+$this->view->pageTitle = "productwise receipts";
+$this->view->tilte = "Reports";
+$ProductList = new Reports_Model_Productwise();
+$select = $ProductList->fetchproductDetails($accountid);
+$this->view->loanrepaylist = $select;
+
+}
+public function reportdisplayAction() {
+        $this->_helper->layout->disableLayout();
+          $file1 = $this->_request->getParam('file');
+
+$app = $this->view->baseUrl();
+$word=explode('/',$app);
+$projname = $word[1];
+ 
+        $this->view->filename = "/".$projname."/reports/".$file1;
+    }
+public function pdfdisplayAction() 
+{ 
+
+        $pdf = new Zend_Pdf();
+        $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+        $pdf->pages[] = $page;
+
+      $app = $this->view->baseUrl();
+$word=explode('/',$app);
+$projname = $word[1];
+
+
+
+    // Image
+    $image_name = "/var/www/".$projname."/public/images/logo.jpg";
+        $image = Zend_Pdf_Image::imageWithPath($image_name);
+
+    $page->drawImage($image, 30, 770, 130, 820);
+        $page->setLineWidth(1)->drawLine(25, 25, 570, 25); //bottom horizontal
+        $page->setLineWidth(1)->drawLine(25, 25, 25, 820); //left vertical
+        $page->setLineWidth(1)->drawLine(570, 25, 570, 820); //right vertical
+        $page->setLineWidth(1)->drawLine(570, 820, 25, 820); //top horizontal
+        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 8);
+
+        $text = array("Product name",
+                     "credit",
+                     "debit");
+	
+
+	$x0 = 60; 
+	$x1 = 250; 
+        $x2 = 400; 
+        
+
+	$page->drawLine(50, 740, 550, 740);
+        $page->drawLine(50, 720, 550, 720);
+        $page->drawText($text[0], $x0, 725);
+
+        $page->drawText($text[1], $x1, 725);
+        $page->drawText($text[2], $x2, 725);
+       
+    	$y1 = 700;
+				
+	$ProductList = new Reports_Model_Productwise();
+	$select = $ProductList->fetchproductDetails();
+/*print_r($datedet);*/
+foreach($select as $savingsCredit) {
+
+            $page->drawText($savingsCredit->productname,$x0, $y1);
+            $page->drawText($savingsCredit->amount_from_bank,$x1, $y1);
+            $page->drawText($savingsCredit->amount_to_bank,$x2, $y1);
+	$y1 = $y1 - 25;
+
+    }
+            
+	$pdf->render();
+$pdf->save('/var/www/'.$projname.'/reports/productwise.pdf');
+	    $path = '/var/www/'.$projname.'/reports/productwise.pdf';
+        //$pdf->save('/var/www/ourbank/reports/productwise.pdf');
+        //$path = '/var/www/ourbank/reports/productwise.pdf';
+        chmod($path,0777);
+}
+}

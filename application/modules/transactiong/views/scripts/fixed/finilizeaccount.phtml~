@@ -1,0 +1,143 @@
+<BODY onload="toggleField();"></BODY>  
+<?php if(!$this->close) {?> 
+<div>
+	<div style="width:350px;float:left">
+		<fieldset>
+			<legend><?php echo $this->ZendTranslate->_("Details"); ?></legend>
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<Tr>
+					<td><b class="star"><?php echo $this->ZendTranslate->_("Name"); ?></b></td>
+					<TD><?php echo $this->offerproductname;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><?php echo $this->ZendTranslate->_("accountNumber"); ?>:</b></td>
+					<TD><?php echo $this->accountnumber;?></TR>.
+				</TR>
+				<TR>
+					<td><b class="star"><?php echo $this->ZendTranslate->_("beginDate"); ?>:</b></td>
+					<TD><?php echo $this->begin_date;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><?php echo $this->ZendTranslate->_("matureDate"); ?>:</b></td>
+					<TD><?php echo $this->mature_date;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><?php echo $this->ZendTranslate->_("amount"); ?>:</b></td>
+					<TD><?php echo $this->fixed_amount;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><?php echo $this->ZendTranslate->_("interestRates"); ?>:</b></td>
+					<TD><?php echo $this->fixed_interest;?></TD>
+				</TR>
+
+				<TR>
+					<td><b class="star"><?php echo $this->ZendTranslate->_("maturedInterest"); ?>:</b></td>
+					<TD><?php echo $this->interestamount;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><?php echo $this->ZendTranslate->_("Total matured amount"); ?>:</b></td>
+					<TD><?php echo $this->Totalamount;?></TD>
+				</TR>
+			</table>
+		</fieldset>
+	</div>
+</div>
+
+<DIV style="float:left;width:50%">
+<?php If($this->membertype_id==3) { ?>
+<a href="#" id="open"><?php echo $this->ZendTranslate->_("groupMembers"); ?></a>
+<div class="box">
+<div id="content1">
+	<fieldset>
+		<legend>Members in account</legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="30%"><?php echo $this->ZendTranslate->_("Name"); ?></td>
+			<td width="50%"><?php echo $this->ZendTranslate->_("code"); ?></td>
+		</tr>
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1->memberfirstname;?></TD>
+				<TD width="50%"><?php echo $arrayroles1->membercode;?></TD>
+			</tr>
+	<?php }?>
+		</table>
+</div></fieldset>
+<p><a href="#" id="close"><?php echo $this->ZendTranslate->_("hide"); ?></a></p>
+</div>
+</div>
+<?php }	?>
+<table width="100%"><TR><TD><HR></HR></TD></TR></table>
+</DIV>
+
+<div style="float:left;width:50%">
+	<fieldset>
+		<legend><?php echo $this->ZendTranslate->_("Amount details"); ?></legend>
+		<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet" >
+				<TR>
+					<td><b class="star"><SPAN style="color:red"><?php echo $this->ZendTranslate->_("Capital amount"); ?>:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->fixed_amount;?></SPAN></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><SPAN style="color:red"><?php echo $this->ZendTranslate->_("Interest amount"); ?>:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->interestamountfrombank;?></SPAN></TD>
+				</TR>
+				<?php if($this->currentdate < $this->matureddate) { ?>
+				<TR>
+					<td><b class="star"><SPAN style="color:red"><?php echo $this->ZendTranslate->_("penal Interest amount"); ?>:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->prematureinterestamountfrombank;?></SPAN></TD>
+				</TR>
+				<?php } ?>
+				<TR>
+					<td><b class="star"><SPAN style="color:red"><?php echo $this->ZendTranslate->_("Total amount"); ?>:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->maturedinterestamount;?></SPAN></TD>
+				</TR>
+			</table>
+		</div>
+	</fieldset>
+</div>
+
+<div>
+	<div style="width:50%;float:left">
+	<fieldset>
+		<legend><?php echo $this->ZendTranslate->_("Finilize account"); ?></legend>
+		<form name="form1" action="<?php echo $this->baseUrl();?>/index/finilizeaccount" method="POST" onsubmit='return validate(this)'>
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<TR>
+					<TD width="40%"></TD>
+					<TD width="60%"><?php echo $this->form2->accountId;echo $this->form2->productId; echo $this->form2->memberId; echo $this->form2->capitalamount;echo $this->form2->interestamountto; echo $this->form2->penalinterest; echo $this->form2->maturedinterestamount; ?></TD>
+				</TR>
+				<tr >
+					<td width="40%"><?php echo $this->ZendTranslate->_("transactionMode"); ?></td>
+					<td width="60%"><?php echo $this->form2->paymenttype;?><?php echo $this->form2->paymenttype_details;?><h id="details" style="display:none"><?php echo $this->ZendTranslate->_("voucher/cheque/draft number"); ?> </h> </td> 
+				</tr>
+				<tr>
+					<td width="40%"><?php echo $this->ZendTranslate->_("description"); ?></td>
+					<td width="60%"><?php echo $this->form2->transactiondescription;?></td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td></td>
+					<td ></td>
+					<td></td>
+				</tr>
+				<TR>
+					<TD><?php echo $this->form2->Finalize;?>&nbsp;&nbsp;&nbsp;<a href="<?php echo $this->baseUrl();?>/index/fixed/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">
+					<input name="submit" type="submit" value="<?php echo $this->ZendTranslate->_("back"); ?>" tabindex="25"></a></TD>
+				</TR>
+						<tr>
+						      <td colspan="4"><B style="color:red"><? echo $this->noaccount1;?></B></td>
+						</tr>
+			</table>
+		</form>
+	</fieldset>
+</div>
+</div>
+		<?php } else { ?>
+			<B style="color:red"><? echo $this->close; } ?></B>
+
+
+

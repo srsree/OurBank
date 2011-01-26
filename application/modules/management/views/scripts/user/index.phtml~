@@ -1,0 +1,69 @@
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/index" method="POST">
+                            <table id="hor-minimalist-b">
+                                <tr>
+                                    <td class="label">First Name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Email:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Date Of Join:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Designation:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div>  
+
+
+<fieldset>
+      <legend>Search</legend>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>First Name</th>
+        <th>Designation</td>
+        <th>Email</td>
+        <th>Date Of Join</th>
+        <th>edit</td>
+        <th>delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $user ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/management/user/userview/id/".$user['user_id']; ?>">
+                     <?php echo $this->escape($user['firstname']); ?></a></td>
+    <td><?php echo $this->escape($user['designation']);?></td>
+    <td><?php echo $this->escape($user['emailid']);?></td>
+    <td><?php echo $this->escape($user['dateofjoin']);?></div></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/user/useredit/id/<?php echo $user['user_id'];?>">
+                 <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/user/userdelete/id/<?php echo $user['user_id'];?>">
+                <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/user/useradd">
+        <input name="submit" type="submit" class="NormalBtn" value="New User"></a></td>
+    </tr>
+</table>
+</fieldset>

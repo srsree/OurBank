@@ -1,0 +1,23 @@
+<?php
+class Management_Model_productfixedrecurring extends Zend_Db_Table {
+	protected $_name = 'ourbank_product_fixedrecurring';
+
+	public function editproductfixedrecurring($post,$offerproductupdate_id) {
+		$where = 'offerproductupdate_id = '.$offerproductupdate_id;
+		$data = array('minimum_deposit_amount'=>$post['minimum_deposit_amount'],
+					'maximum_deposit_amount'=>$post['maximum_deposit_amount'],
+					'frequency_of_deposit'=>$post['frequency_of_deposit'],
+					'penal_Interest'=>$post['penal_Interest']);
+		$this->update($data,$where);
+	}
+
+	public function editproductssaving($post,$offerproductupdate_id) {
+		$where = 'offerproductupdate_id = '.$offerproductupdate_id;
+		$data = array('frequencyofdeposit'=>$post['frequencyofdeposit'],
+					'minmumdeposit'=>$post['minmumdeposit'],
+					'minimumbalanceforinterest'=>$post['minimumbalanceforinterest'],
+					'frequencyofinterestupdating'=>$post['frequencyofinterestupdating'],
+					'Int_timefrequency_id'=>$post['Int_timefrequency_id']);
+		$this->update($data,$where);
+	}
+}

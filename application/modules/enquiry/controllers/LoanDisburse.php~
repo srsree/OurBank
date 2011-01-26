@@ -1,0 +1,31 @@
+<?php
+
+class Enquiry_LoanDisburseController extends Zend_Controller_Action
+{
+
+   public function init()
+    {
+       $this->view->pageTitle='Loan Disbuse';
+    }
+
+    public function indexAction()
+    {
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $sessionName->primaryuserid;
+        $this->view->title = "loan Enquiry";
+
+
+        $first = new Enquiry_Model_LoanDisbuse();//sending the input data in array for 4 fields in search
+        $loanDetails = $first->fetchloanDetails();
+        $this->view->loanDetails = $loanDetails;
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($loanDetails);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->loanDetails = $paginator;
+
+    }
+
+}
+

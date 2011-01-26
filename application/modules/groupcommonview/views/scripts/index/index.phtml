@@ -1,0 +1,164 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div id="container-1">
+    <fieldset>
+        <legend>Add Individual Information</legend>
+        <div class="register">
+            <div class="profile_tab">
+                <table id="hor-minimalist-b">
+                    <tr><td>Member Details :</td>
+                        <TD class="label" align="right">Click to Add :</TD>
+                        <TD><a href="<?php echo $this->baseUrl();?>/membername/index">ADD</a></TD>
+                    </tr>
+                    <?php 
+                    foreach($this->plugin as $selectplugin){
+                    if($selectplugin['plugin_name']=='middlename') {
+                    if($selectplugin['staus']==1) {
+                    ?>
+                    <tr>
+                        <td>Middle and Last Name:</td>
+                        <TD class="label" align="right">Click to Add :</TD>
+                        <TD><a href="<?php echo $this->baseUrl();?>/middlename/index">ADD</a></TD>
+                    </tr>
+                    <?php }}} ?>
+
+                 <?php 
+                foreach($this->plugin as $selectplugin){
+                    if($selectplugin['plugin_name']=='address') {
+                    if($selectplugin['staus']==1) { ?>
+                        <tr>
+                            <td>Member address:</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+			    <TD><a href="<?php echo $this->baseUrl();?>/address/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+			 <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='contact') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Family Information:</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+			    <TD><a href="<?php echo $this->baseUrl();?>/contactdetails/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+			  <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='website') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Website and Email:</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+			    <TD><a href="<?php echo $this->baseUrl();?>/email/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+                         <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='personal') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Member Personal Information</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+			    <TD><a href="<?php echo $this->baseUrl();?>/personal/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+			  <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='photo') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Add Photograph</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+			    <TD><a href="<?php echo $this->baseUrl();?>/photo/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+			 <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='asset') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Asset Details</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+			    <TD><a href="<?php echo $this->baseUrl();?>/asset/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+			 <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='asset') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Family Details</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+                            <TD><a href="<?php echo $this->baseUrl();?>/familydetails/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+
+			 <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='asset') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Family Health Details</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+                            <TD><a href="<?php echo $this->baseUrl();?>/asset/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+
+			 <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='asset') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Family Economic details</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+                            <TD><a href="<?php echo $this->baseUrl();?>/asset/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+
+			 <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='asset') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr>
+                            <td>Family Education details</td>
+                            <TD class="label" align="right">Click to Add :</TD>
+                            <TD><a href="<?php echo $this->baseUrl();?>/asset/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+
+			<tr>
+				<TD><a href="<?php echo $this->baseUrl();?>/membership/individual"><input type="submit" name="back" value="Back"></a></TD>
+			</tr>
+             </table>
+        </div>
+     </div>
+    </fieldset>
+</div>
+
+ 

@@ -1,0 +1,14 @@
+<?php
+class Graceperiod_Form_Search extends Zend_Form {
+    public function init() {
+
+	$formfield = new App_Form_Field();
+
+	$search_credit_grace = $formfield->field('Select','search_credit_grace','','','','','','','','','','');
+	$search_days = $formfield->field('Text','search_days','','','','','','','','','','');
+	$search_gracename = $formfield->field('Text','search_gracename','','','','','','','','','','');
+
+        $this->addElements(array($search_credit_grace,$search_days,$search_gracename));
+
+    }
+}

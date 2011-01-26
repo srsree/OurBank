@@ -1,0 +1,120 @@
+<table id="hor-minimalist-b">
+    <tr>
+        <th class="firsttd">Funder information</th>
+        <th class = "secondtd"></th>
+        <?php if(($this->fundername)!=NULL) {
+        foreach($this->fundername as $edit_id) { ?>
+        <th class="thirdtd"><a href="<?php echo $this->baseUrl();?>/funderdetails/index/editfunder/id/<?php echo $this->id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php }} ?>
+    </tr>
+    
+    <?php foreach($this->fundername as $view){ ?>
+        <tr>
+            <td class="firsttd">Funder name:</td>
+            <td class = "secondtd"><?php echo $view['name']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd">Funder type:</td>
+            <?php if($view['type']==1){ ?><td class="secondtd">Personal</td><?php } if($view['type']==2) { ?>
+            <td class="secondtd">Organization</td> <?php } ?><td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd">Acive:</td>
+            <?php if($view['status']==1){ ?><td class="secondtd">Active</td><?php } else { ?>
+            <td class="secondtd">Deactive</td> <?php } ?> </td><td class="thirdtd"></td>
+        </tr>
+    <?php } ?>
+</table>
+<br/>
+
+<table id="hor-minimalist-b">
+    <tr>
+        <th class = "firsttd">Address information</th>
+        <th class = "secondtd"></th>
+        <?php if (count($this->address)!=0) {?>
+        <th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->id;?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php } else { ?>
+        <th class = "firsttd"><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></th>
+        <?php } ?>
+    </tr>
+    <?php foreach($this->address as $address_view){ ?>
+    <tr>
+        <td class="firsttd">Address line1:</td>
+        <td class = "secondtd"><?php echo $address_view['address1']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Address line2:</td>
+        <td class = "secondtd"><?php echo $address_view['address2']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Address line3:</td>
+        <td class = "secondtd"><?php echo $address_view['address3']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">City:</td>
+        <td class = "secondtd"><?php echo $address_view['city']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">State:</td>
+        <td class = "secondtd"><?php echo $address_view['state']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Country:</td>
+        <td class = "secondtd"><?php echo $address_view['country']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Pin code:</td>
+        <td class = "secondtd"><?php echo $address_view['zipcode']; ?></td>
+        <td class="thirdtd"></td></tr>
+    <?php } ?>
+</table>
+<br/>
+
+<table id="hor-minimalist-b"> 
+    <tr>
+        <th class="firsttd">Contact information</th>
+        <th class = "secondtd"></th>
+        <?php if((count($this->contact))!=0) {
+        foreach($this->contact as $edit_id) { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/contactdetails/index/editcontact/id/<?php echo $this->id; ?>/subId/5"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php }} else { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/contactdetails/index/addcontact/id/<?php echo $this->id; ?>/subId/5"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></th>
+        <?php } ?>
+    </tr>
+    <?php foreach($this->contact as $contact){
+        ?>
+        <tr>
+            <td class="firsttd">Contact person:</td>
+            <td class = "secondtd"><?php echo $contact['contact_person']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd">Telephone number:</td>
+            <td class = "secondtd"><?php echo $contact['telephone']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd">Mobile number</td>
+            <td class = "secondtd"><?php echo $contact['mobile']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd">Email ID:</td>
+            <td class = "secondtd"><?php echo $contact['email']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+    <?php } ?>
+</table>
+<div class="btnhouse">
+        <div class="rtbtns">
+            <a href="<?php echo $this->baseUrl(); ?>/funder"><input type="button" name="back" value="Back"></a>
+        </div>
+</div>
+ 

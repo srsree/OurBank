@@ -1,0 +1,154 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<script>
+function getXMLHTTP() {
+    var xmlhttp=false;	
+        try{
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e) {
+            try {	
+                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e){
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e1){
+                    xmlhttp=false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+function getinterestranges(creditline_id,path) {
+    var strURL=path+"/account/index/interestsranges?creditline_id="+creditline_id;
+
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+
+
+function getinterest(amount,path) {
+    var creditline_id = eval(document.form1.creditline_id.value);
+    var strURL=path+"/account/index/interests?amount="+amount+"&creditlineId="+creditline_id;
+
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv1').innerHTML=req.responseText;
+                } else {
+                    document.getElementById('statediv1').innerHTML=req.responseText;
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+</script>
+
+<div style="float:left;width:350px"> 
+<table id="hor-minimalist-s">
+    <TR>
+        <td> MemberCode:</td>
+        <TD><? echo $this->membercode; ?></TD>
+    </TR>
+    <TR>
+    <td><? echo $this->label; ?></td>
+        <TD><?php echo $this->groupname;echo $this->memberfirstname;?></TD>
+    </TR>
+    <TR>
+        <td> Branch:</td>
+        <td><?php echo $this->branch ;?></TD>
+    </TR>
+    <TR>
+        <td>Sector name:</b></td>
+        <TD><?php echo $this->sectorname;?></TD>
+    </TR>
+    <TR>
+        <td> Activity name :</b></td>
+        <td><?php echo $this->activityname;?></TD>
+    </TR>
+</table>
+<br/>
+<div id="statediv"></div>
+</div>
+
+<div style="float:right;width:350px">
+    <fieldset>
+        <legend>New Loanaccount</legend>
+        <form name="form1" action="<?php echo $this->baseUrl();?>/account/index/loans/activityId/<?php echo $this->activityId;?>/memberId/<?php echo $this->memberId;?>" method="POST" onsubmit='return validate(this)'>
+            <table class="fieldsets">
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Date</label></TD>
+                    <TD><?php echo $this->loan->loanAccountdate; ?></TD>
+                </TR>
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Credit line</label></TD>
+                    <TD><?php echo $this->loan->creditline_id;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Amount</label></TD>
+                    <TD><?php echo $this->loan->amount;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Interest</label></TD>
+                    <TD><div id="statediv1"><?php echo $this->loan->interest;?></div></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Installments</label></TD>
+                    <TD><?php echo $this->loan->installments;?></TD>
+                </TR>.
+                <TR>
+                    <TD><label for="fld3">Fee</label></TD>
+                    <TD><?php echo $this->loan->fee;?></TD>
+                </TR>
+            </table>
+            <br/>
+            <div><?php echo $this->loandate; ?></div>
+            <div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->loan->Submit;?>
+<!--                    <a href="<?//php echo $this->baseUrl();?>/account/index/member/memberId/<?//php echo $this->memberId;?>/Type/<?//php echo $this->Type; ?>"><?php //echo $this->loan->Back;?></a>-->
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>
+

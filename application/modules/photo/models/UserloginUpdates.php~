@@ -1,0 +1,27 @@
+<?php
+class Management_Model_UserloginUpdates extends Zend_Db_Table_Abstract {
+    protected $_name = 'ourbank_userloginupdates';
+
+    public function userLoginInsert($post,$user_id) {
+        $data = array('userlogin_id' => '',
+                      'user_id' => $user_id,
+                      'login_name'=>$post['loginname'],
+                      'password'=>$post['password'],
+                      'confirmpassword'=>$post['confirmpassword'],
+                      'recordstatus_id'=>3,
+                      'createddate'=>date("Y-m-d"));
+      $this->insert($data);
+    }
+    
+    public function EdituserLogin($post,$createby) {
+        $data = array('userlogin_id' => '',
+                      'user_id' => $user_id,
+                      'login_name'=>$post['loginname'],
+                      'password'=>$post['password'],
+                      'confirmpassword'=>$post['confirmpassword'],
+                      'createdby'=>$createby,
+                      'recordstatus_id'=>3,
+                      'createddate'=>date("Y-m-d"));
+      $this->insert($data);
+    }
+}

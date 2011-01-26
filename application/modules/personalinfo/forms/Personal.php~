@@ -1,0 +1,29 @@
+<?php class Personalinfo_Form_P extends Zend_Form {
+
+
+		
+	
+
+	public function init() 
+	{
+
+		$vtype=array('Alpha','StringLength');
+		$formfield = new App_Form_Field ();
+
+// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+
+		
+	
+        	$email = $formfield->field('Text','email','','','mand','Email',true,'','','','','',1,0);
+               	$dateofbirth = $formfield->field('Text','dateofbirth','','','mand','Date of birth',true,'','','','','',1,0);
+               	$dateofjoin = $formfield->field('Text','dateofjoin','','','mand','Date of join',true,'','','','','',1,0);
+
+        // Hidden Feilds 
+        $user_id = $formfield->field('Hidden','user_id','','','','',false,'','','','','',0,1);
+	$recordstatusId = $formfield->field('Hidden','recordstatus_id','','','','',false,'','','','','',0,3);
+
+					
+	$this->addElements(array($email,$dateofbirth,$dateofjoin,$user_id,
+            $recordstatusId));
+    }
+}

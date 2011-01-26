@@ -1,0 +1,32 @@
+<?php
+class Personalinfo_Model_Personalinfo extends Zend_Form {
+
+    public function init()
+    {    		$dateofbirth = new Zend_Form_Element_Text('dateofbirth');
+			$dateofbirth->setAttrib('class', 'txt_put');
+			$dateofbirth->setAttrib('id', 'office');
+			$dateofbirth->setRequired(true);
+			
+			$dateofjoin = new Zend_Form_Element_Text('dateofjoin');
+			$dateofjoin->setAttrib('class', 'txt_put');
+			$dateofjoin->setAttrib('id', 'office');
+			
+			$email = new Zend_Form_Element_Text('email');
+			$email->setAttrib('class', 'txt_put');
+			$email->setAttrib('id', 'office');
+			
+
+			
+			
+			 $back= new Zend_Form_Element_Submit('Back');
+
+			$submit = new Zend_Form_Element_Submit('Submit');
+                        $update = new Zend_Form_Element_Submit('Update');
+
+		        $this->addElements(array($dateofbirth,$dateofjoin,$email,$back,$submit,$update));
+			
+			
+
+
+    }
+}

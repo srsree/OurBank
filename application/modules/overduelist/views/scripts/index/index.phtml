@@ -1,0 +1,102 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if(!$this->loanView){ ?>
+
+<form action="<?php echo $this->baseUrl();?>/overduelist" method="POST">
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search">
+                <TABLE id="hor-minimalist-b">
+                 <tr>
+						<td class="label">Branch:</td>
+						<td ><? echo $this->form->bank_id;?></td>
+						<td class="label">Loan officer:</td>
+						<td ><? echo $this->form->loanofficer;?></td>
+					</tr>
+					<tr>					
+						<td class="label">Date:</td>
+						<td ><? echo $this->form->dater;?></td>
+						
+					</tr>
+                   
+        	</TABLE>					<input type="submit" name="Search" id="Submit" value="Search">			
+   </div>
+</form>
+<?php }  ?>
+
+<?php if($this->loanView) { ?>
+</fieldset>
+	<div class="cont-rgt-data">
+
+<fieldset>
+    <legend>Loans</legend>
+ 	<h5 align="right"><?php echo $this->translate('As of '); echo "<font color='#039'>".$this->date1."</font>"; ?></h5>
+ 	<?php if($this->bankname){?><h3 align="right"><?php echo $this->translate('Bank name '); echo "<font color='#039'>".$this->bankname."</font>"; ?></h3><? } ?>
+ 	<?php if($this->officername){?><h5 align="right"><?php echo $this->translate('Loan officer '); echo "<font color='#039'>".$this->officername."</font>"; ?></h5><? } ?>
+       <br>
+       <h5 style="text-align:right"><?php echo $this->translate('* Amount in '); ?><font color="red"><?php echo $this->translate('Rs'); ?></font></h5>
+            <TABLE id="hor-minimalist-b" summary="">
+                <tr>
+	            <th>Account Number</th>
+                    <th class="label1"><?php echo $this->translate('Number of overdue'); ?></th>
+                    <th class="label1"><?php echo $this->translate('Age(in days)'); ?></th>
+                    <th class="label"><?php echo $this->translate('OverDue Amount'); ?></th>
+	        	</tr>
+<?php
+$outstanding_amount=0;
+ foreach($this->loanView as $loandue) { 
+$outstanding_amount+=$loandue['overdue'];	
+
+?>
+		<tr>
+	            <td><?php echo $loandue['account_number']; ?></td>
+                     <td class="label1"><?php echo $loandue['totalinstallments']; ?></td>
+		     <td class="label1"><?php echo $loandue['accountinstallment_date'];?></td>
+                    <td class="label"><?php echo $loandue['overdue'];?></td> 
+                </tr>
+<?php } ?>
+                <tr>
+                    <td><?php echo $this->translate('Total'); ?></td>
+                    <td></td><td></td>
+                    <td class="label"><?php echo sprintf("%4.2f",$outstanding_amount);  ?></td>
+                </tr>
+</TABLE>
+</fieldset>
+</div>
+<?php } ?>

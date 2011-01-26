@@ -1,0 +1,119 @@
+
+
+<?php $dateconvert = new Creditline_Model_dateConvertor(); ?>
+<div class="cont-rgt-data">
+<?php foreach($this->loan as $loan) {  ?>
+    <TABLE id="hor-minimalist-b">
+        <tr>
+        <th></th>        <th></th>
+        <th></th>
+        <TH align="right"><a href="<?php echo $this->baseUrl();?>/loans/index/loansedit/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></TH>
+        </tr>
+        <TR>
+            <TH>Product Details</TH>
+            <TH></TH>
+            <TH></TH>
+            <TH></TH>
+        </TR>
+        <TR>
+            <TD>Product Type</TD>
+            <TD><?php echo $loan['productname1'];?></TD>
+            <td></td>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TD>Product Name</TD>
+            <TD><?php echo $loan['productname'];?></TD>
+            <TD>Product ShortName</TD>
+            <TD><?php echo $loan['productshortname'];?></TD>
+        </TR>
+        <TR>
+            <TD>Description</TD>
+            <TD><?php echo $loan['productdescription'];?></TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TH>Date</TH>
+            <TH></TH>
+            <TH></TH>
+            <TH></TH>
+        </TR>
+        <TR>
+            <TD>Begin Date</TD>
+            <TD><?php echo $dateconvert->phpnormalformat($loan['begindate']);?></TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TD>Close Date</TD>
+            <TD><?php echo $dateconvert->phpnormalformat($loan['closedate']);?></TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TD>Applicable To</TD>
+            <TD><?php echo $loan['type'];?></TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TD>GL subcode</TD>
+            <TD><?php echo $loan['header'];?> -[<?php echo $loan['glsubcode'];?>]</TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TH>Loan Amount</TH>
+            <TH></TH>
+            <TH>Installments</TD>
+            <TH></TH>
+        </TR>
+        <TR>
+            <TD>Minimum loan amount</TD>
+            <TD><?php echo $loan['minmumloanamount'];?></TD>
+            <TD>Minimum frequency</TD>
+            <TD><?php echo $loan['minimumfrequency'];?></TD>
+        </TR>
+        <TR>
+            <TD>Maximum loan amount</TD>
+            <TD><?php echo $loan['maximunloanamount'];?></TD>
+            <TD>Maximum frequency</TD>
+            <TD><?php echo $loan['maximumfrequency'];?></TD>
+        </TR>
+        <TR>
+            <TH>Penal fee</TH>
+            <TH></TH>
+            <TH>Interest type</TD>
+            <TH></TH>
+        </TR>
+        <TR>
+            <TD>Penal fee</TD>
+            <TD><?php echo $loan['penal_Interest'];?></TD>
+            <TD>Interest type</TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TH>Grace Period</TD>
+            <TH></TH>
+            <TH>Interest Rates</TH>
+            <TH></TH>
+        </TR>
+        <TR>
+            <TD>Grace Period</TD>
+            <TD><?php echo $loan['graceperiodnumber'];?> days</TD>
+            <TD>Interest Rates</TD>
+            <TD><?php foreach($this->interest as $interest) {  ?> 
+                <?php echo $interest['period_ofrange_description'];?>&nbsp;&nbsp;&nbsp;     
+                <?php echo $interest['Interest'];?><br><?php }?></TD>
+        </TR>
+        <TR>
+            <TD><a href="<?php echo $this->baseUrl(); ?>/loans/index">
+                        <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+    </TABLE>
+<?php } ?>
+</div>

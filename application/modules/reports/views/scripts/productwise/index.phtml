@@ -1,0 +1,48 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+
+
+<legend>productwise receipts</legend>
+<div class="cont-rgt-data">
+<TABLE id="hor-minimalist-b" width="80%">
+<tr class="tdbrownheading">
+
+<th>Product name</th>
+
+<th>credit</th>
+<th>debit</th>
+
+</tr>
+<tr>
+<?php $accountid = 10; ?>
+
+<?php foreach($this->loanrepaylist as $loan) : ?>
+<td width = "150"><?php echo $loan["productname"];?></td></td>
+
+<td width = "150"><?php echo $loan["amount_from_bank"];?></td></td>
+<td width = "150"><?php echo $loan["amount_to_bank"];?></td></td>
+
+</tr>
+<?php endforeach; ?>
+</tr>
+</TABLE>
+</div>
+</fieldset>

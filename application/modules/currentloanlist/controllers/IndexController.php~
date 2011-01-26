@@ -1,0 +1,112 @@
+<?php
+class Currentloanlist_IndexController extends Zend_Controller_Action {
+	public function init() {
+		$this->view->pageTitle='Current loanlist';
+$this->view->type = "others";
+                $sessionName = new Zend_Session_Namespace('ourbank');
+		$userid=$this->view->createdby = $sessionName->primaryuserid;
+		$login=new App_Model_Users();
+		$loginname=$login->username($userid);
+		foreach($loginname as $loginname) {
+		$this->view->username=$loginname['username'];
+		}
+	}
+	public function indexAction() {
+		$Currentloans = new Currentloanlist_Model_Currentloanlist();
+   		$loanDetails = $Currentloans->fetchloanDetails();
+		$paginator = Zend_Paginator::factory($loanDetails);
+        $paginator->setCurrentPageNumber($this->_getParam("page")); 
+        $paginator->setItemCountPerPage(35);
+        $paginator->setPageRange(36);
+        $this->view->page=$this->_request->getParam('page');
+        $this->view->paginator = $paginator;
+        $this->view->depositeAmount = 0;
+        $this->view->withdrawlAmount = 0;
+        $this->view->totalAmount = 0;
+	}
+	public function reportdisplayAction() {
+		$app = $this->view->baseUrl();
+		$word=explode('/',$app);
+		$projname = $word[1];
+		$this->_helper->layout->disableLayout();
+		$file1 = $this->_request->getParam('file'); 
+		$this->view->filename = "/".$projname."/reports/".$file1;
+	}
+
+	 function pdfgenerationAction() {
+
+		$dbobj = new Currentloanlist_Model_Currentloanlist();
+ 		$result = $dbobj->fetchloanDetails(); //except credit %
+		$this->view->loanlist = $result;
+		$app = $this->view->baseUrl();
+		$word=explode('/',$app);
+		$projname = $word[1];
+		
+		$title1 = "Report for Loans list";
+		$this->view->pageTitle = $title1;
+
+		$pdf = new Zend_Pdf();
+		$page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+		$pdf->pages[] = $page;
+		// Image
+		$image_name = "/var/www/".$projname."/public/images/logo.jpg";
+		$image = Zend_Pdf_Image::imageWithPath($image_name);
+		//$page->drawImage($image, 25, 770, 570, 820);
+	
+	   $page->drawImage($image, 30, 770, 130, 820);
+        $page->setLineWidth(1)->drawLine(25, 25, 570, 25); //bottom horizontal
+        $page->setLineWidth(1)->drawLine(25, 25, 25, 820); //left vertical
+        $page->setLineWidth(1)->drawLine(570, 25, 570, 820); //right vertical
+        $page->setLineWidth(1)->drawLine(570, 820, 25, 820); //top horizontal
+    
+        $x1 = 60; 
+        $x2 = 180; 
+        $x3 = 300;
+        $x4 = 420;
+        $x5 = 300;
+        $x6 = 400;
+        $x7 = 460;
+        $y1 = 730;
+        $y2 = 750;
+    
+        //set the font
+        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 8);
+        $page->drawLine(50, 760, 550, 760);
+    
+        $text = array("Product", "Account Number", 
+                    "Member Name", "Tran Type",
+                    "Tran Mode","Tran By", 
+                    "Loan", "ID", 
+                    "Branch","A/c name", 
+                    "A/c","Amount Disbursed",
+                    "Current Loan List");
+    
+        $page->drawText($text[6],$x1, $y2);
+        $page->drawText($text[1],$x2, $y2);
+        $page->drawText($text[2],$x3, $y2);
+        $page->drawText($text[11],$x4, $y2);
+        $page->drawText($text[12],250, 780);$page->drawText($text[12],250, 780);
+        $page->drawLine(50, 740, 550, 740);
+    
+
+        foreach(loanlist as $loanDetails1) {
+        $page->drawText($loanDetails1->offerproductname,$x1, $y1);
+        $page->drawText($loanDetails1->account_number,$x2, $y1);
+        $page->drawText($loanDetails1->memberfirstname,$x3, $y1);
+        $page->drawText($loanDetails1->amount_disbursed,$x4, $y1);
+        $y1 = $y1 - 30;
+        }
+        $pdfData = $pdf->render();
+        $account_number = "Loan";
+
+	
+		$pdf->save('/var/www/'.$projname.'/reports/Currentloanlist.pdf');
+		$path = '/var/www/'.$projname.'/reports/Currentloanlist.pdf';
+		chmod($path,0777);
+
+	    }
+	}
+
+
+	
+

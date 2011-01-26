@@ -1,0 +1,64 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+    <legend>Account For</legend>
+        <div class="cont-rgt-data">
+            <form action="<?php echo $this->baseUrl();?>/accounting/accounting" method="POST">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <?php echo $this->form;?>
+                </table>
+            </form>
+        </div>
+</fieldset>
+<?php if($this->result) { ?>
+    <fieldset>
+        <legend>Search Results</legend>
+            <div style="margin-left:20px;">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <tr>
+                        <Th>memberCode</Th>
+                        <Th>Name/groupName</th>
+                        <Th>Branch</th>
+                        <Th>type</Th>
+                        <th></th>
+                    </tr>
+                        <?php foreach($this->result as $member) : ?>
+                    <tr>
+                        <td><a href="<?php echo $this->baseUrl();?>/accounting/accounting/member/memberId/<?php echo $member->id;?>/Type/<?php echo $this->Type;?>"><?php echo $member->code;?></a></td>
+                        <td><?php  echo $member->Name;?></td>
+                        <td><?php  echo $member->Office;?></td>
+                        <td align="center">
+                        <?php if ($member->type==4) { 
+                                  echo Individual;  
+                               } else {
+                                  echo "-"; 
+                               } ?></td>
+                       <td align="center">
+                       <?php if($member->type==3) { 
+                                echo Group;
+                             } else {
+                               echo "-";
+                                }?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+    </fieldset> 
+<?}?>

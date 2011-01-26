@@ -1,0 +1,9 @@
+<table id="hor-minimalist-b">
+    <tr class="tdbrownheading">
+         <th><?php echo $this->accountNumber;?> ACCOUNT HAS BEEN CREATED</th>
+<!--         <th><?php echo $this->accountNumber;?> ACCOUNT HAS BEEN CREATED</th>-->
+    </tr>
+</table>
+
+
+

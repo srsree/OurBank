@@ -1,0 +1,84 @@
+<?php
+class Groupdefault_Model_groupdefault extends Zend_Db_Table {
+   	protected $_name = 'ob_member';
+
+	public function GetBranchMembers($branchid) {
+	$db = $this->getAdapter();
+	$sql = "select * from ob_member 
+		where bank_id = $branchid
+		and id not in
+		(select member_id from ob_groupmembers 
+		where (groupmember_status = 3 or groupmember_status = 1) and id in (select id from ob_groupmembers where (groupmember_status = 3 or groupmember_status = 1)))";
+	$result = $db->fetchAll($sql);
+	return $result;
+	}
+
+	public function Getgrouphead($group_id){
+		 $select=$this->select()
+			->setIntegrityCheck(false)
+			->join(array('a' => 'ob_group'),array('id'),array('group_head'))
+			->where('a.id = '.$group_id)
+			->join(array('b' => 'ob_member'),'b.id  = a.group_head');
+		$result=$this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function GetBranchMembers1($branchid,$group_id) {
+	$db = $this->getAdapter();
+	$sql = "select * from ob_member 
+		where bank_id = $branchid 
+		and id not in
+		(select member_id from ob_groupmembers 
+		where groupmember_status = 3)";
+			$result = $db->fetchAll($sql);
+	return $result;
+		
+	}
+
+
+	public function getgroupdetails($group_id) {
+	$db = $this->getAdapter();
+	$sql = "select * from ob_group 
+		where id = $group_id";
+		$result = $db->fetchAll($sql);
+	return $result;
+		
+	}
+	public function assignMembers($group_id) {
+			$select=$this->select()
+				->setIntegrityCheck(false)
+				->join(array('a' => 'ob_groupmembers'),array('id'),array('member_id'))
+				->where('a.id = '.$group_id)
+				->where('a.groupmember_status = 3')
+				->join(array('b' => 'ob_member'),'b.id  = a.member_id');
+			$result=$this->fetchAll($select);
+			return $result->toArray();
+	// 	  die ($select->__toString($select));
+	}
+	public function UpdateGroupdetails($groupid) {
+		$where = 'id = '.$groupid;
+		$db = $this->getAdapter();
+		$db->delete('ob_groupmembers',$where);
+	
+	}
+	public function getGrouptypeid($type) {
+	$db = $this->getAdapter();
+	$sql = "select membertype_id from ob_member_types 
+		where membertype ='".$type."'";
+		$result = $db->fetchOne($sql);
+	return $result;
+		
+	}
+	public function getAccountstatus($groupid,$typeid){
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a' => 'ob_accounts'),array('account_id'),array('accountstatus_id'))
+			->where('a.member_id ='.$groupid)
+			->where('a.membertype_id ='.$typeid);
+		$result= $this->fetchAll($select);
+		return $result->toArray();
+		//die($select->__toString($select));
+	}
+
+
+}

@@ -1,0 +1,65 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+<legend>Fine Search</legend>
+<div class="search" style="margin-left:20px;">
+<form action="<?php echo $this->baseUrl();?>/management/category" method="POST">
+<table width="100%">
+<tr>
+<td class="label">Fine Name:</td>
+<td ><? echo $this->form->field3;?></td>
+
+<td class="label">Fine Rate::</td>
+<td ><? echo $this->form->field2;?></td>
+
+
+</tr>
+<tr>
+<td colspan="4" align="center"><? echo $this->form->Search;?></td>
+</tr>
+</table>
+</form>	
+</div>
+</fieldset>
+<fieldset>
+<legend>Fine</legend><tr>
+<table id="hor-minimalist-b">
+<tr>
+<th>Fine Name</th>
+<th>Description</td>
+<th>Fine Rate</td>
+<th>Edit</th>
+<th>Delete</td>
+</tr>
+
+</table>
+<td><a href="<?php echo $this->baseUrl();?>/management/category/categoryedit/category_id/<?php echo $category['category_id'];?>">
+<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+<td><a href="<?php echo $this->baseUrl();?>/management/category/categorydelete/category_id/<?php echo $category['category_id'];?>">
+<img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+
+<table>
+<tr>
+<td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/fine/addfine">
+<input name="submit" type="submit" class="NormalBtn" value="New Fine"></a></td>
+</tr>
+
+</table>
+</fieldset>

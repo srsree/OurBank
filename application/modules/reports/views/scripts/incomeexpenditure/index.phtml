@@ -1,0 +1,142 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<form action="<?php echo $this->baseUrl();?>/reports/Incomeexpenditure/index" method="POST">
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search">
+                <TABLE id="hor-minimalist-b">
+                   <tr>
+                            <td>From date</td>
+                            <td><?php echo $this->form->field1;?></td>
+                            <td>To date</td>
+                            <td><?php echo $this->form->field2;?></td>
+                    </tr>
+                    <tr>
+                            <td><? echo $this->form->Search;?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                   </tr>
+        	</TABLE>
+	   </div>
+ 	</fieldset> 
+</div>
+</form>
+<?php if($this->savingsfeeincomeexpenditure) { ?>
+<fieldset>
+    <legend>Loans</legend>
+	<div class="cont-rgt-data">
+            <TABLE id="hor-minimalist-b" summary="">
+                <tr>
+	            <th>Expenditure</th>
+	            <th>Total.</th>
+	            <th>Income</th>
+	            <th>Total</th>
+                </tr>
+		<tr>
+                <?php foreach($this->savingsfeeincomeexpenditure as $savingsincomexpe) { ?>
+	            <td>-</td>
+	            <td>-</td>
+	            <td>savings Fee</td>
+                    <?php if($savingsincomexpe['feeamount']=="") { ?>
+                    <td>-</td>
+                    <?php }  else { ?>
+                    <td><?php echo $savingsincomexpe['feeamount']; ?></td>
+                    <?php } ?>
+                <?php } ?>
+                </tr>
+		<tr>
+                <?php foreach($this->loanfeefeeincomeexpenditure as $loanincomexpe) { ?>
+	            <td>-</td>
+	            <td>-</td>
+	            <td>loan Fee</td>
+                    <?php if($loanincomexpe['feeamount']=="") { ?>
+                    <td>-</td>
+                    <?php }  else { ?>
+                    <td><?php echo $loanincomexpe['feeamount']; ?></td>
+                    <?php } ?>
+                <?php } ?>
+                </tr>
+		<tr>
+                    <?php foreach($this->savingscapitalexpenditure as $savingscapitalexpenditure) { ?>
+	            <td>savings capital expe</td>
+	            <td><?php echo $savingscapitalexpenditure['capitalamountexpenditure']; ?></td>
+                    <?php } ?>
+                    <?php foreach($this->savingscapitalincome as $savingscapitalincome) { ?>
+	            <td>savings capital income</td>
+                    <td><?php echo $savingscapitalincome['capitalamountincome']; ?></td>
+                    <?php } ?>
+                </tr>
+		<tr>
+                    <?php foreach($this->loanscapitalexpenditure as $loanscapitalexpenditure) { ?>
+	            <td>loan Capital expe</td>
+	            <td><?php echo $loanscapitalexpenditure['capitalamountexpenditure']; ?></td>
+                    <?php } ?>
+                    <?php foreach($this->loanscapitalincome as $loanscapitalincome) { ?>
+	            <td>loan Capital income</td>
+                    <td><?php echo $loanscapitalincome['capitalamountincome']; ?></td>
+                    <?php } ?>
+                </tr>
+		<tr>
+                    <?php foreach($this->savingsinterestexpenditure as $savingsinterestexpenditure) { ?>
+	            <td>savings Interest expe</td>
+                    <td><?php echo $savingsinterestexpenditure['interestamountexpenditure']; ?></td>
+                    <?php } ?>
+                    <?php foreach($this->savingsinterestincome as $savingsinterestincome) { ?>
+	            <td>Savings interest income</td>
+	            <td><?php echo $savingsinterestincome['interestamountincome']; ?></td>
+                    <?php } ?>
+
+                </tr>
+		<tr>
+                    <?php foreach($this->loansinterestexpenditure as $loansinterestexpenditure) { ?>
+	            <td>loans interest expe</td>
+                    <td><?php echo $loansinterestexpenditure['interestamountexpenditure']; ?></td>
+                    <?php } ?>
+                    <?php foreach($this->loansinterestincome as $loansinterestincome) { ?>
+	            <td>loans interest income</td>
+	            <td><?php echo $loansinterestincome['interestamountincome']; ?></td>
+                    <?php } ?>
+                </tr>
+	    </TABLE>
+	</div>
+</fieldset>
+<?php } ?>
+
+

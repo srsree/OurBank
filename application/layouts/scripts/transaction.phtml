@@ -1,0 +1,138 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<head>
+<title><?php echo $this->escape($this->title); ?></title>
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/site.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/reset.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/style2.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/wforms.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/cupertino/jquery.ui.all.css" /> 
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#date1").datepicker({});
+});
+</script>
+
+<script type="text/javascript">
+function toggleField() {
+var o = $('#paymenttype').val();
+// document.write(o);
+if((o != '1') && (o != '')){
+$('#details').show();
+$('#paymenttype_details').show();
+$('#paymenttype_details-element').show();
+} else {
+$('#details').hide();
+$('#paymenttype_details').hide();
+$('#paymenttype_details-element').hide();
+}
+}
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$('#content1').hide();
+$('#open').click(function(){
+$('#content1').show('slow');
+});
+$('a#close').click(function(){
+$('#content1').hide('slow');
+})
+});
+</script>
+
+	<script>
+	    $(document).ready(function(){
+	        //iterate through each textboxes and add keyup
+        //handler to trigger sum event
+	        $(".txt").each(function() {
+ 	            $(this).keyup(function(){
+                calculateSum();
+	            });
+	        });
+	    });
+	    function calculateSum() {
+	        var sum = 0;
+	        //iterate through each textboxes and add the values
+	        $(".txt").each(function() {
+	 	            //add only if the value is number
+            if(!isNaN(this.value) && this.value.length!=0) {
+	                sum += parseFloat(this.value);
+           }
+	        });
+	        //.toFixed() method will roundoff the final sum to 2 decimal places
+	        $("#amount").val(sum.toFixed(2));
+	    }
+	</script>
+</head>
+
+<body>
+<div id="container">
+    <div id="header"><?php echo $this->render('transactionheader.phtml'); ?></div>
+
+  <div id="leftnavig">
+    <?php if($this->pageTitle == "Loan disbursment") { ?>
+    <h4><a href="#">Loan disbursment</a></h4>
+    <?php } ?>
+
+
+    <?php if($this->pageTitle == "Loan repayment") { ?>
+    <h4><a href="#">Loan repayment</a></h4>
+    <?php } ?>
+
+
+    <?php if($this->pageTitle == "Loan status") { ?>
+    <h4><a href="#">Loan status</a></h4>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Loan details") { ?>
+    <h4><a href="#">Loan details</a></h4>
+    <?php } ?>
+
+
+    <?php if($this->pageTitle == "Transaction") { ?>
+    <h4><a href="#">Transactions</a></h4>
+        <ul>
+            <li><a href="<?php echo $this->baseUrl();?>/loandisbursment">loan disbursment </a></li>
+            <li><a href="<?php echo $this->baseUrl();?>/loanrepayment">loan repayment </a></li>
+            <li><a href="<?php echo $this->baseUrl();?>/loanstatus">loan status </a></li>
+            <li><a href="<?php echo $this->baseUrl();?>/loandetails">loan details </a></li>
+       </ul>
+    <?php } ?>
+  </div>
+
+    <div id="pagecontent">
+        <h3><?php echo $this->pageTitle;?></h3>
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+  <div id="footer">
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
+  </div>
+</div>
+</BODY>
+</html>
+

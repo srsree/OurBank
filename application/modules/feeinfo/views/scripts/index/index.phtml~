@@ -1,0 +1,35 @@
+			<form action="<?php echo $this->baseUrl();?>/feeinfo/index" method="POST">
+
+<fieldset>
+    <legend>Fee information</legend>
+	<div class="cont-rgt-data">
+                <TABLE id="hor-minimalist-b">
+                    <TR>
+                        <TD>Fee Name</TD>
+                        <TD><?php echo $this->form->feename;?></TD> 
+
+                    </TR>
+    
+                    <TR>
+                        <TD>Fee Amount</TD>
+                            <TD><?php echo $this->form->feeamount;?></TD>   
+
+                    </TR>
+    
+                    <TR>
+                        <TD>Fee Description</TD>
+                                <TD><?php echo $this->form->feedescription;?></TD>   
+
+                    </TR>
+    
+                   <tr>
+                   </tr>
+ <TR>
+                        <TD class="label"><?php echo $this->form->Submit;?></TD>
+                        <TD><a href="<?php echo $this->baseUrl(); ?>/feeinfo/">
+						<input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                    </TR>
+            </TABLE>
+    </div>
+</fieldset>
+</form>

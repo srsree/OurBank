@@ -1,0 +1,43 @@
+<table id="hor-minimalist-b">
+    <tr>
+        <th class = "firsttd"><?php echo $this->translate('Sector information'); ?></th>
+        <th class = "secondtd"></th>
+	<?php foreach($this->sector as $act) { }?>
+	<th class="thirdtd"><a href="<?php echo $this->baseUrl()."/sectors/index/sectoredit/id/".$this->id; ?>">
+			<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th> 
+    </tr>
+
+        <?php foreach($this->sector as $act) {  ?>
+	<tr>
+		<td class = "firsttd"><?php echo $this->translate('Sector name'); ?></td>
+		<td class = "secondtd"><?php echo $act['name']; ?></td>
+		<td class = "thirdtd"></td>
+	</tr>
+	<tr>
+		<td class = "firsttd"><?php echo $this->translate('Description'); ?></td>
+		<td class = "secondtd"><?php echo $act['description']; ?></td>
+		<td class = "thirdtd"></td>
+	</tr>
+	<tr>
+		<td class = "firsttd"><?php echo $this->translate('Active'); ?></td>
+		<td class = "secondtd"><?php if($act['status']==1) echo "Yes"; else echo "No";?></td>
+		<td class = "thirdtd"></td>
+	</tr>
+         
+             
+			<?php } ?>
+       
+	<tr>
+		<td class = "firsttd"><a href="<?php echo $this->baseUrl(); ?>/sectors/index/">
+                                <?php echo $this->form->Back;?></a></td>
+		<td class = "secondtd"></td>
+		<td class = "thirdtd"></td>
+	</tr>
+		
+
+      </table>
+   
+
+
+
+

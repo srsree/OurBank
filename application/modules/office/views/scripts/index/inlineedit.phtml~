@@ -1,0 +1,9 @@
+<td class="inlineedittd"><?php echo $this->hierarchyLevel." xcv" ;?></td>
+<td class="inlineedittd"> <?php echo $this->form1->officeType;  ?>
+                          <?php echo $this->form1->hierarchyLevel;  ?>
+                          <?php echo $this->form1->id;  ?></td> 
+<td class="inlineedittd"><span style="float:left; width:55px;"><?php echo $this->form1->officeCode;  ?></span>
+<?echo $this->form1->Edit;?>
+<a style="float: left;" href="<?php echo $this->baseUrl();?>/management/officehierarchy">
+<input name="cancel" style="margin-left:2px;" type="button" class="officebutton" value="cancel"></a>
+	</td>

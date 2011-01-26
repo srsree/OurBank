@@ -1,0 +1,57 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+	    <table id="hor-minimalist-b" >
+		<tr><td><?php echo $this->translate("Bank Name:"); ?></td><?php if(!$this->bankname) { ?><td>All Banks</td> <? } else { ?><td><?php echo $this->bankname; } ?></td></tr>
+		<tr><td><?php echo $this->translate("Activity Name:"); ?></td><?php if(!$this->activityname) { ?><td>All Activity</td> <? } else { ?><td><?php echo $this->activityname; } ?></td></tr>
+		<tr><td><?php echo $this->translate("Credit line  Name:"); ?></td><?php if(!$this->creditid) { ?><td>All Credit line</td> <? } else { ?><td><?php echo $this->creditname; } ?></td></tr>
+            	</table>
+            <TABLE id="hor-minimalist-b" >
+		<tr>
+	            <td id="reportth"><?php echo $this->translate("Name"); ?></td>
+                    <td id="reportth"><?php echo $this->translate("Account Number"); ?></td>
+                    <td align="right" id="reportth"><?php echo $this->translate("Loan Amount-R$"); ?></td>
+	            <td align="right" id="reportth"><?php echo $this->translate("Outstanding Balance-R$"); ?></td>
+	        </tr>
+<?php
+$outstandingtotal = "0";
+$loantotal = "0";
+ foreach($this->clientView as $outstanding) {
+$outstandingtotal += $outstanding['SUM(e.accountinstallment_amount)'];
+$loantotal += $outstanding['loan_amount'];
+?>
+		<tr>
+	            <td><?php echo $outstanding['member_name']; ?></td>
+                    <td><?php echo $outstanding['account_number']; ?></td>
+		    <td align="right"><?php echo $outstanding['loan_amount']; ?></td>
+		    <td align="right"><?php echo $outstanding['SUM(e.accountinstallment_amount)']; ?></td>
+                </tr>
+<?php } 
+?>
+		<tr>
+		<td>Total</td>
+		<td></td>
+		<td align="right"><?php echo sprintf("%4.2f",$loantotal); ?></td>
+		<td align="right"><?php echo sprintf("%4.2f",$outstandingtotal); ?></td>
+		</tr>
+</TABLE>
+
+
+
+

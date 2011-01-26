@@ -1,0 +1,289 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/ 
+
+class Membership_GroupController extends Zend_Controller_Action {
+
+    function init() {
+        $this->view->pageTitle = "Group Member";
+    }
+
+    function indexAction() {
+        $this->view->pageTitle = '<a href = "/ourbank/public/membership"> Membership </a> ->  Group Member';
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $individual = new Membership_Model_Individual();
+        $subBranch = $individual->getBranchOffice();
+        foreach($subBranch as $subBranch) {
+                $searchForm->field1->addMultiOption($subBranch['bank_id'],$subBranch['bankname']);
+        }
+
+	$group = new Membership_Model_Group();
+	$groupmemberDetails=$group->groupmemberDetails(); 
+        $paginator = Zend_Paginator::factory($groupmemberDetails);
+        $paginator->setCurrentPageNumber($this->_getParam("page"));
+        $paginator->setItemCountPerPage(5);
+        $paginator->setPageRange(6);
+        $this->view->paginator = $paginator;
+        $this->view->groupmemberDetails=$groupmemberDetails;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search') ) 
+        {
+                $formData = $this->_request->getPost();
+                if ($searchForm->isValid($formData)) 
+                {
+                $searchgroup = $group->groupSearch($searchForm->getValues());
+                $paginator = Zend_Paginator::factory($searchgroup);
+                $paginator->setCurrentPageNumber($this->_getParam("page"));
+                $paginator->setItemCountPerPage(5);
+                $paginator->setPageRange(6);
+                $this->view->paginator = $paginator;
+                $this->view->groupmemberDetails=$searchgroup;
+                }
+                if(!$searchForm)
+                {
+                    echo "<font color:red>Records not founts </font>";
+                }
+        }
+    }
+
+    function getgroupsAction() {
+        $this->_helper->layout->disableLayout();
+        $office_id = $this->_request->getParam('office_id');
+
+        $group =  new Membership_Model_Group();
+        $this->view->members = $group->getGroupList($office_id);
+    }
+
+    function getmembersAction() {
+        $this->_helper->layout->disableLayout();
+        $office_id = $this->_request->getParam('office_id');
+
+        $group =  new Membership_Model_Group();
+        $this->view->members = $group->getMember($office_id);
+    }
+
+    function addgroupAction() {
+
+        $app = $this->view->baseUrl();
+        $this->view->pageTitle = '<a href = "/ourbank/public/membership"> Membership </a> -> <a href = "/ourbank/public/membership/group"> Group Member </a> ->  Add Member';
+        $form =  new Membership_Form_Group($app);
+        $this->view->form=$form;
+
+        $individual = new Membership_Model_Individual();
+
+        $subBranch = $individual->getBranchOffice();
+        foreach($subBranch as $subBranch) {
+                $form->office_id->addMultiOption($subBranch['bank_id'],$subBranch['bankname']);
+        }
+    }
+
+    function groupaccountAction() {
+
+        $member_id = $_POST['member_id'];
+        $office_id = $this->_request->getParam('office_id');
+        $groupname = $this->_request->getParam('groupname');
+        $groupaddress_line1 = $this->_request->getParam('groupaddress_line1');
+        $groupaddress_line2= $this->_request->getParam('groupaddress_line2');
+        $groupaddress_line3 = $this->_request->getParam('groupaddress_line3');
+        $groupaddress_location = $this->_request->getParam('groupaddress_location');
+        $date=date("y/m/d H:i:s");
+
+        $validator = new Zend_Validate_Db_RecordExists('ourbank_groupaddress','groupname');
+        if ($validator->isValid($groupname)) {
+            $messages = $validator->getMessages();	
+            echo $this->view->errorgroupname=$groupname.'Already Existed';
+        } else {
+            $memberId = new Membership_Model_Group();
+            $mFirstInsertedId = $memberId->insertRow(array('member_id' => '',
+                                                           'memberbranch_id' => $office_id,
+                                                           'member_status' => 3));
+
+
+            $o=str_pad($office_id,3,"0",'STR_PAD_LEFT'); 
+            $p = "03";
+            $u=str_pad($mFirstInsertedId,5,"0",'STR_PAD_RIGHT'); 
+            $membercode=$o.$p.$u;
+
+            $memberDelete = array('membercode' =>$membercode,
+                                  'membertype_ID' => 3);
+            $memberId->updateRow1($mFirstInsertedId,$memberDelete);
+
+            $groupaddress = new Membership_Model_Group();
+            $gInsert = $groupaddress->insertgroupaddress(array('groupname_id' => '',
+                                                               'group_id'=> $mFirstInsertedId,
+                                                               'groupoffice_id' => $office_id,
+                                                               'groupname' =>$groupname,
+                                                               'groupaddress_line1' => $groupaddress_line1,
+                                                               'groupaddress_line2' => $groupaddress_line2,
+                                                               'groupaddress_line3' => $groupaddress_line3,
+                                                               'groupaddress_location' => $groupaddress_location,
+                                                               'groupaccountstatus' => 3,
+                                                               'groupcreateddate' => $date,
+                                                               'groupcreatedby' =>$date,
+                                                               'groupediteddate' => $date,
+                                                               'groupeditedby' => 1,
+                                                               'groupreferedby' => 1,
+                                                               'recordstatus_id' => 3));
+
+            $office_id = $this->_request->getParam('office_id');
+
+            $staff2 = new Membership_Model_Group();
+            foreach($member_id as $member_id) {
+                        $staff2->insertgroupAccount(array('groupmember_id' => '',
+                                                          'group_id' =>$mFirstInsertedId,
+                                                          'member_id' => $member_id,
+                                                          'groupmember_status' =>3));
+            }
+  
+        $this->_redirect('membership/group');
+        }
+    }
+
+    function viewgroupAction()
+    {
+
+        $this->view->title = "View Group";
+        $groupname_id = $this->_request->getParam('groupname_id');
+
+        $group = new Membership_Model_Group();
+
+        $this->view->groupViewDetails = $group->groupView($groupname_id);
+        $this->view->groupmembersView = $group->groupmembersView($groupname_id);
+    }
+
+    function editgroupAction()
+    {
+	$app = $this->view->baseUrl();
+        $this->view->title = "View Group";
+        $groupname_id = $this->_request->getParam('groupname_id');
+
+        $form =  new Membership_Form_Group($app);
+        $this->view->form=$form;
+
+        $individual = new Membership_Model_Individual();
+        $subBranch = $individual->getBranchOffice();
+
+        foreach($subBranch as $office_name) {
+                $form->office_id->addMultiOption($office_name['bank_id'],$office_name['bankname']);
+        }
+
+	$memberfirstname = new Membership_Model_Group();
+        $select = $memberfirstname->groupmembersView($groupname_id);
+	//$form->populate($select[0]);
+
+        foreach($select as $memberfirstname) {
+                $member_id = $form->member_id->addMultiOption($memberfirstname['member_id'],
+                $memberfirstname['memberfirstname']);
+                $member_id->setAttrib('checked','true');
+	}
+
+        $group = new Membership_Model_Group();
+        $this->view->groupname_id =$groupname_id;
+        $groupViewDetails=$group->groupView($groupname_id);
+        $this->view->groupViewDetails = $groupViewDetails;
+
+	foreach( $this->view->groupViewDetails as $groupViewDetails) {
+		$this->view->form->groupname->setValue($groupViewDetails['groupname']);
+		$this->view->form->groupaddress_line1->setValue($groupViewDetails['groupaddress_line1']);
+		$this->view->form->groupaddress_line2->setValue($groupViewDetails['groupaddress_line2']);
+		$this->view->form->groupaddress_line3->setValue($groupViewDetails['groupaddress_line3']);
+		$this->view->form->groupaddress_location->setValue($groupViewDetails['groupaddress_location']);
+		$this->view->form->office_id->setValue($groupViewDetails['bank_id']);
+	}
+
+        $this->view->form->submit->setName('Update');
+	if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+            $groupname_id = $this->_request->getParam('groupname_id');
+	    $formData = $this->_request->getPost();
+            if ($form->isValid($formData)) {
+		$groupname = $form->getvalue('groupname');
+		$office_id = $form->getvalue('office_id');
+		$groupaddress_line1 = $form->getvalue('groupaddress_line1');
+		$groupaddress_line2 = $form->getvalue('groupaddress_line2');
+		$groupaddress_line3 = $form->getvalue('groupaddress_line3');
+		$groupaddress_location = $form->getvalue('groupaddress_location');
+		$groupname_id = $this->_request->getParam('groupname_id');
+
+		$date=date("y/m/d H:i:s");
+
+                $group = new Membership_Model_Group();
+		$groupSelect = $group->groupView($groupname_id);
+
+		foreach($groupSelect as $group) {
+			$group_idOld=$group['group_id']; 	
+                }
+
+		$groupaddress = new Membership_Model_Group();
+            	$gInsert = $groupaddress->insertgroupaddress(array('groupname_id' => '',
+                                                                    'group_id'=> $group_idOld,
+                                                                    'groupoffice_id' => $office_id,
+                                                                    'groupname' =>$groupname,
+                                                                    'groupaddress_line1' => $groupaddress_line1,
+                                                                    'groupaddress_line2' => $groupaddress_line2,
+                                                                    'groupaddress_line3' => $groupaddress_line3,
+                                                                    'groupaddress_location' => $groupaddress_location,
+                                                                    'groupaccountstatus' => 3,
+                                                                    'groupcreateddate' => $date,
+                                                                    'groupcreatedby' =>$date,
+                                                                    'groupediteddate' => $date,
+                                                                    'groupeditedby' => 1,
+                                                                    'groupreferedby' => 1,
+                                                                    'recordstatus_id' => 3));
+         
+		$groupname = new Membership_Model_Group();
+               	$data = array('recordstatus_id' => 2);
+		$groupname->groupUpdate($groupname_id,$data);
+                $this->_redirect('membership/group');
+            }
+	}
+    }
+
+    function deletegroupAction()
+    {
+	
+        $group = new Membership_Model_Group();
+        $deleteform = new Management_Form_Delete();
+        $this->view->form = $deleteform;
+
+	$groupname_id = $this->_request->getParam('groupname_id'); 
+	$memberSelect = $group->groupView($groupname_id);
+	
+	foreach($memberSelect as $mSelect) {
+                $this->view->groupname_id = $mSelect['groupname_id']; 
+	   	$this->view->groupname = $mSelect['groupname'];
+                $this->view->member_status = $mSelect['member_status'];
+	}
+
+	if ($this->_request->isPost()) {
+		$action_yes = $this->_request->getPost('Yes');
+		$action_no = $this->_request->getPost('No');
+		if ($action_yes=="Yes") {
+                    $groupname_id =$this->_request->getParam('id');
+                    $groupname = new Membership_Model_Group();
+                    $remarks = $this->_getParam('remarks');
+                    $data = array('recordstatus_id' => 5,
+                                   'remarks' => $remarks);
+                    $groupname->groupUpdate($groupname_id,$data);
+                    $this->_redirect('membership/group');
+		}
+	}
+    }
+}

@@ -1,0 +1,41 @@
+<?php 
+		class Overduelist_Model_Overduelist extends Zend_Db_Table { 
+ 			protected $_name = 'ob_accounts';
+
+ 
+public function getbankNames() 
+		{
+         		$select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->from('ob_institute_bank_details')
+						->where('recordstatus_id=3');
+        		return $result = $this->fetchAll($select);
+      // die ($select->__toString($select));
+    		}
+ public function search($bank,$date,$officer)
+		{
+        		
+  						$select=$this->select()
+                        ->setIntegrityCheck(false)
+                        ->join(array('a'=>'ourbank_installmentdetails'),array('count(a.	installment_id) as 				totalinstallments','Sum(a.installment_amount) as overdue','a.installment_date'))
+                        ->where('a.installment_date <= "'.$date.'"')
+                        ->where('a.installment_status=5')
+						->where('a.created_by like "%" ? "%"',$officer)
+						->group('a.account_id')
+ 						->join(array('b'=>'ourbank_loanaccounts'),'b.account_id=a.account_id',array('id'))
+ 						->join(array('c'=>'ourbank_accounts'),'c.id=b.account_id',array('c.account_number'))
+                        ->where('c.status_id = 3 || c.status_id = 1')
+ 						->join(array('f'=>'ourbank_member'),'f.id=c.member_id',array('id'))
+						->join(array('e'=>'ourbank_office'),'e.id=f.memberoffice_id',array('id'))
+                        ->where('e.id like "%" ? "%"',$bank);
+
+
+
+                                        //	die($select->__toString($select));
+
+                        $result = $this->fetchAll($select);
+                        return $result->toArray();
+    		}
+
+
+}

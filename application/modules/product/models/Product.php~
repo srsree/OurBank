@@ -1,0 +1,116 @@
+<?php
+class Product_Model_Product extends Zend_Db_Table {
+	protected $_name = 'ourbank_category';
+
+	public function getCategoryDetails() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_product'),array('a.id'))
+						->join(array('b'=>'ourbank_category'),'a.category_id = b.id',array('b.name as categoryname') );
+
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+	}
+
+	public function getProductinformation() {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a' => 'ourbank_product'),array('id'));
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+die($select->__toString($select));
+	}
+
+	public function viewCategory($category_id) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_category'),array('id'))
+			->where('a.id = ?',$category_id);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+// 	public function addCategory($post,$category_id) {
+// 		$sessionName = new Zend_Session_Namespace('ourbank');
+// 		$createdby = $sessionName->primaryuserid;
+// 		$data = array('categoryupdates_id'=> '',
+// 					'category_id'=> $category_id,
+// 					'categoryname'=>$post['categoryname'],
+// 					'categorydescription'=>$post['categorydescription'],
+// 					'recordstatus_id'=>'3',
+// 					'createdby'=>$createdby,
+// 					'createddate'=>date("Y-m-d"),
+// 					'editedby'=>$createdby,
+// 					'editeddate'=>date("Y-m-d"));
+// 		$this->insert($data);
+// 	}
+
+// 	public function editCategory($post,$category_id) {
+// 		$sessionName = new Zend_Session_Namespace('ourbank');
+// 		$createdby = $sessionName->primaryuserid;
+// 		$where = 'category_id = '.$category_id;
+// 		$data = array('categoryname'=>$post['categoryname'],
+// 					'categorydescription'=>$post['categorydescription'],
+// 					'createdby'=>$createdby,
+// 					'createddate'=>date("Y-m-d"),
+// 					'editedby'=>$createdby,
+// 					'editeddate'=>date("Y-m-d"));
+// 		$this->update($data,$where );
+// 	}
+
+	public function editCategory($post) {
+		$sessionName = new Zend_Session_Namespace('ourbank');
+		$createdby = $sessionName->primaryuserid;
+		$data = array('categoryupdates_id'=> '',
+					'category_id'=>$post['category_id'],
+					'categoryname'=>$post['categoryname'],
+					'categorydescription'=>$post['categorydescription'],
+					'recordstatus_id'=>'3',
+					'createdby'=>$createdby,
+					'createddate'=>date("Y-m-d"),
+					'editedby'=>$createdby,
+					'editeddate'=>date("Y-m-d"));
+		$this->insert($data);
+	}
+
+	public function getProduct($id) {
+		$select=$this->select()
+                ->setIntegrityCheck(false)
+                ->join(array('a'=>'ourbank_product'),array('id'))
+                ->where('a.id=?',$id)
+			->join(array('b'=>'ourbank_category'),'a.category_id = b.id',array('b.name as categoryname') );
+
+		// die($select->__toString($select));
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+	}
+
+	public function deleteCategory($category_id,$remarks) {
+		$data = array('recordstatus_id'=> 5,'remarks'=>$remarks);
+		$where = 'category_id = '.$category_id;
+		$this->update($data , $where );
+	}
+
+	public function SearchProduct($post = array()) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_product'),array('id'))
+			->where('a.name like "%" ? "%"',$post['name'])
+			->where('a.description like "%" ? "%"',$post['description'])
+			->where('a.category_id like "%" ? "%"',$post['category_id'])
+			->where('a.shortname like "%" ? "%"',$post['shortname'])
+			->join(array('b'=>'ourbank_category'),'a.category_id = b.id',array('b.name as categoryname') );
+
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+
+	
+	
+
+
+
+	
+}

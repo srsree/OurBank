@@ -1,0 +1,27 @@
+<?php class Cbtransaction_Form_Transaction extends Zend_Form {
+
+
+		
+	
+
+	public function init() 
+	{
+
+		$vtype=array('Alpha','StringLength');
+		$formfield = new App_Form_Field ();
+
+// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+
+		
+        $field1 = $formfield->field('Text','field1','','','mand','Intrest %',true,'','','','','',1,0); 
+        $field3 = $formfield->field('Select','field3','','','mand','Funding currency',true,'','','','','',1,0);
+        $field2 = $formfield->field('Text','field2','','','mand','Funding amount R$',true,'','','','','',1,0);
+        $field4 = $formfield->field('Text','field4','','','mand','Funding exchange rate',true,'','','','','',1,0);
+
+        // Hidden Feilds 
+      
+
+					
+            $this->addElements(array($field1,$field2,$field3,$field4));
+    }
+}

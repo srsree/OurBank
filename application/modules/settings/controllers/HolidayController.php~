@@ -1,0 +1,107 @@
+<?php
+class Management_HolidayController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Holiday';
+    }
+
+    public function indexAction() {
+        $this->view->title = "Holiday";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $holiday= new Management_Model_Holiday();
+        $result = $holiday->getHoliday();
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+
+
+    }
+
+    public function holidayviewAction() {
+        $this->view->title = "View Holiday";
+        $holidayupdate_id = (int)$this->_getParam('id');
+        $posts = new Management_Model_Holiday();
+        $result = $posts->viewholiday($holidayupdate_id);
+        $this->view->holiday = $result;
+    }
+
+    public function holidayaddAction() {/*
+        $this->view->title = "New Holiday";
+        $holidayForm = new Management_Form_Holiday();
+        $this->view->form = $holidayForm;
+
+        $model = new Management_Model_Office();
+        $office_id1 = $model->getOffice();
+        foreach($office_id1 as $office_id) {
+                $holidayForm->office_id->addMultiOption($office_id['office_id'], 
+                                                     $office_id['office_name']);
+        }
+
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($holidayForm->isValid($formData)) {
+                                    $holiday = new Management_Model_holiday();
+                                    $result = $holiday->addholiday();
+                                    $holiday_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_holiday','holiday_id');
+
+                                    $model = new Management_Model_Holiday();
+                                    $model->insertHoliday($holidayForm->getValues());
+                                    $this->_redirect('index/index');
+               }
+            }
+        }
+            $this->view->form = $holidayForm;*/
+    }
+
+
+    public function holidayeditAction() {
+        $this->view->title = "Edit Holiday";
+        $holidayupdate_id = (int)$this->_getParam('id');
+        $form1 = new Form_Post();
+        $this->view->form1 = $form1;
+
+        $model = new Model_DbTable_Office();
+        $office_id1 = $model->getOffice();
+        foreach($office_id1 as $office_id) {
+                $form1->office_id->addMultiOption($office_id['office_id'],
+                                                  $office_id['office_name']);
+        }
+
+        $model = new Model_DbTable_HolidayRepayment();
+        $holidayrepayment_id = $model->getRepayment();
+        foreach($holidayrepayment_id as $holidayrepayment_id) {
+                $form1->holidayrepayment_id->addMultiOption(
+                $holidayrepayment_id['holidayrepayment_id'], 
+                $holidayrepayment_id['repaymentdescription']);
+        }
+
+        $postModel = new Model_DbTable_Posts();
+        if ($this->getRequest()->isPost()) {
+            if ($form1->isValid($request->getPost())) {
+                $postModel->updateHoliday($form1->getValues());
+                $this->_redirect('posts/view/id/'.$postid);
+            }
+        } else {
+            $result = $postModel->viewholiday($holidayupdate_id); 
+            $form1->populate($result[0]);
+          }
+            $this->view->form1 = $form1;
+            $this->view->form1->Submit->setName('Update');	
+    }
+
+    public function holidaydeleteAction() {
+        $this->view->title = "Delete Holiday";
+        $holidayupdate_id = (int)$this->_getParam('id');
+        $postModel = new Model_DbTable_Posts();
+        $postModel->deleteHoliday($holidayupdate_id);
+        $this->_redirect('index/index');
+    }
+}

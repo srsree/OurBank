@@ -1,0 +1,51 @@
+
+
+
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Credit Line VIEW</legend>
+<?php   
+	if($this->count){
+	foreach($this->fetchcreditline as $fetchcreditline){ ?>
+		<table style="float:left">
+			<tr>
+				<td colspan="5" class="td_border">Credit Line</td>
+			</tr>
+			<TR >
+				<TD class="label" align="right" width="40%">Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $fetchcreditline['name'];?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Portfolio Value<span class="reqMark">*</span></TD>
+				<TD ><?php echo $fetchcreditline['protfolio_value'];?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Start Date<span class="reqMark">*</span></TD>
+				<TD ><?php echo $fetchcreditline['start_date'];?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">End Date<span class="reqMark">*</span></TD>
+				<TD ><?php echo $fetchcreditline['end_date'];?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				
+				<TD class="label" align="right" width="40%">Active<span class="reqMark">*</span></TD>
+				<TD ><?php if($fetchcreditline['status']==1){ echo "Active";} else { echo "In Active"; }?></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%"></TD>
+				<TD ><a href="<?php echo $this->baseUrl();?>/creditline/index"><input type="button" value="Back"></a></TD>
+			</TR>
+		</table>
+<?php   } 
+	}
+	else { ?>
+		<table style="float:left">
+			<tr>
+				<td colspan="5" class="td_border">ADD</td>
+			</tr>
+		</table>
+	<?php }
+?>
+</fieldset>

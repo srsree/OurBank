@@ -1,0 +1,63 @@
+<fieldset>
+	<legend>Creditlines edit</legend>
+	<div class="register">
+		<div class="profile_tab">
+			<form action="<?php echo $this->baseUrl();?>/management/creditline/creditlineedit" method="POST" name="joe" id="signupForm" class="cmxform">
+				<div style="display:none">
+					<?php echo $this->form->creditline_id;?>
+					<?php echo $this->form->institution_id;?>
+				</div>
+				<table style="float:left">
+					<TR >
+						<TD class="txt_rgt" align="right">Institution Name<span class="reqMark">*</span></TD>
+						<TD ><?php echo $this->form->institutionnames;?></TD>
+					</TR>
+					<TR >
+						<TD class="txt_rgt" align="right">Institution Amount R$</TD>
+						<TD ><?php echo $this->form->instituteamount;?></TD>
+					</TR>
+					<TR >
+						<TD class="txt_rgt" align="right">Maximum creditline Amount R$</TD>
+						<TD ><?php echo $this->form->maxcreditlinelimit;?></TD>
+					</TR>
+					<TR >
+						<TD class="txt_rgt" align="right">creditline Name<span class="reqMark">*</span></TD>
+						<TD ><?php echo $this->form->creditlinename;?></TD>
+					</TR> 
+
+					<TR >
+						<TD class="txt_rgt" align="right">creditline ShortName<span class="reqMark">*</span></TD>
+						<TD><?php echo $this->form->creditline_shortname;?></TD>
+					</TR>
+					<TR >
+						<TD class="txt_rgt" align="right">creditline amount R$:<span class="reqMark">*</span></TD>
+						<TD ><?php echo $this->form->creditlineamount;?></TD>
+					</TR>
+					<TR >
+						<TD class="txt_rgt" align="right">creditline interest %<span class="reqMark">*</span></TD>
+						<TD><?php echo $this->form->creditlineinterest;?></TD>
+					</TR>
+					<TR >
+						<TD class="txt_rgt" align="right">creditline from<span class="reqMark">*</span></TD>
+						<TD><?php echo $this->form->creditline_beginingdate;?></TD>
+					</TR>
+					<TR >
+						<TD class="txt_rgt" align="right">creditline to<span class="reqMark">*</span></TD>
+						<TD><?php echo $this->form->creditline_closingdate;?></TD>
+					</TR>
+					<tr>
+						<td align="right"><?php echo $this->form->Submit;?></td>
+						<td align="right"><a href="<?php echo $this->baseUrl(); ?>/management/fundings">       <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+
+
+
+					</tr>
+					<CENTER style="color:red"><?php echo $this->updateerror; ?></CENTER>
+					<CENTER style="color:red"><?php echo $this->institution; ?></CENTER>
+					<CENTER style="color:red"><?php echo $this->totalremaininginstitutionamount; ?></CENTER>
+				</table>
+			</form>
+		</div>
+	</div>
+</fieldset>
+

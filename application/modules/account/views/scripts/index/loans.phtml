@@ -1,0 +1,302 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<script>
+function getXMLHTTP() {
+    var xmlhttp=false;	
+        try{
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e) {
+            try {	
+                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e){
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e1){
+                    xmlhttp=false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+
+function getinterestcategory(interestcategory,path) {
+    var strURL=path+"/account/index/interestcategory?interestcategory="+interestcategory;
+
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv5').innerHTML=req.responseText;
+                } else {
+                    document.getElementById('statediv5').innerHTML=req.responseText;
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+
+function getinterestranges(creditline_id,path) {
+    var interest_category = eval(document.form1.interest_category.value);
+    var strURL=path+"/account/index/interestsranges?creditline_id="+creditline_id+"&interest_category="+interest_category;
+
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+
+function getcreditline(creditline_id,path) {
+if(creditline_id=="") {
+alert("select  the cleditline again");
+} else {
+    var strURL=path+"/account/index/creditline?creditline_id="+creditline_id;
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv2').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+}
+
+function getinterest(amount,path) {
+    var creditline_id = eval(document.form1.creditline_id.value);
+    var interestId = eval(document.form1.interest_category.value);
+    var strURL=path+"/account/index/interests?amount="+amount+"&creditlineId="+creditline_id+"&interestId="+interestId;
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv1').innerHTML=req.responseText;
+                } else {
+                    document.getElementById('statediv1').innerHTML=req.responseText;
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+
+function getballet(amount,path) {
+    var creditline_id = eval(document.form1.creditline_id.value);
+    var interestId = eval(document.form1.interest_category.value);
+    var strURL=path+"/account/index/ballet?amount="+amount+"&creditlineId="+creditline_id+"&interestId="+interestId;
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv3').innerHTML=req.responseText;
+                } else {
+                    document.getElementById('statediv3').innerHTML=req.responseText;
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+
+function getfeepercent(amount,path) {
+    var creditline_id = eval(document.form1.creditline_id.value);
+    var interestId = eval(document.form1.interest_category.value);
+    var strURL=path+"/account/index/feepercent?amount="+amount+"&creditlineId="+creditline_id+"&interestId="+interestId;
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv6').innerHTML=req.responseText;
+                } else {
+                    document.getElementById('statediv6').innerHTML=req.responseText;
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+
+function getfee(installment,path) {
+    var amount = eval(document.form1.amount.value);
+    var feepercent = eval(document.form1.feepercent.value);
+    var strURL=path+"/account/index/fee?amount="+amount+"&feepercent="+feepercent;
+
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv4').innerHTML=req.responseText;
+                } else {
+                    document.getElementById('statediv4').innerHTML=req.responseText;
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+       }
+}
+
+
+</script>
+
+<div style="float:left;width:350px"> 
+<table id="hor-minimalist-s">
+    <TR>
+        <td> Member code</td>
+        <TD><? echo $this->membercode; ?></TD>
+    </TR>
+    <TR>
+    <td><? echo $this->label; ?></td>
+        <TD><?php echo $this->groupname;echo $this->memberfirstname;?></TD>
+    </TR>
+    <TR>
+        <td>Branch</td>
+        <td><?php echo $this->branch ;?></TD>
+    </TR>
+</table>
+<br/>
+<div id="statediv"></div>
+<br/>
+<table id="hor-minimalist-s">
+    <TR>
+        <th>Active account</td>
+        <th>Activites</th>
+    </TR>
+    <?php foreach($this->account as $arrayroles2)  { ?>
+    <TR>
+        <TD><?php echo $arrayroles2->account_number;?></TD>
+        <TD><?php echo $arrayroles2->name;?></TD>
+    </TR>
+    <? } ?>
+</table>
+</div>
+
+<div style="float:right;width:350px">
+    <fieldset>
+        <legend>New loan account</legend>
+        <form name="form1" action="<?php echo $this->baseUrl();?>/account/index/loans/memberId/<?php echo $this->memberId;?>/membercode/<?php echo $this->membercodeid;?>" method="POST" onsubmit='return validate(this)'>
+            <table class="fieldsets">
+                <div id="statediv6"></div>
+                <TR>
+                    <TD><label for="fld1" class="mand">Interest category</label></TD>
+                    <TD><?php echo $this->loan->interest_category;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Creditline</label></TD>
+                    <TD><div id="statediv5"><?php echo $this->loan->creditline_id;?></div></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Creditline balance R$</label></TD>
+                    <TD><div id="statediv2"><?php echo $this->loan->cteditlineamount;?></div></TD>
+                </TR>
+
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Activity name</label></TD>
+                    <TD><?php echo $this->loan->activity_id;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Date</label></TD>
+                    <TD><?php echo $this->loan->loanAccountdate; ?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Loan amount R$</label></TD>
+                    <TD><?php echo $this->loan->amount;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Interest %</label></TD>
+                    <TD><div id="statediv1"><?php echo $this->loan->interest;?></div></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Billet R$</label></TD>
+                    <TD><div id="statediv3"><?php echo $this->loan->ballet;?></div></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Fee</label></TD>
+                    <TD><div id="statediv4"><?php echo $this->loan->fee;?></div></TD>
+                </TR>.
+                <TR>
+                    <TD><label for="fld1" class="mand">Installments</label></TD>
+                    <TD><?php echo $this->loan->installments;?></TD>
+                </TR>
+<!--                <TR>
+                    <TD><label for="fld1" class="mand">Interest type</label></TD>
+                    <TD><?php //echo $this->loan->interest_type;?></TD>
+                </TR>-->
+                <?php if($this->membertype_ID == '3') { ?>
+                <?php if($this->groupMembers) { ?>
+                <TR>
+                    <TD><label for="fld1" class="mand">Members</label></TD>
+                    <TD><?php echo $this->loan->members;?></TD>
+                </TR>
+                <?php } else { ?>
+                    <?php echo "No members to create the account"; ?>
+                <?php } ?>
+                <?php } ?>
+            </table>
+            <br/>
+            <div><?php echo $this->activitydate; ?><?php echo $this->currentloandate; ?><?php echo $this->creditlineremainingamount; ?></div>
+            <div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->loan->Submit;?>
+                 </div>
+                <div class="rtbtns">
+                    <a href="<?php echo $this->baseUrl();?>/account"><?php echo $this->loan->Back;?></a>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>
+
+

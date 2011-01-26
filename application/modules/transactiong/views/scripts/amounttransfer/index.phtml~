@@ -1,0 +1,16 @@
+    <fieldset>
+        <legend>Search</legend>
+            <div class="cont-rgt-data">
+                <form action="<?php echo $this->baseUrl();?>/index" method="POST">
+                    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <tr>
+                            <td>Account Number</td>
+                            <td><?php echo $this->form->member_id;?></td>
+                        </tr>
+                        <tr>
+                            <TD colspan = "2"><?php echo $this->form->Search;?></TD>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+    </fieldset>

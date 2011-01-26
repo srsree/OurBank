@@ -1,0 +1,86 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div style="float:left;width:380px">
+<fieldset>
+<legend>Account From</legend>
+<form action="<?php echo $this->baseUrl();?>/transaction/amounttransfer/transferto" method="POST">
+    <TABLE id="hor-minimalist-b">
+        <?php foreach($this->savingDetailsFrom as $savingDetails) {  ?>
+                <TR>
+                    <TD>Name</TD>
+                    <TD><?php echo $savingDetails['name'];?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD>Account Name</TD>
+                    <TD><?php echo $savingDetails['offerproductname'];?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD>Account Number</TD>
+                    <TD><?php echo $savingDetails['account_number'];?></TD>
+
+                </TR>
+                <TR>
+                    <TD>Balance</TD>
+                    <TD><?php echo $this->balanceFrom;?></TD>
+
+                </TR>
+
+        <?php } ?>
+        </TABLE>
+</fieldset>
+</div>
+<div style="float:left;width:380px">
+<fieldset>
+<legend>Account To</legend>
+    <TABLE id="hor-minimalist-b">
+        <?php foreach($this->savingDetailsTo as $savingDetailsTo) {  ?>
+                <TR>
+                    <TD>Name</TD>
+                    <TD><?php echo $savingDetailsTo['name'];?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD>Account Name</TD>
+                    <TD><?php echo $savingDetailsTo['offerproductname'];?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD>Account Number</TD>
+                    <TD><?php echo $savingDetailsTo['account_number'];?></TD>
+
+                </TR>
+                <TR>
+                    <TD>Balance</TD>
+                    <TD><?php echo $this->balanceTo;?></TD>
+
+                </TR>
+
+        <?php } ?>
+        </TABLE>
+</fieldset>
+</div>
+</form>
+</div>

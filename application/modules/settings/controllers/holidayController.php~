@@ -1,0 +1,99 @@
+<?php
+class Management_HolidayController extends Zend_Controller_Action{
+
+    public function init() {
+    }
+
+    public function indexAction() {
+        $posts = new Model_DbTable_Posts();
+        $result = $posts->getPosts();
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+    }
+
+    public function holidayviewAction() {
+        $holidayupdate_id = (int)$this->_getParam('id');
+        $posts = new Model_DbTable_Posts();
+        $result = $posts->viewholiday($holidayupdate_id);
+        $this->view->holiday = $result;
+    }
+
+    public function holidayaddAction() {
+        $this->view->title = "New Holiday";
+        $postForm = new Form_Post();
+        $this->view->form1 = $postForm;
+
+        $model = new Model_DbTable_Office();
+        $office_id1 = $model->getOffice();
+        foreach($office_id1 as $office_id) {
+                $postForm->office_id->addMultiOption($office_id['office_id'], 
+                                                     $office_id['office_name']);
+        }
+
+        $model = new Model_DbTable_HolidayRepayment();
+        $holidayrepayment_id = $model->getRepayment();
+        foreach($holidayrepayment_id as $holidayrepayment_id) {
+                $postForm->holidayrepayment_id->addMultiOption(
+                $holidayrepayment_id['holidayrepayment_id'], 
+                $holidayrepayment_id['repaymentdescription']);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($postForm->isValid($formData)) {
+                                    $model = new Model_DbTable_Posts();
+                                    $model->addHoliday($postForm->getValues());
+                                    $this->_redirect('index/index');
+               }
+            }
+        }
+            $this->view->form1 = $postForm;
+    }
+
+
+    public function holidayeditAction() {
+        $holidayupdate_id = (int)$this->_getParam('id');
+        $form1 = new Form_Post();
+        $this->view->form1 = $form1;
+
+        $model = new Model_DbTable_Office();
+        $office_id1 = $model->getOffice();
+        foreach($office_id1 as $office_id) {
+                $form1->office_id->addMultiOption($office_id['office_id'],
+                                                  $office_id['office_name']);
+        }
+
+        $model = new Model_DbTable_HolidayRepayment();
+        $holidayrepayment_id = $model->getRepayment();
+        foreach($holidayrepayment_id as $holidayrepayment_id) {
+                $form1->holidayrepayment_id->addMultiOption(
+                $holidayrepayment_id['holidayrepayment_id'], 
+                $holidayrepayment_id['repaymentdescription']);
+        }
+
+        $postModel = new Model_DbTable_Posts();
+        if ($this->getRequest()->isPost()) {
+            if ($form1->isValid($request->getPost())) {
+                $postModel->updateHoliday($form1->getValues());
+                $this->_redirect('posts/view/id/'.$postid);
+            }
+        } else {
+            $result = $postModel->viewholiday($holidayupdate_id); 
+            $form1->populate($result[0]);
+          }
+            $this->view->form1 = $form1;
+            $this->view->form1->Submit->setName('Update');	
+    }
+
+    public function holidaydeleteAction() {
+        $holidayupdate_id = (int)$this->_getParam('id');
+        $postModel = new Model_DbTable_Posts();
+        $postModel->deleteHoliday($holidayupdate_id);
+        $this->_redirect('index/index');
+    }
+}

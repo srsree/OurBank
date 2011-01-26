@@ -1,0 +1,114 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php echo $this->escape($changelog['fieldname']);?></td>
+<td ><?php echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php echo $this->escape($changelog['current_data']);?></td>
+<td ><?php echo $this->escape($changelog['login_name']);?></td>
+<td ><?php echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+
+<br/><br/>   
+<fieldset>
+    <legend>View Sector</legend>
+	<div class="cont-rgt-data">
+        <?php foreach($this->product as $product) {  ?>
+            <TABLE id="hor-minimalist-b">
+                <!--<TR>
+                    <TD>Category Name</TD>
+                    <TD><?php echo $product['categoryname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>-->
+
+                <TR>
+                    <TD>Sector Name</TD>
+                    <TD><?php echo $product['productname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Short Name</TD>
+                    <TD><?php echo $product['productshortname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Description</TD>
+                    <TD><?php echo $product['product_description'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                
+                    <TD>Bank Name</TD>
+                   
+                    <TD><?php  foreach($this->bankdetails as $bank_name) {
+                                echo $bank_name['bankname']."<br>";
+                        } ?>  </TD>
+                   
+                    <TD></TD>
+                    <TD></TD>
+               
+                </TR>
+        </TABLE>
+        <br>
+        <TABLE>
+                <TR>
+                    <TD><a href="<?php echo $this->baseUrl(); ?>/management/product/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+              </TR>
+      </TABLE>
+<?php } ?>
+    </div>
+</fieldset>
+
+

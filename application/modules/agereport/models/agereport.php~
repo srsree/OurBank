@@ -1,0 +1,19 @@
+<?php
+class Agereport_Model_agereport extends Zend_Db_Table {
+    protected $_name = 'ob_member';
+
+    public function getage_between($from_age,$to_age) {
+                        $db = $this->getAdapter();
+                        $sql = "SELECT b.member_id,(YEAR(CURDATE())-YEAR(b.member_dateofbirth)) - (RIGHT(CURDATE(),5)<RIGHT(b.member_dateofbirth,5)) AS `age`, COUNT(b.member_id) as membercount FROM `ob_member` AS `a` INNER JOIN `ob_member_details` AS `b` ON a.member_id = b.member_id WHERE (b.recordstatus_id = 3) and ((YEAR(CURDATE())-YEAR(b.member_dateofbirth)) - (RIGHT(CURDATE(),5)<RIGHT(b.member_dateofbirth,5))>=$from_age) and ((YEAR(CURDATE())-YEAR(b.member_dateofbirth)) - (RIGHT(CURDATE(),5)<RIGHT(b.member_dateofbirth,5))<=$to_age)";
+                        $result = $db->fetchAll($sql);
+                        return $result;
+    }
+
+     public function getage_above($age) {
+                        $db = $this->getAdapter();
+                        $sql = "SELECT b.member_id,(YEAR(CURDATE())-YEAR(b.member_dateofbirth)) - (RIGHT(CURDATE(),5)<RIGHT(b.member_dateofbirth,5)) AS `age`,COUNT(b.member_id) FROM `ob_member` AS `a` INNER JOIN `ob_member_details` AS `b` ON a.member_id = b.member_id WHERE (b.recordstatus_id = 3) and ((YEAR(CURDATE())-YEAR(b.member_dateofbirth)) - (RIGHT(CURDATE(),5)<RIGHT(b.member_dateofbirth,5))>=$age)";
+                        $result = $db->fetchAll($sql);
+                        return $result;
+    }
+
+ }

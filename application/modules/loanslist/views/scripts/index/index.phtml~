@@ -1,0 +1,44 @@
+<?php if($this->loanlist) { ?>
+  
+<table id="hor-minimalist-b" summary="">
+    <tr class="tdbrownheading">
+ <!--       <th>Category Name</th>-->
+       
+        
+        <th>Activity</th>
+        <th>Number of Account</th>
+	<th>Loan amount</th>
+	<th>Credit</th>
+        
+    </tr>
+       
+        <?php    $acc = 0;
+		 $Lamt = 0;
+		 $folio = 0; 
+			foreach ($this->loanlist as $loandetails ): ?>
+    <tr>
+      <td><?php echo $this->escape($loandetails['activity_name']); ?></td>
+    
+   
+    <td><?php echo $this->escape($loandetails['NumberofAC']);?></td>
+    <td>R$<?php echo ' '.$this->escape($loandetails['Lamt']);?></td>
+    <td><?php $creditlineamt = $loandetails['creditline_portfolio']; $loanamt = $loandetails['Lamt']; $v = $creditlineamt/$loanamt; $txt = sprintf("%4.2f",$v);
+echo $txt;
+		$acc += $loandetails['NumberofAC'];
+		$Lamt += $loandetails['Lamt'];
+		$folio += $txt;
+		?> %</td>
+        <?php endforeach; ?>
+	</tr><tr><td><b>Total</b></td><td><?php echo $acc; ?></td><td>R$ <? echo $Lamt; ?></td><td><? echo $folio; ?> %</td>
+        <?php   }?>
+
+   
+</tr>
+</table>
+
+<form action="<?php echo $this->baseUrl();?>/loanslist/index/pdftransaction" method="POST"
+onClick="window.open('<?php echo $this->baseUrl(); ?>/loanslist/index/reportdisplay/file/loanslist.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+                 <input type="submit" value="PDF" id="submit">
+</form>
+
+

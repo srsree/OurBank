@@ -1,0 +1,39 @@
+<?php
+class Graceperiod_Model_Graceperiod extends Zend_Db_Table {
+	protected $_name = 'ob_graceperiod';
+
+	public function fetchgraceperiod() {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a'=>'ob_graceperiod'),array('id'))
+			->join(array('b'=>'ob_creditline'),'b.id = a.creditline_id',array('name as creditline_name'))
+			->order(array('a.id desc'));
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	
+	public function fetchgraceperiodforID($id) {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a'=>'ob_graceperiod'),array('id'))
+			->where('a.id = '.$id)
+			
+			->join(array('b'=>'ob_creditline'),'b.id = a.creditline_id',array('name as creditline_name'));
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	
+	public function SearchGraceperiod($post) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a'=>'ob_graceperiod'),array('id'))
+			->where('a.name like "%" ? "%"',$post['search_gracename'])
+			->where('a.days like "%" ? "%"',$post['search_days'])
+			->where('a.creditline_id like "%" ? "%" ',$post['search_credit_grace'])
+			->join(array('b'=>'ob_creditline'),'b.id = a.creditline_id');		
+		$result = $this->fetchAll($select);
+               return $result->toArray();
+	}
+}

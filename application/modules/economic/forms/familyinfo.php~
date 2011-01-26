@@ -1,0 +1,23 @@
+<?php
+class Familyinfo_Form_familyinfo extends Zend_Form {
+    public function init()
+    {} 
+
+    public function __construct($id,$create_id) 
+    {
+        parent::__construct($id);
+        parent::__construct($create_id);
+        //$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+        $formfield = new App_Form_Field ();
+        $father = $formfield->field('Text','father','','','','Father name',false,'','','','','',1,0);
+        $mother = $formfield->field('Text','mother','','','','Mother name',false,'','','','','',1,0);
+        $spouse = $formfield->field('Text','spouse','','','','Spouse name',false,'','','','','',1,0);
+        $children = $formfield->field('Text','children','','','','Children',false,'','','','','',1,0);
+        $other = $formfield->field('Textarea','otherinfo','','','','Other',false,'','','',3,18,1,0);
+    
+        $id = $formfield->field('Hidden','id','','','','',false,'','','','','',0,$id);
+        $created_by = $formfield->field('Hidden','created_by','','','','',false,'','','','','',0,$create_id);
+        $created_date = $formfield->field('Hidden','created_date','','','','',false,'','','','','',0,date("y/m/d H:i:s"));
+        $this->addElements(array($id,$father,$mother,$spouse,$children,$other,$created_by,$created_date));
+    }
+}

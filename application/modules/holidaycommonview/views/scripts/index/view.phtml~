@@ -1,0 +1,48 @@
+
+<div id="container-1">
+	<div class="register">
+		<div class="profile_tab">
+			<table id="hor-minimalist-b">
+				<?php if(($this->feedetails)!=NULL) {
+					foreach($this->feedetails as $edit_id) { ?>
+					<tr>
+						<th class = "firsttd">Fee Details</th>
+						<th class = "secondtd"></th>
+						<th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/fee/index/editfeedetail/id/<?php echo $edit_id['id'];?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20">
+                         	<?php }} else { ?>
+						<TD class="label" align="right">Click to Add :</TD>
+						<TD><a href="<?php echo $this->baseUrl();?>/user/index/editmembername/id/<?php echo $this->memberid; ?>">ADD</a></TD>
+                         	<?php } ?></a></th>
+					</tr>
+					<?php foreach($this->feedetails as $member_view){?>
+					<tr>
+						<td class = "firsttd">Fee Name:</td>
+						<td><?php echo $member_view['name'];?></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Fee description:</td>
+						<td><?php echo $member_view['description'];?></td>
+						<td></td>
+					</tr>
+					<tr>	
+						<td>Fee value:</td>
+						<td><?php echo $member_view['value'];?></td>
+						<td></td>
+					</tr>
+					<tr>				
+						<td>member type:</td>
+						<td><?php echo $member_view['membertype'];?></td>
+						<td></td>
+					</tr>
+				<?php } ?>
+
+			</table>
+                         
+                          
+                     
+		</div>
+	</div>
+</div>
+
+ 

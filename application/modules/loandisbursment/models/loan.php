@@ -1,0 +1,184 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+?>
+
+<?php
+class Loandisbursment_Model_loan extends Zend_Db_Table {
+	protected $_name = 'ob_accounts';
+
+    public function searchaccounts($accountNumber) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $sql="SELECT z.membertype_id as member_type,
+                     c.membertype as membertype,
+                     a.member_name as Name,
+                     z.account_number as account_number,
+                     z.membertype_id as membertype_id,
+                     z.account_id as account_id,
+                     z.accountstatus_id as accountstatus_id,
+                     x.loan_amount as loan_amount,
+                     x.loansanctioned_date as loansanctioned_date,
+                     x.loan_interest as loan_interest,
+                     x.loan_installments as loan_installments,
+                     x.billet as billet,
+                     x.fee as fee,
+                     y.name as activity_name
+                     from  ob_member a,
+                           ob_bank b,
+                           ob_member_types c,
+                           ob_accounts z,
+                           ob_activity y,
+                           ob_loan_accounts x
+                     where a.id = z.member_id AND b.id = a.bank_id AND b.status='1' AND z.membertype_id = c.membertype_id AND z.activity_id=y.id AND (z.accountstatus_id='1' or z.accountstatus_id='3') AND y.status='1'AND z.account_id = x.account_id AND (x.recordstatus_id='1' OR x.recordstatus_id='3') AND (x.loanstatus_id='1' OR x.loanstatus_id='3') AND z.membertype_id='4' AND
+                          (a.member_name like '$accountNumber' '%'  or z.account_number like '$accountNumber' '%')
+                    UNION
+                    SELECT z.membertype_id as member_type,
+                     c.membertype as membertype,
+                     a.group_name as Name,
+                     z.account_number as account_number,
+                     z.membertype_id as membertype_id,
+                     z.account_id as account_id,
+                     z.accountstatus_id as accountstatus_id,
+                     x.loan_amount as loan_amount,
+                     x.loansanctioned_date as loansanctioned_date,
+                     x.loan_interest as loan_interest,
+                     x.loan_installments as loan_installments,
+                     x.billet as billet,
+                     x.fee as fee,
+                     y.name as activity_name
+                     from  ob_group a,
+                           ob_bank b,
+                           ob_member_types c,
+                           ob_accounts z,
+                           ob_activity y,
+                           ob_loan_accounts x
+                     where a.id = z.member_id AND b.id = a.bank_id AND b.status='1' AND z.membertype_id = c.membertype_id AND z.activity_id=y.id AND (z.accountstatus_id='1' or z.accountstatus_id='3') AND y.status='1'AND z.account_id = x.account_id AND (x.recordstatus_id='1' OR x.recordstatus_id='3') AND (x.loanstatus_id='1' OR x.loanstatus_id='3') AND z.membertype_id='3' AND
+                          (a.group_name  like '$accountNumber' '%'  or z.account_number like '$accountNumber' '%')";
+        $result = $this->db->fetchAll($sql,array($accountNumber));
+        return $result;
+    }
+
+	public function search($accountNumber,$type) {
+            if($type=='3') {
+		$select = $this->select()
+			->setIntegrityCheck(false) 
+			->join(array('C' => 'ob_group'),array('id'),array('C.group_name','C.groupcode'))
+			->join(array('E' => 'ob_accounts'),'C.id=E.member_id',array('E.account_number','E.creditline_id'))
+			->where('E.account_number = ?',$accountNumber)
+			->where('E.accountstatus_id = 3 or E.accountstatus_id = 1')
+			->join(array('H' => 'ob_loan_accounts'),'H.account_id=E.account_id',array('H.loan_amount','H.fee','H.loan_interest','H.billet','H.loan_installments','H.loansanctioned_date'))
+			->where('H.recordstatus_id = 3 or H.recordstatus_id = 1')
+			->join(array('F' => 'ob_activity'),'E.activity_id=F.id',array('F.name as activity_name'))
+			->where('F.status = 1')
+			->join(array('P' => 'ob_sector'),'F.sector_id=P.id',array('P.name as sector_name'))
+			->where('P.status = 1')
+			->join(array('Q' => 'ob_bank'),'Q.id=C.bank_id',array('Q.name as bank_name'))
+			->where('Q.status = 1')
+			->join(array('Z' => 'ob_member'),'C.group_head=Z.id',array('Z.mobile'))
+			->join(array('T' => 'ob_member_types'),'E.membertype_id=T.membertype_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+             } else {
+		$select = $this->select()
+			->setIntegrityCheck(false) 
+			->join(array('C' => 'ob_member'),array('id'),array('C.member_name','C.membercode','C.mobile'))
+			->join(array('E' => 'ob_accounts'),'C.id=E.member_id',array('E.account_number','E.creditline_id'))
+			->where('E.account_number = ?',$accountNumber)
+			->where('E.accountstatus_id = 3 or E.accountstatus_id = 1')
+			->join(array('H' => 'ob_loan_accounts'),'H.account_id=E.account_id',array('H.loan_amount','H.fee','H.loan_interest','H.billet','H.loan_installments','H.loansanctioned_date'))
+			->where('H.recordstatus_id = 3 or H.recordstatus_id = 1')
+			->join(array('F' => 'ob_activity'),'E.activity_id=F.id',array('F.name as activity_name'))
+			->where('F.status = 1')
+			->join(array('P' => 'ob_sector'),'F.sector_id=P.id',array('P.name as sector_name'))
+			->where('P.status = 1')
+			->join(array('Q' => 'ob_bank'),'Q.id=C.bank_id',array('Q.name as bank_name'))
+			->where('Q.status = 1')
+			->join(array('T' => 'ob_member_types'),'E.membertype_id=T.membertype_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+             }
+	}
+
+	public function groupmembers($account_id) {
+		$select = $this->select()
+			->setIntegrityCheck(false) 
+			->join(array('A' => 'ob_groupmembers_accounts'),array('groupaccount_id')) 
+			->where('A.groupaccount_id = ?',$account_id)
+			->where('A.groupmember_account_status = 3 or A.groupmember_account_status = 1')
+			->join(array('H' => 'ob_member'),'A.groupmember_id=H.id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+	}
+
+	public function smsurl() {
+		$select = $this->select()
+			->setIntegrityCheck(false) 
+			->join(array('A' => 'ob_sms'),array('id'));
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+	}
+
+	public function transactionInsert($input = array())
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$result = $this->db->insert('ob_transaction',$input);
+		return $this->db->lastInsertId('ob_transaction');
+        }
+
+	public function disbursementInsertion($input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$this->db->insert("ob_loan_disbursement",$input);
+		return '1';
+	} 
+
+	public function loanInstallmentInsertion($input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$result = $this->db->insert('ob_installmentdetails',$input);
+		return $result;
+	}
+
+	public function grouploandisbursment($input = array()) {
+	   $this->db = Zend_Db_Table::getDefaultAdapter();
+	   $result = $this->db->insert('ob_groupmemberloan_disbursement',$input);
+	   return $result;
+        }
+
+
+	public function updateaccounts($accountid,$input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where[] = "account_id = '".$accountid."'";
+		$result = $this->db->update('ob_accounts',$input,$where);
+	}
+
+	public function updateloanaccounts($accountid,$input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where[] = "account_id = '".$accountid."'";
+		$result = $this->db->update('ob_loan_accounts',$input,$where);
+	}
+
+	public function updategrouploanaccounts($accountid,$input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where[] = "groupaccount_id = '".$accountid."'";
+		$result = $this->db->update('ob_groupmembers_accounts',$input,$where);
+	}
+}

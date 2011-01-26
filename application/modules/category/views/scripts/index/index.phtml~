@@ -1,0 +1,83 @@
+<!--<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php //foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php //echo $this->escape($changelog['filedname']);?></td>
+<td ><?php //echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php //echo $this->escape($changelog['current_data']);?></td>
+<td ><?php //echo $this->escape($changelog['login_name']);?></td>
+<td ><?php //echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php //endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+<br/><br/>-->
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/category" method="POST">
+                            <table width="100%">
+                                <tr>
+                                               <td class="label">Category name:</td>
+							<td ><? echo $this->form->name;?></td>
+							<td class="label">category description:</td>
+							<td ><? echo $this->form->description;?></td>
+                                </tr>
+                               
+                               
+                        </table>
+					<input type="submit" name="Search" id="Submit" value="Search">			
+
+                    </form>	
+            </div>
+    </fieldset> 
+</div>  
+    <fieldset>
+      
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Category Name</th>
+        <th>Category Description</td>
+        <th>Created Date</th>
+       
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $category ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/category/index/categoryview/id/".$category['id']; ?>">
+                     <?php echo $this->escape($category['name']); ?></a></td>
+    <td><?php echo $this->escape($category['description']);?></td>
+    <td><?php echo $this->escape($category['created_date']);?></div></td>
+    
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/category/index/categoryadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Category"></a></td>
+    </tr>
+</table>
+</fieldset>

@@ -1,0 +1,62 @@
+<?php
+class Receiptpayment_IndexController extends Zend_Controller_Action {
+	public function init() {
+		$this->view->pageTitle='Receipts and payments';
+		$this->view->type='loans';
+    $sessionName = new Zend_Session_Namespace('ourbank');
+	$userid=$this->view->createdby = $sessionName->primaryuserid;
+	$login=new App_Model_Users();
+$this->view->type = "others";
+
+	$loginname=$login->username($userid);
+	foreach($loginname as $loginname) {
+	$this->view->username=$loginname['username'];
+    }
+		$this->view->adm = new App_Model_Adm();
+
+	}
+
+	public function indexAction() 
+	{
+ $searchForm = new Receiptpayment_Form_Search();
+        $this->view->form = $searchForm;
+		$this->view->title = "Receipts and payments";
+		 if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+
+
+	$dateconvertor = new App_Model_dateConvertor();
+	$fromDate = $dateconvertor->mysqlformat($this->_request->getParam('date1'));
+		$toDate = $dateconvertor->mysqlformat($this->_request->getParam('date2'));
+
+            $this->view->pageTitle = "Receipt and Payment";
+
+
+            $formData = $this->_request->getPost();
+            if ($searchForm->isValid($formData)) {
+                $this->view->savings = 10;
+                $transaction = new Receiptpayment_Model_Receiptspayment();
+
+                //Saving Account Credit and Debit
+                $this->view->savingsCredit = $transaction->totalSavingsCredit($fromDate,$toDate);
+                $this->view->savingsDebit = $transaction->totalSavingsDebit($fromDate,$toDate);
+
+
+
+                //Opening and Closing Balace Calculation
+                //Opening Balance Saving Account Credit and Debit
+                $this->view->openingsavingsCredit = $transaction->openingBalance($fromDate,$toDate);
+                $this->view->openingsavingsDebit = $transaction->closingBalance($fromDate,$toDate);
+
+
+                $this->view->field1 = $this->_request->getParam('field1');
+                $this->view->field2 = $this->_request->getParam('field2');
+
+            }
+         }
+
+ 
+	
+	}
+
+}

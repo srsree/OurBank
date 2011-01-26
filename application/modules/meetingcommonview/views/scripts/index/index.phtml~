@@ -1,0 +1,57 @@
+ 
+<table  id="hor-minimalist-b">
+	<TR>
+		<TH class = "firsttd">Meeting Information</TH>
+		<TH class = "secondtd"></TH>
+		<TH class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/meeting/index/meetingedit/meeting_id/<?php echo $this->meeting_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></TH>
+	</TR>
+	<?php
+	foreach($this->fetchmeeting as $fetchmeeting){ ?>		
+		<TR >
+			<TD class = "firsttd">Meeting name</TD>
+			<TD class = "secondtd"><?php echo $fetchmeeting['name'];?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd">Office type</TD>
+			<TD class = "secondtd"><?php echo $fetchmeeting['bank_name'];?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd">Group name</TD>
+			<TD class = "secondtd"><?php echo $fetchmeeting['group_name'];?></TD>
+			<TD class = "thirdtd"></TD>
+		<TR >
+			<TD class = "firsttd">Group head</TD>
+			<TD class = "secondtd"><?php echo $fetchmeeting['grouphead_name'];?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR> 
+		<TR >
+			<TD class = "firsttd">Meeting place</TD>
+			<TD class = "secondtd"><?php echo $fetchmeeting['place'];?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR> 
+		<TR >
+			<TD class = "firsttd">Meeting time</TD>
+			<TD class = "secondtd"><?php echo $fetchmeeting['time'];?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR> 
+		
+		<TR >
+			<TD class = "firsttd">Meeting day</TD>
+			<TD class = "secondtd"><?php echo $fetchmeeting['day'];?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR> 
+	<?php   } ?>
+</table>
+	
+		<div class="btnhouse">
+			<div class="ltbtns">
+			
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/meetingindex"><?php echo $this->meetingForm->Back;?></a>
+			</div>
+		</div>
+
+

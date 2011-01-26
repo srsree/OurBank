@@ -1,0 +1,160 @@
+<div>
+<?php if($this->categoryType=='2') {?>
+
+<?php If($this->type==3) { ?>
+<DIV>
+<a href="#" id="open">Group Members and the installment details</a>
+<div class="box">
+<div id="content1">
+	<fieldset>
+		<legend> <?php echo $this->memberListtitle;?> </legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="30%">Name</td>
+			<td width="50%">code</td>
+		</tr>
+
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+			</tr>
+	<?php }?>
+		</table>
+		</div>
+	</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>
+</div>
+
+</DIV>
+<br />
+	<?php }?>
+
+
+<div style="float:left;width:420px">
+<fieldset>
+<legend>loan disbursement</legend>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr class="tdbrownheading">
+		<td>disbersed no.</td>
+		<td>Amount R$</td>
+		<td>Date</td>
+		<td>Description</td>
+	</tr>
+<?php $i=1; foreach($this->fetchLoanAccountDetails as $arrayroles2) { ?>
+	<tr class="tdbrown"><TD><?php echo $i++;?></TD>
+		<TD><?php echo $arrayroles2['amount_disbursed'];?></TD>
+		<TD><?php echo $arrayroles2['loandisbursement_date'];?></TD>
+		<TD><?php echo $arrayroles2['transaction_description'];?></TD>
+	</tr>
+<?php }?>
+</table>
+</fieldset>
+</div>
+<?php if($this->totladisburseAmount>0) {?>
+<div style="float:right;width:370px">
+<fieldset>
+<legend>Loan repayment</legend>
+	<?php if($this->totladisburseAmount) {?>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr class="tdbrownheading">
+				<th>Type</th>
+				<th>Installments</th>
+				<th>amount R$</th>
+			<tr>
+			<tr class="tdbrown"><td>Paid</td>
+				<TD width="40%"><?php echo $this->noOfInstalmentPaied;?></TD>
+				<TD width="40%"><?php echo $this->paiedAmount;?></TD>
+			</tr>
+			<tr class="tdbrown"><td>Due</td>
+				<TD width="40%"><?php echo $this->balanceInstalment;?></TD>
+				<TD width="40%"><?php echo $this->stillHaveToPay;?></TD>
+			</tr>
+		</table>
+	<?php } ?>
+</fieldset>
+</div>
+<?php } else {?>
+<CENTER>First disbursed the approved loan</CENTER>
+<?php }?>
+<?php }?>
+</div>
+
+
+
+<?php if(!$this->Submit) { ?>
+<div style="float:left;width:100%">
+<?php if($this->balance!=0) {?>
+<fieldset>
+	<legend>Status details</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php  echo $this->baseUrl();?>/transaction/loan/view/block/Status" method="POST" name="joe" id="signupForm" class="cmxform">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+        		<TR>
+					<td>status<?php echo $this->form3->accountcode; ?><?php echo $this->form3->membercode;?><?php echo $this->form3->categoryId; ?></td>
+					<TD><SPAN style="color:red">&nbsp;  &nbsp; &nbsp;<strong>
+					<?php echo $this->presentstatus; ?></strong></SPAN></TD>
+				</TR>
+				<TR>	
+					<td>changeStatus<span class="reqMark">*</span></td>
+					<TD><?php echo $this->form3->newStatus;?></TD>
+				</TR>
+				<TR>
+					<td>Description<span class="reqMark">*</span></td>
+					<TD><?php echo $this->form3->description;?></TD>
+				</TR>
+			</table><br>
+			<table>
+				<tr>
+					<TD><?php echo $this->form3->Confirm;?><?php } ?>
+					</td><SPAN style="color:red"><? echo $this->errorlogin_name;?></SPAN>
+				</tr>
+			</table>
+		</form>
+	</div>
+</fieldset>
+</div>
+<?php } ?>
+
+<?php if($this->Submit) { ?>
+<div style="float:left;width:100%">
+<?php if($this->balance!=0) {?>
+<fieldset>
+	<legend>Status details</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php  echo $this->baseUrl();?>/transaction/loan/view/block/Status" method="POST" name="joe" id="signupForm" class="cmxform">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+        		<TR>
+					<td>status<?php echo $this->form3->accountcode; ?><?php echo $this->form3->membercode;?><?php echo $this->form3->newStatus1; ?><?php echo $this->form3->description1; ?><?php echo $this->form3->categoryId; ?></td>
+					<TD><SPAN style="color:red">&nbsp;  &nbsp; &nbsp;<strong>
+					<?php echo $this->presentstatus; ?></strong></SPAN></TD>
+				</TR>
+				<TR>	
+					<td>changeStatus</td>
+					<TD><?php echo $this->newstatus;?></TD>
+				</TR>
+				<TR>
+					<td>Description</td>
+					<TD><?php echo $this->description;?></TD>
+				</TR>
+				<TR>
+					<td><?php echo $this->form3->Submit;?><?php } ?></td>
+					<TD><a href="<?php echo $this->baseUrl(); ?>/transaction/loan/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/Status"><input name="submit" type="submit" class="officebutton" value="back"></a></TD>
+				</TR>
+			</table><br>
+			<table>
+				<tr>
+					<td></td>
+					<TD><SPAN style="color:red"><? echo $this->errorlogin_name;?></SPAN></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</fieldset>
+</div>
+<?php } ?>

@@ -1,0 +1,8 @@
+<?php
+return array(
+    'Category  Name' => 'Navn',
+    'Category  Description' => 'Email',
+
+
+);
+

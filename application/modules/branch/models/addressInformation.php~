@@ -1,0 +1,33 @@
+<?php
+class Address_Model_addressInformation  extends Zend_Db_Table {
+    protected $_name = 'mahiti_user_address';
+
+
+    public function insertAddress($post) {
+
+       $data = array('aid'=> '',
+                      'userid'=> $_POST['userid'],
+                      'address1'=> $_POST['address1'],
+                      'address2'=> $_POST['address2']);
+        $this->insert($data);
+    }
+
+
+    public function viewAddress($viewid) {
+        $result = $this->fetchAll("aid = '$viewid'");
+        return $result;
+    }
+
+    public function updateAddress($post) {
+
+        $data = array('userid'=> $_POST['userid'],
+                      'address1'=> $_POST['address1'],
+                      'address2'=> $_POST['address2']);
+        $where = 'aid = '. $_POST['aid'];
+        $this->update($data,$where);
+        
+    }
+
+
+
+}

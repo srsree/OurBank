@@ -1,0 +1,52 @@
+<?php
+
+class Enquiry_LoandisburseController extends Zend_Controller_Action
+{
+
+   public function init()
+    {
+       $this->view->pageTitle='Loan Enquiry';
+    }
+
+    public function indexAction()
+    {
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $sessionName->primaryuserid;
+        $this->view->title = "loan Enquiry";
+
+        $searchForm = new Enquiry_Form_Search();
+        $this->view->form = $searchForm;
+
+        $oName = new Enquiry_Model_LoanDisburse();
+        //print_r($oName);
+        $select = $oName->fetchAllOffice();
+      	foreach($select as $oName) {
+	    $form1->branchName->addMultiOption($oName->office_id,$oName->office_name);
+
+            }
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+               $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+
+              echo $brancId = $this->_request->getParam('field1');
+	      echo $createdBy = $this->_request->getParam('field7');
+                   $formData = $this->_request->getPost();
+                
+                if ($searchForm->isValid($formData)) {
+
+                    $loan = new Enquiry_Model_LoanDisburse();
+                    $arrayLoan = $loan->loanSearch($brancId,$createdBy);
+                    if (!$arrayLoan) {
+                        echo "<font color='RED'>Records Not Found Please Try Again...</font>";	
+                    } else {
+                        $this->view->loanView = $arrayLoan;
+            	       }
+
+ 
+
+
+
+    }
+
+}
+

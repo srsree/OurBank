@@ -1,0 +1,203 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+    <legend>View Bank</legend>
+	<div class="cont-rgt-data">
+        <?php foreach($this->bank as $bank) {  ?>
+            <TABLE id="hor-minimalist-b">
+                <TR>
+                    <TD>institution name</TD>
+                    <TD><?php echo $bank['bankname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>short name</TD>
+                    <TD><?php echo $bank['bankshortname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Description</TD>
+                    <TD><?php echo $bank['bankdescription'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Address1</TD>
+                    <TD><?php echo $bank['address1'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Address2</TD>
+                    <TD><?php echo $bank['address2'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Address3</TD>
+                    <TD><?php echo $bank['address3'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>city</TD>
+                    <TD><?php echo $bank['city'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>state</TD>
+                    <TD><?php echo $bank['state'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>country</TD>
+                    <TD><?php echo $bank['country'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>pincode</TD>
+                    <TD><?php echo $bank['pincode'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>phone</TD>
+                    <TD><?php echo $bank['phone'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+                <TR>
+                    <TD>fax</TD>
+                    <TD><?php echo $bank['fax'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+                <TR>
+                    <TD>email_Id</TD>
+                    <TD><?php echo $bank['email_Id'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+                <TR>
+                    <TD>contactperson</TD>
+                    <TD><?php echo $bank['contactperson'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+                <TR>
+                    <TD>contactperson_phone1</TD>
+                    <TD><?php echo $bank['contactperson_phone1'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>contactperson_phone2</TD>
+                    <TD><?php echo $bank['contactperson_phone2'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>contactperson_email</TD>
+                    <TD><?php echo $bank['contactperson_email'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+        </TABLE>
+<?php } ?>
+    </div>
+</fieldset>
+
+<?php if($this->bankstatus==1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<?php foreach($this->bank as $bank) {  ?>
+	<tr>
+		<Th align="center"><p><B style="color:red">No you cannot delete since the creditline exists for </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $bank['bankname'];?>' product</b></Th>
+    </tr>
+<?php } ?>
+</table>
+<?php } else { ?>
+<?php foreach($this->bank as $bank) {  ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+		<th><B style="color:red">Are you sure you want to delete Bank</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $bank['bankname'];?>" ?*</b></th>
+	<tr>
+</table>
+<?php } ?>
+<fieldset>
+	<legend>Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/management/bank/bankdelete/bank_id/<?php echo $this->bank_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+					</TR>
+					<TR>
+						<TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+						<TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/bank/">
+						<input name="submit" type="submit"  value="No" ></a></TD>
+					</TR>
+				</table>
+				</form>
+			</div>
+		</div>
+</fieldset>
+<?php } ?>

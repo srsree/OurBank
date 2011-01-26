@@ -1,0 +1,35 @@
+<?php
+class Savingsdetails_Model_Savingsdetails extends Zend_Db_Table
+{
+protected $_name = 'ourbank_transaction';
+
+
+    public function accountDetails()
+    {
+        $db = $this->getAdapter();
+        $sql = 'SELECT * FROM
+                ourbank_accounts A,
+                ourbank_productsoffer B,
+                ourbank_members C,
+                ourbank_membername D,
+                ourbank_user E,
+                ourbank_product F,
+                ourbank_transaction G where (
+                C.member_id = A.member_id && 
+                A.product_id = B.id &&
+                B.product_id = F.id &&
+                C.member_id = D.member_id &&
+                E.id = A.created_by &&
+                G.account_id = A.id &&
+                A.status_id = 3 &&
+		D.recordstatus_id = 3 &&
+		B.recordstatus_id = 3 &&
+                G.recordstatus_id = 3
+                )';
+
+
+
+        $result = $db->fetchAll($sql);
+        return $result;
+    }
+}

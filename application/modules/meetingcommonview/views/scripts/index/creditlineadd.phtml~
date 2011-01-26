@@ -1,0 +1,40 @@
+
+
+
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Credit Line ADD</legend>
+	<form action="<?php echo $this->baseUrl();?>/creditline/index/creditlineadd" method="POST">
+		<table style="float:left">
+			<tr>
+				<td colspan="5" class="td_border">Credit Line</td>
+			</tr>
+			<TR >
+				<TD class="label" align="right" width="40%">Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->creditlineform->creditlinename;?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Protfolio Value<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->creditlineform->portfoliovalue;?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Start Date<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->creditlineform->creditline_beginingdate;?><SPAN style="color:red"><?php echo $this->msg;?></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">End Date<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->creditlineform->creditline_closingdate;?><SPAN style="color:red"><?php echo $this->msg;?></SPAN></TD>
+			</TR>
+			<TR >
+				
+				<TD class="label" align="right" width="40%">Active<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->creditlineform->status;?></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%"></TD>
+				<TD ><?php echo $this->creditlineform->Submit;?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+		</table>
+	</form>
+</fieldset>

@@ -1,0 +1,53 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend><? echo $this->translate("Search");?></legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/loans/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label"><? echo $this->translate("Product name");?>:</td>
+                                    <td ><? echo $this->form->field6;?></td>
+                                    <td class="label"><? echo $this->translate("Product short name");?>:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label"><? echo $this->translate("Minimum Frequency");?>:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label"><? echo $this->translate("Maximum loan amount");?>:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div>  
+
+<table id="hor-minimalist-b">
+    <tr>
+        <th><? echo $this->translate("Product name");?></th>
+        <th><? echo $this->translate("Product shortname");?></td>
+        <th><? echo $this->translate("Minimum frequency");?></td>
+        <th><? echo $this->translate("Maximum loan amount");?></th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $loan ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/loanscommonview/index/index/id/".$loan['offerid']; ?>">
+        <?php echo $this->escape($loan['productname']); ?></a></td>
+        <td><?php echo $this->escape($loan['shortname1']);?></td>
+        <td><?php echo $this->escape($loan['minimumfrequency']);?></td>
+        <td><?php echo $this->escape($loan['maximunloanamount']);?></div></td>
+
+        <?php endforeach; ?>
+        <?php endif; ?>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+
+
+</table>

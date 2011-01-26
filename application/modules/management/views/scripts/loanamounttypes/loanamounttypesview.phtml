@@ -1,0 +1,91 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php //foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php //echo $this->escape($changelog['fieldname']);?></td>
+<td ><?php //echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php// echo $this->escape($changelog['current_data']);?></td>
+<td ><?php //echo $this->escape($changelog['login_name']);?></td>
+<td ><?php //echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php //endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+<br/><br/>   -->
+
+
+<fieldset>	
+	<legend>view Loan amounts Details</legend>
+	<div class="cont-rgt-data">
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr>
+				<Th>loanamount type</Th>
+				<TH></TH>
+				<TH></TH>
+				<TH></TH>
+			</tr> 
+			<tr>
+				<td>loanamount type</TD>
+				<td><?php echo $this->loanamounttypename ;?></TD>
+				<TD></TD>
+				<TD></TD>
+			</tr>
+		</table>
+		<table width="100%" id="hor-minimalist-b">
+			<tr>
+				<th width="15%">Amount From R$</th>
+				<th width="10%">Amount To R$</h>
+				<th width="10%">Rate %</Th>
+			</tr>
+			<?php foreach($this->loanamounttypes as $loanamounttypes) { ?>
+				<tr>
+					<td>R$. <?php echo $loanamounttypes['loan_amount_from'];?></TD>
+					<td>R$. <?php echo $loanamounttypes['loan_amount_to'];?></TD>
+					<td><?php echo $loanamounttypes['interest_rate'];?></TD>
+				</tr>
+			<?php } ?>
+		</table>
+		<table>
+			<TR>
+				<td><a href="<?php echo $this->baseUrl(); ?>/management/loanamounttypes/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+			</TR>
+		</table>
+	</div>
+</fieldset>
+
+

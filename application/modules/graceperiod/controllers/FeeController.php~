@@ -1,0 +1,187 @@
+<?php
+class Management_FeeController extends Zend_Controller_Action {
+
+    public function init() {
+        $this->view->pageTitle='Fee';
+    }
+
+    public function indexAction() {
+        $this->view->title = "Fee";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $fee = new Management_Model_Fee();
+	$result = $fee->getFeeDetails();
+	$page = $this->_getParam('page',1);
+	$paginator = Zend_Paginator::factory($result);
+	$paginator->setItemCountPerPage(5);
+	$paginator->setCurrentPageNumber($page);
+	$this->view->paginator = $paginator;
+
+        $appliesTo = new Management_Model_Fee();
+        $appliesTo = $appliesTo->getAppliesTo();
+        foreach($appliesTo as $appliesTo) {
+                $searchForm->field1->addMultiOption($appliesTo['membertype_id'],$appliesTo['membertype']);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+	    $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+		$formData = $this->_request->getPost();
+		if ($searchForm->isValid($formData)) {
+		    $result = $fee->searchFee($searchForm->getValues());
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+		} 
+                if (!$result) {
+		    echo "<font color='RED'>Records Not Found Try Again...</font>";
+		}
+	    }
+	}
+    }
+
+    public function feeaddAction() {
+	$this->view->title = "New Fee";
+	
+	$country_id = new Management_Model_Fee();
+				$country_id = $country_id->getcurrencysymbol();
+				foreach($country_id as $country_id) {
+                $currencysymbol = $country_id['currencysymbol'];
+
+				}
+	
+	    $feeForm = new Management_Form_Fee($currencysymbol);
+        $this->view->form = $feeForm;
+		
+		
+		
+
+        $appliesTo = new Management_Model_Fee();
+        $appliesTo = $appliesTo->getAppliesTo();
+        foreach($appliesTo as $appliesTo) {
+                $feeForm->feeappliesto_id->addMultiOption($appliesTo['membertype_id'],$appliesTo['membertype']);
+				}
+				
+				$country_id = new Management_Model_Fee();
+				$country_id = $country_id->getcurrencysymbol();
+				foreach($country_id as $country_id) {
+                $currencysymbol = $country_id['currencysymbol'];
+
+				}
+
+        $duration = new Management_Model_Fee();
+        $duration = $duration->getDuration();
+        foreach($duration as $duration) {
+                $feeForm->feefrequency_id->addMultiOption($duration['activity_id'],$duration['activity_description']);
+        }
+
+        $fee = new Management_Model_Fee();
+	$this->view->feeDetails = $fee->getFeeDetails();
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+	    $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+		$formData = $this->_request->getPost();
+		if ($feeForm->isValid($formData)) {
+
+                    $fee = new Management_Model_Category();
+                    $dbAdapter = Zend_Db_Table::getDefaultAdapter();
+                    $data['fee_id']='';
+                    $dbAdapter->insert('ourbank_fees', $data);
+                    $fee_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_fees','fee_id');
+                    $fee = new Management_Model_Fee();
+                    $result = $fee->addFee($feeForm->getValues(),$fee_id);
+                    $this->_redirect('management/fee/index');
+		}
+	    }
+	}
+    }
+
+    public function feeviewAction() {
+       	$this->view->title = "View Fee";
+	$feedetails_id = (int)$this->_getParam('id');
+	$fee = new Management_Model_Fee();
+	$result = $fee->viewFee($feedetails_id);
+	$this->view->fee = $result;
+
+    }
+
+    public function feeeditAction() {
+        $this->view->title = "Edit Fee";
+		$feedetails_id = (int)$this->_getParam('id');
+		
+		$country_id = new Management_Model_Fee();
+		$country_id = $country_id->getcurrencysymbol();
+		foreach($country_id as $country_id) {
+		$currencysymbol = $country_id['currencysymbol'];
+
+		}
+		$feeForm = new Management_Form_Fee($currencysymbol);
+        $this->view->form = $feeForm;
+        $feeForm->feename->removeValidator('Db_NoRecordExists');
+
+        $fee = new Management_Model_Fee();
+	$result = $fee->viewFee($feedetails_id); 
+	$feeForm->populate($result[0]);
+
+        $appliesTo = new Management_Model_Fee();
+        $appliesTo = $appliesTo->getAppliesTo();
+        foreach($appliesTo as $appliesTo) {
+                $feeForm->feeappliesto_id->addMultiOption($appliesTo['membertype_id'],$appliesTo['membertype']);
+        }
+
+        $duration = new Management_Model_Fee();
+        $duration = $duration->getDuration();
+        foreach($duration as $duration) {
+                $feeForm->feefrequency_id->addMultiOption($duration['activity_id'],$duration['activity_description']);
+        }
+
+        $fee = new Management_Model_Fee();
+	$this->view->feeDetails = $fee->getFeeDetails();
+
+        if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+	    $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($feeForm->isValid($formData)) {
+                    $fee = new Management_Model_Fee();
+                    $feeDelete = array('recordstatus_id' =>2);
+                    $fee->updateFee($feedetails_id,$feeDelete);
+                    $fee = new Management_Model_Fee();
+                    $id = 0;
+                    $result = $fee->addFee($feeForm->getValues(),$id);
+                    $this->_redirect('management/fee/index');
+                }
+            }
+        } 
+	$this->view->form = $feeForm;
+	$this->view->form->Submit->setName('Update');	
+    }
+
+    public function feedeleteAction() {
+        $this->view->title = "Delete Fee";
+        $feedetails_id = (int)$this->_getParam('id');
+        $feeForm = new Management_Form_Delete();
+        $this->view->form = $feeForm;
+        $fee = new Management_Model_Fee();
+	$result = $fee->viewFee($feedetails_id);
+	foreach($result as $result) {
+            $this->view->feename = $result["feename"];
+            $this->view->recordstatus_id = $result["recordstatus_id"];
+        }
+        
+        if ($this->_request->isPost()) {
+	    $action_yes = $this->_request->getPost('Yes');
+            $action_no = $this->_request->getPost('No');
+            if ($action_yes=="Yes") {
+		$feeDelete = array('recordstatus_id' =>5);
+		$fee->updateFee($feedetails_id,$feeDelete);
+		$this->_redirect('management/fee/index');
+	   }
+	}
+    }
+
+}

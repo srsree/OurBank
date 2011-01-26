@@ -1,0 +1,78 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<div id = "searchDiv">
+<fieldset>
+	<legend>Edit interest rates</legend>
+	<form onsubmit="return validation()" name="interestForm"  action="<?php echo $this->baseUrl();?>/interestrates/index/interestratesedit/interest_id/<?php echo $this->interest_id;?>" method="POST">
+	
+		<table id="hor-minimalist-b">
+			<TR>
+			<TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/interestrates/index/interestratesdelete/interest_id/<?php echo $this->interest_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
+			</TR>
+
+			<?php echo $this->InterestratesForm->interestname;?>
+			<?php echo $this->InterestratesForm->creditlinename;?>
+		</table>
+
+		<table id="hor-minimalist-b">
+
+			<TR>
+				<TH>* Start range - R$</TH> 
+				<TH>* End range - R$</TH> 
+				<TH>* Interest - % </TH>	
+				<TH>* Fee - % </TH>
+				<TH>Billet - R$</TH>
+			</TR>
+		
+
+		<?  $baseUrl= $this->baseUrl(); $rowID=1; 
+		foreach($this->interest_details as $interest_details) { $rowID++; ?>
+
+			<TR id="row1<? echo $rowID;?>">
+				<TD><input size="10" id="S_rangeID" type='text' name='start_range[]' value="<? echo $interest_details['start_range'];?>" ></TD>
+				<TD><input size="10" id="e_rangeID" type='text' name='end_range[]' value="<? echo $interest_details['end_range'];?>"></TD>
+				<TD><input size="10" id="interestID" type='text' name='interest[]' value="<? echo $interest_details['rate'];?>"></TD>
+				<TD><input size="10" id="feeID" type='text' name='fee[]' value="<? echo $interest_details['fee'];?>"></TD>
+				<TD><input size="10" id="balletID" type='text' name='interest_ballet[]' value="<? echo $interest_details['ballet'];?>"> 
+				<a href='#' onClick="removeFormField('#row1<? echo $rowID;?>'); return false;" ><img src='<? echo $baseUrl;?>/images/delete.gif'  border=0 width='16' height='16'></a></td>
+			</TR>
+		<? } ?>
+		</table>
+		<font id="interest_ranges"></font> <!-- Loads additional rows for "interest" -->
+
+		<table>
+			<TR><TD colspan="4"><input type="button" value="Add range" onClick="addInputEDIT('interest_ranges','<?php echo $this->baseUrl();?>');"></TD></TR>
+			<?php echo $this->InterestratesForm->status;?>
+		</table>
+
+		<div class="btnhouse">
+			<div class="ltbtns">
+				<input type="Submit" name="Update"  value="Update">
+			</div>
+			<div class="rtbtns">
+				<a href="<?php echo $this->baseUrl();?>/interestratesindex"><input type="button" value="Back"></a>
+			</div>
+		</div>
+ 	</form>
+</fieldset>
+</div>
+<script type="text/javascript">var counter =<?php echo $rowID+1; ?></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/interestratesedit.js"></script>

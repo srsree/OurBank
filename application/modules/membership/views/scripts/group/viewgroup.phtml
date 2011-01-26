@@ -1,0 +1,116 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+	<div style="width:470px;float:left">
+	   <fieldset>
+    <legend>View Group</legend>
+	<div class="cont-rgt-data">
+         <?php foreach($this->groupViewDetails as $group) : ?>
+            <TABLE id="hor-minimalist-b">
+                <TR >
+                    <TD >Group Name</TD>
+                    <TD ><?php echo $group['groupname'];?></TD>
+
+                </TR>
+                <TR >
+                    <TD>Group Branch</TD>
+                    <TD><?php echo $group['bankname'];?></TD>
+
+                </TR>
+
+                <TR >
+                    <TD >Group Address</TD>
+                    <TD ><?php echo $group['groupaddress_line1'];?></TD>
+
+                </TR>
+
+                <TR >
+                    <TD>Line 2</TD>
+                    <TD><?php echo $group['groupaddress_line2'];?></TD>
+
+                </TR>
+
+                <TR >
+                    <TD>Line 3</TD>
+                    <TD><?php echo $group['groupaddress_line3'];?></TD>
+
+                 </TR>
+
+                <TR >
+                    <TD>Group Location</TD>
+                    <TD><?php echo $group['groupaddress_location'];?></TD>
+
+
+                </TR>
+    
+                <TR>
+		      <TD><a href="<?php echo $this->baseUrl(); ?>/membership/group">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                      <TD></TD>
+
+	       </TR>
+        </TABLE>
+ 	<?php endforeach; ?>
+    </div>
+</fieldset>
+	</div>
+            <fieldset>
+    <legend>Group Members</legend>
+	<div class="cont-rgt-data">
+         
+            <TABLE width="100%" id="hor-minimalist-b">
+
+                <TR>
+	                <TD><B>Member Code</B></TD>
+                        <TD><B>Member Name</B></TD>
+		</TR>
+		<?php foreach($this->groupmembersView as $group) : ?>
+                <TR >
+                    
+                    <TD><?php echo $group['membercode'];?></TD>
+                   
+                   <TD><?php echo $group['memberfirstname'];?></TD>
+                    
+                </TR>
+
+		<?php endforeach; ?>
+	</TABLE>
+ 	
+    </div>
+</fieldset>
+

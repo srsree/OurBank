@@ -1,0 +1,325 @@
+<?php
+class Transaction_Model_fixedSavings extends Zend_Db_Table {
+	protected $_name = 'ourbank_accounts';
+
+	public function fixedAccountsSearch($membercode) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_members'),array('member_id'))
+			->where('a.membercode = ?',$membercode)
+			->join(array('b' => 'ourbank_membertypes'),'b.membertype_id = a.membertype_id')
+			->join(array('c' => 'ourbank_accounts'),'a.member_Id = c.member_id')
+			->where('c.accountstatus_id = 3 or c.accountstatus_id = 1')
+			->join(array('d' => 'ourbank_productsofferdetails'),'d.applicableto = a.membertype_id')
+			->where('d.recordstatus_id = 3 or d.recordstatus_id = 1')
+			->join(array('e' => 'ourbank_product_fixedrecurring'),'c.product_id = d.offerproduct_id')
+			->where('e.productstatus_id = 3 or e.productstatus_id = 1')
+			->join(array('f' => 'ourbank_productdetails'),'f.product_id = d.product_id')
+			->where('f.recordstatus_id = 3 or f.recordstatus_id = 1')
+			->where('f.productshortname="fd"')
+			->join(array('g' => 'ourbank_fixedaccounts'),'c.account_id = g.account_id')
+			->where('g.fixedaccountstatus_id = 3 or g.fixedaccountstatus_id = 1')
+			->where('g.recordstatus_id = 3 or g.recordstatus_id = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+	}
+
+
+// 		public function fixedAccountsSearch($input = array())
+// 		{
+//                 $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+//                 $sql = "SELECT  * FROM ourbank_members A,
+//                     ourbank_membertypes B,
+//                     ourbank_accounts C,
+//                     ourbank_productsofferdetails D,
+//                     ourbank_product_fixedrecurring E,
+//                     ourbank_productdetails F,ourbank_fixedaccounts G
+//                   where A.membercode =?
+//                         AND C.member_id=A.member_Id
+//                         AND B.membertype_id=A.membertype_id
+//                         AND D.applicableto=A.membertype_id
+//                         AND C.product_id=D.offerproduct_id
+//                         AND C.account_id=G.account_id
+//                         AND F.product_id=D.product_id
+//                         AND D.recordstatus_id=3
+//                         AND E.productstatus_id=3
+//                         AND C.accountstatus_id=1
+//                         AND F.productshortname='fd'
+//                         AND F.recordstatus_id=3
+// 
+//                         AND G.fixedaccountstatus_id=1
+// 						AND G.recordstatus_id=1";
+//                 $result=$this->db->fetchAll($sql,array($input['membercode']));
+//                 return $result;
+// 		}
+
+
+
+
+
+// 	public function listOfcategory() {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_categorydetails'),array('category_id'))
+// 			->where('a.recordstatus_id = 3 or a.recordstatus_id = 1')
+// 			->order('category_id ASC');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function listOfmemberType() {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_membertypes'),array('membertype_id'))
+// 			->where('a.membertype_id != 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function searchpersnolsavings($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_members'),array('member_id'))
+// 			->join(array('b' => 'ourbank_accounts'),'a.member_id = b.member_id',array('account_id'))
+// 			->where('b.account_number = ?',$accountNumber)
+// 			->where('b.accountstatus_id = 3 or b.accountstatus_id = 1')
+// 			->join(array('c' => 'ourbank_productsofferdetails'),'b.product_id = c.offerproduct_id',array('offerproduct_id'))
+// 			->where('c.recordstatus_id = 3 or c.recordstatus_id = 1')
+// 			->join(array('d' => 'ourbank_productdetails'),'c.product_id = d.product_id',array('product_id'))
+// 			->where('d.recordstatus_id = 3 or d.recordstatus_id = 1')
+// 			->where('d.productshortname="ps"')
+// 			->join(array('e' => 'ourbank_categorydetails'),'d.category_id = e.category_id',array('category_id'))
+// 			->where('e.recordstatus_id = 3 or e.recordstatus_id = 1')
+// 			->join(array('f' => 'ourbank_membertypes'),'a.membertype_ID = f.membertype_id',array('f.membertype_id','f.membertype'));
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function savingsAccountsSearchdetails($membercode) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_members'),array('member_id'))
+// 			->where('a.membercode = ?',$membercode)
+// 			->join(array('b' => 'ourbank_accounts'),'a.member_Id=b.member_id')
+// 			->where('b.accountstatus_id = 3 or b.accountstatus_id = 1')
+// 			->join(array('c' => 'ourbank_productsofferdetails'),'a.membertype_id=c.applicableto and b.product_id=c.offerproduct_id')
+// 			->where('c.recordstatus_id = 3 or c.recordstatus_id = 1')
+// 			->join(array('d' => 'ourbank_productdetails'),'c.product_id = d.product_id',array('d.category_id','d.productshortname','d.productname','d.product_id'))
+// 			->where('d.recordstatus_id = 3 or d.recordstatus_id = 1')
+// 			->where('d.productshortname="ps"')
+// 			->join(array('f' => 'ourbank_membertypes'),'a.membertype_id = f.membertype_id',array('f.membertype_id','f.membertype'))
+// 			->join(array('g' => 'ourbank_savingsaccounts'),'b.account_id = g.account_id',array('savingsaccount_id'))
+// 			->where('g.savingsaccountstatus_id = 3 or g.savingsaccountstatus_id = 1')
+// 			->where('g.recordstatus_id = 3 or g.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function accountIDSearch($memberId) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_accounts'),array('account_id'))
+// 			->where('a.member_id = ?',$memberId)
+// 			->where('a.accountstatus_id = 3 or a.accountstatus_id = 1')
+// 			->join(array('b' => 'ourbank_savingsaccounts'),'a.account_id=b.account_id')
+// 			->where('b.savingsaccountstatus_id = 3 or b.savingsaccountstatus_id = 1')
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchpersnolsavingsDetails($accountNumber,$categoryType) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_members'),array('member_id'))
+// 			->join(array('b' => 'ourbank_membername'),'a.member_id = b.member_id')
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1')
+// 			->join(array('c' => 'ourbank_accounts'),'b.member_id = c.member_id')
+// 			->where('c.account_number = ?',$accountNumber)
+// 			->where('c.accountstatus_id = 3 or c.accountstatus_id = 1')
+// 			->where('c.membertype_id="4"')
+// 			->join(array('d' => 'ourbank_productsofferdetails'),'c.product_id = d.offerproduct_id')
+// 			->where('d.recordstatus_id = 3 or d.recordstatus_id = 1')
+// 			->join(array('e' => 'ourbank_productdetails'),'d.product_id = e.product_id')
+// 			->where('e.category_id = ?',$categoryType)
+// 			->where('e.recordstatus_id = 3 or e.recordstatus_id = 1')
+// 			->join(array('f' => 'ourbank_categorydetails'),'e.category_id = f.category_id')
+// 			->where('f.recordstatus_id = 3 or f.recordstatus_id = 1')
+// 			->join(array('g' => 'ourbank_membertypes'),'a.membertype_ID = g.membertype_id')
+// 			->join(array('h' => 'ourbank_officenames'),'a.memberbranch_id = h.office_id')
+// 			->where('h.recordstatus_id = 3 or h.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchpersnolsavingsGroupDetails($accountNumber,$categoryType) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_members'),array('member_id'))
+// 			->where('a.membertype_ID="3"')
+// 			->join(array('b' => 'ourbank_groupaddress'),'a.member_id = b.group_id')
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1')
+// 			->join(array('c' => 'ourbank_accounts'),'a.member_id = c.member_id')
+// 			->where('c.account_number = ?',$accountNumber)
+// 			->where('c.accountstatus_id = 3 or c.accountstatus_id = 1')
+// 			->where('c.membertype_id="3"')
+// 			->join(array('d' => 'ourbank_productsofferdetails'),'c.product_id = d.offerproduct_id')
+// 			->where('d.recordstatus_id = 3 or d.recordstatus_id = 1')
+// 			->join(array('e' => 'ourbank_productdetails'),'d.product_id = e.product_id')
+// 			->where('e.category_id = ?',$categoryType)
+// 			->where('e.recordstatus_id = 3 or e.recordstatus_id = 1')
+// 			->join(array('f' => 'ourbank_categorydetails'),'e.category_id = f.category_id')
+// 			->where('f.recordstatus_id = 3 or f.recordstatus_id = 1')
+// 			->join(array('g' => 'ourbank_membertypes'),'a.membertype_ID = g.membertype_id')
+// 			->join(array('h' => 'ourbank_officenames'),'a.memberbranch_id = h.office_id')
+// 			->where('h.recordstatus_id = 3 or h.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchgroupMembersDetails($groupid) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_groupmembers'),array('group_id'))
+// 			->where('a.group_id = ?',$groupid)
+// 			->join(array('b' => 'ourbank_members'),'a.member_id = b.member_id',array('b.membercode'))
+// 			->join(array('c' => 'ourbank_membername'),'b.member_id = c.member_id',array('c.memberfirstname'));
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchGroupAccountMembers($accountNumber,$groupid) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_accounts'),array('account_id'))
+// 			->where('a.member_id = ?',$groupid)
+// 			->where('a.account_number = ?',$accountNumber)
+// 			->where('a.accountstatus_id = 3 or a.accountstatus_id = 1')
+// 			->join(array('b' => 'ourbank_groupmembers_acccounts'),'a.account_id = b.groupaccount_id')
+// 			->where('b.groupmember_account_status = 3 or b.groupmember_account_status = 1')
+// 			->join(array('c' => 'ourbank_members'),'b.groupmember_id = c.member_id')
+// 			->join(array('d' => 'ourbank_membername'),'c.member_id = d.member_id')
+// 			->where('d.recordstatus_id = 3 or d.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function totalamount($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_accounts'),array('account_id'))
+// 			->where('a.account_number = ?',$accountNumber)
+// 			->join(array('b' => 'ourbank_transaction'),'a.account_id=b.account_id',array('b.balance'))
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchsavingsdepodit($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_accounts'),array('account_id'))
+// 			->where('a.account_number = ?',$accountNumber)
+// 			->join(array('b' => 'ourbank_savings_transaction'),'a.account_id = b.account_id',array('b.transaction_amount'))
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1')
+// 			->where('b.transactiontype_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchsavingswithdrawal($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_accounts'),array('account_id'))
+// 			->where('a.account_number = ?',$accountNumber)
+// 			->join(array('b' => 'ourbank_savings_transaction'),'a.account_id = b.account_id',array('b.transaction_amount'))
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1')
+// 			->where('b.transactiontype_id = 2');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchAccountDetails($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_accounts'),array('account_id'))
+// 			->where('a.account_number = ?',$accountNumber)
+// 			->where('a.membertype_id = 4')
+// 			->where('a.accountstatus_id = 3 or a.accountstatus_id = 1')
+// 			->join(array('b' => 'ourbank_productsofferdetails'),'a.product_id = b.offerproduct_id')
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1')
+// 			->join(array('c' => 'ourbank_productdetails'),'b.product_id = c.product_id')
+// 			->where('c.recordstatus_id = 3 or c.recordstatus_id = 1')
+// 			->join(array('d' => 'ourbank_categorydetails'),'c.category_id = d.category_id')
+// 			->where('d.recordstatus_id = 3 or d.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchGroupAccountDetails($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_members'),array('member_id'))
+// 			->join(array('b' => 'ourbank_groupmembers'),'a.member_id = b.group_id')
+// 			->join(array('c' => 'ourbank_groupaddress'),'b.group_id = c.group_id')
+// 			->join(array('d' => 'ourbank_accounts'),'b.group_id = d.member_id')
+// 			->where('d.accountstatus_id = 3 or d.accountstatus_id = 1')
+// 			->where('d.account_number = ?',$accountNumber)
+// 			->where('d.membertype_id = 3')
+// 			->join(array('e' => 'ourbank_productsofferdetails'),'d.product_id = e.offerproduct_id')
+// 			->where('e.recordstatus_id = 3 or e.recordstatus_id = 1')
+// 			->join(array('f' => 'ourbank_productdetails'),'e.product_id = f.product_id')
+// 			->where('f.recordstatus_id = 3 or f.recordstatus_id = 1')
+// 			->join(array('g' => 'ourbank_categorydetails'),'f.category_id = g.category_id')
+// 			->where('g.recordstatus_id = 3 or g.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// // 		die($select->__toString($select));
+// 	}
+// 
+// 	public function fetchsavingsDetails($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_savings_transaction'),array('transaction_id'))
+// 			->order('a.transaction_id DESC LIMIT 5')
+// 			->join(array('b' => 'ourbank_transactiontype'),'a.transactiontype_id = b.transactiontype_id')
+// 			->join(array('c' => 'ourbank_paymenttypes'),'a.paymenttype_id = c.paymenttype_id')
+// 			->join(array('d' => 'ourbank_accounts'),'a.account_id = d.account_id')
+// 			->where('d.account_number = ?',$accountNumber);
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function lasttransactiondatefromtemp($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_accounts'),array('account_id'))
+// 			->where('a.account_number = ?',$accountNumber)
+// 			->join(array('b' => 'ourbank_transaction'),'a.account_id = b.account_id',array('b.transaction_date'))
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function lasttransactiondate1($accountNumber) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_accounts'),array('account_id'))
+// 			->where('a.account_number = ?',$accountNumber)
+// 			->where('a.accountstatus_id = 3 or a.accountstatus_id = 1')
+// 			->join(array('b' => 'ourbank_savings_transaction'),'a.account_id = b.account_id');
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function fetchAllStatus($accountStatusId) {
+// 		$select = $this->select()
+// 			->setIntegrityCheck(false)  
+// 			->join(array('a' => 'ourbank_Recordstatus'),array('recordstatus_id'))
+// 			->where('a.recordstatus_id = ?',$accountStatusId);
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// // 		die($select->__toString($select));
+// 	}
+}

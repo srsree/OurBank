@@ -1,0 +1,11 @@
+<?php
+class Management_Model_Meeting extends Zend_Db_Table_Abstract {
+    protected $_name = 'ourbank_days';
+  public function getDays() {
+               $select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->join(array('a' => 'ourbank_days'),array('a.meeting_day'));
+        $result = $this->fetchAll($select);
+        return $result->toArray();
+     }
+}

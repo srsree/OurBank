@@ -1,0 +1,29 @@
+<fieldset>
+
+
+<legend>productwise receipts</legend>
+<div class="cont-rgt-data">
+<TABLE id="hor-minimalist-b" width="80%">
+<tr class="tdbrownheading">
+
+<th>Product name</th>
+
+<th>credit</th>
+<th>debit</th>
+
+</tr>
+<tr>
+<?php $totalAmount = 0; ?>
+
+<?php foreach($this->loanrepaylist as $loan) : ?>
+<td width = "150"><?php echo $loan["productname"];?></td></td>
+
+<td width = "150"><?php echo $loan["amount_from_bank"];?></td></td>
+<td width = "150"><?php echo $loan["amount_to_bank"];?></td></td>
+
+</tr>
+<?php endforeach; ?>
+</tr>
+</TABLE>
+</div>
+</fieldset>

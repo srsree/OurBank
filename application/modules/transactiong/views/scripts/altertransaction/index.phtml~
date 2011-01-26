@@ -1,0 +1,247 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<head>
+<script type="text/javascript" language="JavaScript">
+function display (yy)  {
+
+    var div0=document.getElementById(1);
+    var div1=document.getElementById(3);
+    
+    if(yy==100){
+    div0.style.display='block';
+    } 
+    if(yy==2){
+    document.getElementById("7").style.display = 'block';
+    }
+    if(yy!=2) {
+    document.getElementById("7").style.display = 'none';
+    }
+    if(yy==300){
+    document.getElementById("4").style.display = 'none';
+    document.getElementById("5").style.display = 'none';
+    document.getElementById("6").style.display = 'block';
+    div1.style.display='block';
+    }
+
+}
+</script> 
+</head>
+
+<?php if($this->memberC != 10) {?>
+<fieldset>
+    <legend>search</legend>
+	<div class="cont-rgt-data">
+         <form action="<?php echo $this->baseUrl();?>/transaction/altertransaction" method="POST">
+            <TABLE id="hor-minimalist-b" summary="">
+                <tr>
+                    <td>voucherNumber</td>
+                    <td><?php echo $this->form->member_id;?></td>
+                </tr>
+             </table>
+             <?php echo $this->form->Search;?>
+         </form>
+        </div>
+</fieldset>
+<?php } ?>
+
+<div class="register">
+    <div class="profile_tab">   
+	<div id =2 style="width:360px;float:left">
+
+
+<?php if($this->memberC == 10) { ?>
+
+<fieldset>
+    <legend>Transaction Details</legend>
+	<div class="cont-rgt-data">
+         <form action="<?php echo $this->baseUrl();?>/transaction/altertransaction" method="POST">
+            <TABLE id="hor-minimalist-b" summary="" width="20%">
+                <tr>
+                
+                <?php foreach($this->alterTransaction  as $tran) : ?>
+                <TR>
+                    <TD align="right">voucherNumber</TD>
+                    <TD ><input type = "text" name = "transaction_id"  value = "1111 <?php echo $tran['transaction_id'];?>" readonly="true" ></TD>
+                </TR>
+                <TR>
+                   <TD align="right">transactionType</TD>
+                    <TD ><input type = "text" name = "transaction_id"  value = "<?php echo $tran['transaction_type'];?>" readonly="true" ></TD>
+                    
+               </TR>
+               <TR>
+                    <TD align="right">accountNumber</TD>
+                    <TD ><input type = "text" name = "account_number"  value = "<?php echo $tran['account_number'];?>" readonly="true" ></TD>
+                </TR>
+                <TR>
+                    <TD align="right">interestAmount</TD></TD>
+                    <TD ><input type = "text" name = "transaction_interest_amount"  value = "<?php echo $tran['transaction_interest_amount'];?>" readonly="true" ></TD>
+                    
+                </TR>
+
+                <TR>
+                    <input type ="hidden" name="created_by" value="<?php echo $tran->created_by;?>" size=20 >
+                    <td align="right">transactionDate</td>
+                    <TD ><input type = "text" name = "transaction_date"  value = "<?php echo $tran['transaction_date'];?>" readonly="true" ></TD>
+                </TR>
+                <TR>
+                    <TD align="right">Fine</TD>
+                    <TD ><input type = "text" name = "transaction_fine_amount"  value = "<?php echo $tran['transaction_fine_amount'];?>" readonly="true" ></TD>
+                   
+                </TR>
+                <TR>
+                    <TD align="right">transactionMode</TD>
+                    <TD ><input type = "text" name = "paymenttype_description"  value = "<?php echo $tran['paymenttype_description'];?>" readonly="true" ></TD>
+                </TR>
+                <TR>
+                    <TD align="right">amount</TD>
+                    <TD ><input type = "text" name = "transaction_amount"  value = "<?php echo $tran['transaction_amount'];?>" readonly="true" ></TD>
+                    
+                </TR>
+
+               
+                <?php endforeach; ?>
+            </form>
+        </table>
+    </div>
+    <table>
+    <?php if($this->recordstatus_id == 3) { ?>
+	<TR>
+            <td id="4" style="display:block;">
+                
+                <input name="button" type="button" class="officebutton" value="Edit" onclick="display(300);">
+                
+             </TD>
+            </form>
+	    <td id="5" style="display:block;">
+                <input name="submit" type="submit" class="officebutton" value="Void Transaction" onclick = "display(100);">
+            </td>
+        </TR>
+    <?php } ?>
+    <?php if($this->recordstatus_id != 3) { ?>
+        <th bgcolor="#EE9A4D">Commited</th>
+    <?php } ?>
+</table>
+
+
+<div id = "1" style="display:none;">
+<?php foreach($this->alterTransaction  as $ledger) : ?>
+<form action = "<?php echo $this->baseUrl(); ?>/transaction/altertransaction/deletetransaction" method="POST">
+    <table id = "hor-minimalist-b">
+        <tr>
+            <TD><input type = "hidden" name = "vochure_number" value = "<?php echo $ledger['transaction_id'];?>"></TD>
+        </tr>
+        <TR>
+            <TD>transactionRemarks
+                <textarea value="" name="transaction_remarks"></textarea>
+            </td>
+        </TR>
+        <tr>
+            <TD><input name="submit" type="submit" class="officebutton" value="Save"></TD>
+        </tr>
+    </table>
+</form>
+<?php endforeach; ?>
+</div>
+<?php } ?>
+</fieldset>
+	</div>
+
+
+	<div id =3 style="width:390px;float:right;display:none">
+
+
+<?php if($this->memberC == 10) { ?>
+
+<fieldset>
+    <legend>Transaction Details</legend>
+	<div class="cont-rgt-data">
+         <form action="<?php echo $this->baseUrl();?>/transaction/altertransaction/edittransaction" method="POST">
+            <TABLE id="hor-minimalist-b" summary="" width="20%">
+                <tr>
+                
+                <?php foreach($this->alterTransaction  as $tran) : ?>
+                <TR>
+                    <TD align="right">voucherNumber</TD>
+                    <TD ><input type = "text" name = "vochure_number"  value = "<?php echo $tran['transaction_id'];?>" readonly="true" ></TD>
+                </TR>
+                <input type = "hidden" name = "accID"  value = "<?php echo $tran['account_id'];?>" readonly="true" >
+                <TR>
+                   <TD align="right">transactionType</TD>
+                    <TD ><?php echo $this->form->transactionType;?></TD>
+                    
+               </TR>
+               <TR>
+                    <TD align="right">accountNumber</TD>
+                    <TD ><?php echo $this->form->account_id;?></TD>
+                </TR>
+                <TR>
+                    <TD align="right">interestAmount</TD></TD>
+                    <TD ><?php echo $this->form->transaction_interest_amount;?></TD>
+                    
+                </TR>
+
+                <TR>
+                    <input type ="hidden" name="created_by" value="<?php echo $tran['created_by'];?>" size=20 >
+                    <td align="right">transactionDate</td>
+                    <TD ><?php echo $this->form->transaction_date;?></TD>
+                </TR>
+                <TR>
+                    <TD align="right">Fine</TD>
+                    <TD ><?php echo $this->form->transaction_fine_amount;?></TD>
+                   
+                </TR>
+                <TR>
+                    <TD align="right">transactionMode</TD>
+                    <TD ><?php echo $this->form->transactionMode;?></TD>
+               </TR>
+                <tr>
+                    <td></td>
+                    <TD id="7" style="display:none;"><input type="text" name="modeDetails" value = "" size= "20" class = "txt_put" ></TD>
+                </tr>
+                <TR>
+                    <TD align="right">amount</TD>
+                    <TD ><?php echo $this->form->transaction_amount;?></TD>
+                    
+                </TR>
+                <TR>
+                    <TD align="right">transactionRemarks</TD>
+                    <TD ><?php echo $this->form->transaction_remarks;?></TD>
+                </TR>
+
+                <tr>
+                     <TD class="label"><input type="submit" value="submit"></TD>
+                     <td id="6" style="display:none;"><input name="submit" type="submit" class="officebutton" value="Void Transaction" onclick = "display(01);">
+            </td>
+
+                </tr>
+               
+                <?php endforeach; ?>
+            </form>
+        </table>
+    </div>
+    <table>
+
+</table>
+
+<?php } ?>
+</fieldset>
+	</div>
+	
+	</div>
+</div>

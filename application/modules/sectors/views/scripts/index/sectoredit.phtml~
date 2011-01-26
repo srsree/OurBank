@@ -1,0 +1,28 @@
+<div id = "searchDiv">
+<fieldset>
+    <legend><?php echo $this->translate('Edit sector'); ?></legend>
+                 <form action="<?php echo $this->baseUrl();?>/sectors/index/sectoredit/id/<?echo $this->id; ?>" method="POST"  name= "myform">
+					<div class="btnhouse">
+							<div class="rtbtns">
+									<a href="<?php echo $this->baseUrl();?>/sectors/index/sectordelete/id/<? echo $this->id;?>">
+									<img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a>
+							</div>
+					</div>
+
+					<table class="fieldsets"> 
+									<?php echo $this->form;?>
+					</table>
+
+			<div class="btnhouse">
+				<div class="ltbtns">
+						<input type = "Submit" name = "Submit" id="Submit" value = "Submit"/>
+				</div>
+				<div class="rtbtns">
+						<a href="<?php echo $this->baseUrl();?>/sectors/index"><input type = "Button" name = "Back" id="Back" value = "Back"/></a>
+				</div>
+			</div>
+		</form>
+	</fieldset>
+</div>
+
+

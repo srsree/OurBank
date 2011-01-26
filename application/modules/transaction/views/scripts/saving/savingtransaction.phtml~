@@ -1,0 +1,491 @@
+<table width="100%"><TR><TD><HR></HR></TD></TR></table> 
+	<script>
+	    $(document).ready(function(){
+	        //iterate through each textboxes and add keyup
+        //handler to trigger sum event
+	        $(".txt").each(function() {
+	            $(this).keyup(function(){
+                calculateSum();
+	            });
+	        });
+	    });
+	    function calculateSum() {
+	        var sum = 0;
+	        //iterate through each textboxes and add the values
+	        $(".txt").each(function() {
+	 	            //add only if the value is number
+            if(!isNaN(this.value) && this.value.length!=0) {
+	                sum += parseFloat(this.value);
+           }
+	        });
+	        //.toFixed() method will roundoff the final sum to 2 decimal places
+	        $("#amount").val(sum.toFixed(2));
+	    }
+	</script>
+<div>
+<?php If($this->type==3) { ?>
+	<a href="#" id="open">Group account members</a>
+		<div class="box">
+			<div id="content1">
+				<fieldset>
+				<legend> <?php echo $this->memberListtitle;?> </legend>
+					<div class="cont-rgt-data">
+						<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+							<tr>
+								<td width="30%">Name</td>
+								<td width="50%">code</td>
+							</tr>
+							<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+								<tr class="tdbrown">
+									<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+									<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+								</tr>
+							<?php }?>
+						</table>
+					</div>
+				</fieldset>
+				<p><a href="#" id="close">Hide</a></p>
+			</div>
+		</div><br/><br/>
+
+
+<!--<div style="float:left;width:770px">-->
+	<fieldset>
+		<legend>Type of Transaction</legend>
+		<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<?php If($this->type==3) { ?>
+			<?php if($this->block=='Deposite') { ?>
+			<TR>
+				<Td ><a href="<?php echo $this->baseUrl(); ?>/transaction/saving/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/Deposite/manualsavingstransaction/no">Deposit (group)</a>
+				<Td >
+
+				<Td ><a href="<?php echo $this->baseUrl(); ?>/transaction/saving/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/Deposite/manualsavingstransaction/yes">Deposit (individual)</a>
+				<Td >
+			<?php } elseif($this->block=='Withdraw') { ?>
+				<Td ><a href="<?php echo $this->baseUrl(); ?>/transaction/saving/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/Withdraw/manualsavingstransaction/no">Withdraw (group)</a>
+				<Td >
+
+				<Td ><a href="<?php echo $this->baseUrl(); ?>/transaction/saving/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/Withdraw/manualsavingstransaction/yes">Withdraw (individual)</a><Td >
+				<TR>
+			<?php } ?>
+			<?php } ?>
+			</table>
+		</div>
+	</fieldset>
+<?php }?>
+</div>
+
+<?php if(!$this->Submit) { ?>
+<?php If($this->type==3) { ?>
+	<?php if($this->manualsavingstransaction=='yes' || $this->manualsavingstransaction=='no') { ?>
+		<?php If(($this->savingtransactionType==1) || ($this->savingtransactionType==2)) { ?>
+			<?php if($this->categoryType=='1') {?>
+				<table width="100%"><TR><d><HR></HR></TD></TR></table>
+				<?php If($this->savingtransactionType==1)  { ?>
+					<?php  $this->savingshead="Savings deposit"; ?>
+				<?php } else {?>
+						<?php  $this->savingshead="Savings withdraw"; ?>
+				<?php }?>
+				<fieldset>
+					<legend> <?php echo $this->savingshead; ?> </legend>
+					<div class="cont-rgt-data">
+						<form action="<?php  echo $this->baseUrl();?>/transaction/saving/view/block/<?php echo $this->block;?>/manualsavingstransaction/<?php echo $this->manualsavingstransaction;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+							<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+								<tr>
+									<td width="40%">Date<B style='color:red'>("yyyy-mm-dd")</B></b><?php echo $this->form1->accountcode; ?><?php echo $this->form1->membercode; ?>
+									<?php echo $this->form1->typeId; ?><?php echo $this->form1->categoryId;?>
+									<?php echo $this->form1->transactionType_id;?></td>
+									<td ><?php echo $this->form1->date;?></td>
+									<td ></td>
+								</tr>
+							</table>
+							<?php if($this->manualsavingstransaction=='yes') { ?>
+							<tr>
+								<TD>
+									<fieldset>
+										<legend> Enter Individual member amount  </legend>
+										<div class="cont-rgt-data">
+											<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+												<tr class="tdbrownheading">
+													<td width="39%">Name</td>
+													<td>Amount</td>
+												</tr>
+												<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+												<tr class="tdbrown">
+													<TD width="39%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+													<td><?php $a='amount'.$arrayroles1['member_id'];
+													echo $this->form1->$a; ?></TD>
+												</tr>
+												<?php } ?>
+											</table>
+										</div>
+									</fieldset>
+								</TD>
+							</tr>
+							<?php }	?>
+							<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+								<tr >
+									<td width="40%">Amount</td>
+									<td ><?php echo $this->form1->amount;?></td>
+									<td></td>
+								</tr>
+								<tr >
+									<td >Transaction mode</td>
+									<td ><?php echo $this->form1->paymenttype;?> </td> 
+									<td > <?php echo $this->form1->paymenttype_details;?><h id="details" style="display:none">Voucher/ cheque/draft</h></td>
+								</tr>
+								<tr>
+									<td >Description</td>
+									<td ><?php echo $this->form1->transactiondescription;?></td>
+									<td ></td>
+								</tr>
+							<tr>
+								<td ><?php echo $this->form1->confirm;?></td>
+								<td ></td>
+								<td ></td>
+							</tr>
+							</table>
+							<table>
+								<TR>
+									<TD><?php echo $this->withdraw;?></TD>
+									<TD><?php echo $this->smallerdate;?><?php echo $this->currentdate;?></TD>
+								</TR>
+							</table>
+						</form>
+					</div>
+				</fieldset>
+			<?php } ?>
+		<?php }?>
+	<?php }?>
+<?php } else { ?>
+	<?php If(($this->savingtransactionType==1) || ($this->savingtransactionType==2)) { ?>
+		<?php if($this->categoryType=='1') {?>
+			<table width="100%"><TR><d><HR></HR></TD></TR></table>
+			<?php If($this->savingtransactionType==1)  { ?>
+				<?php  $this->savingshead="Savings deposit"; ?>
+			<?php } else {?>
+				<?php  $this->savingshead="Savings withdraw"; ?>
+			<?php }?>
+			<fieldset>
+			<legend> <?php echo $this->savingshead; ?> </legend>
+				<div class="cont-rgt-data">
+					<form action="<?php  echo $this->baseUrl();?>/transaction/saving/view/block/<?php echo $this->block;?>/manualsavingstransaction/<?php echo $this->manualsavingstransaction;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+						<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+							<tr>
+								<td width="40%">Date<B style='color:red'>("yyyy-mm-dd")</B></b><?php echo $this->form1->accountcode; ?><?php echo $this->form1->membercode; ?>
+								<?php echo $this->form1->typeId; ?><?php echo $this->form1->categoryId;?>
+								<?php echo $this->form1->transactionType_id;?></td>
+								<td ><?php echo $this->form1->date;?></td>
+								<td ></td>
+							</tr>
+						</table>
+						<?php if($this->manualsavingstransaction=='yes') { ?>
+						<tr>
+							<TD>
+								<fieldset>
+									<legend> Enter Individual member amount  </legend>
+									<div class="cont-rgt-data">
+										<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+											<tr class="tdbrownheading">
+												<td width="39%">Name</td>
+												<td>Amount</td>
+											</tr>
+											<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+											<tr class="tdbrown">
+												<TD width="39%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+												<td><?php $a='amount'.$arrayroles1['member_id'];
+												echo $this->form1->$a; ?></TD>
+											</tr>
+											<?php }?>
+										</table>
+									</div>
+								</fieldset>
+							</TD>
+						</tr>
+						<?php }	?>
+						<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+							<tr >
+								<td width="40%">Amount</td>
+								<td ><?php echo $this->form1->amount;?></td>
+								<td></td>
+							</tr>
+							<tr >
+								<td >Transaction mode</td>
+								<td ><?php echo $this->form1->paymenttype;?> </td> 
+								<td > <?php echo $this->form1->paymenttype_details;?><h id="details" style="display:none">Voucher/cheque/draft</h></td>
+							</tr>
+							<tr>
+								<td >Description</td>
+								<td ><?php echo $this->form1->transactiondescription;?></td>
+								<td ></td>
+							</tr>
+							<tr>
+								<td ><?php echo $this->form1->confirm;?></td>
+								<td ></td>
+								<td ></td>
+							</tr>
+						</table>
+						<table>
+							<TR>
+								<TD><?php echo $this->withdraw;?></TD>
+								<TD><?php echo $this->smallerdate;?><?php echo $this->currentdate;?></TD>
+							</TR>
+						</table>
+					</form>
+				</div>
+			</fieldset>
+		<?php } ?>
+	<?php }?>
+<?php }?>
+<?php }?>
+
+<?php if($this->Submit) { ?>
+<?php If($this->type==3) { ?>
+	<?php if($this->manualsavingstransaction=='yes' || $this->manualsavingstransaction=='no') { ?>
+		<?php If(($this->savingtransactionType==1) || ($this->savingtransactionType==2)) { ?>
+			<?php if($this->categoryType=='1') {?>
+				<table width="100%"><TR><d><HR></HR></TD></TR></table>
+				<?php If($this->savingtransactionType==1)  { ?>
+					<?php  $this->savingshead="Savings deposit"; ?>
+				<?php } else {?>
+						<?php  $this->savingshead="Savings withdraw"; ?>
+				<?php }?>
+				<fieldset>
+					<legend> <?php echo $this->savingshead; ?> </legend>
+					<div class="cont-rgt-data">
+						<form action="<?php  echo $this->baseUrl();?>/transaction/saving/view/block/<?php echo $this->block;?>/manualsavingstransaction/<?php echo $this->manualsavingstransaction;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+							<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+								<tr>
+									<td width="40%">Date<B style='color:red'>("yyyy-mm-dd")</B></b><?php echo $this->form1->accountcode; ?><?php echo $this->form1->membercode; ?>
+									<?php echo $this->form1->typeId; ?><?php echo $this->form1->categoryId;?>
+									<?php echo $this->form1->transactionType_id;?>
+									<?php echo $this->form1->date1;?>
+									<?php echo $this->form1->amounts;?>
+									<?php echo $this->form1->transactiondescription1;?>
+									<?php echo $this->form1->paymenttype_details1;?>
+									<?php echo $this->form1->paymenttype1;?></td>
+									<td ><?php echo $this->dates;?></td>
+									<td ></td>
+								</tr>
+							</table>
+							<?php if($this->manualsavingstransaction=='yes') { ?>
+							<tr>
+								<TD>
+									<fieldset>
+										<legend> Enter Individual member amount  </legend>
+										<div class="cont-rgt-data">
+											<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+												<tr class="tdbrownheading">
+													<td width="39%">Name</td>
+													<td>Amount</td>
+												</tr>
+												<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+												<tr class="tdbrown">
+													<TD width="39%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+													<td><?php $a='amount'.$arrayroles1['member_id'];
+													echo $this->form1->$a; ?></TD>
+												</tr>
+												<?php } ?>
+											</table>
+										</div>
+									</fieldset>
+								</TD>
+							</tr>
+							<?php }	?>
+							<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+								<tr >
+									<td width="40%">Amount</td>
+									<td ><?php echo $this->amounts;?></td>
+									<td></td>
+								</tr>
+								<tr >
+									<td >Transaction mode</td>
+									<td ><?php echo $this->transactionModetype;?> </td> 
+									<td ></td>
+								</tr>
+								<?php if ($this->paymenttype!=1) { ?>
+								<tr >
+									<td >Voucher/ cheque/draft</td>
+									<td ><?php echo $this->paymenttype_details;?> </td> 
+									<td ></td>
+								</tr>
+								<?php } ?>
+								<tr>
+									<td >Description</td>
+									<td ><?php echo $this->transactiondescription;?></td>
+									<td ></td>
+								</tr>
+								<tr>
+									<td ><?php echo $this->form1->Submit;?></td>
+									<td ><a href="<?php echo $this->baseUrl(); ?>/transaction/saving/view/accountcode/
+								<?php echo base64_encode($this->accountCode);?>/code/
+								<?php echo base64_encode($this->code);?>/categoryType/
+								<?php echo $this->categoryType;?>/block/<?php echo $this->block;?>"><input name="submit" type="submit" class="officebutton" value="back"></a></td>
+									<td ></td>
+								</tr>
+							</table>
+							<table>
+								<TR>
+									<TD><?php echo $this->withdraw;?></TD>
+									<TD><?php echo $this->smallerdate;?><?php echo $this->currentdate;?></TD>
+								</TR>
+							</table>
+						</form>
+					</div>
+				</fieldset>
+			<?php } ?>
+		<?php }?>
+	<?php }?>
+<?php } else { ?>
+	<?php If(($this->savingtransactionType==1) || ($this->savingtransactionType==2)) { ?>
+		<?php if($this->categoryType=='1') {?>
+			<table width="100%"><TR><d><HR></HR></TD></TR></table>
+			<?php If($this->savingtransactionType==1)  { ?>
+				<?php  $this->savingshead="Savings deposit"; ?>
+			<?php } else {?>
+				<?php  $this->savingshead="Savings withdraw"; ?>
+			<?php }?>
+			<fieldset>
+			<legend> <?php echo $this->savingshead; ?> </legend>
+				<div class="cont-rgt-data">
+					<form action="<?php  echo $this->baseUrl();?>/transaction/saving/view/block/<?php echo $this->block;?>/manualsavingstransaction/<?php echo $this->manualsavingstransaction;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+						<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+							<tr>
+								<td width="40%">Date<B style='color:red'>("yyyy-mm-dd")</B></b><?php echo $this->form1->accountcode; ?><?php echo $this->form1->membercode; ?>
+								<?php echo $this->form1->typeId; ?><?php echo $this->form1->categoryId;?>
+								<?php echo $this->form1->transactionType_id;?>
+								<?php echo $this->form1->date1;?>
+								<?php echo $this->form1->amounts;?>
+								<?php echo $this->form1->transactiondescription1;?>
+								<?php echo $this->form1->paymenttype_details1;?>
+								<?php echo $this->form1->paymenttype1;?></td>
+								<td ><?php echo $this->dates;?></td>
+								<td ></td>
+							</tr>
+						</table>
+						<?php if($this->manualsavingstransaction=='yes') { ?>
+						<tr>
+							<TD>
+								<fieldset>
+									<legend> Enter Individual member amount  </legend>
+									<div class="cont-rgt-data">
+										<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+											<tr class="tdbrownheading">
+												<td width="39%">Name</td>
+												<td>Amount</td>
+											</tr>
+											<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+											<tr class="tdbrown">
+												<TD width="39%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+												<td><?php $a='amount'.$arrayroles1['member_id'];
+												echo $this->form1->$a; ?></TD>
+											</tr>
+											<?php }?>
+										</table>
+									</div>
+								</fieldset>
+							</TD>
+						</tr>
+						<?php }	?>
+						<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+							<tr >
+								<td width="40%">Amount</td>
+								<td ><?php echo $this->amounts;?></td>
+								<td></td>
+							</tr>
+							<tr >
+								<td >Transaction mode</td>
+								<td ><?php echo $this->transactionModetype;?> </td> 
+								<td ></td>
+							</tr>
+							<?php if ($this->paymenttype!=1) { ?>
+							<tr >
+								<td >Voucher/ cheque/draft</td>
+								<td ><?php echo $this->paymenttype_details;?> </td> 
+								<td ></td>
+							</tr>
+							<?php } ?>
+							<tr>
+								<td >Description</td>
+								<td ><?php echo $this->transactiondescription;?></td>
+								<td ></td>
+							</tr>
+							<tr>
+								<td ><?php echo $this->form1->Submit;?></td>
+								<td ><a href="<?php echo $this->baseUrl(); ?>/transaction/saving/view/accountcode/
+								<?php echo base64_encode($this->accountCode);?>/code/
+								<?php echo base64_encode($this->code);?>/categoryType/
+								<?php echo $this->categoryType;?>/block/<?php echo $this->block;?>"><input name="submit" type="submit" class="officebutton" value="back"></a></td>
+								<td ></td>
+							</tr>
+						</table>
+						<table>
+							<TR>
+								<TD><?php echo $this->withdraw;?></TD>
+								<TD><?php echo $this->smallerdate;?><?php echo $this->currentdate;?></TD>
+							</TR>
+						</table>
+					</form>
+				</div>
+			</fieldset>
+		<?php } ?>
+	<?php }?>
+<?php }?>
+<?php }?>
+
+		<table width="100%"><TR><th><HR></HR></TD></TR></table>
+		<fieldset>
+		<legend>Saving details</legend>
+			<div class="cont-rgt-data">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<tr>
+						<th >Tr number</th>
+						<th > date</th>
+						<th > type</th>
+						<th > mode</th>
+						<th >mode details</th>
+						<th >Credit</th>
+						<th >Debit</th>
+					</tr>
+					<?php foreach ($this->savingsDetails1 as $savingsdetails): ?>
+						<tr>
+							<td ><?php echo $this->escape($savingsdetails['transaction_id']);?></td>
+							<td ><?php echo $this->escape($savingsdetails['transaction_date']);?></td> 
+							<td ><?php echo $this->escape($savingsdetails['transactiontype']);?></td>
+							<td><?php echo $this->escape($savingsdetails['paymenttype_description']);?></td>  
+							<td ><?php echo $this->escape($savingsdetails['paymenttype_details']);?></td> 
+							<?php $transaction_type = $this->escape($savingsdetails['transactiontype']); ?>
+							<?php if($transaction_type=="credit - Deposit"){ ?>
+								<td ><?php echo $this->escape($savingsdetails['transaction_amount']);?></td>
+								<td >-</td></td>
+							<?php } ?>
+							<?php if($transaction_type=="debit - Withdrawal"){ ?>
+								<td >-</td></td>
+								<td ><?php echo $this->escape($savingsdetails['transaction_amount']);?></td>
+							<?php } ?>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+			</div>
+		</fieldset>
+		<fieldset>
+		<legend></legend>
+			<table summary="Employee Pay Sheet">
+				<tr>
+					<td ><B style="color:red;margin-left:600px;">Total balance = <?php echo $this->savingsbalance;?></B></td> 
+				</tr>
+			</table>
+		</fieldset>

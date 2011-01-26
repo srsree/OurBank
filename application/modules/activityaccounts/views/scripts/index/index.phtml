@@ -1,0 +1,54 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<div id="searchDiv">
+    <fieldset>
+        <legend><?php echo $this->translate("Search"); ?></legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/activityaccounts" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td width="50%"><?php echo $this->translate("Bank name:"); ?><? echo $this->form->bank;?></td>
+                                    <td width="50%"><input id="Search" type="submit" name="Search" value="Search"></td><TD width="50%"></TD>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+<?php if($this->results){ ?>
+
+	  <table id="hor-minimalist-b">
+		<tr><th><?php echo $this->translate("Activity name"); ?></th><th><?php echo $this->translate("No of accounts"); ?></th></tr>
+<?php foreach($this->results as $activityresult){ ?>
+	<tr>
+	<td><?php echo $activityresult['name']; ?></td>
+	<td><?php echo $activityresult['COUNT(a.account_id)']; ?></td>
+	</tr>
+<?php } ?>
+           
+ 
+          </table>
+<form action="<?php echo $this->baseUrl();?>/activityaccounts/index/pdftransaction" method="POST">
+<div class="reportdiv">      <input type="submit" value="PDF"  id="reportbutton"><input type="hidden" name="bank" value="<?php echo $this->act_id; ?>"></div>
+</form>
+<div class="reportdiv"><a href="<?php echo $this->baseUrl();?>/activityaccounts/index/chart/act_id/<? echo $this->act_id; ?>"><input type="submit" value="Graph"  id="reportbutton"></td></a></div>
+<?php } ?>

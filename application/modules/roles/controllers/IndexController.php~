@@ -1,0 +1,314 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!--> 
+<?php
+class Roles_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Roles';
+
+$sessionName = new Zend_Session_Namespace('ourbank');
+	 $this->view->createdby = $sessionName->primaryuserid;
+	
+//  $login=new App_Model_Users();
+//                 $loginname=$login->username($userid);
+//                 foreach($loginname as $loginname) {
+// 	           $this->view->primaryid=$loginname['user_id'];
+// 		   $this->view->id=$loginname['id'];
+//                    $this->view->username=$loginname['username'];
+// 		   $this->view->primaryrole=$loginname['grantname'];
+//                 }
+
+// 		$dynamic = new App_Model_Dynamic ();
+//        		$dynamic->dynamicaction();
+$this->view->adm = new App_Model_Adm();
+    }
+
+    public function indexAction() 
+    {
+        $searchForm = new Roles_Form_Search();
+        $roles = new Roles_Model_Roles();
+        $this->view->form = $searchForm;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')){ 
+        $formdata = $this->_request->getPost();
+        $result = $roles->searchRoles($formdata);	
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage($this->view->adm->paginator());
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+        $this->view->search = true;
+	} else {
+            $this->view->title='Roles';
+            $this->view->title = "New Role";
+            $storage = new Zend_Auth_Storage_Session();
+            $data = $storage->read();
+            if (!$data) {
+            $this->_redirect('index/login');
+            }
+            $page = $this->_getParam('page',1);
+            $paginator = Zend_Paginator::factory($roles->getRoles());
+	    $this->view->paginator = $paginator;
+	}
+    }
+
+    public function rolesaddAction() 
+    {
+        $this->view->title = "New Role";
+        $activity = new Roles_Model_Roles();
+        $form = new Roles_Form_Roles();
+        $this->view->form = $form;
+        $module = $activity->getModule();
+        $this->view->module = $module;
+         if ($this->_request->isPost() && $this->_request->getPost('submit')) {
+            $grantname = $this->_request->getParam('grantname'); //get grant name
+            $formData = $this->_request->getPost(); //get formdata
+            $moduleid = array();
+            $moduleids = array();
+            $values = array();
+            $arraykeys = (array_keys($formData)); //filter keyvalues
+                foreach($arraykeys as $arraykey){
+                    $values[] = explode('_',$arraykey); 
+                }
+                foreach($values as $valuesf){
+                    if(count($valuesf) > 2)
+                    {
+                        $moduleid[] = $valuesf[1]; //getModuleids
+                        $moduleids[] = $valuesf[2]; //getSubmodules
+                        $activitylist[] = $valuesf[0]."_".$valuesf[1]."_".$valuesf[2];
+                    }
+                }
+                $moduleid=array_values(array_unique($moduleid));
+                $moduleids=array_values(array_unique($moduleids));
+
+                $data=array('name' => $grantname,
+                            'created_date'=>date("Y-m-d : H-i-s"),
+                            'created_by'=>$this->view->createdby);
+                $grantid = $this->view->adm->addRecord('ob_grant',$data);
+                foreach($moduleids as $moduleids1){
+                    $inputdata=array(
+                                'grant_id' => intVal($grantid),
+                                'module_id'=> intVal($moduleids1),
+                                'add'=>0,
+                                'edit'=>0,
+                                'view'=>0,
+                                'delete'=>0);
+                    $this->view->adm->addRecord('ob_grantactivity',$inputdata);
+                } 
+            foreach($moduleid as $moduleid1){
+                    $inputdata=array(
+                                'grant_id' => intVal($grantid),
+                                'module_id'=> intVal($moduleid1),
+                                'add'=>1,
+                                'edit'=>1,
+                                'view'=>1,
+                                'delete'=>1);
+                    $this->view->adm->addRecord('ob_grantactivity',$inputdata);
+                }
+
+                foreach($moduleids as $moduleidinsert){
+                    foreach($activitylist as $formData1){
+                        if(strstr($formData1,$moduleidinsert)){
+                            if(strstr($formData1,"add")){   
+                                $data = array("add" => 1);
+                                $activity->updateRecord('ob_grantactivity',$data,$moduleidinsert);
+                                    } 
+                            else if(strstr($formData1,"edit")){
+                                $data = array("edit" => 1);
+                                $activity->updateRecord('ob_grantactivity',$data,$moduleidinsert);
+                                    } 
+                            else if(strstr($formData1,"view")){
+                                $data = array("view" => 1);
+                                $activity->updateRecord('ob_grantactivity',$data,$moduleidinsert);
+                                    } 
+                            else if(strstr($formData1,"delete")){
+                                $data = array("delete" => 1);
+                                $activity->updateRecord('ob_grantactivity',$data,$moduleidinsert);
+                                    } 
+                            }
+                    }
+                
+                }
+        	$this->_redirect('roles/index');
+       		}  
+            }
+    
+   
+
+    public function roleseditAction() {
+        $this->view->title = 'Edit Roles';
+        $form = new Roles_Form_Roles();
+        $this->view->form = $form;
+        $grantid =  $this->_request->getParam('id');  
+        $this->view->grantid = $grantid;
+        $grant = new Roles_Model_Roles();
+
+        $grantdetails = $this->view->adm->editRecord('ob_grant',$grantid);
+        foreach($grantdetails as $grantdetails1){
+            $form->grantname->setValue($grantdetails1['name']);
+        }
+        $this->view->module = $grant->getModule();
+        $this->view->availmodule = $grant->viewModuleid($grantid);
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+        $grantid =  $this->_request->getParam('id');
+        $grantname =  $this->_request->getParam('grantname'); 
+        $formData = $this->_request->getPost();
+        //Update the previous record
+        $previousdata = $this->view->adm->editRecord("ob_grant",$grantid);
+        $this->view->adm->updateLog("ob_grant_log",$previousdata,$this->view->createdby);
+        $activitydetails = $grant->editactivity($grantid);
+
+        foreach($activitydetails as $activitydetailslist){
+            $editdata = array('id' => $activitydetailslist['id'],
+                              'grant_id' => $grantid,
+                              'module_id' => $activitydetailslist['module_id'],
+                              'add' => $activitydetailslist['add'],
+                              'edit' => $activitydetailslist['edit'], 
+                              'view' => $activitydetailslist['view'],  
+                              'delete' => $activitydetailslist['delete']);
+            $grant->editactivitydetails('ob_grantactivity_log',$editdata);
+        }
+            $grant->deleteactivity('ob_grantactivity',$grantid);
+            
+ $data=array('name' => $grantname,
+                            'created_date'=>date("Y-m-d : H-i-s"),
+                            'created_by'=>$this->view->createdby);
+            $this->view->adm->updateRecord('ob_grant',$grantid,$data);
+            $moduleid = array();
+            $moduleids = array();
+            $values = array();
+            $arraykeys = (array_keys($formData)); //filter keyvalues
+                foreach($arraykeys as $arraykey){
+                    $values[] = explode('_',$arraykey); 
+                }
+                foreach($values as $valuesf){
+                    if(count($valuesf) > 2)
+                    {
+                        $moduleid[] = $valuesf[1]; //getModuleids
+                        $moduleids[] = $valuesf[2]; //getSubmodules
+                        $activitylist[] = $valuesf[0]."_".$valuesf[1]."_".$valuesf[2];
+                    }
+                }
+                $moduleid=array_values(array_unique($moduleid));
+                $moduleids=array_values(array_unique($moduleids));
+
+               
+                foreach($moduleids as $moduleids1){
+                    $inputdata=array(
+                                'grant_id' => intVal($grantid),
+                                'module_id'=> intVal($moduleids1),
+                                'add'=>0,
+                                'edit'=>0,
+                                'view'=>0,
+                                'delete'=>0);
+                    $this->view->adm->addRecord('ob_grantactivity',$inputdata);
+                } 
+            foreach($moduleid as $moduleid1){
+                    $inputdata=array(
+                                'grant_id' => intVal($grantid),
+                                'module_id'=> intVal($moduleid1),
+                                'add'=>1,
+                                'edit'=>1,
+                                'view'=>1,
+                                'delete'=>1);
+                    $this->view->adm->addRecord('ob_grantactivity',$inputdata);
+                }
+
+                foreach($moduleids as $moduleidinsert){
+                    foreach($activitylist as $formData1){
+                        if(strstr($formData1,$moduleidinsert)){
+                            if(strstr($formData1,"add")){   
+                                $data = array("add" => 1);
+                                $grant->updateRecord('ob_grantactivity',$data,$moduleidinsert);
+                                    } 
+                            else if(strstr($formData1,"edit")){
+                                $data = array("edit" => 1);
+                                $grant->updateRecord('ob_grantactivity',$data,$moduleidinsert);
+                                    } 
+                            else if(strstr($formData1,"view")){
+                                $data = array("view" => 1);
+                                $grant->updateRecord('ob_grantactivity',$data,$moduleidinsert);
+                                    } 
+                            else if(strstr($formData1,"delete")){
+                                $data = array("delete" => 1);
+                                $grant->updateRecord('ob_grantactivity',$data,$moduleidinsert);
+                                    } 
+                            }
+                    }
+                
+                }
+           $this->_redirect('roles/index');
+         } 
+ }
+    public function rolesviewAction() {
+        $this->view->title = 'View Roles';
+        $grantid = $this->_getParam('id');
+        $this->view->grantid = $grantid;
+        $grant = new Roles_Model_Roles();
+
+        $grantdetails = $this->view->adm->editRecord('ob_grant',$grantid);
+        foreach($grantdetails as $grantdetails1){
+            $this->view->grantname = $grantdetails1['name'];
+        }
+        $this->view->module = $grant->getModule();
+        $this->view->availmodule = $grant->viewModuleid($grantid);
+    }
+
+    public function rolesdeleteAction() {
+        $this->view->title = "Delete Role";
+        $grantid =  $this->_request->getParam('id');
+        $this->view->grantid = $grantid;
+        $this->view->form  = new Roles_Form_Delete();
+        $dbobj = new Roles_Model_Roles();
+        $rolestatus = $dbobj->getRolestatus($grantid);
+        if($rolestatus !=null or count($rolestatus) > 0)
+            {
+                $grantname = $dbobj->getGrantname($grantid);
+                $this->view->grantname = $grantname;
+                if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+                    if ($this->view->form->isValid($this->_request->getPost())) {
+                        $remarks = $this->_getParam('remarks');
+                        $previousdata = $this->view->adm->editRecord("ob_grant",$grantid);
+                            $this->view->adm->updateLog("ob_grant_log",$previousdata,$this->view->createdby);
+                            $activitydetails = $dbobj->editactivity($grantid);
+                            $dbobj->deletegrantname('ob_grant',$grantid);
+                            foreach($activitydetails as $activitydetailslist){
+                                $editdata = array('id' => $activitydetailslist['id'],
+                                                'grant_id' => $grantid,
+                                                'module_id' => $activitydetailslist['module_id'],
+                                                'add' => $activitydetailslist['add'],
+                                                'edit' => $activitydetailslist['edit'], 
+                                                'view' => $activitydetailslist['view'],  
+                                                'delete' => $activitydetailslist['delete']);
+                                $dbobj->editactivitydetails('ob_grantactivity_log',$editdata);
+                            }
+                                $dbobj->deleteactivity('ob_grantactivity',$grantid);
+                                
+        		$this->_redirect('roles/index');
+                }
+                }
+          }   else {
+               echo "<script language=javascript> alert('You cannot delete this role, already it is used condition'); </script>";
+//                 $this->_redirect('roles/index');
+
+               }
+    }
+
+}

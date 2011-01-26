@@ -1,0 +1,15 @@
+<?php
+class Email_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Website and Email Details';
+    }
+
+    public function indexAction() {
+        $email=new Email_Form_email();
+        $this->view->form=$email;
+    }
+
+
+
+}

@@ -1,0 +1,29 @@
+<?php
+
+class Enquiry_TransactiondetailsController extends Zend_Controller_Action
+{
+
+    public function init()
+    {
+       $this->view->pageTitle='Current Loan List';
+    }
+
+    public function indexAction()
+    {
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $sessionName->primaryuserid;
+        $this->view->title = "Current Loan List";
+
+         $auth = Zend_Auth::getInstance();
+        if (!$auth->hasIdentity()) {
+            $this->_redirect('index/login');
+        }
+        $this->view->title = "Category Enquiry";
+		    $first = new categoryEnquiry();//sending the input data in array for 4 fields in search
+		    $loanDetails = $first->fetchloanDetails();
+	            $this->view->loanDetails = $loanDetails;
+
+    }
+
+}
+

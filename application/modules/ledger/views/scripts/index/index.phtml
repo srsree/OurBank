@@ -1,0 +1,158 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://gmpg.org/xfn/11">
+<style type="text/css" >
+    .accordion_toggle {
+        display: block;
+        height: 30px;
+        width: 760px;
+        background: top right #D8D8D8;
+        padding: 0 10px 0 10px;
+        line-height: 30px;
+        color: #ffffff;
+        font-weight: normal;
+        text-decoration: none;
+        outline: none;
+        font-size: 12px;
+        color: #000000;
+        border-bottom: 1px solid #000000;
+        cursor: pointer;
+        margin: 0 0 0 0;
+    }
+    .accordion_content {
+        background-color: #ffffff;
+        color: #444444;
+        overflow: hidden;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Ledger search </legend>
+        <div class="search">
+            <table width="100%">
+                <form name="ledgerindex" action="<?php echo $this->baseUrl();?>/ledger/index" method="POST">
+                    <tr>
+                        <td class="label">Ledger code:</td>
+                        <td><?php  echo $this->form1->field6;?></td>
+                        <td class="label">Sub ledger code:</td>
+                        <td><?php  echo $this->form1->field2;?></td>
+                    </tr>
+                    <tr>
+                        <Td class="label">Header:</td>
+                        <td><?php  echo $this->form1->field3;?></td>
+                        <td class="label">Sub header:</td>
+                        <td><?php  echo $this->form1->field4;?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center"><? echo $this->form1->Search;?></td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+    </fieldset> 
+</div> 
+<br>
+
+<div class="cont-rgt-data">
+    <table id="hor-minimalist-b" height="30" width="80%">
+        <tr>
+                <th width="60">Ledger code</th>
+                <th width="120">Sub ledger code</th>
+                <th width="140">Header</th>
+                <th width="260">Description</th>
+                <th width="200">Created date</th>
+        </tr>
+    </table>
+
+        <?php 
+            $dateconvert = new Creditline_Model_dateConvertor();
+            foreach($this->paginator as $ledger) { ?>
+<!--             <h1 style="font-size:18px;"><?php/* echo $ledger->glcode;*/?></h1> -->
+
+                        <table id="hor-minimalist-b" width="80%">
+                            <tr>
+                            <td width="60"><a href="<?php echo $this->baseUrl();?>/ledger/index/viewledger/id/<?php echo $ledger->id;?>"><?php echo $ledger->glcode;?></a></td>
+                            <td width="120">&nbsp;</td>
+                            <td width="140"><?php echo substr($ledger->header,0,15);?></td> 
+                            <td width="260"><?php echo substr($ledger->description,0,25);?></td>
+                            <td width = "200"><?php  $d=explode(' ',$ledger->created_date); 
+                                                    echo $dateconvert->phpnormalformat($d[0]);?></td>
+                            </tr>
+                        </table>
+
+                        <?php foreach($this->subledger as $subledger) { ?>
+                            <? if ($ledger->id == $subledger->glcode_id) { ?>
+                                <table id="hor-minimalist-b" width="80%">
+                                    <tr>
+                                        <td width="60">&nbsp;</td>
+                                        <td width="120"><a href="<?php echo $this->baseUrl();?>/ledger/index/viewsubledger/id/<?php echo $subledger->id;?>">
+                                                        <?php echo $subledger->glsubcode;?></a></td> 
+                                        <td width="140"><?php echo substr($subledger->header,0,15);?></a>
+                                        <td width="260"><?php echo substr($subledger->description,0,25);?></td>
+                                        <td width = "200"><?php $d=explode(' ',$subledger->created_date); 
+                                                        echo $dateconvert->phpnormalformat($d[0]);?></td>
+                                    </tr>
+                                </table>
+                            <?php } ?>
+                        <?php }  ?>
+            <?php }  ?>
+
+</div>
+
+<div class="accordion_content">
+        <div id="horizontal_container" >
+        </div>
+</div>
+<div id="vertical_nested_container" >
+    <table width="80%" id = "hor-minimalist-b">
+        <TR>
+            <td colspan="5" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                    '/partials/my_pagination_control.phtml'); ?></div></td>
+        </TR>
+    </table>
+</div>
+
+
+
+

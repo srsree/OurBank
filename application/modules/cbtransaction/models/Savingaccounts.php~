@@ -1,0 +1,20 @@
+<?php
+class Accounting_Model_Savingaccounts extends Zend_Db_Table {
+     protected $_name = 'ourbank_savingsaccounts';
+
+
+    public function Addsavingaccounttransaction($post,$account_id,$createdby,$tAmount,$interest) {
+        $data = array('savingsaccount_id' => '',
+                      'account_id' => $account_id,
+                      'savingsaccountstatus_id' => date("Y-m-d"),
+                      'approved_date' => $post['amount'],
+                      'savingsbegin_date' => '',
+                      'savingsmature_date' => $tAmount,
+                      'savings_amount'=> $interest,
+                      'savings_rateofinterest' => '',
+                      'savings_period_frequency' => '',
+                      'savings_description' => 1,
+                      'recordstatus_id' => 1);
+       $this->insert($data);
+	}
+}

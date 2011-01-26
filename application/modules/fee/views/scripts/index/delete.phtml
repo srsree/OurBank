@@ -1,0 +1,55 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<form action="<?php echo $this->baseUrl();?>/fee/index/delete/id/<?php echo $this->user_id; ?>/modId/<?php echo $this->mod_id; ?>/subId/<?php echo $this->sub_id; ?>" method="POST">
+	<div class="register">
+		<div class="profile_tab"> 
+			<fieldset>
+				<legend>Delete fee</legend>
+				<table id="hor-minimalist-b">
+						<?php foreach($this->feedetails as $fee_view){?>
+					<tr>
+						<td>Fee name:</td>
+						<td><?php echo $fee_view['feename']; ?></td>
+					</tr>
+					<tr>
+						<td>Fee description:</td>
+						<td><?php echo $fee_view['feedescription']; ?></td>
+					</tr>
+					<tr>
+						<td>Fee value:</td>
+						<td><?php echo $fee_view['feevalue']; ?></td>
+					</tr>
+					<tr>
+						<td>Member type:</td>
+						<td><?php echo $fee_view['membertype']; ?></td>
+					</tr>
+					<?php } ?>
+					<tr>
+						<td><font color="red">Do you want to delete</font><?php echo $this->delete; ?></td>
+					</tr> 
+					<tr>
+						<td><a href="<?php echo $this->baseUrl();?>/fee/index/editfeedetail/id/<?php echo $this->fee_id ?>"><input type="button" name="no" value="No"></a></td>
+					</tr>
+			
+				</table>
+			</fieldset>
+		</div>
+	</div>
+</form>

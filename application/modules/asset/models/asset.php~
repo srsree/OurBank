@@ -1,0 +1,41 @@
+<?php
+class Asset_Model_asset extends Zend_Db_Table 
+{
+  protected $_name = 'ourbank_membername';
+
+     public function getnonLivingassets() {
+
+            $select=$this->select()
+                ->setIntegrityCheck(false)
+                ->join(array('a'=>'ourbank_assettypes'),array('a.asset_type','a.units'))
+                ->join(array('b'=>'ourbank_assetdetails'),'a.asset_typeid = b.asset_typeid',array('b.asset_id','b.asset_name'))
+                ->where('b.asset_typeid=2');
+         return $result = $this->fetchAll($select);
+         //die($select->__toString($select));
+    }
+
+    public function getimmovableassets() {
+
+        $select=$this->select()
+                ->setIntegrityCheck(false)
+                ->join(array('a'=>'ourbank_assettypes'),array('a.asset_type','a.units'))
+                ->join(array('b'=>'ourbank_assetdetails'),'a.asset_typeid = b.asset_typeid',array('b.asset_id','b.asset_name'))
+                ->where('b.asset_typeid=1');
+         return $result = $this->fetchAll($select);
+
+    }
+
+    public function getlivingassets() {
+
+             $select=$this->select()
+                ->setIntegrityCheck(false)
+                ->join(array('a'=>'ourbank_assettypes'),array('a.asset_type','a.units'))
+                ->join(array('b'=>'ourbank_assetdetails'),'a.asset_typeid = b.asset_typeid',array('b.asset_id','b.asset_name'))
+                ->where('b.asset_typeid=3');
+         return $result = $this->fetchAll($select);
+     
+    }
+
+
+
+}

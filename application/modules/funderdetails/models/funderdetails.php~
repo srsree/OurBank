@@ -1,0 +1,22 @@
+<?php
+class Funderdetails_Model_funderdetails extends Zend_Db_Table {
+        protected $_name = 'ob_funders';
+  
+        public function addFunder($input = array()) {
+        $db = $this->getAdapter();
+        $db->insert('ob_funders',$input);
+        return $db->lastInsertId('ob_funders');
+        } 
+
+        public function addFundername($data) {
+	$this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->insert('ob_funder_details',$data);
+        return;
+        }
+
+
+	
+
+
+
+}

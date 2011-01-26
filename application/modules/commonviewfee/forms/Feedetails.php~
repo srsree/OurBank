@@ -1,0 +1,33 @@
+<?php
+class  Commonviewfee_Form_Feedetails extends Zend_Form {
+
+    public function init() {
+			$fee_id = new Zend_Form_Element_Hidden('fee_id');
+			
+			$membertype = new Zend_Form_Element_Select('membertype');
+			$membertype->addMultiOption('','Select...');
+			$membertype->setAttrib('class', 'txt_put');
+			$membertype->setRequired(true)
+			->addValidators(array(array('NotEmpty')));
+			
+			$feename = new Zend_Form_Element_Text('feename');
+			$feename->setAttrib('class', '');
+			$feename->setAttrib('size', '10');
+		
+			$feedescription = new Zend_Form_Element_Text('feedescription');
+			$feedescription->setAttrib('class', '');
+			$feedescription->setAttrib('size', '10');
+			
+			$feeamount = new Zend_Form_Element_Text('feeamount');
+			$feeamount->setAttrib('class', '');
+			$feeamount->setAttrib('size', '10');
+                       
+
+                        $submit = new Zend_Form_Element_Submit('Submit');
+			$back= new Zend_Form_Element_Submit('Back');
+			$update = new Zend_Form_Element_Submit('Update');
+
+		        $this->addElements(array($update,$fee_id,$back,$feename,$feedescription,$feeamount,$submit,$membertype));
+
+    }
+}

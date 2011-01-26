@@ -1,0 +1,78 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<TABLE id="hor-minimalist-b">
+    <TR>
+        <TH class = "firsttd">Ledger information</TH>
+        <TH class = "secondtd"></TH>
+        <TH></TH>
+        <TH></TH>
+        <TH class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/ledger/index/editledger/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></TH>
+    </TR>
+    <TR>
+        <TD >Gl Code</TD>
+        <TD ><?php echo $this->glcode;?></TD>
+        <TD></TD>
+        <TD ></TD>
+        <TD></TD>
+    </TR>
+
+    <TR>
+        <TD >Gl Header</TD>
+        <TD ><?php echo $this->header;?></TD>
+        <TD></td>
+        <TD ></TD>
+        <TD></TD>
+    </TR>
+
+    <TR>
+        <TD>Description</TD>
+        <TD>
+        <?php echo $this->description;?></TD>
+        <TD></td>
+        <TD ></TD>
+        <TD></TD>
+    </TR>
+    <TR>
+        <TD >Created By</TD>
+        <TD ><?php echo $this->login_name;?></TD>
+        <TD ></TD>
+        <TD ></TD>
+        <TD ></TD>
+    </TR>
+    <TR>
+        <TD >Created Date</TD>
+        <TD ><?php $dateconvert = new Creditline_Model_dateConvertor();
+                    $date=explode(' ',$this->created_date); 
+                    echo $dateconvert->phpnormalformat($date[0]);?></TD>
+        <TD></td>
+        <TD ></TD>
+        <TD></TD>
+    </TR>
+    <TR>
+        <TD ></TD>
+        <TD ></TD>
+        <TD ></TD>
+        <TD ></TD>
+        <TD><a href=<?php echo $this->baseUrl(); ?>/ledger/index>
+                <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+    </TR>
+</TABLE>
+

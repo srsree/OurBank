@@ -1,0 +1,13 @@
+<?php if($this->selectedSuboffice) { ?> 
+<select name='parentoffice_ids'  id="parentoffice_ids" class="selectbutton">
+<option value=''>select...</option>
+<?php foreach($this->selectedSuboffice as $eacharraysent) { ?>
+<option value="<?php echo $eacharraysent->office_id;?>"><?php echo $eacharraysent->office_name;?><?php echo $eacharraysent->officeshort_name;?></option>
+<? } ?>
+<? } else { ?>
+<select name='parentoffice_ids'  id="parentoffice_ids" class="selectbutton">
+<?php foreach($this->officetypename as $officetype) { ?>
+<option value="<?php echo $this->officetypeid; ?>"><?php echo $officetype->officetype;?></option>
+<?php } ?>
+<?php } ?>
+</select>

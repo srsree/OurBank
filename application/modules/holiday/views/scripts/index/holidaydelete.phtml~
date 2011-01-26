@@ -1,0 +1,69 @@
+
+
+<div style="width:480px;float:left"> 
+
+<fieldset>
+	<legend>View Category</legend>
+	<div class="cont-rgt-data">
+			<TABLE id="hor-minimalist-b">
+        <?php foreach($this->holidaydetails as $category) {  ?>
+
+				<TR>
+					<TD>Holiday Name</TD>
+					<TD></TD>
+					<TD></TD>
+					<TD><?php echo $category['name'];?></TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD>Holiday from</TD>
+					<TD></TD>
+					<TD></TD>
+					<TD><?php echo $category['holiday_from'];?></TD>
+					<TD></TD>
+				</TR>
+<TR>
+					<TD>Holiday Upto</TD>
+					<TD></TD>
+					<TD></TD>
+					<TD><?php echo $category['holiday_upto'];?></TD>
+					<TD></TD>
+				</TR>
+<TR>
+					<TD>Repayment date</TD>
+					<TD></TD>
+					<TD></TD>
+					<TD><?php echo $category['repayment_date'];?></TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD><a href="<?php echo $this->baseUrl(); ?>/holiday">
+					<input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+</fieldset>
+<?php } ?>
+
+
+<fieldset>
+	<legend>confirm Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/management/category/categorydelete/category_id/<?php echo $this->categoryid; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+					</TR>
+					<TR>
+										</table>
+							<input type="submit" name="DELETE" id="Submit" value="DELETE">			
+
+						<input name="submit" type="submit"  value="No" ></a></TD>
+				</form>
+			
+</fieldset>
+		</div>

@@ -1,0 +1,31 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class Contactdetails_Form_contactdetails extends Zend_Form
+{
+	public function init()
+	{
+	$telephone= new Zend_Form_Element_Text('telephone');
+        $telephone->setAttrib('class', 'txt_put');
+        $telephone->setAttrib('id', 'telephone');
+        $telephone->setAttrib('tabindex', '5');
+        $telephone->setAttrib($value,'true');
+
+	$fax = new Zend_Form_Element_Text('fax');
+        $fax->setAttrib('class', 'txt_put');
+        $fax->setAttrib('id', 'fax');
+        $fax->setAttrib('tabindex', '6');
+        $fax->setAttrib($value,'true');
+
+      
+         $submit = new Zend_Form_Element_Submit('Submit');
+	 $back= new Zend_Form_Element_Submit('Back');
+
+
+         $this->addElements( array ($telephone,$fax,$submit,$back));
+
+		
+	}
+}
+/** end of class */

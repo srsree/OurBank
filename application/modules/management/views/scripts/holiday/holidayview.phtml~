@@ -1,0 +1,59 @@
+<fieldset>
+    <legend>View Holiday</legend>
+	<div class="cont-rgt-data">
+        <?php foreach($this->holiday as $holiday) {  ?>
+            <TABLE width="100%" id="hor-minimalist-b">
+                <TR class="tdbrown">
+                    <TD width="20%">Holiday Name</TD>
+                    <TD width="20"><?php echo $holiday['holidayname'];?></TD>
+                    <td></td>
+                    <TD width="20%"></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR class="tdbrown">
+                    <TD width="20%">Office id</TD>
+                    <TD width="40%"><?php echo $holiday['office_name'];?></TD>
+                    <TD></TD>
+                    <TD width="20%"></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR class="tdbrown">
+                    <TD width="20%">Holiday From</TD>
+                    <TD width="20"><?php echo $holiday['holidayfrom'];?></TD>
+                    <TD></TD>
+                    <TD width="20%"></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR class="tdbrown">
+                    <TD width="20%">Holiday UpTo</TD>
+                    <TD width="20%"><?php echo $holiday['holidayupto'];?></TD>
+                    <TD></TD>
+                    <TD width="20%"></TD>
+                    <TD></TD>
+                 </TR>
+
+                <TR class="tdbrown">
+                    <TD width="20">Repayment</TD>
+                    <TD width="20"><?php echo $holiday['repayment_date'];?></TD>
+                    <TD width="20"></TD>
+                    <TD width="20"></TD>
+                    <TD width="20"></TD>
+
+                </TR>
+    
+                <TR>
+		      <TD><a href="<?php echo $this->baseUrl(); ?>/management/holiday">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                      <TD width="20"></TD>
+                      <TD width="20"></TD>
+                      <TD width="20"></TD>
+                      <TD width="20"></TD>
+	       </TR>
+        </TABLE>
+<?php } ?>
+    </div>
+</fieldset>
+

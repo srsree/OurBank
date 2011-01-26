@@ -1,0 +1,107 @@
+<!--<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php// foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php //echo $this->escape($changelog['filedname']);?></td>
+<td ><?php //echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php //echo $this->escape($changelog['current_data']);?></td>
+<td ><?php //echo $this->escape($changelog['login_name']);?></td>
+<td ><?php //echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php //endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+
+<br/><br/>   -->
+<fieldset>
+    <legend>View Creditline</legend>
+	<div class="cont-rgt-data">
+        <?php foreach($this->creditline as $creditline) {  ?>
+            <TABLE id="hor-minimalist-b">
+                <TR>
+                    <TD>institution name</TD>
+                    <TD><?php echo $creditline['bankname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>creditline name</TD>
+                    <TD><?php echo $creditline['bankshortname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>short name</TD>
+                    <TD><?php echo $creditline['bankdescription'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Creditline amount</TD>
+                    <TD><?php echo $creditline['address1'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Creditline interest</TD>
+                    <TD><?php echo $creditline['address2'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Creditline from</TD>
+                    <TD><?php echo $creditline['address3'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Creditline To</TD>
+                    <TD><?php echo $creditline['city'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+        </TABLE>
+        <br>
+        <TABLE>
+                <TR>
+                    <TD><a href="<?php echo $this->baseUrl(); ?>/management/creditline/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+              </TR>
+      </TABLE>
+<?php } ?>
+    </div>
+</fieldset>
+
+

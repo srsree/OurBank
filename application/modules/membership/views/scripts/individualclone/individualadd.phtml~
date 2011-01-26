@@ -1,0 +1,573 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<head>
+<script type="text/javascript">
+$(function() {
+$().tabs({ disabled: [2,3,4,5,6] });
+});
+
+$(document).ready(function() {
+$('.memberstatus').click(function() {
+$('#container-1').enableTab(3);
+});
+});
+</script>
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/member/addmember.js"></script>
+
+</head>
+<body onclick="limiter()">
+<form action="<?php echo $this->baseUrl();?>/membership/individual/individualadd" method="POST" name= "myform">
+
+    <div id="container-1">
+        <ul>
+            <li><a href="#fragment-1"><span>Personal</span></a></li>
+            <li><a href="#fragment-2"><span>Member Status</span></a></li>
+            <li><a href="#fragment-3"><span>Family Information</span></a></li>
+            <li><a href="#fragment-4"><span>Health</span></a></li>
+            <li><a href="#fragment-5"><span>Economic Status</span></a></li>
+            <li><a href="#fragment-6"><span>Education</span></a></li>
+       </ul>
+              <div id="fragment-1">
+            <fieldset>
+	           <legend>Personal Information Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+                       <table id="hor-minimalist-b">
+                            <tr>
+                                <td align="center" class="txt_rgt">Office Levels</td>
+                                <td colspan="8"><?php  echo $this->form->officeType;?><span class="reqMark">*</span></td>
+			
+                            </tr>
+                            <tr >
+                                <td align="center" class="txt_rgt">Branch</td>
+                                <td colspan="8"><div id="statediv"><?php  echo $this->form->subOffice;?><span class="reqMark"></span></div></td>
+                           </tr>
+                       </table>
+                       <table id="hor-minimalist-b">
+                           <tr>
+                                <TH>Client Information</TH>
+                                <TH></TH>
+                                <TH>Communication Details</TH>
+                                <TH></TH>
+                            </tr>
+
+
+                            <TR >
+                                <TD  class="txt_rgt">First Name</TD>
+                                <TD ><?php echo $this->form->membertitle;?><input type="text" name=one wrap=physical rows=3 cols=40 
+                                               onkeyup=limiter() id="source1" class="txt_put" size = "12" tabindex="4"
+                                                <?php if($this->firstName) {?> value = "<?php echo $this->firstName;?>" readonly = "true"<?php } ?>><span class="reqMark">*</span></TD>   
+                                <TD  class="txt_rgt">Address Line 1</TD>
+                                <TD ><?php echo $this->form->memberaddressline1;?><span class="reqMark">*</span></TD>
+                            </tr>
+                            <tr >
+                                <TD  class="txt_rgt">Middle Name</TD>
+                                <TD ><?php echo $this->form->membermiddlename;?></TD>
+                                <TD  class="txt_rgt">Address Line 2</TD>
+                                <TD ><?php echo $this->form->memberaddressline2;?></TD>
+                            </tr>
+                            <tr >
+                                <TD  class="txt_rgt">Last Name</TD>
+                                <TD ><?php echo $this->form->memberlastname;?></TD>
+                                <TD  class="txt_rgt">Address Line 3</TD>
+                                <TD ><?php echo $this->form->memberaddressline3;?></TD>
+                            </tr>
+                            <tr > 
+                                <td  class="txt_rgt">Personal Id</td>
+                                <td ><?php echo $this->form->memberpersonalid;?></td>
+                                <td  class="txt_rgt">City</td>
+                                <td ><? echo $this->form->membercity;?><span class="reqMark">*</span></td>
+                            </tr>
+                            <tr > 
+                               <td  class="txt_rgt">Date Of Birth</td>
+                               <td ><? echo $this->form->memberdateofbirth;?><span class="reqMark">*</span><span class="reqMark">&nbsp;yyyy-mm-dd</span></td>
+                               <td  class="txt_rgt">State</td>
+                               <td ><? echo $this->form->memberstate;?></td>
+                            </tr>
+                            <tr > 
+                                <td  class="txt_rgt">Gender</td>
+                                <td ><? echo $this->form->gender_id;?><span class="reqMark">*</span></td>
+                                <td  class="txt_rgt">Country</td>
+                                <td ><? echo $this->form->membercountry;?></td>
+                            </tr>
+                            <tr > 
+                               <td  class="txt_rgt">Marital Status </td>
+                               <td  ><? echo $this->form->membermaritalstatus_id;?><span class="reqMark">*</span></td>
+                               <td class="txt_rgt">Pincode</td>
+                               <td><? echo $this->form->memberpincode;?><span class="reqMark">*</span></td>
+                            </tr>
+                             <tr > 
+                               <td  class="txt_rgt">Physical Status</td>
+                               <td ><? echo $this->form->physicalstatus_id;?><span class="reqMark">*</span></td>
+                               <td class="txt_rgt">Telephone</td>
+                               <td><? echo $this->form->memberphone;?></td>
+                            </tr>
+                            <tr > 
+                               <td  class="txt_rgt">Attach Photo</td>
+                               <td ><input type="file" name="photo" size="10" tabindex="12"></td>
+                               <td></td>
+                               <div></td>
+                            </tr>
+                      </table>
+		      <table><TR><TD width="80%" ></TD>
+                     <td align="right" ><a href="#fragment-2">
+                        <input name="submit" type="button" class="officesubmit" value="Next" 
+                            onClick="copyTA(this.form,'source1','target1','source1','target2',
+                                'source1','target3','source1','target4','source1','target5');"></a></td>
+			</TR></table>
+                    </div>
+	       </div>
+            </fieldset>
+        </div>
+         <div id="fragment-2">
+
+                            <input type="text" name="six" value="six"  id="target5" size="18" readonly="true" class="txt_put">
+							<script type="text/javascript">
+
+ 							function togglehouse() {
+     							if ($('#memberhouse').is(':checked')) {
+         						$('#memberhomesize:input').removeAttr('disabled',true); 
+							$('#memberlandsize:input').removeAttr('disabled',true); 
+// 							document.myform.memberhomesize.value='';
+// 							document.myform.memberlandsize.value='';
+							document.getElementById("10").style.display = '';
+
+// 							$('#numlandSize:input').removeAttr('disabled',true); 
+// 							$('#numotherassets:input').removeAttr('disabled',true); 
+     							} else {
+         						$('#memberhomesize:input').attr('disabled',true);
+							$('#memberlandsize:input').attr('disabled',true);
+							document.getElementById("10").style.display = 'none';
+
+							document.getElementById("lvngassets").style.display = 'none';
+							document.getElementById("lvngassets1").style.display = 'none';
+                                                        document.getElementById("1").style.display = 'none';
+							document.getElementById("2").style.display = 'none';
+// 							$('#numlandSize:input').attr('disabled',true); 
+// 							$('#numotherassets:input').attr('disabled',true); 
+ 								} 
+						 
+ 							} 
+							function livingassets() {
+							//document.write("Hai");
+							document.getElementById("lvngassets").style.display = '';
+							document.getElementById("1").style.display = '';
+							}
+							function nonlivingassets() {
+							//document.write("Hai");
+							document.getElementById("lvngassets1").style.display = '';
+							document.getElementById("2").style.display = '';
+							}
+							</script>
+
+        <fieldset>
+	       <legend>Member Assets</legend>
+                    <div class="register">
+	                   <div class="profile_tab">
+                            <?php if (!$this->confirmation) { ?>
+                                <table id="hor-minimalist-b" >
+                                    <tr>
+                                        <td class="txt_rgt">Assets Home <? echo $this->form->memberhouse;?></td>
+                                    </tr>
+                                </table>
+                            <div style="display:none;" id = 10> 
+                                <table id="hor-minimalist-b" >
+				    <tr>
+                                        <TD class="txt_rgt" >Home</TD>
+					<td><? echo $this->form->memberhomesize;?></td>
+                                        <td width="50%">Size</td>
+					<td width=>Non-Living</td>
+                                        <td width="80%"><? echo $this->form->otherlivingassets;?>
+                                        <td width="80%" id="1" style="display:none;">Value </td>
+                                        <td id="lvngassets" style="display:none;"><? echo $this->form->numlandSize;?></td>
+                                        <td width="180%"></td>
+
+				     </tr>
+				     <tr>
+					<td >Land</td>
+                                        <td><? echo $this->form->memberlandsize;?></td>
+                                        <td width="50%">Size</td>
+					<td width>Other Assets Living</td>
+                                        <td width="80%"> <? echo $this->form->othernonlivingassets;?></td>
+                                        <td width="80%" id="2" style="display:none;">Number </td>
+                                        <td id="lvngassets1" style="display:none;"> <? echo $this->form->numotherassets;?></td>
+                                        <td width="180%"></td>
+
+				     </tr>
+				</table>
+                        <?php } else {?>
+                                <table id="hor-minimalist-b">
+                                    <tr>
+                                        <td class="txt_rgt">Assets Home <? echo $this->form->memberhouse;?></td>
+                                    </tr>
+                                </table>
+              
+                                <table id="hor-minimalist-b" >
+				    <tr>
+                                        <TD class="txt_rgt" >Home</TD>
+					<td><? echo $this->form->memberhomesize;?></td>
+                                        <td width="50%">Size</td>
+					<td width=>Non-Living</td>
+                                        <td width="80%"><? echo $this->form->otherlivingassets;?>
+                                        <td width="80%" >Value </td>
+                                        <td id="lvngassets"><? echo $this->form->numlandSize;?></td>
+                                        <td width="180%"></td>
+ 				     </tr>
+				     <tr>
+					<td >Land</td>
+                                        <td><? echo $this->form->memberlandsize;?></td>
+                                        <td width="50%">Size</td>
+					<td width>Other Assets Living</td>
+                                        <td width="80%"> <? echo $this->form->othernonlivingassets;?></td>
+                                        <td width="80%" id="2" >Number </td>
+                                        <td id="lvngassets1" > <? echo $this->form->numotherassets;?></td>
+                                        <td width="180%"></td>
+
+				     </tr>
+				</table>
+                        <?php } ?>
+                        </div>
+        		<table>
+	   		  <TR>
+			      <TD ></TD><TD >
+			      <TD ><a href="#fragment-1"><input name="submit" type="button" class="officebutton" value="Back"></a></TD>
+                              <TD width="20%"><a href="#fragment-3"><input name="submit" type="button" class="memberstatus" value="Next"></a></TD>
+			 </TR>
+			</table>
+                           </div>
+	           </div>
+        </fieldset>
+        </div>
+
+        <div id="fragment-3">
+            <input type="text" name="two" value="two" size="18" id="target1" readonly="true" class="txt_put">
+	    <input type="hidden" id="id" value="1">
+            <input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" />	
+            <fieldset>
+                <legend>Family Information</legend>
+                <div class="register">
+	           <div class="profile_tab">
+                        <table id="hor-minimalist-b">
+                            <tr> 
+                                <th width="27%">&nbsp;Member Name</h>
+                                <th width="12%">Gender</Td>
+                                <th width="10%">Age</Th>
+                                <th width="17%">Relation</Th>
+                                <th width="17%" align="left">Physical Status</Th>
+                                <th width="17%" align="left">Marital Status</th>
+                            </tr>
+                        </table>
+
+                        <?php if ($this->counted == 5) $j =0;{?>
+                        <input type="hidden" name = "membercount" value="<?php echo $this->memberCount;?>" >
+                          <table id="hor-minimalist-b">
+                            <?php for($i = 0; $i<$this->memberCount; $i++) { ?>
+                                <tr> 
+                                   <td width="27%"><input type = "text" name = "memberName<?php echo $i; ?>" value = "<?php echo $this->memberName[$i][0];?>" readonly="true" size="12"></td>
+                                    <td width="12%">
+                                        <select name="gender<?php echo $i; ?>" class="txt_put" readonly="true">					
+                                            <?php foreach($this->familygender  as $g) { ?>
+                                            <? if ($this->memberName[$i][1] == $g->gender_id ) {?>
+                                            <OPTION value="<?php echo $g->gender_id; ?>">
+                                            <?php echo $g->sex; ?>
+                                            </OPTION>
+                                            <?php }?>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+                                    <td width="10%"><input type = "text" name = "age<?php echo $i; ?>" value = "<?php echo $this->memberName[$i][2];?>" readonly="true" size="3"></td>
+                                    <td width="17%">
+                                        <select name="relationship<?php echo $i; ?>" class="txt_put">
+                                            <?php foreach($this->familyrelationship  as $g) { ?>
+                                            <? if ($this->memberName[$i][3] == $g->relationship_ID ) {?>
+                                            <OPTION value="<?php echo $g->relationship_ID; ?>">
+                                            <?php echo $g->relationship; ?>
+                                            </OPTION>
+                                            <?php }?>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+                                    <td width="17%" align="left"><?php// echo $this->memberName[$i][$j+4];?>
+                                        <select name="mPhysicalStatus<?php echo $i; ?>" class="txt_put">
+                                            <?php foreach($this->familyphysicalstatus_id  as $g) { ?>
+					<? if($this->memberName[$i][4] == $g->memberphysicalstatus_id ) {?>
+					<OPTION value="<?php echo $g->memberphysicalstatus_id; ?>">
+					<?php echo $g->memberphysicalstatusdescription; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+				</select>
+                                    </td>
+                                    <td width="17%" align="left"><?php //echo $this->memberName[$i][$j+5];?>
+                                        <select name="mMaritalStatus<?php echo $i; ?>" class="txt_put">
+                                            <?php foreach($this->familymembermaritalstatus_id  as $g) { ?>
+					<? if($this->memberName[$i][5] == $g->membermaritalstatus_id ) {?>
+					<OPTION value="<?php echo $g->membermaritalstatus_id; ?>">
+					<?php echo $g->membermaritalstatusdescription; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+				</select>
+                                    </td>
+                                    </tr>
+                                <?php  } ?>
+                            </table>
+                        <?php } ?>
+			<br>
+                        <div id="FamilyInformation"></div><br>
+                        <table>
+				<TR>
+				      <TD>
+                                         
+                                                <input type="button" onClick="addFormField(); return false;" value="Add Family Member"></TD>
+                                          
+				      <TD></TD>
+				      <TD><a href="#fragment-2"><input name="submit" type="button" class="officebutton" value="Back " onclick="membername()"></a></TD>
+                                      <TD width="20%"><a href="#fragment-4"><input name="submit" type="button" class="officesubmit2" value="Next" onclick="membername()"></a></TD>
+				</TR>
+			</table>
+                 </div>
+	       </div>
+            </fieldset>
+        </div>
+
+        <div id="fragment-4">
+            <input type="text" name="three" value="three" id="target2" size="18" readonly="true" class="txt_put">
+            <fieldset>
+	       <legend>Health Information</legend>
+                    <div class="register">
+	                   <div class="profile_tab">
+                                <table id="hor-minimalist-b">
+                                    <tr>
+                                        <th width="30%">&nbsp;Member Name</th>
+                                        <th width="25%">Health Problem</th>
+                                        <th width="25%">Under Treatment</th>
+                                        <th width="25%">Clinical Accessibility</th>
+                                    </tr>
+                                </table>
+                        <?php if ($this->counted == 5) $j =5;{?>
+
+                                <table id="hor-minimalist-b">
+
+
+                            <?php for($i = 0; $i<$this->memberCount; $i++) { ?>
+                                <tr> 
+                                    <td width="27%">&nbsp;<?php echo $this->memberName[$i][0]; ?></td>
+                                    <td width="12%"><?php //echo $this->memberName[$i][$j+1]; ?>
+                                        <select name="health_problem<?php echo $i; ?>" class="txt_put" readonly="true">					
+                                            <?php foreach($this->familyhealth_problem  as $g) { ?>
+                                            <? if ($this->memberName[$i][6] == $g->healthproblem_id ) {?>
+                                            <OPTION value="<?php echo $g->healthproblem_id; ?>">
+                                            <?php echo $g->health_problem; ?>
+                                            </OPTION>
+                                            <?php }?>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+                                    
+                                    <td width="17%"><?php //echo $this->memberName[$i][$j+3];?>
+                                        <select name="undertreatment<?php echo $i; ?>" class="txt_put" readonly="true">
+                                           <?php foreach($this->healthundertreatment  as $g) { ?>
+                                            <? if($this->memberName[$i][7] == $g->under_treatment ) {?>
+                                            <OPTION value="<?php echo $g->under_treatment; ?>">
+                                            <?php echo $g->under_treatmentstatus; ?>
+                                            </OPTION>
+                                            <?php }?>
+                                            <?php } ?>	
+					</select>
+                                    </td>
+                                    <td width="17%" align="left"><?php// echo $this->memberName[$i][$j+4];?>
+                                        <select name="Clinicaccessability<?php echo $i; ?>" class="txt_put" readonly="true">
+                                          <?php foreach($this->clinicalaccessability  as $g) { ?>
+					<? if($this->memberName[$i][8] == $g->clinical_accessability ) {?>
+					<OPTION value="<?php echo $g->clinical_accessability; ?>">
+					<?php echo $g->clinical_accessabilitystatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+                                    </td>
+                                    </tr>
+                                <?php  } ?>
+                            </table>
+                        <?php } ?>
+				<br>
+                                <div id="Health"></div><br>
+                               <TABLE>
+				<TR>
+                              		<TD ></TD><TD >
+				      <TD ><a href="#fragment-3"><input name="submit" type="button" class="officebutton" value="Back"></a></TD>
+                                      <TD width="20%"><a href="#fragment-5"><input name="submit" type="button" class="officesubmit1" value="Next"></a></TD>
+				</TR>
+				</TABLE>
+				
+                            </div>
+                    </div>
+            </fieldset>
+        </div>
+
+        <div id="fragment-5">
+            <input type="text" name="four" value="four" size="18"  id="target3" readonly="true" class="txt_put">
+            <fieldset>
+	           <legend>Economical Information</legend>
+                        <div class="register">
+	                       <div class="profile_tab">
+                                    <table id="hor-minimalist-b">
+                                        <tr>
+                                            <th width="30%">&nbsp;Member Name</Th>
+                                            <th width="25%">Earnings</Th>
+                                            <th width="25%">Occupation</Th>
+                                            <th width="25%">Benefits</th>
+                                        </tr>
+                                    </table>
+                        <?php if ($this->counted == 5) $j =8;{?>
+
+                                <table id="hor-minimalist-b">
+                            <?php for($i = 0; $i<$this->memberCount; $i++) { ?>
+                                <tr> 
+                                    <td width="27%">&nbsp;<?php echo $this->memberName[$i][0]; ?></td>
+                                    <td width="12%"><?php //echo $this->memberName[$i][$j+1]; ?>
+                                        <select name="earning<?php echo $i; ?>" class="txt_put" readonly="true">					
+                                            <?php foreach($this->familyearning  as $g) { ?>
+                                            <? if ($this->memberName[$i][9] == $g->earnings ) {?>
+                                            <OPTION value="<?php echo $g->earnings; ?>">
+                                            <?php echo $g->earningsstatus; ?>
+                                            </OPTION>
+                                            <?php }?>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+                                    
+                                    <td width="17%"><?php //echo $this->memberName[$i][$j+3];?>
+                                        <select name="occupation<?php echo $i; ?>" class="txt_put" readonly="true">
+                                          <?php foreach($this->profession  as $g) { ?>
+					<? if($this->memberName[$i][10] == $g->profession_ID) {?>
+					<OPTION value="<?php echo $g->profession_ID; ?>">
+					<?php echo $g->profession; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+                                    </td>
+                                    <td width="17%" align="left"><?php// echo $this->memberName[$i][$j+4];?>
+                                        <select name="benefits<?php echo $i; ?>" class="txt_put" readonly="true">
+                                          <?php foreach($this->fmfibenefits  as $g) { ?>
+					<? if($this->memberName[$i][11] == $g->mfi_benefits ) {?>
+					<OPTION value="<?php echo $g->mfi_benefits; ?>">
+					<?php echo $g->mfi_benefitsstatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+                                    </td>
+                                    </tr>
+                                <?php  } ?>
+                            </table>
+                        <?php } ?>
+				    <br>
+                                    <div id="EconomicStatus"></div><br>
+                                   <TABLE>
+				<TR>
+                              		<TD ></TD><TD >
+				      <TD ><a href="#fragment-4"><input name="submit" type="button" class="officebutton" value="Back"></a></TD>
+                                      <TD width="20%"><a href="#fragment-6"><input name="submit" type="button" class="officesubmit1" value="Next"></a></TD>
+				</TR>
+				</TABLE>
+                                </div>
+	                </div>
+            </fieldset>
+        </div>
+
+        <div id="fragment-6">
+             <input type="text" name="five" value="five" size="18"  id="target4" readonly="true" class="txt_put">
+             <fieldset>
+	           <legend>Educational Information</legend>
+                        <div class="register">
+	                       <div class="profile_tab">
+                                    <table id="hor-minimalist-b">
+                                        <tr>
+                                            <th width="30%">&nbsp;Member Name</Th>
+                                            <th width="25%">Qualification</Th>
+                                            <th width="25%">School Location</Th>
+                                            <th width="25%">Transportation</Th>
+                                        </tr>
+                                    </table>
+                        <?php if ($this->counted == 5) $j =11;{?>
+
+                                <table id="hor-minimalist-b">
+                            <?php for($i = 0; $i<$this->memberCount; $i++) { ?>
+                                <tr> 
+                                    <td width="27%">&nbsp;<?php echo $this->memberName[$i][0]; ?></td>
+                                    <td width="12%"><?php //echo $this->memberName[$i][$j+1]; ?>
+                                        <select name="qualification<?php echo $i; ?>" class="txt_put" readonly="true">					
+                                            <?php foreach($this->qualificationdetails  as $g) { ?>
+                                            <? if ($this->memberName[$i][12] == $g->qualification ) {?>
+                                            <OPTION value="<?php echo $g->qualification; ?>">
+                                            <?php echo $g->qualificationdetails; ?>
+                                            </OPTION>
+                                            <?php }?>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+
+                                    <td width="17%"><?php //echo $this->memberName[$i][$j+3];?>
+                                        <select name="schoolLoc<?php echo $i; ?>" class="txt_put" readonly="true">
+                                          <?php foreach($this->schoollocation  as $g) { ?>
+					<? if($this->memberName[$i][13]  == $g->school_location ) {?>
+					<OPTION value="<?php echo $g->school_location; ?>">
+					<?php echo $g->school_locationstatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+                                    </td>
+                                    <td width="17%" align="left"><?php// echo $this->memberName[$i][$j+4];?>
+                                        <select name="transportation<?php echo $i; ?>" class="txt_put" readonly="true">
+                                         <?php foreach($this->transporationforschool  as $g) { ?>
+					<? if($this->memberName[$i][14]  == $g->transporation_for_school) {?>
+					<OPTION value="<?php echo $g->transporation_for_school; ?>">
+					<?php echo $g->transporation_for_schoolstatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+                                    </td>
+                                    </tr>
+                                <?php  } ?>
+                            </table>
+                        <?php } ?>
+				    <br>
+                                    <div id="Education"></div>
+                                    <table>
+                                        <TR>
+						<TD><?php echo $this->form->Submit;?>
+						      <a href="<?php echo $this->baseUrl(array('controller'=>'index',
+						        'action'=>'index')); ?>"></a></TD>
+                                                <td><input name="Back" type="submit" class="officebutton" value="Back"></TD>
+					</TR>
+                                    </table>
+
+                              </div></tr></table>
+	                </div>
+              </fieldset>
+        </div>
+    </div>
+</form>
+</tr></table>
+ 

@@ -1,0 +1,107 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title><?php echo $this->escape($this->title); ?></title>
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/site.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/reset.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/style2.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/wforms.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/cupertino/jquery.ui.all.css" />
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#field5").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#field6").datepicker({"dateFormat":"yy-mm-dd"});
+});
+</script>
+</head>
+
+<body>
+<div id="container">
+    <div id="header"><?php echo $this->render('enquiryheader.phtml'); ?></div>
+
+    <div id="pagetitle">
+        <h2><?php echo $this->pageTitle;?></h2>
+    </div>
+  <div id="leftnavig">
+
+
+    <?php if($this->enquirytype == "savings") { ?>
+    <h4><a>Savings</a></h4>
+    <ul>
+       <li><a href="<?php  echo $this->baseUrl();?>/enquiry/personalsavings/index/enquirytype/savings">Personal Savings</a></li>
+       <li><a href="<?php  echo $this->baseUrl();?>/enquiry/currentsaving/index/enquirytype/savings">Current Savings List</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->enquirytype == "loans") { ?>
+    <h4><a>Loans</a></h4>
+    <ul>
+	<li><a href="<?php  echo $this->baseUrl();?>/enquiry/currentloanlist/index/enquirytype/loans">Current Loan List</a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/enquiry/loans/index/enquirytype/loans">Loans</a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/enquiry/loanoutstanding/index/enquirytype/loans">Loan OutSatanding Details</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/enquiry/transactiondueamount/index/enquirytype/loans">Transaction Due Amount</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/enquiry/loanenquiry/index/enquirytype/loans">Summary of Loan Details</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/enquiry/repaymentgroup/index/enquirytype/loans">Repayment Details of Group Loan</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/enquiry/loanconsolidation/index/enquirytype/loans">Loan Consolidation</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/enquiry/loandisburse/index/enquirytype/loans">Loan Disbursement</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/enquiry/repaygroupd/index/enquirytype/loans">Repayment Group</a></li>
+    </ul>
+    <?php } ?>
+
+
+
+    <?php if($this->enquirytype == "others") { ?>
+    <h4><a>Others</a></h4>
+    <ul>
+                <li><a href="<?php  echo $this->baseUrl();?>/enquiry/summary/index/enquirytype/others">Summary of MFI</a></li>
+                <li><a href="<?php  echo $this->baseUrl();?>/enquiry/voucherdetails/index/enquirytype/others">Voucher Details</a></li>
+                <li><a href="<?php  echo $this->baseUrl();?>/enquiry/feedetails/index/enquirytype/others">Fee Details</a></li>
+                <li><a href="<?php  echo $this->baseUrl();?>/enquiry/inactivemembers/index/enquirytype/others">Inactive Members</a></li>
+                <li><a href="<?php  echo $this->baseUrl();?>/enquiry/interest/index/enquirytype/others">Interest</a></li>
+    </ul>
+    <?php } ?>
+
+    <h4><a href="#">Home</a></h4>
+    <ul>
+      <li><a href="#"> Contant Us</a></li>
+      <li><a href="#">Site Map</a></li>
+      <li><a href="#">Site News</a></li>
+      <li><a href="#">Learning Centre </a></li>
+    </ul>
+  </div>
+
+    <div id="pagecontent">
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+  <div id="footer">
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
+  </div>
+</div>
+</BODY>
+
+</html>
+

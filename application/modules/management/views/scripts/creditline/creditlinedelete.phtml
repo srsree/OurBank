@@ -1,0 +1,120 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+    <legend>View Creditline</legend>
+	<div class="cont-rgt-data">
+        <?php foreach($this->creditline as $creditline) {  ?>
+            <TABLE id="hor-minimalist-b">
+                <TR>
+                    <TD>institution name</TD>
+                    <TD><?php echo $creditline['institutionname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>creditline name</TD>
+                    <TD><?php echo $creditline['creditlinename'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>short name</TD>
+                    <TD><?php echo $creditline['creditline_shortname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Creditline amount</TD>
+                    <TD><?php echo $creditline['creditlineamount'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Creditline interest</TD>
+                    <TD><?php echo $creditline['creditlineinterest'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Creditline from</TD>
+                    <TD><?php echo $creditline['creditline_beginingdate'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Creditline To</TD>
+                    <TD><?php echo $creditline['creditline_closingdate'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+        </TABLE>
+<?php } ?>
+    </div>
+</fieldset>
+
+<?php if($this->creditlinestatus==1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<?php foreach($this->creditline as $creditline) {  ?>
+	<tr>
+		<Th align="center"><p><B style="color:red">No you cannot delete since the Sector exists for </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $creditline['creditlinename'];?>' product</b></Th>
+    </tr>
+<?php } ?>
+</table>
+<?php } else { ?>
+<?php foreach($this->creditline as $creditline) {  ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+		<th><B style="color:red">Are you sure you want to delete Creditline</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $creditline['creditlinename'];?>" ?*</b></th>
+	<tr>
+</table>
+<?php } ?>
+<fieldset>
+	<legend>Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/management/creditline/creditlinedelete/creditline_id/<?php echo $this->creditline_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+					</TR>
+					<TR>
+						<TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+						<TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/creditline/">
+						<input name="submit" type="submit"  value="No" ></a></TD>
+					</TR>
+				</table>
+				</form>
+			</div>
+		</div>
+</fieldset>
+<?php } ?>

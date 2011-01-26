@@ -1,0 +1,64 @@
+<?php
+class Management_NewofficeController extends Zend_Controller_Action {
+
+    public function init() {
+        $this->view->pageTitle='New Office';
+    }
+
+    public function indexAction() {
+        $this->view->title = "New Office";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $office = new Management_Model_Office();
+        $office = $office->getOffice();
+        foreach($office as $office) {
+                $searchForm->field1->addMultiOption($office->office_id,$office->office_name);
+                    }
+
+        $office = new Management_Model_Office();
+        $result = $office->viewOffice();
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+
+
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($searchForm->isValid($formData)) {
+                    $office = new Management_Model_Office();
+                    $result = $office->SearchOffice($searchForm->getValues());
+
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+                }
+            }
+        }
+
+    }
+
+    public function officeviewAction() {
+
+    }
+
+    public function officeaddAction() {
+
+    }
+
+    public function officeeditAction() {
+
+    }
+
+    public function officedeleteAction() {
+
+    }
+}

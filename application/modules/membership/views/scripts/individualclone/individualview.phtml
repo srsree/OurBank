@@ -1,0 +1,101 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php foreach($this->member as $member) { ?>
+
+        <fieldset>
+            <legend>View Individual</legend>
+	      
+                <table id="hor-minimalist-b">
+                    <tr  >
+                         <td class = "label"><b>Name</b></td>
+                        <td ><?php echo $member->salutation; ?>&nbsp;<?php echo $member->memberfirstname; ?></td>
+                       
+                    </tr>
+
+
+                <tr>
+                    <td class = "label"><b>Level</b></td>
+                    <td><?php echo $member->officetype; ?></td>
+                </tr>
+                <tr>
+                    <td class = "label"><b>Branch</b></TD>
+                    <td><?php echo $member->office_name; ?></td>
+                </tr>
+
+                 <tr >  
+                        <TD  class = "label"><b>Father/Husband's Name</b> </TD>
+                        <TD ><?php echo $member->familymember;?></TD>
+                </tr>
+
+                    <tr  >
+                        <td class = "label"><label for="Office_Address1"><b>Address line 1</b></label></td>
+                        <td ><?php echo $member->memberaddressline1; ?></td>
+                       
+                    </tr>
+                    <tr  >
+                        <td class = "label"><label for="Office_Address2"></label><b>Line 2</b></td>
+                        <td><?php echo $member->memberaddressline2; ?></td>
+                    </tr>
+                    <tr  >
+                        <td class = "label"><label for="Office_Address3"></label><b>Line 3</b></td>
+                        <td><?php echo $member->memberaddressline3; ?></td>
+                      
+                    </tr>
+                    <tr  >
+                        <TD class = "label"><label for="Office_City"><b>City / Village</b></label></TD>
+                        <TD ><?php echo $member->membercity; ?></td>
+                      
+                    </tr>
+                  
+
+                    <tr>
+                        <td><a href="<?php echo $this->baseUrl();?>/membership/individualclone"><input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+            </fieldset>
+   
+<?php } ?>
+             
+
+
+
+
+
+

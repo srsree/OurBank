@@ -1,0 +1,17 @@
+<form action="<?php echo $this->baseUrl();?>/familyinfo/index/add/id/<?php echo $this->family_id; ?>" method="POST"> 
+    <fieldset>
+    <legend>Member Family information</legend>
+        <table class="fieldsets">
+                <?php echo $this->form; ?>
+        </table>
+
+        <div class="btnhouse">
+            <div class="ltbtns">
+                    <input type="submit" name="Submit" value="Submit">
+            </div>
+            <div class="rtbtns">
+                    <a href="<?php echo $this->baseUrl();?>/individualcommonview/index/commonview/id/<?php echo $this->family_id; ?>"><input type="submit" name="back" id="back" value="Back"></a>
+            </div>
+        </div>
+    </fieldset> 
+</form>

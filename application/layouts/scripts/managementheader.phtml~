@@ -1,0 +1,175 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<head>
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/reset-min.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/styles.css" />
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#holidayfrom").datepicker({});
+    $("#holidayupto").datepicker({});
+    $("#repayment_date").datepicker({});
+    $("#closeddate").datepicker({"dateFormat":"dd/mm/yy"});
+    $("#begindate").datepicker({"dateFormat":"dd/mm/yy"});
+
+    $("#begindate33").datepicker({"dateFormat":"yy-mm-dd"});
+
+
+    $("#loanAccountdate").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#dateofbirth").datepicker({"dateFormat":"dd/mm/yy"});
+   $("#dateofjoin").datepicker({"dateFormat":"dd/mm/yy"});
+   $("#fund_beginingdate").datepicker({"dateFormat":"dd/mm/yy"});
+   $("#fund_closingdate").datepicker({"dateFormat":"dd/mm/yy"});
+    $("#beginingdate").datepicker({"dateFormat":"dd/mm/yy"});
+    $("#closingdate").datepicker({"dateFormat":"dd/mm/yy"});
+
+});
+</script>
+</head> 
+
+    <div id="ourbanklogo">
+      <h1><a href="#" title="OurBank">OurBank</a></h1>
+    </div>
+    <div id="welcomebar"><span class="welcomusr">Welcome <a href="#"><?php echo $this->username;?></a></span> <span class="longdate"><?php echo date("r");?></span><span class="signout"><a href="<?php  echo $this->baseUrl();?>/index/logout">signout</a></span>
+    </div>
+
+    <div id="navigation">
+      <div id="mainmenu">
+              <ul>
+	<li><a href="<?php  echo $this->baseUrl();?>/creditlinemain"><span>Creditline</span></a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/accountingg"><span>Accounting</span></a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/transactiong"><span>Transaction</span></a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/reports"><span>Reports</span></a></li>        
+	<li><a href="<?php  echo $this->baseUrl();?>/meetingmain"><span>Meeting</span></a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/membership"><span>Membership</span></a></li>
+	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/management"><span>Management</span></a></li>
+        <!--<li><a href="<?php  echo $this->baseUrl();?>/settings"><span>Setting</span></a></li>-->
+        </ul>
+      </div>
+
+      <div id="submenu">
+        <ul>
+	   <?php if(($this->pageTitle == "Institution") || ($this->pageTitle == "Institution address details")|| ($this->pageTitle == "Contact Details")) { ?>
+	   	<li  class="selected"><a href="<?php  echo $this->baseUrl();?>/institution">Institution</a></li>
+	   <?php } else { ?>
+	   	<li ><a href="<?php  echo $this->baseUrl();?>/institution">Institution</a></li>
+	   <?php } ?>
+
+	   <?php if(($this->pageTitle == "Bank") || ($this->pageTitle == "Bank address details")|| ($this->pageTitle == "Contact Details")) { ?>
+	   	<li  class="selected"><a href="<?php  echo $this->baseUrl();?>/bank">Bank</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/bank">Bank</a></li>
+	   <?php } ?>
+
+	   <?php if($this->pageTitle == "Roles") { ?>
+	   	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/roles">Roles</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/roles">Roles</a></li>
+	   <?php } ?>
+
+	   <?php if(($this->pageTitle == "User") || ($this->pageTitle == "User details")|| ($this->pageTitle == "User address details")|| ($this->pageTitle == "User Login information")) { ?>
+	   	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/user">User</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/user">User</a></li>
+	   <?php } ?>
+
+	   <?php if(($this->pageTitle == "Funder") || ($this->pageTitle == "Funder address details")|| ($this->pageTitle == "Contact Details")) { ?>
+	   	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/funder">Funder</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/funder">Funder</a></li>
+	   <?php } ?>
+
+	   <?php if($this->pageTitle == "Fundings") { ?>
+	   	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/fundings">Fundings</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/fundings">Fundings</a></li>
+	   <?php } ?>
+  <?php if($this->pageTitle == "Fee") { ?>
+	   	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/fee">Fee</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/fee">Fee</a></li>
+	   <?php } ?>
+
+	   <?php if($this->pageTitle == "Sectors") { ?>
+	   	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/sectors">Sector</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/sectors">Sector</a></li>
+	   <?php } ?>
+
+	   <?php if($this->pageTitle == "Activities") { ?>
+		<li class="selected"><a href="<?php  echo $this->baseUrl();?>/activity">Activites</a></li>
+	   <?php } else { ?>
+		<li><a href="<?php  echo $this->baseUrl();?>/activity">Activites</a></li>
+	   <?php } ?>
+           <?php if($this->pageTitle == "Savings") { ?>
+		<li class="selected"><a href="<?php  echo $this->baseUrl();?>/savings">Savings</a></li>
+	   <?php } else { ?>
+		<li><a href="<?php  echo $this->baseUrl();?>/savings">Savings</a></li>
+	   <?php } ?>
+
+            <?php if($this->pageTitle == "Loans") { ?>
+                    <li class="selected"><a href="<?php  echo $this->baseUrl();?>/loans">Loans</a></li>
+            <?php } else { ?>
+                    <li><a href="<?php  echo $this->baseUrl();?>/loans">Loans</a></li>
+            <?php } ?>
+
+            <?php if($this->pageTitle == "Ledger") { ?>
+                    <li class="selected"><a href="<?php  echo $this->baseUrl();?>/ledger">Ledger</a></li>
+            <?php } else { ?>
+                    <li><a href="<?php  echo $this->baseUrl();?>/ledger">Ledger</a></li>
+            <?php } ?>
+
+            	   <?php if($this->pageTitle == "Office Hierarchy") { ?>
+		<li class="selected"><a href="<?php  echo $this->baseUrl();?>/officehierarchy">Officehierarchy</a></li>
+	   <?php } else { ?>
+		<li><a href="<?php  echo $this->baseUrl();?>/officehierarchy">Officehierarchy</a></li>
+	   <?php } ?>
+
+            <?php if($this->pageTitle == "Office") { ?>
+		<li class="selected"><a href="<?php  echo $this->baseUrl();?>/office">Office</a></li>
+	   <?php } else { ?>
+		<li><a href="<?php  echo $this->baseUrl();?>/office">Office</a></li>
+	   <?php } ?>
+
+ 	   <?php if($this->pageTitle == "Category") { ?>
+		<li class="selected"><a href="<?php  echo $this->baseUrl();?>/category">Category</a></li>
+	   <?php } else { ?>
+		<li><a href="<?php  echo $this->baseUrl();?>/category">Category</a></li>
+	   <?php } ?>
+
+ 	   <?php if($this->pageTitle == "Product") { ?>
+		<li class="selected"><a href="<?php  echo $this->baseUrl();?>/product">Product</a></li>
+	   <?php } else { ?>
+		<li><a href="<?php  echo $this->baseUrl();?>/product">Product</a></li>
+	   <?php } ?>
+
+   <?php if($this->pageTitle == "Holiday") { ?>
+		<li class="selected"><a href="<?php  echo $this->baseUrl();?>/holiday">Holiday</a></li>
+	   <?php } else { ?>
+		<li><a href="<?php  echo $this->baseUrl();?>/holiday">Holiday</a></li>
+	   <?php } ?>
+
+	</ul>
+      </div>
+    </div>
+
+

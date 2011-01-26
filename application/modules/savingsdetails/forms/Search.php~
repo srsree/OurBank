@@ -1,0 +1,26 @@
+<?php
+class Sectors_Form_Search extends Zend_Dojo_Form {
+    public function init() {
+
+       
+
+        $sector = new Zend_Form_Element_Text('sector');
+        $sector->setAttrib('class', 'txt_put');
+
+
+        $description= new Zend_Form_Element_Textarea('description', array('rows' => 3,'cols' => 20,));
+		$description->setAttrib('class', '');
+	        $description->setRequired(true);
+
+
+	$active_id = new Zend_Form_Element_Checkbox('category');
+		$active_id->setAttrib('class', 'txt_put');
+      
+
+        $submit = new Zend_Form_Element_Submit('Search');
+      $submit1 = new Zend_Form_Element_Submit('Submit');
+
+        $this->addElements(array($sector,$description,$active_id,$submit,$submit1));
+
+    }
+}

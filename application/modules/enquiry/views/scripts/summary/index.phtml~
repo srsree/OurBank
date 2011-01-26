@@ -1,0 +1,34 @@
+<fieldset>
+    <legend>Details</legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+
+                    <TR class="tdbrown">
+			   
+                            <Th width="20%">Product</TD>
+			    <Th width="20%">subProducts</TD>
+			    <Th width="20%">accountNumber</TD>
+			    <Th width="20%">loanDisbursed</TD>
+                    </TR>
+		    <?php foreach($this->currentLoan as $loanDetails1) : ?>  
+                    <TR>
+			   
+			  
+
+                            	<TD width="20%"><?php echo $loanDetails1->productname;?></TD>
+			    
+ 			   
+			    	<TD  width="20%"><?php echo $loanDetails1->offerproductname;?></TD>
+			    
+			    	<TD  width="20%"><?php echo $loanDetails1->account_number;?></TD>
+			    
+ 			    		
+			    	<TD  width="20%"><?php echo $loanDetails1->amount_disbursed;?></TD>
+			    
+                    </TR>
+		    <?php endforeach; ?>
+            </table>
+        </div>
+</fieldset>
+
+

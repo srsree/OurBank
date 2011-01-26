@@ -1,0 +1,27 @@
+<?php
+class Management_OfficehierarchyController extends Zend_Controller_Action{
+
+    public function init() {
+         $this->view->pageTitle='Office';
+    }
+
+    public function indexAction() {
+
+    }
+
+    public function officehierarchyviewAction() {
+
+    }
+
+    public function officehierarchyaddAction() {
+
+    }
+
+    public function officehierarchyeditAction() {
+
+    }
+
+    public function officehierarchydeleteAction() {
+
+    }
+}

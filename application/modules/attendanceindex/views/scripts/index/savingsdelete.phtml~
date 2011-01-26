@@ -1,0 +1,169 @@
+<fieldset>	
+	<legend>view savings details</legend>
+	<div class="cont-rgt-data">
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr>
+				<Th>productdetails</Th>
+			</tr> 
+		</table>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<?php foreach($this->offerproduct as $offerproduct) { ?>
+			<TR>
+				<TD>product typr</TD>
+				<TD><?php echo $offerproduct['productname'];?></TD>
+				<td></td>
+				<td></td>
+			</TR>
+			<TR>
+				<TD>product name</TD>
+				<TD><?php echo $offerproduct['offerproductname'];?></TD>
+				<td>short name</td>
+				<TD><?php echo $offerproduct['offerproductshortname'];?></TD>
+			</TR>
+			<TR>
+				<TD>description</TD>
+				<TD><?php echo $offerproduct['offerproduct_description'];?></TD>
+				<td></td>
+				<td></td>
+			</TR>
+			<tr>
+				<Th colspan="2">Date</Th>
+				<TH colspan="2"></TH>
+			</tr> 
+
+			<TR>
+				<TD>begin date</TD>
+				<TD><?php echo $offerproduct['begindate'];?></TD>
+				<TD></TD>
+				<TD></TD>
+			</TR>
+			<TR>
+				<TD> closed date</TD>
+				<TD><?php echo $offerproduct['closedate'];?></TD>
+				<TD></TD>
+				<TD></TD>
+			</TR>
+
+			<TR>
+				<TD>applicable to</TD>
+				<TD><?php echo $offerproduct['membertype'];?></TD>
+				<TD></TD>
+				<TD></TD>
+			</TR>
+			<tr>
+				<Th colspan="2">Interest and terms</Th><th colspan="2">installments</Th>
+			</tr>
+			<?php if ($offerproduct['productshortname'] == 'ps') { ?>
+			<TR>
+				<TD>initial deposit</TD>
+				<TD><?php echo $offerproduct['minmumdeposit'];?></TD>
+				<TD>interest cal period</TD>
+				<TD><?php echo $offerproduct['timefrequencytype'];?></TD>
+			</TR>
+
+			<TR>
+				<TD>freequency of deposit</TD>
+				<TD><?php echo $offerproduct['timefrequencytype'];?></TD>
+				<TD>Interest on calculation</TD>
+				<TD><?php echo $offerproduct['frequencyofinterestupdating'];?></TD>
+			</TR>
+
+			<TR>
+				<TD></TD>
+				<TD></TD>
+				<TD>minimum balance for interest</TD>
+				<TD><?php echo $offerproduct['minimumbalanceforinterest'];?></TD>
+			</TR>
+			<?php } ?>
+			<?php if ($offerproduct['productshortname'] == 'fd') { ?>
+			<TR>
+				<TD>minimum fixed amount</TD>
+				<TD><?php echo $offerproduct['minimum_deposit_amount'];?></TD>
+				<TD>freequency of deposit</TD>
+				<TD><?php echo $offerproduct['frequency_of_deposit'];?></TD>
+			</TR>
+
+			<TR>
+				<TD>Maximum fixed amount</TD>
+				<TD><?php echo $offerproduct['maximum_deposit_amount'];?></TD>
+				<TD>penal interest</TD>
+				<TD><?php echo $offerproduct['penal_Interest'];?></TD>
+			</TR>
+			<?php } ?>
+			<?php if ($offerproduct['productshortname'] == 'rd') { ?>
+			<TR>
+				<TD>minimum recurring amount</TD>
+				<TD><?php echo $offerproduct['minimum_deposit_amount'];?></TD>
+				<TD>freequency of deposit</TD>
+				<TD><?php echo $offerproduct['frequency_of_deposit'];?></TD>
+			</TR>
+
+			<TR>
+				<TD>Maximum recurring amount</TD>
+				<TD><?php echo $offerproduct['maximum_deposit_amount'];?></TD>
+				<TD>penal interest</TD>
+				<TD><?php echo $offerproduct['penal_Interest'];?></TD>
+			</TR>
+			<?php } ?>
+			<?php } ?>
+		</table>
+
+		<table width="100%" id="hor-minimalist-b">
+			<tr>
+				<th width="15%">from(years)</th>
+				<th width="10%">to(years)</h>
+				<th width="10%">rate(years)</Th>
+			</tr>
+			<?php foreach($this->viewinterest as $interest) { ?>
+				<tr>
+					<td><?php echo $interest['period_ofrange_monthfrom'];?></TD>
+					<td><?php echo $interest['period_ofrange_monthto'];?></TD>
+					<td><?php echo $interest['Interest'];?></TD>
+				</tr>
+			<?php } ?>
+		</table>
+		<table>
+			<TR>
+				<td><a href="<?php echo $this->baseUrl(); ?>/management/savings/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+			</TR>
+		</table>
+	</div>
+</fieldset>
+
+<?php if($this->offerproductstatus==1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<?php foreach($this->offerproduct as $offerproduct) {  ?>
+	<tr>
+		<Th align="center"><p><B style="color:red">No you cannot delete since the account exists for </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $offerproduct['offerproductname'];?>' product</b></Th>
+    </tr>
+<?php } ?>
+</table>
+<?php } else { ?>
+<?php foreach($this->offerproduct as $offerproduct) {  ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+		<th><B style="color:red">Are you sure you want to delete offer product</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $offerproduct['offerproductname'];?>" ?*</b></th>
+	<tr>
+</table>
+<?php } ?>
+<fieldset>
+	<legend>Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/management/savings/savingsdelete/offerproduct_id/<?php echo $this->offerproduct_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+					</TR>
+					<TR>
+						<TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+						<TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/product/">
+						<input name="submit" type="submit"  value="No" ></a></TD>
+					</TR>
+				</table>
+				</form>
+			</div>
+		</div>
+</fieldset>
+<?php } ?>

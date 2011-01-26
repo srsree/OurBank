@@ -1,0 +1,81 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!--> 
+<!-- give external link for date picker and css-->
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
+
+<!-- enable the date picker -->
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#granteddate").datepicker({"dateFormat":"dd/mm/yy"});
+});
+</script>
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+        <div class="search" style="margin-left:20px;">
+            <form action="<?php echo $this->baseUrl();?>/roles/index" method="POST">
+            <table class="fieldsets">
+                <tr>
+                    <!-- display the grant name textbox -->
+                    <td><? echo $this->form->grantname;?></td>
+                    <!-- display the grant date textbox -->
+                    <td><? echo $this->form->granteddate;?></td>
+                </tr>
+            </table>
+            <div class="ltbtns">
+                    <!-- display the search button -->
+                    <input type="submit" name="Search" value="Search"/>
+            </div>
+         </form>	
+        </div>
+    </fieldset> 
+</div> 
+<!-- display error message if search got failed  -->
+<?php  if((count($this->paginator) ==0) && ($this->search == true))  {
+echo "<font color='RED'>Records Not Found Try Again...</font>";
+} 
+// check search result is not empty and assign values
+if(count($this->paginator)!=0) { ?>
+<table id="hor-minimalist-b">
+    <tr class="tdbrownheading">
+        <th>Grant name</th> 
+        <th>Granted date</td>
+        <th>Granted by</td>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $roles ): ?>
+    <tr class="tdbrownheading">
+        <td><a href="<?php echo $this->baseUrl()."/roles/index/rolesview/id/".$roles['id']; ?>">
+                     <?php echo $this->escape($roles['name']); ?></a></td>
+    <td><?php 
+        	$convertdate = new Creditline_Model_dateConvertor();
+                echo $this->escape($convertdate->normalformat($roles['created_date']));?></td>
+    <td><?php   echo $this->escape($roles['created_by']);?></td>
+                   <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr class="tdbrownheading">
+        <!-- set pagination control  -->
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<?php } ?>

@@ -1,0 +1,53 @@
+﻿Follow this procedure to run our Application “Ourbank”
+
+1.Download the  Application from our website (http://ourbank.in/download)
+2.Put that application into /var/www in any name (Here project avail in ourbank) you can rename it as what you like
+3.Now you go to https://www.zend.com/en/user/  and create user account.
+4.After getting login page goto this  url http://www.zend.com/en/community/downloads and download the Zend Framework 1.11 full (recommended) 
+5.put the downloaded file into /var/www/ourbank /library
+
+6.open your phpmyadmin  page and create new database and import the downloaded Database  and keep in mind what database name you given 
+7.Now go to application.ini file which is in /var/www/ourbank(your application name)/application/configs/application.ini  and give the database name and mysql username , password 
+8. resources.db.params.username = root (type new user name)	 
+9. resources.db.params.password = root  (type password of new username)
+10. resources.db.params.dbname = ourbank(your database name)
+Now you have to give the read and write permission to that application . There are two ways to give the permission one is manually other one is through Terminal
+		Manual method :
+			-> Go to home folder & then /var/www/ &  properties by right click the (ourbank) application now you can see permissions as a one of the tab , just click that and chose respective permission mode as given below
+			-> For owner : 
+				Folder Access : Created and deleted files
+				File Access      : Read and write
+			-> Now you enable the checkbox which has “Allow executing file
+				as program”
+			-> Then click the button which has “Apply Permissions to	Enclosed Files”
+		
+
+
+
+
+(note: if not a root user, please use “sudo” before command)
+Through Terminal :
+			Type this command's in terminal
+			-> cd var/www
+			-> sudo chmod -R 777  Ourbank(Our Application File name)
+			-> cd /etc/apache2/sites-enabled/
+			-> sudo gedit 000-default 
+			After given system password  000-default  window will open
+			On that code  you have to change the permission 
+		Replace  AllowOverride All instead of AllowOverride none
+		
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/www/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+
+
+		->  /etc/init.d/apache2 restart
+		-> a2enmod rewrite
+		-> /etc/init.d/apache2 restart
+
+Now the Application is ready to use ..
+go to your browser and type http://localhost/

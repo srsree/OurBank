@@ -1,0 +1,9 @@
+<?php
+class Interestrates_Form_Search extends Zend_Form {
+    public function init() {
+		$formfield = new App_Form_Field();
+		$search_interest_name = $formfield->field('Text','search_interest_name','','','','','','','','','','','','');
+		$search_credit_interest = $formfield->field('Select','search_credit_interest','','','','','','','','','','');
+	        $this->addElements(array($search_interest_name,$search_credit_interest));
+    }
+}

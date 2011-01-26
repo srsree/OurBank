@@ -1,0 +1,218 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if($this->loanCredit) { ?>
+	<h5 align="right"><?php echo $this->translate('As of'); ?> <?php echo "<font color='#039'>".$this->field1."</font>"; ?></h5>
+
+	<h5 style="text-align:right">* <?php echo $this->translate('Amount in'); ?> <font color="red"><?php echo $this->translate('Rs'); ?></font></h5>
+<div style="float:left;width:370px"> 
+        <?php 
+		$i = 0;
+		$j = 0;
+		$k = 0;
+		$totalCredit = "0";
+		$totalTransferCredit = "0";
+		$totalDebit = "0";
+		$totalTransferDebit = "0";
+		$columntotal1=0;
+		$columntotal=0;
+		$columntotald=0;
+		$columntotald1=0;
+		$countvalue1 =count($this->loanCredit);
+		$countvalue2 =count($this->loanDedit);
+		$count = $countvalue1>$countvalue2?$countvalue1:$countvalue2;
+        ?>
+<h5>Credit</h5>
+	<table id="hor-minimalist-s">
+		<TR>
+			
+			<TH><?php echo $this->translate('Sl'); ?></TH>
+			<TH><?php echo $this->translate('Particulars'); ?></TH>
+			<TH><?php echo $this->translate('A/C No.'); ?></TH>
+			<TH class = "label"><?php echo $this->translate('Cash'); ?></TH>
+			<TH class = "label"><?php echo $this->translate('Transfer'); ?></TH>
+			<TH class = "label"><?php echo $this->translate('Total'); ?></TH>
+		</TR>
+		<?php foreach($this->loanCredit as $loanCredit) { $i++; $columntotal=0;
+			if(($loanCredit->paymenttype_mode == 1) or ($loanCredit->paymenttype_mode == 5)) {
+		?>
+		<TR>
+				<TD ><?php echo $i; ?></TD>
+				<TD ><?php echo $this->translate('To'); ?> 
+                                <?php echo $loanCredit->account_number; ?></TD>
+				<TD ><?php echo $loanCredit->account_id; ?></TD>
+				<?php if($loanCredit->paymenttype_mode == 1) {?>
+				<TD align = "right"><?php echo $loanCredit->amount_to_bank; 
+				$totalCredit = $totalCredit + $loanCredit->amount_to_bank;
+				$columntotal += $loanCredit->amount_to_bank;
+				?></TD><td></td>
+				<?php } elseif($loanCredit->paymenttype_mode == 5) { ?>
+				<td></td><TD align = "right"><?php echo $loanCredit->amount_to_bank; 
+				$totalTransferCredit = $totalTransferCredit + $loanCredit->amount_to_bank; 
+				$columntotal += $loanCredit->amount_to_bank;
+				?></TD>
+				<?php } ?>
+				<TD align = "right"><b><?php $columntotal1 += $columntotal; echo $columntotal; ?></b> </TD> <?php  
+			}?> 
+		</TR>
+		<?php }  
+			for($k=$i;$k<=$count;$k++){ 
+			 if($k==$count){ ?>
+				<tr>
+					<TD><b><?php echo $this->translate('Total'); ?></b></TD>
+					<td></td>
+					<td></td>
+					<?php if ($totalCredit != "0") { ?>
+						<td align = "right"><b><?php echo sprintf("%4.2f", $totalCredit); ?></b></td>
+						<?php } else { ?>
+						<td align = "right"><b>----</b></td>
+						<?php } ?>
+						<?php if ($totalTransferCredit != "0") { ?>
+						<td align = "right"><b><?php echo sprintf("%4.2f", $totalTransferCredit); ?></b></td>
+						<?php } else { ?>
+						<td align = "right"><b>----</b></td>
+						<?php } ?>
+						<?php if ($columntotal1 != "0") { ?>
+						<td align = "right"><b><?php echo sprintf("%4.2f", $columntotal1); ?></b></td>
+						<?php } else { ?>
+						<td align = "right"><b>----</b></td>
+					<?php } ?>
+				</tr>
+			<?php } else {?>
+				<tr>
+					
+					<td><?php echo "<b>----</b>";?></td>
+					<td><?php echo "<b>----</b>";?></td>
+					<td><?php echo "<b>----</b>";?></td>
+					<td align = "right"><b>----</b></td>
+					<td align = "right"><b>----</b></td>
+					<td align = "right"><b>----</b></td>
+				</tr>
+		
+			<?php } } ?>
+	</table>
+  </div>
+<?php
+
+ } $k=0;$j=0; ?>
+
+<?php if($this->loanDedit) { ?>
+<div style="float:left;width:370px">
+<h5>Debit</h5>
+<table id="hor-minimalist-s">
+		<TR>
+		
+		<TH><?php echo $this->translate('Sl'); ?></TH>
+                <TH><?php echo $this->translate('Particulars'); ?></TH>
+                <TH><?php echo $this->translate('A/C No.'); ?></TH>
+                <TH class = "label"><?php echo $this->translate('Cash'); ?></TH>
+                <TH class = "label"><?php echo $this->translate('Transfer'); ?></TH>
+                <TH class = "label"><?php echo $this->translate('Total'); ?></TH>
+		</TR> 
+		<?php foreach($this->loanDedit as $loanDebit) { 
+		$j++;
+		if($loanDebit->paymenttype_mode == 1 or $loanDebit->paymenttype_mode == 5 ){
+		?>
+			<TR>
+				
+				<TD ><?php echo $j; ?></TD>
+                                <TD ><?php echo $this->translate('By'); ?> <?php echo $loanDebit->account_number; ?></TD>
+				<TD ><?php echo $loanDebit->account_id ?></TD>
+				<?php if($loanDebit->paymenttype_mode == 1) {?>
+				<td align = "right" ><?php echo $loanDebit->amount_from_bank;
+				$totalDebit = $totalDebit + $loanDebit->amount_from_bank; 
+				$columntotal += $loanDebit->amount_from_bank;
+				?></TD><td></td>
+				<?php } elseif($loanDebit->paymenttype_mode == 5) { ?>
+				<TD></TD>
+				<TD align = "right"><?php echo $loanDebit->amount_from_bank; 
+				$totalTransferDebit = $totalTransferDebit + $loanDebit->amount_from_bank; 
+				$columntotald += $loanDebit->amount_from_bank;
+				?></TD>
+				<?php } ?>
+				<TD align = "right"><b><?php $columntotald1 += $columntotald; echo $columntotald; ?></b></TD> <?php
+ 			}?>
+			</TR>
+			<?php } 
+			 for($k=$j;$k<=$count;$k++){ 
+			 if($k==$count){ ?>
+				<tr>
+					<TD><b><?php echo $this->translate('Total'); ?></b></TD>
+					<td></td>
+					<td></td>
+				 <?php if ($totalDebit != "0") { ?>
+						<b align = "right"><b><?php echo sprintf("%4.2f", $totalDebit); ?></b></td>
+						<?php } else { ?>
+						<td align = "right"><b>----</b></td>
+						<?php } ?>
+						<?php if ($totalTransferDebit != "0") { ?>
+						<td align = "right"><b><?php echo sprintf("%4.2f", $totalTransferDebit); ?></b></td>
+						<?php } else { ?>
+						<td align = "right"><b>----</b></td>
+						<?php } ?>
+						<?php if ($columntotald1 != "0") { ?>
+						<td align = "right"><b><?php echo sprintf("%4.2f", $columntotald1); ?></b></td>
+						<?php } else { ?>
+						<td align = "right"><b>----</b></td>
+					<?php } ?>
+					</tr>
+			<?php } else {?>
+				<tr>
+					
+					<td><?php echo "<b>----</b>";?></td>
+					<td><?php echo "<b>----</b>";?></td>
+					<td><?php echo "<b>----</b>";?></td>
+					<td align = "right"><b>----</b></td>
+					<td align = "right"><b>----</b></td>
+					<td align = "right"><b>----</b></td>
+				</tr>
+		
+			<?php } } ?>
+ 	 </table>
+ </div>
+
+<?php  } 
+if(($this->loanCredit) && ($this->loanDedit))  { ?>
+<div style="float:left;width:370px">
+<form action="<?php echo $this->baseUrl();?>/reports/loanscroll/pdftransaction" method="POST"
+onClick="window.open('<?php echo $this->baseUrl(); ?>/reports/loanscroll/reportdisplay/file/loanscroll.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+            <input type="hidden" name="field1" value="<?php echo $this->field1; ?>">
+            
+            <input type="submit" value="PDF" id="submit">
+</form>
+</div>
+<?php } ?>

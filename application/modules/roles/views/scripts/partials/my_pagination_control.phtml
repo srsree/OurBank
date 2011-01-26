@@ -1,0 +1,51 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<!--
+See <a href="http://developer.yahoo.com/ypatterns/pattern.php?pattern=itempagination" title="http://developer.yahoo.com/ypatterns/pattern.php?pattern=itempagination">http://developer.yahoo.com/ypatterns/pattern.php?pattern=itempagination</a>
+-->
+<?php if ($this->pageCount): ?>
+<div class="paginationControl">
+<?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
+of <?php echo $this->totalItemCount; ?>
+<!-- First page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->first)); ?>">First </a> |
+<?php else: ?>
+  <span class="disabled">First</span> |
+<?php endif; ?>
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>"> &lt; Previous  </a> |
+<?php else: ?>
+  <span class="disabled">&lt; Previous</span> |
+<?php endif; ?>
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->next),$this->paginator); ?>">  Next &gt; </a> |
+<?php else: ?>
+  <span class="disabled">Next &gt;</span> |
+<?php endif; ?>
+<!-- Last page link -->
+<?php if (isset($this->next)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->last)); ?>">  Last  </a>
+<?php else: ?>
+  <span class="disabled">Last</span>
+<?php endif; ?>
+</div>
+<?php endif; ?>

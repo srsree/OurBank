@@ -1,0 +1,90 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/reports/summaryloans" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Begin Date:</td>
+                                    <td ><?php echo $this->form->field3;?></td>
+                                    <td class="label">Close Date:</td>
+                                    <td ><?php echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Branch:</td>
+                                    <td ><?php echo $this->form->field1;?></td>
+                                    <td class="label"></td>
+                                    <td ><?php echo $this->form->Search;?></td>
+                                </tr>
+
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+<?php if($this->Loan && $this->accountLoan) { ?>
+<fieldset>
+    <legend>Loans</legend>
+	<div class="cont-rgt-data">
+            <TABLE id="hor-minimalist-b" summary="">
+                <tr>
+	            <th>Product name</th>
+	            <th>No. of accounts</th>
+	            <th>Loan Damount</th>
+                    <th>Paid</th>
+                    <th>balance</th>
+                </tr>
+                <?php $i = 0; ?>
+                <?php foreach($this->Loan as $Loan) { $amountPaid =0; $balance = 0;?>
+		<tr>
+	            <td><?php echo $Loan['activity_name']; ?></td>
+                    <?php foreach($this->accountLoan as $accountLoanLoan) { 
+                    if($accountLoanLoan['account_id'] == $Loan['account_id']) { $i++; ?>
+                    <td><?php echo $i; ?></td>
+                       <?php } ?>
+                <?php } ?>                    <td>R$. <?php echo $Loan['loan_amount']; ?></td>
+                    <?php foreach($this->accountLoan as $accountLoanLoan) { 
+                    if($accountLoanLoan['account_id'] == $Loan['account_id']) { ?>
+                        <?php 
+ 			    if($accountLoanLoan['installment_status'] == 2) {
+                                $amountPaid =0;
+				$amountPaid = $amountPaid+$accountLoanLoan['accountinstallment_amount'] ;
+				$amountPaid = $amountPaid;
+                            } ?> 
+	                    <?php     $balance = $Loan['loan_amount'] - $amountPaid;
+                            $balance = $Loan['loan_amount'] - $amountPaid;?>
+                       <?php } ?>
+                <?php } ?>
+                <?php if($amountPaid) { ?>
+                    <td>R$. <?php echo $amountPaid; ?></td>
+                    <?php } else { ?>
+                    <td> -- </td>
+                    <?php } if ($balance) { ?>
+                    <td>R$. <?php echo $balance; } ?></td>
+                </tr>
+                <?php } ?>
+	    </TABLE>
+	</div>
+</fieldset>
+<?php } ?>
+

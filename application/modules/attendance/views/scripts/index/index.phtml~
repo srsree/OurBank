@@ -1,0 +1,48 @@
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/attendance/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Meeting Name</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Meeting Dates:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+
+<fieldset>
+	<legend>Attendance</legend>
+	<table id="hor-minimalist-b" summary="">
+		<tr class="tdbrownheading">
+		<th>Meeting Name</th>
+		<th>Member's Name</th>
+		</tr>
+			<?php if (count($this->paginator)): ?>
+			<?php foreach ($this->paginator as $attendance ): ?>
+		<tr>
+			
+			<td><a href="<?php echo $this->baseUrl()."/attendance/index/attendanceview/attendance_id/".$attendance['attendance_id']; ?>"><?php echo $this->escape($attendance['meeting_id']);?></a></td>
+			<td><?php echo $this->escape($attendance['meeting_date']); ?></td>
+				<?php endforeach; ?>
+				<?php endif; ?>
+			
+			<tr>
+				<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+							'/partials/my_pagination_control.phtml'); ?></div></td>
+			</tr>
+		</tr>
+	</table>
+</fieldset>

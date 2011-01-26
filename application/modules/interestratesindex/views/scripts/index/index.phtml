@@ -1,0 +1,66 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/interestratesindex/index" method="POST">
+                            <table width="100%">
+                                <tr>
+					<td class="label">Interest category</td>
+					<td ><? echo $this->form->search_interest_name;?></td>
+					<td class="label">Creditline</td>
+					<td ><? echo $this->form->search_credit_interest;?></td>
+                                </tr>
+
+                        </table>
+			<div class="btnhouse">
+				<div class="ltbtns">
+				<input type="Submit" name="Search" value="Search">
+				</div>
+			</div>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+<table id="hor-minimalist-b" summary="">
+	<tr class="tdbrownheading">
+		<th>Interest category</th>
+		<th>Creditline</th>
+
+	</tr>
+	<?php if (count($this->paginator)): $a='';?>
+	<?php foreach ($this->paginator as $interest ){ ?>
+	
+		<? if($a!=$interest['id'])	{ ?>
+		<tr>	
+		<td><a href="<?php echo $this->baseUrl()."/interestratescommonview/index/index/interest_id/".$interest['id']; ?>"><?php echo $this->escape($interest['name']);?></a></td><td colspan="6"><?php echo $this->escape($interest['creditline_name']);?></td></tr> <? } ?>
+		</tr>
+		<?php $a=$interest['id'];
+	} ?>
+	<?php endif; ?>
+
+	<tr>
+	<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+				'/partials/my_pagination_control.phtml'); ?></div></td>
+	</tr>
+</table>

@@ -1,0 +1,36 @@
+
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/attendance.js"></script>
+
+<div id = "searchDiv">
+<fieldset>
+<legend>Edit Attendance </legend>
+	<form action="<?php echo $this->baseUrl();?>/attendance/index/attendanceedit/attendance_id/<?php echo $this->attendance_id;?>" method="POST">
+		<table class="fieldsets">
+			<tr><TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/attendance/index/attendancedelete/attendance_id/<?php echo $this->attendance_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD></tr>
+
+			<TR >
+				<TD><label for="fld1" class="mand">Meeting date</TD>
+				<TD ><?php echo $this->attendanceform->meeting_date;?></TD>
+			</TR>
+			<TR >
+				<TD><label for="fld1" class="mand">Meeting name</TD>
+				<TD ><?php echo $this->attendanceform->meeting_name;?></TD>
+			</TR>
+			<TR>
+				<TD>Members</TD>
+				<TD colspan="2"><div id="statediv"></div></TD>
+			</TR>
+
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<input type="Submit" name="Submit" name="Submit" value="Submit">
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/attendancecommonview/index/index/attendance_id/<?php echo $this->attendance_id;?>"><input type="button" value="Back"></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>
+

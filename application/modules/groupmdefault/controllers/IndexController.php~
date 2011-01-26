@@ -1,0 +1,234 @@
+<?php
+class Groupdefault_IndexController extends Zend_Controller_Action 
+{
+    public function init() 
+    {
+        $this->view->pageTitle='Group';
+        $test = new DH_ClassInfo(APPLICATION_PATH . '/modules/group/controllers/');
+        $globalsession = new App_Model_Users();
+        $this->view->globalvalue = $globalsession->getSession();
+        $this->view->createdby = $this->view->globalvalue[0]['id'];
+        $this->view->username = $this->view->globalvalue[0]['username'];
+        if (($this->view->globalvalue[0]['id'] == 0)) {
+                $this->_redirect('index/logout');
+        }
+        $this->view->adm = new App_Model_Adm();
+        $module = $test->getControllerClassNames();
+        $modulename = explode("_", $module[0]);
+        $this->view->modulename = strtolower($modulename[0]);
+    
+    }
+    public function addgroupAction() 
+    {
+        if($this->_request->getParam('error'))
+        {
+        $error = $this->_request->getParam('error');
+        if($error == 1 )
+                {
+                $this->view->error = "Improper Group head selection ! ";
+                }
+        }
+        $app = $this->view->baseUrl();
+        $this->view->title = "Group Details";
+        $addForm = new Groupdefault_Form_groupdefault($app);
+        $this->view->form=$addForm;
+        $groups = $this->view->adm->viewRecord("ob_bank","id","DESC");
+        foreach($groups as $groups) { 
+        $addForm->office->addMultiOption($groups['id'],$groups['name']);
+        }
+
+    }
+    public function getmembersaddAction()
+    {
+        $branch_id = $this->_request->getParam('branch_id');
+        $this->_helper->layout->disableLayout();
+        $dbobj= new Groupdefault_Model_groupdefault();
+        $this->view->members = $dbobj->GetBranchMembers($branch_id);
+    }
+    public function getmembersAction(){
+        $branch_id = $this->_request->getParam('branch_id');
+        $group_id = $this->_request->getParam('group_id');
+
+        $this->_helper->layout->disableLayout();
+        $dbobj= new Groupdefault_Model_groupdefault();
+        $this->view->members = $dbobj->GetBranchMembers1($branch_id,$group_id); //List all members including Joined Memebre //remaining 
+        //  Zend_Debug::dump($this->view->members);
+        $this->view->groupheaddetails = $dbobj->Getgrouphead($group_id); //group head
+        foreach($this->view->groupheaddetails as $grouphead){
+                $this->view->grouphead = $grouphead['group_head'];
+        }
+        
+        $fetchMembersValue=$dbobj->assignMembers($group_id); // assigned members
+        $this->view->assignMembers = $fetchMembersValue;
+        }
+    public function groupaccountAction() {  
+    
+        $member_id = $_POST['member_id'];
+        $group_head = $_POST['memberhead'];
+        $result = "";
+        if(in_array($group_head,$member_id))
+            {
+               $result = "ok";
+            }
+        
+        if($result == "ok")
+        {
+            $office_id = $this->_request->getParam('office');
+            $groupname = $this->_request->getParam('groupname');
+            $createddate= $this->_request->getParam('Created_Date');
+            $convertdate = new Creditline_Model_dateConvertor();
+            $createddate=$convertdate->phpmysqlformat($createddate);
+            $createddate;
+    
+            $date=date("y/m/d H:i:s");
+                
+            $validator = new Zend_Validate_Db_RecordExists('ob_group','group_name');
+            if ($validator->isValid($groupname)) {
+                    $messages = $validator->getMessages();	
+                            $this->view->errorgroupname=$groupname.'Already Existed';
+            } else {
+                    $lastid = $this->view->adm->addRecord("ob_group",array('group_name' => $groupname)); // Insert group name and get pk id
+            $dbobj= new Groupdefault_Model_groupdefault();
+            $grouptypeid = $dbobj->getGrouptypeid('Group');
+                $groupcode=str_pad($office_id,3,"0",STR_PAD_LEFT)."0".$grouptypeid.str_pad($lastid,5,"0",STR_PAD_LEFT);
+                $this->view->adm->updateRecord("ob_group",$lastid,array('bank_id' =>$office_id,'group_head'=>$group_head,'groupcode' =>$groupcode,'group_created_date'=>$date,'created_by' =>$this->view->createdby,'created_date' =>$createddate ));/* Group created date -> Including timestamp , Created date should contain date only*/
+    
+                    foreach($member_id as $memberid)
+                                                    {
+                    $this->view->adm->addRecord("ob_groupmembers",array('id' =>$lastid,
+                                                                            'member_id' =>$memberid,
+                                                                    'groupmember_status' =>3));
+                                    
+                    }
+                    $this->_redirect('groupcommonview/index/commonview/id/'.$lastid);
+                }
+           }else{
+                    $error = "1";
+                    $this->_redirect('/groupdefault/index/addgroup/error/'.$error);
+            }
+    }
+    public function editgroupAction()
+    {
+
+        if($this->_request->getParam('error'))
+        {
+        $error = $this->_request->getParam('error');
+        if($error == 1 )
+                {
+                $this->view->error = "Improper Group head selection ! ";
+                    }
+        }
+        $app = $this->view->baseUrl();
+        $group_id=$this->_getParam('id');
+        $this->view->groupid=$group_id;
+        $this->view->title = "Edit Group Details"; 
+
+        $addForm = new Groupdefault_Form_groupdefault($app);
+        $this->view->form=$addForm;
+
+        $groups = $this->view->adm->viewRecord("ob_bank","id","DESC");
+        
+        foreach($groups as $groups) { 
+        $addForm->office->addMultiOption($groups['id'],$groups['name']);
+        }
+
+        $dbobj = new Groupcommonview_Model_groupcommon();
+        $result = $dbobj->getgroup($group_id);
+        $convertdate = new Creditline_Model_dateConvertor();
+        foreach($result as $group){
+        $addForm->office->setValue($group['bank_id']);
+        $addForm->groupname->setValue($group['group_name']);
+        $addForm->Created_Date->setValue($convertdate->phpnormalformat($group['group_created_date']));
+        }
+        echo "<script>getMember('".$group['bank_id']."','".$app."','".$group['groupid']."');</script>";
+
+            if ($this->_request->isPost() && $this->_request->getPost('Submit')) 
+            {  
+                $mem = $this->_request->getPost('member_id');
+                $group_head = $_POST['memberhead'];
+
+                $result = "";
+                
+                if(in_array($group_head,$mem))
+                        {
+                                $result = "ok";
+                        }
+                if($result == "ok")
+                    { 
+                        $office_id = $this->_request->getParam('office');
+                        $groupname = $this->_request->getParam('groupname');
+                        $createddate= $this->_request->getParam('Created_Date');
+                        $convertdate = new Creditline_Model_dateConvertor();
+                        $createddate=$convertdate->phpmysqlformat($createddate);
+                        $date=date("y/m/d H:i:s");
+                        $dbobject = new Groupdefault_Model_groupdefault();
+                        $groupdetails = $dbobject->getgroupdetails($group_id);
+                        foreach($groupdetails as $groupdetails){ }
+                            $this->view->adm->addRecord("ob_group_log",array('id' =>$groupdetails['id'],'bank_id' =>$groupdetails['bank_id'],'group_name' =>$groupdetails['group_name'],'group_head' =>$groupdetails['group_head'],'groupcode' =>$groupdetails['groupcode'],'group_created_date' =>$groupdetails['group_created_date'],'created_by' =>$groupdetails['created_by'],'created_date' =>$groupdetails['created_date']));
+// 				 Zend_Debug::dump($groupdetails);
+                            $this->view->adm->updateRecord("ob_group",$group_id,array('bank_id' =>$office_id,'group_name' =>$groupname,'group_head'=>$group_head,'group_created_date'=>$date,'created_by' =>$this->view->createdby,'created_date' =>$createddate));
+                                $dbobject->UpdateGroupdetails($group_id);
+                                foreach($mem as $memberid){
+                                    $this->view->adm->addRecord("ob_groupmembers",array('id' =>$group_id,
+                                                                                        'member_id' =>$memberid,
+                                                                                        'groupmember_status' =>3));
+                                }
+                                $this->_redirect('groupcommonview/index/commonview/id/'.$group_id);
+                        }
+                else{
+                    $error = "1";
+                    $this->_redirect('groupdefault/index/editgroup/id/'.$group_id.'/error/'.$error);
+            
+                }
+            }
+        }
+
+    public function deletegroupAction()
+    {
+//        $checkaccess = $access->accessRights('Group',$this->view->globalvalue[0]['name'],'activitydeleteAction');
+//        if (($checkaccess != NULL)) {
+        $this->view->groupid=$this->_request->getParam('id');
+        $deleteForm = new Groupdefault_Form_Delete();
+        $this->view->form=$deleteForm; 
+        $dbobj= new Groupdefault_Model_groupdefault();
+        $groupcommon=new Groupcommonview_Model_groupcommon();
+        $module=$groupcommon->getmodule('group');
+            foreach($module as $module_id){ }
+            $moduleid=$module_id['module_id'];
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')){
+         $formdata = $this->_request->getPost();
+            if($deleteForm->isValid($formdata)) {
+                $grouptypeid = $dbobj->getGrouptypeid('Group');
+                $status = $dbobj->getAccountstatus($this->view->groupid,$grouptypeid);
+                if(!$status){
+                    $flag = true;
+                    }
+                    if($status){
+                        foreach($status as $statusid){
+                            if($statusid['accountstatus_id'] == 5) {
+                                $flag = true;
+                                }
+                            else{
+                                $flag = false;
+                            }
+                        }
+                }
+                if($flag == true){
+                    $redirect = $this->view->adm->deleteAction("ob_group",$this->view->modulename,$this->view->groupid);
+                    $this->view->adm->deleteSubmodule("ob_address",$this->view->groupid,$moduleid);
+                    $dbobj->UpdateGroupdetails($this->view->groupid);
+                    $this->_redirect("/".$redirect);
+                }
+                if($flag==false){
+                    echo "<font color='red'>You cannot delete this group, because this group have some active account.</font>";
+                }
+                }
+	}
+	//}
+// 		else {
+// 			$this->_redirect('index/error');
+// 	    }
+
+	}
+
+}

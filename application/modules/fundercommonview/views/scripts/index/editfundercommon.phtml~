@@ -1,0 +1,76 @@
+            <div id="container-1">
+             <fieldset>
+	           <legend>Edit Funders Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+                       <table id="hor-minimalist-b">
+                           <tr><th>Funder Information</th><th></th><th></th><th></th></tr>
+                        <?php foreach($this->fundername as $funder_view){
+                          ?>
+                        <tr><td>Funders Name:</td><td><?php echo $funder_view['funder_name']; ?></td><td></td><td></td></tr>
+                        <tr><td>Funders Type:</td><?php if($funder_view['funder_type']==1){ ?><td>Personal</td><?php } if($funder_view['funder_type']==2) { ?><td>Organization</td> <?php } ?><td></td><td></td></tr>
+                        <tr><td>Funders Status:</td><?php if($funder_view['funder_status']==1){ ?><td>Active</td><?php } else { ?><td>Deactive</td> <?php } ?> </td><td></td><td></td></tr>
+                        
+
+                        <?php } ?>
+            
+                       <tr><td></td>
+                          <?php if(($this->fundername)!=NULL) {
+                            foreach($this->fundername as $edit_id) { ?>
+                            <TD class="label" align="right"></TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/funderdetails/index/editfunder/id/<?php echo $this->id; ?>">Edit<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></TD><td><a href="<?php echo $this->baseUrl();?>/funderdetails/index/delete/id/<?php echo $this->id; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>">Delete<img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+                          <?php }} ?>
+                         
+                        </tr>
+
+
+                        <tr><th>Address Information</th><th></th><th></th><th></th></tr>
+                        <?php foreach($this->address as $address_view){
+                          ?>
+                        <tr><td>Address Line1:</td><td><?php echo $address_view['address1']; ?></td><td></td><td></td></tr>
+                        <tr><td>Address Line2:</td><td><?php echo $address_view['address2']; ?></td><td></td><td></td></tr>
+                        <tr><td>Address Line3:</td><td><?php echo $address_view['address3']; ?></td><td></td><td></td></tr>
+                        <tr><td>City:</td><td><?php echo $address_view['city']; ?></td><td></td><td></td></tr>
+                        <tr><td>State:</td><td><?php echo $address_view['state']; ?></td><td></td><td></td></tr>
+                         <tr><td>Country:</td><td><?php echo $address_view['country']; ?></td><td></td><td></td></tr>
+                         <tr><td>Pin Code:</td><td><?php echo $address_view['zipcode']; ?></td><td></td><td></td></tr>
+                        <?php } ?>
+                        <tr><td></td>
+                       <?php if(($this->address)!=NULL) {
+                            foreach($this->address as $edit_id) { ?>
+                         <TD class="label" align="right"></TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->id; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>">Edit<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></TD>
+                         <?php }} else { ?>
+                                <TD class="label" align="right"></TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->id; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>">Add<img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"></a></TD>
+                         <?php } ?><td></td>
+                        </tr>
+
+                        <tr><th>Contact Information</th><th></th><th></th><th></th></tr>
+                        <?php foreach($this->contact as $contact){
+                          ?>
+                        <tr><td>Contact Person:</td><td><?php echo $contact['contact_person']; ?></td><td></td><td></td></tr>
+                        <tr><td>Telephone Number:</td><td><?php echo $contact['telephone']; ?></td><td></td><td></td></tr>
+                        <tr><td>Mobile Number</td><td><?php echo $contact['mobile']; ?></td><td></td><td></td></tr>
+                        <tr><td>Email ID:</td><td><?php echo $contact['email']; ?></td><td></td><td></td></tr>
+                        <?php } ?>
+                        <tr><td></td>
+                        <?php if(($this->contact)!=NULL) {
+                            foreach($this->contact as $edit_id) { ?>
+                         <TD class="label" align="right"></TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/contactdetails/index/editcontact/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id; ?>/modId/<?php echo $this->mod_id; ?>">Edit<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></TD>
+                         <?php }} else { ?>
+                                <TD class="label" align="right"></TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/contactdetails/index/addcontact/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id; ?>/modId/<?php echo $this->mod_id; ?>">Add<img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"></a></TD>
+                         <?php } ?><td></td>  
+                        </tr>
+
+
+                        <tr><td></td><td></td><td></td><td><a href="<?php echo $this->baseUrl(); ?>/funder"><input type="button" name="back" value="back"></a></td></tr>
+                         </table>
+                   </div>
+	         </div>
+            </fieldset>
+        </div>
+
+ 

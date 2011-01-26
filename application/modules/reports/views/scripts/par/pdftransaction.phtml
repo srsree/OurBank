@@ -1,0 +1,203 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<fieldset>
+    <legend>Receipt List</legend>
+            <?php 
+              $total30 = "0";
+              $total60 = "0";
+              $total90 = "0";
+              $total180 = "0";
+              $total360 = "0";
+              $total360days = "0";
+              $total = "0";
+            ?>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH> Month </TH>
+            <TH> Loan A/C </TH>
+            <TH> On Time </TH>
+            <TH> 1 - 30 Days </TH>
+            <TH> 31 - 60 Days </TH>
+            <TH> 61 - 90 Days </TH>
+            <TH> 91 - 180 Days </TH>
+            <TH> 181 - 360 Days </TH>
+            <TH> 361 Days Above </TH>
+            <TH> O/S Loan </TH>
+
+        </TR>
+        <?php if($this->due30) { ?>
+        <?php foreach($this->due30 as $due30) { ?>
+        <TR>
+            <TD></TD>
+            <TD ><?php echo $due30->account_number; ?></TD>
+            <TD></TD>
+            <TD align="rigth"><?php echo $due30->accountinstallment_amount;
+                $total30 = $total30 + $due30->accountinstallment_amount;?></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+
+        </TR>
+        <?php } ?>
+        <?php } ?>
+        <?php if($this->getDueabove30less60) { ?>
+        <?php foreach($this->getDueabove30less60 as $getDueabove30less60) { ?>
+        <TR>
+            <TD></TD>
+            <TD ><?php echo $getDueabove30less60->account_number;?></TD>
+            <TD ></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"><?php echo $getDueabove30less60->accountinstallment_amount;
+                    $total60 = $total60 + $getDueabove30less60->accountinstallment_amount;?></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+
+        </TR>
+        <?php } ?>
+        <?php } ?>
+
+        <?php if($this->getDueabove60less90) { ?>
+        <?php foreach($this->getDueabove60less90 as $getDueabove60less90) { ?>
+        <TR>
+            <TD></TD>
+            <TD ><?php echo $getDueabove60less90->account_number; ?></TD>
+            <TD></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"><?php echo $getDueabove60less90->sum;
+                 $total90 = $total90 + $getDueabove60less90->sum;?></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+
+        </TR>
+        <?php } ?>
+        <?php } ?>
+        <?php if($this->getDueabove90less180) { ?>
+        <?php foreach($this->getDueabove90less180 as $getDueabove90less180) { ?>
+        <TR>
+            <TD></TD>
+            <TD ><?php echo $getDueabove90less180->account_number; ?></TD>
+            <TD ></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"><?php echo $getDueabove90less180->sum;
+                $total180 = $total180 + $getDueabove90less180->sum; ?></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+
+        </TR>
+        <?php } ?>
+        <?php } ?>
+
+        <?php if($this->getDueabove180less360) { ?>
+        <?php foreach($this->getDueabove180less360 as $getDueabove180less360) { ?>
+        <TR>
+            <TD></TD>
+            <TD ><?php echo $getDueabove180less360->account_number; ?></TD>
+            <TD ></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"><?php echo $getDueabove180less360->sum;
+                 $total360 = $total360 + $getDueabove180less360->sum;?></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+
+        </TR>
+        <?php } ?>
+        <?php } ?>
+
+        <?php if($this->getDueabove360) { ?>
+        <?php foreach($this->getDueabove360 as $getDueabove360) { ?>
+        <TR>
+            <TD align="rigth"></TD>
+            <TD ><?php echo $getDueabove360->account_number; ?></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"></TD>
+            <TD align="rigth"><?php echo $getDueabove360->sum;
+            $total360days = $total360days + $getDueabove360->sum; ?></TD>
+
+            <TD></TD>
+
+        </TR>
+        <?php } ?>
+        <?php } ?>
+
+        <TR>
+            <TD ></TD>
+            <TD >Total</TD>
+            <TD ></TD>
+            <TD align="rigth"><?php echo $total30;?></TD>
+            <TD align="rigth"><?php echo $total60;?></TD>
+            <TD align="rigth"><?php echo $total90;?></TD>
+            <TD align="rigth"><?php echo $total180;?></TD>
+            <TD align="rigth"><?php echo $total360;?></TD>
+            <TD align="rigth"><?php echo $total360days;?></TD>
+            <TD align="rigth"><?php echo $total30 + $total60 + $total90 + $total180 + $total360 + $total360days;?></TD>
+
+
+
+        </TR>
+
+    </table>
+
+
+
+<fieldset>
+</fieldset>
+
+
+
+

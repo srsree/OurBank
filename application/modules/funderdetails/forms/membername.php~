@@ -1,0 +1,40 @@
+<?php
+class  Membername_Form_membername extends Zend_Form {
+
+    public function init() {
+
+			$membertitle = new Zend_Form_Element_Select('membertitle');
+			$membertitle->setAttrib('class', 'txt_put');        
+			$membertitle->setAttrib('id', 'membertitle');
+			$membertitle->setAttrib('tabindex', '3');
+
+			$memberfirstname = new Zend_Form_Element_Text('memberfirstname');
+			$memberfirstname->setAttrib('class', '');
+			$memberfirstname->setAttrib('size', '10');
+		
+			
+			$gender_id  = new Zend_Form_Element_Select('gender_id');
+			$gender_id->addMultiOption('','Select');
+			$gender_id->setAttrib('class', 'txt_put');
+			$gender_id->setAttrib('id', 'gender_id');
+			$gender_id->setAttrib('tabindex', '9');
+
+                        $dateofbirth = new Zend_Form_Element_Text('memberdateofbirth ');
+                        $dateofbirth->setAttrib('tabindex', '8');
+                        $dateofbirth->setAttrib('class', 'txt_put');
+                        $dateofbirth->setAttrib('size', '10');
+                        $dateofbirth->setAttrib('id', 'memberdateofbirth');
+                        $dateofbirth->setAttrib($value,'true');
+                        $dateofbirth->setRequired(true)
+                        ->addValidator(new Zend_Validate_Date('YYYY-MM-DD'),true,
+                        array('messages' =>array(Zend_Validate_Date::FALSEFORMAT => 'Enter the valid date')));
+
+                        $submit = new Zend_Form_Element_Submit('Submit');
+			$back= new Zend_Form_Element_Submit('Back');
+			$update = new Zend_Form_Element_Submit('Update');
+			$yes = new Zend_Form_Element_Submit('Yes');
+
+		        $this->addElements(array($office,$type_id,$membertitle,$memberfirstname,$gender_id,$dateofbirth,$submit,$back,$update,$yes));
+
+    }
+}

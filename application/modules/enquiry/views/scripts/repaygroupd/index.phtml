@@ -1,0 +1,104 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if(!$this->loanDetails) { ?>   
+<div id="searchDiv">
+	<fieldset>
+		<legend>Loandisbursement Date Search</legend>
+		<div style="margin-left:20px;">
+		<TABLE width="100%" id = "hor-minimalist-b">
+		  <form action="<?php echo $this->baseUrl();?>/enquiry/repaygroupd/index" method="POST">
+		      <tr>
+                        <td class="label">loandisbursementDatefrom</td>
+                        <td><?php  echo $this->form->field2;?></td>
+                    </tr>
+                    <tr>
+                        <td class="label">loandisbursementDateto</td>
+                        <td><?php  echo $this->form->field3;?></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" name="Search" value="search" class = "officebutton"></td>
+                    </tr>
+                    </form>
+   		</TABLE>
+		</div>
+ 	</fieldset> 
+</div> 
+<br>
+<?php } ?>
+<?php if($this->loanDetails) { ?>  
+<fieldset>
+    <legend>RepaymentDetailsOfGroupLoanWithDate</legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+
+                    <TR class="tdbrown">
+			   
+                            <Th>groupName</TD>
+			    <Th>office</TD>
+			    <Th>accountNumber</TD>
+			    <Th>amountDisbursed</TD>
+			    <Th>paid</TD>
+                            <Th>balance</TD>
+                            <Th>RepayDate</TD>
+
+    
+                    </TR>
+                    <?php 
+                    foreach($this->loanDetails as $loanDetails1){  ?>
+                     
+                    <TR>
+                            	<TD><?php echo $loanDetails1['groupname'];?></TD>
+			    	<TD><?php echo $loanDetails1['office_name'];?></TD>
+		                <td><?php echo $loanDetails1['account_number'];?></td>
+                                <td><?php echo $loanDetails1['groupmember_loanamount'];?></td>
+                                <td><?php echo $loanDetails1['groupmemberloaninstallmentpaid_amount'];?></td>
+                                <td><?php echo $loanDetails1['groupmember_loanamount']-$loanDetails1['groupmemberloaninstallmentpaid_amount'];?></td>
+                                <td><?php echo $loanDetails1['groupmemberloaninstallmentpaid_date']; ?>
+                    </TR>
+                 <?php } ?>
+            <table>
+		     
+            <br>
+	    </table>
+		   
+            </table>
+        </div>
+</fieldset>
+<?}?>
+
+

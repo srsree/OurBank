@@ -1,0 +1,63 @@
+<body onclick="limiter()">
+<fieldset>
+	<legend>New loan amount types</legend>
+	<div class="register">
+		<div class="profile_tab">
+			<form action="<?php echo $this->baseUrl();?>/management/loanamounttypes/loanamounttypesadd" method="POST"  name= "myform">
+				<table id="hor-minimalist-b">
+					<TR>
+						<TH width="30%">loan amount types</TH>
+						<TH width="30%"></TH>
+						<TH width="40%"></TH>
+					</TR>
+					<TR>
+						<TD width="30%">Loan Amount Type<span class="reqMark">*</span></TD>
+						<TD width="30%"><?php echo $this->form->laonamount_type_description;?></TD>
+						<TD width="40%"></TD>
+					</TR>
+					<TR>
+						<TH width="30%">loanAmount with interest</TH>
+						<TH width="30%"></TH>
+						<TH width="40%"></TH>
+					</TR>
+					<TR>
+						<TH width="30%" align="center">-----------Amounts R$-----------Interests---</TH>
+						<th width="30%"></th>
+						<Th width="40%"></Th>
+					</TR>
+					<TR>
+						<TD width="30%">---From R$-------To R$------- Rate %-----</TD>
+						<TD width="30%"></TD>
+						<TD width="40%"></TD>
+					</TR>
+
+					<TR>
+						<TD width="30%">&nbsp;<input type='text' size='5' name='from' id='from' value="" class = 'txt_put'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' size='5' name='to' id='to' value="" class = 'txt_put'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' size='5' name='rate' id='rate' value="" class = 'txt_put'></TD>
+						<TD width="30%"></TD>
+						<TD width="40%"></TD>
+					</TR>
+                             <tr> 
+                            <td><input type="hidden" id="id" value="1">
+                                
+			         <div id="interestperiods"></div>
+									<input type="button" onClick="addFormField(); return false;" value="Add interest"></td>
+                            <TD width="50%"><input type="hidden" id="id" value="1"><input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" /><div id="loaninterestperiods"></div>
+					
+                                                                       
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+				
+					<TR>
+						<TD width="50%"><?php echo $this->form->Submit;?></TD>
+						<TD width="20%"><a href="<?php echo $this->baseUrl(); ?>/management/loanamounttypes/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></a></TD>
+						<TD width="30%"></TD>
+					</TR>
+				</table>
+			</form>
+		</div>
+	</div>
+</fieldset>
+

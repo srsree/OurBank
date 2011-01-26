@@ -1,0 +1,125 @@
+<form action="<?php echo $this->baseUrl();?>/management/loans/loansedit/offerproductupdate_id/<?php echo $this->offerproductupdate_id; ?>" method="POST" name="myform" id="signupForm" class="cmxform">
+<fieldset>
+    <legend>Edit Loan</legend>
+        <div class="register">
+            <div class="profile_tab">
+            <table id="hor-minimalist-b">
+                <TR>
+                    <TH>Product Details</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Product Type</TD>
+                    <TD><?php echo $this->form->product_id;?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>Product name</TD>
+                    <TD><?php echo $this->form->offerproductname;?></TD>
+                    <TD>Short Name</TD>
+                    <TD><?php echo $this->form->offerproductshortname;?></TD>
+                </TR>
+                <TR>
+                    <TD>Description</TD>
+                    <TD><?php echo $this->form->offerproduct_description;?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TH>Date</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Begin Date</TD>
+                    <TD><?php echo $this->form->begindate;?>[yyyy-mm-dd]</TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>Close Date</TD>
+                    <TD><?php echo $this->form->closedate;?>[yyyy-mm-dd]</TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>Applicable To</TD>
+                    <TD><?php echo $this->form->applicableto;?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TH>Amounts</TH>
+                    <TH></TH>
+                    <TH>Installments</TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Minimum loan amount</TD>
+                    <TD ><?php echo $this->form->minmumloanamount;?></TD>
+                    <TD>Minimum Freequency</TD>
+                    <TD><?php echo $this->form->minimumfrequency;?></TD>
+                </TR>
+                <TR>
+                    <TD>Maximum loan amoun</TD>
+                    <TD><?php echo $this->form->maximunloanamount;?></TD>
+                    <td>Maximum Freequency</td> 
+                    <TD><?php echo $this->form->maximumfrequency;?></TD>
+                </TR>
+                <TR>
+                    <TH>Penal fee</TH>
+                    <TH></TH>
+                    <TH>grace period</TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Penal fee</TD>
+                    <TD><?php echo $this->form->penal_Interest;?></TD>
+                    <TD>Grace On</TD>
+                    <TD><?php echo $this->form->graceperiodnumber;?>days</TD>
+                </TR>
+
+<!--Disable by prakash -->
+              <!--  <TR>
+                    <TH>Interest types</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+					<tr> 
+						<Td align="left" >From (years) &nbsp;&nbsp;To (years) &nbsp;&nbsp;&nbsp;Rate</Td>
+						<td></td>
+						<td ></td>
+						<td ></td>
+					</tr>
+						<?php $count = 0; ?>
+						<?php foreach($this->interests as $interesttypes) { ?>  
+						<?php $count++; ?>
+					<tr>
+						<input type = "hidden" name = "count" value= "<?php echo $count;?>">
+						<td  align="left" >&nbsp;&nbsp;<input name ="ifrom<?php echo $count?>" type="text"  value="<?php echo $interesttypes['period_ofrange_monthfrom'];?>" size="5" class="txt_put">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name ="iTo<?php echo $count?>" type="text"  value="<?php echo $interesttypes['period_ofrange_monthto'];?>" size="5" class="txt_put">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name ="iRate<?php echo $count?>" type="text"  value="<?php echo $interesttypes['Interest'];?>" size="5" class="txt_put"></td>
+						<td ></td>
+						<td></td>
+						<td></td>
+					</tr>
+						<?php } ?>
+					<tr>
+						<td><input type="hidden" id="id" value="1">
+						<input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" /><div id="loaninterestperiods"></div><input type="button" onClick="addFormField(); return false;" value="Add interest types"></td>	
+						<td ></td>
+						<td></td>
+						<td></td>
+					</tr>-->
+					<TR>
+						<TD><?php echo $this->form->Submit;?></TD>
+						<TD><a href="<?php echo $this->baseUrl(); ?>/management/loans/"><input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+					</TR>
+				</table>
+			</div>
+		</div>
+	</fieldset>
+</form>

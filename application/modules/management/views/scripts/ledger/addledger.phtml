@@ -1,0 +1,225 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<head>
+<script type="text/javascript" language="JavaScript">
+
+   function getSubproduct(product_id) {   
+         var strURL="getsubproduct1?product_id="+product_id;
+
+
+        var req = getXMLHTTP();
+       
+        if (req) {
+           
+            req.onreadystatechange = function() {
+                if (req.readyState == 4) {
+                    // only if "OK"
+                    if (req.status == 200) {
+                       
+                        document.getElementById("subproducts").innerHTML=req.responseText;
+                    } else {
+                        alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                    }
+                }               
+            }           
+            req.open("GET", strURL, true);
+            req.send(null);
+        }       
+    }  
+
+    function getSubLedger(glcode_id) {   
+        var strURL="getsubledger?glcode_id="+glcode_id;
+
+        var req = getXMLHTTP();
+       
+        if (req) {
+           
+            req.onreadystatechange = function() {
+                if (req.readyState == 4) {
+                    // only if "OK"
+                    if (req.status == 200) {
+                        document.getElementById('statediv').innerHTML=req.responseText;
+                        
+                    } else {
+                        alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                    }
+                }               
+            }           
+            req.open("GET", strURL, true);
+            req.send(null);
+        }       
+    }
+
+function getXMLHTTP() { //fuction to return the xml http object
+
+        var xmlhttp=false;   
+        try{
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e)    {       
+            try{           
+                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e){
+                try{
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e1){
+                    xmlhttp=false;
+                }
+            }
+        }
+            
+        return xmlhttp;
+    }
+   
+
+
+
+
+
+function check(yy,glcode_id)
+ { 
+  var div1=document.getElementById(1);
+  var div2=document.getElementById(2);
+ var div3=document.getElementById(3);
+  if(yy==1){
+  div1.style.display='block';
+  div2.style.display='none';
+  div3.style.display='none';
+  document.subcode.glcode_id.value = glcode_id;
+  }
+ 
+}
+
+
+
+</script> 
+</head>
+
+
+
+<div class="register">
+    <div class="profile_tab">   
+	<div id =2 style="width:400px;float:left">
+	    <fieldset>
+            <legend>New Ledger</legend> 
+		<form action="<?php echo $this->baseUrl();?>/management/ledger/addledger" method="POST">
+                <table id="hor-minimalist-b">
+                     <TR>
+                        <td class="txt_rgt"><b class="star">Ledger For</b><span class="reqMark">*</span></td>
+                        <TD><?php echo $this->form->product;?><?php  echo $this->errorLedgerFor;?></TD>
+                    </TR>
+                    <TR>
+                        <td class="txt_rgt"><b class="star">Gl Header</b><span class="reqMark">*</span></td>
+                        <TD ><?php echo $this->form->accountHeader; //echo $this->erroraccountHeader;?></TD>
+                    </TR>
+                    <TR>
+                        <td class="txt_rgt"><b class="star">Description<span class="reqMark">*</span></b></td>
+                        <TD ><?php echo $this->form->glcodeDescription;?></TD>
+                    </TR>
+                    <TR>
+                         <TD><?php echo $this->form->Submit;?></TD>
+                         <td><a href=<?php echo $this->baseUrl(); ?>/management/ledger>
+                         <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+                    </TR>
+
+                </table>
+		</form>
+    	     </fieldset>
+	</div>
+
+	<div id = "1" style="display:none;width:400px;float:left">
+	    <fieldset>
+            <legend>New Sub-Ledger</legend> 
+		<form name = "subcode" action="<?php echo $this->baseUrl();?>/management/ledger/addsubledger" method="POST">
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <td  class="txt_rgt"><b>Main Ledger</b></td>
+                        <td ><div id="subproducts"><b class="star">*</b></div><?php  echo $this->errorSubLedgerFor;?></td>
+                    </TR>
+
+                    <TR>
+                        <td  class="txt_rgt"><b class="star">Sub-Ledger For : </b></td>
+                        <TD ><?php echo $this->form->offerproduct; ?><span class="reqMark">*</span></TD>
+                    </TR>
+                    <TR>
+                        <td  class="txt_rgt"><b class="star">Gl Sub Header: </b></td>
+                        <TD ><?php echo $this->form->subheader; echo $this->erroraccountHeader;?><span class="reqMark">*</span></TD>
+                    </TR>
+                    <TR>
+                        <td  class="txt_rgt"><b class="star">Description:</b></td>
+                        <TD ><?php echo $this->form->glsubaccountdescription;?><span class="reqMark">*</span></TD>
+			<input type="hidden" name="glcode_id" value="">
+                    </TR>
+		    <TR>
+			
+                        <TD><input type = "submit" name="submit" value="Submit" class="holiday1"></TD>
+                        <TD><a href="<?php echo $this->baseUrl();?>/management/ledger/addledger">
+                        <input name="button" type="button" class="NormalBtn" value="Back"></a></td>
+                   </TR>
+                </table>
+		
+    	     </fieldset>
+	</div>
+
+	<div id =3 style="width:400px;float:left">
+            <fieldset>
+            <legend>Existing Ledger</legend>
+                <table id="hor-minimalist-b">
+                        <tr >
+	                   <td ><b class="star">Gl Code</b></td>
+	                   <td ><b class="star">Gl Header</b></td>
+               <!--            <td><b class="star">Ledger for</b></td>-->
+                        </tr>
+                        <?php foreach($this->ledger as $ledger) : ?>
+                        <tr >
+                            <td ><a href = "#" onclick="check('01',<?php echo $ledger->glcode_id?>),getSubproduct(<?php echo $ledger->ledgertype_id ;?>),getSubLedger(<?php echo $ledger->glcode_id ;?>);"><?php echo $ledger->glcode;?></a></td>
+                            <td ><?php echo $ledger->accountheader;?></td>
+                      <!--      <td><?php //echo $ledger->ledgertype_discription;?></td>-->
+                        </tr>
+                        <?php endforeach; ?>
+               </table>
+	       </form>
+	    </fieldset>
+	</div>
+	<div id="statediv"></div>
+	</div>
+</div>
+
+        

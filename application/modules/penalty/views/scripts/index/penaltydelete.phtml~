@@ -1,0 +1,24 @@
+<fieldset>
+   <legend>Delete Penalty</legend>
+       <div class="register">
+           <div class="profile_tab">
+
+               <form action="<?php echo $this->baseUrl();?>/penalty/index/penaltydelete/penalty_id/<?php echo $this->penalty_id;?>" method="POST"  name= "myform">
+                   <table id="hor-minimalist-b">
+
+                       <TR>
+                           <TD><font color="red">Are you sure you want to delete</font><font color="green"> <?php  ?></font><span class="reqMark">*</span></TD>
+                           <TD><?php echo $this->deleteForm->remarks;?></TD>
+                       </TR>
+                                           
+                       <tr>
+                           <TD><?php echo $this->deleteForm->Delete;?></TD>
+                                   <td><a href="<?php echo $this->baseUrl(); ?>/penalty/index/penaltyedit/penalty_id/<?php echo $this->penalty_id; ?>">
+                                           <input name="submit" type="submit" class="NormalBtn" value="Back"></a></td>
+               
+                       </TR>
+               </table>
+           </form>
+       </div>
+   </div>
+</fieldset>

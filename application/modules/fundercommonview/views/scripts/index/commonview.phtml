@@ -1,0 +1,155 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+ *  view common funder details, add, edit
+-->
+
+<!-- view Funder information -->
+<table id="hor-minimalist-b">
+    <tr>
+	<!--to change language -->
+        <th class="firsttd"><?php echo $this->translate("Funder information"); ?></th>
+        <th class = "secondtd"></th>
+	<!-- check funder information and edit page link -->
+        <?php if(($this->fundername)!=NULL) {
+        foreach($this->fundername as $edit_id) { ?>
+        <th class="thirdtd"><a href="<?php echo $this->baseUrl();?>/funderdetails/index/editfunder/id/<?php echo $this->id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php }} ?>
+    </tr>
+
+    	<!-- view funder information -->
+    <?php foreach($this->fundername as $view){ ?>
+        <tr>
+            <td class="firsttd"><?php echo $this->translate("Funder name:"); ?></td>
+            <td class = "secondtd"><?php echo $view['name']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd"><?php echo $this->translate("Funder type:"); ?></td>
+            <?php if($view['type']==1){ ?><td class="secondtd"><?php echo $this->translate("Personal"); ?></td><?php } if($view['type']==2) { ?>
+            <td class="secondtd"><?php echo $this->translate("Organization"); ?></td> <?php } ?><td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd"><?php echo $this->translate("Acive:"); ?></td>
+            <?php if($view['status']==1){ ?><td class="secondtd"><?php echo $this->translate("Acive"); ?></td><?php } else { ?>
+            <td class="secondtd"><?php echo $this->translate("Deactive"); ?></td> <?php } ?> </td><td class="thirdtd"></td>
+        </tr>
+    <?php } ?>
+</table>
+<br/>
+
+<!-- view Address information -->
+<table id="hor-minimalist-b">
+    <tr>
+        <th class = "firsttd"><?php echo $this->translate("Address information"); ?></th>
+        <th class = "secondtd"></th>
+	<!-- check funder address detail and add, edit page link -->
+        <?php if (count($this->address)!=0) {?>
+        <th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->id;?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php } else { ?>
+        <th class = "firsttd"><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></th>
+        <?php } ?>
+    </tr>
+	<!-- view address information -->
+    <?php foreach($this->address as $address_view){ ?>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Address line1:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['address1']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Address line2:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['address2']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Address line3:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['address3']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("City:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['city']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("State:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['state']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Country:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['country']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Pin code:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['zipcode']; ?></td>
+        <td class="thirdtd"></td></tr>
+    <?php } ?>
+</table>
+<br/>
+
+<!-- view Contact information -->
+<table id="hor-minimalist-b"> 
+    <tr>
+        <th class="firsttd"><?php echo $this->translate("Contact information"); ?></th>
+        <th class = "secondtd"></th>
+	<!-- check contact information detail and add, edit page link -->
+        <?php if((count($this->contact))!=0) {
+        foreach($this->contact as $edit_id) { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/contactdetails/index/editcontact/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php }} else { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/contactdetails/index/addcontact/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></th>
+        <?php } ?>
+    </tr>
+
+	<!-- view contact information -->
+    <?php foreach($this->contact as $contact){
+        ?>
+        <tr>
+            <td class="firsttd"><?php echo $this->translate("Contact person:"); ?></td>
+            <td class = "secondtd"><?php echo $contact['contact_person']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd"><?php echo $this->translate("Telephone number:"); ?></td>
+            <td class = "secondtd"><?php echo $contact['telephone']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd"><?php echo $this->translate("Mobile number:"); ?></td>
+            <td class = "secondtd"><?php echo $contact['mobile']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+        <tr>
+            <td class="firsttd"><?php echo $this->translate("Email ID:"); ?></td>
+            <td class = "secondtd"><?php echo $contact['email']; ?></td>
+            <td class="thirdtd"></td>
+        </tr>
+    <?php } ?>
+</table>
+
+<div class="btnhouse">
+        <div class="rtbtns">
+            <a href="<?php echo $this->baseUrl(); ?>/funder"><input type="button" name="back" value="<?php echo $this->translate('Back'); ?>"></a>
+        </div>
+</div>
+ 

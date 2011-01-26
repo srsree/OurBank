@@ -1,0 +1,14 @@
+<?php
+	class Sectors_Form_Search extends Zend_Form {
+		public function __construct() 
+		{
+	    	parent::__construct();
+			// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+			$formfield = new App_Form_Field ();
+                        $labelname = $this->translate("Sector name");
+			$vtype=array('Alpha');
+			$sector = $formfield->field('Text','Sector','','','sector',$labelname,true,$vtype,'','','','',1,'');
+			$this->addElements(array($sector));
+	
+		}
+	}

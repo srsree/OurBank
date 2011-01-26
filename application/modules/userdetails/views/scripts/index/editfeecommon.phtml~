@@ -1,0 +1,46 @@
+
+            <div id="container-1">
+             <fieldset>
+				<legend>Add Fee Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+                       <table id="hor-minimalist-b">
+
+                           <tr><th>Fee Details</th><th></th><th></th></tr>
+<?php foreach($this->feedetails as $member_view){?>
+ <tr><td>Fee Name:</td><td><?php echo $member_view['feename'];?></td><td></tr>
+                        <tr><td>Fee description:</td><td><?php echo $member_view['feedescription'];?></td></tr>
+                        <tr><td>Fee value:</td><td><?php echo $member_view['feevalue'];?></td></tr>
+                         </table>
+<tr><td></td>
+                          <?php if(($this->feedetails)!=NULL) {
+                            foreach($this->feedetails as $edit_id) { ?>
+                            <TD class="label" align="right">Click to Edit :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/feedetails/index/editfeedetail/id/<?php echo $this->fee_id; ?>">EDIT</a></TD>
+                          <?php }} else { ?>
+                         <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/membername/index/editmembername/id/<?php echo $this->memberid; ?>">ADD</a></TD>
+                         <?php } ?>                        <?php } ?>
+
+                   <div class="register">
+	               <div class="profile_tab">
+                       <table id="hor-minimalist-b">
+
+                           <tr><th>Member type</th><th></th><th></th></tr>
+ <tr><td>Member type:</td><td></td><td></tr>
+
+<div class="register">
+	               <div class="profile_tab">
+                       <table id="hor-minimalist-b">
+
+                           <tr><th>Fee for</th><th></th><th></th></tr>
+ <tr><td>Fee for:</td><td></td><td></tr>
+                        
+                         </table>
+                     
+                   </div>
+	         </div>
+            </fieldset>
+        </div>
+
+ 

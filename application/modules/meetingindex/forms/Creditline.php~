@@ -1,0 +1,57 @@
+<?php
+	class Creditline_Form_Creditline extends Zend_Form {
+
+	public function init()
+	{
+		Zend_Dojo::enableForm($this);
+	}
+
+	public function __construct($options = null)
+	{
+		Zend_Dojo::enableForm($this);
+		parent::__construct($options);
+
+		$creditlinename = new Zend_Form_Element_Text('creditlinename');
+		$creditlinename->addValidator(new Zend_Validate_Db_NoRecordExists('ourbank_creditline1','name','recordstatus_id=3'));
+		$creditlinename->setAttrib('class', 'txt_put');
+		$creditlinename->setAttrib('id', 'creditlinename');
+		$creditlinename->setLabel('creditlinename')
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+
+		$protfoliovalue = new Zend_Form_Element_Text('portfoliovalue');
+		$protfoliovalue->setAttrib('class', 'txt_put');
+		$protfoliovalue->setAttrib('id', 'protfoliovalue');
+		$protfoliovalue->setRequired(true)
+				->addValidators(array(array('NotEmpty'),array('Float')));
+
+		$creditlinefrom = new ZendX_JQuery_Form_Element_DatePicker('creditline_beginingdate');
+		$creditlinefrom->setJQueryParam('dateFormat', 'yy-mm-dd');
+		$creditlinefrom->setRequired(true)
+				->addValidators(array(array('Date')));
+		$creditlinefrom->setAttrib('class', 'txt_put');
+		$creditlinefrom->setAttrib('id', 'creditline_beginingdate');
+
+		$creditlineto = new ZendX_JQuery_Form_Element_DatePicker('creditline_closingdate');
+		$creditlineto->setJQueryParam('dateFormat', 'yy-mm-dd');
+		$creditlineto->setRequired(true)
+				->addValidators(array(array('Date')));
+		$creditlineto->setAttrib('class', 'txt_put');
+		$creditlineto->setAttrib('id', 'creditline_closingdate');
+		
+		$status = new Zend_Form_Element_Checkbox('status');
+		$status->setAttrib('class', 'txt_put');
+		$status->setAttrib('id', 'status');
+		$status->setLabel('Active')
+					->setRequired(true);
+
+		$submit = new Zend_Form_Element_Submit('Submit');
+		$submit->setAttrib('class', 'officesubmit');
+		$submit->setlabel('Submit');
+
+		$this->addElements( array ($protfoliovalue,$status,$creditlinefrom,$creditlineto,$submit,$creditlinename));
+
+//===================================================================================================================================
+	}
+}

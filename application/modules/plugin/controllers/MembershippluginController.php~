@@ -1,0 +1,36 @@
+<?php
+class Plugin_MembershippluginController extends Zend_Controller_Action 
+{
+    public function init()
+     {
+        $this->view->pageTitle='Membership Plug ins';
+     }
+
+    public function indexAction() 
+    {   
+        $this->view->title='Membership Plugins';
+      	$storage = new Zend_Auth_Storage_Session();
+	$data = $storage->read();
+	if(!$data)
+        {
+		$this->_redirect('index/login');
+	}
+          $plugin_view = new Plugin_Model_memberplugin();
+        //display all the views
+         $plugin_detail= $plugin_view->fetch_all_detail();
+       //  print_r($plugin_detail);
+         $this->view->plugin_details = $plugin_view->fetch_all_detail();
+     }
+
+    public function updatepluginAction()
+    {
+         $rootid = (int)$this->_getParam('rootid');
+         $status = (int)$this->_getParam('status');
+         $plugin_update = new Plugin_Model_memberplugin();
+         $result=$plugin_update->updateModule($rootid,$status);
+    }
+
+}
+
+
+

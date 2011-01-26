@@ -1,0 +1,182 @@
+<BODY onload="toggleField();"></BODY> 
+<?php if(!$this->noaccount) {?> 
+<div>
+	<div style="width:350px;float:left">
+		<fieldset>
+			<legend>Details</legend>
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<Tr>
+					<td><b class="star">Name</b></td>
+					<TD><?php echo $this->offerproductname;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star">Account number:</b></td>
+					<TD><?php echo $this->accountnumber;?></TR>.
+				</TR>
+				<TR>
+					<td><b class="star">Begin date:</b></td>
+					<TD><?php echo $this->begin_date;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star">Mature date:</b></td>
+					<TD><?php echo $this->mature_date;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star">Amount:</b></td>
+					<TD><?php echo $this->fixed_amount;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star">Interest rates:</b></td>
+					<TD><?php echo $this->fixed_interest;?></TD>
+				</TR>
+
+				<TR>
+					<td><b class="star"><SPAN style="color:red">Matured interest:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->interestamount;?></SPAN></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><SPAN style="color:red">Total matured amount:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->Totalamount;?></SPAN></TD>
+				</TR>
+			</table>
+		</fieldset>
+	</div>
+</div>
+<DIV style="float:left;width:50%">
+<?php If($this->membertype_id==3) { ?>
+<a href="#" id="open">group members</a>
+<div class="box">
+<div id="content1">
+	<fieldset>
+		<legend>Members in account</legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="30%">Name</td>
+			<td width="50%">Code</td>
+		</tr>
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+			</tr>
+	<?php }?>
+		</table>
+</div></fieldset>
+<p><a href="#" id="close">Hide</a></p>
+</div>
+</div>
+<?php }	?>
+<table width="100%"><TR><TD><HR></HR></TD></TR></table>
+</DIV>
+
+
+<div style="float:left;width:50%">
+	<fieldset>
+		<legend>Amount details</legend>
+		<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet" >
+				<TR>
+					<td><b class="star"><SPAN style="color:red">Capital amount:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->fixed_amount;?></SPAN></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><SPAN style="color:red">Interest amount:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->interestamountfrombank;?></SPAN></TD>
+				</TR>
+				<?php if($this->currentdate < $this->matureddate) { ?>
+				<TR>
+					<td><b class="star"><SPAN style="color:red">Penal interest amount:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->prematureinterestamountfrombank;?></SPAN></TD>
+				</TR>
+				<?php } ?>
+				<TR>
+					<td><b class="star"><SPAN style="color:red">Total amount:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->maturedinterestamount;?></SPAN></TD>
+				</TR>
+			</table>
+		</div>
+	</fieldset>
+</div>
+
+<?php if(!$this->Submit) { ?>
+<div>
+	<div style="width:50%;float:left">
+	<fieldset>
+		<legend>Transfer funds</legend>
+		<form name="form1" action="<?php echo $this->baseUrl();?>/transaction/fixed/transferfunds" method="POST" onsubmit='return validate(this)'>
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<tr >
+					<td width="40%">Transaction mode</td>
+					<td width="60%"><?php echo $this->form2->paymenttype;?><?php echo $this->form2->paymenttype_details;?><h id="details" style="display:none">Voucher/cheque/draft </h> </td> 
+				</tr>
+				<tr>
+					<td width="40%">Description</td>
+						<td width="60%"><?php echo $this->form2->transactiondescription; echo $this->form2->accountId;echo $this->form2->productId; echo $this->form2->memberId; echo $this->form2->capitalamount;echo $this->form2->interestamountto; echo $this->form2->penalinterest;echo $this->form2->maturedinterestamount;?></td>
+					</tr>
+			</table>
+			<table>
+				<tr>
+					<td></td>
+					<td ></td>
+					<td><span class="reqMark">* Markedfieldsaremandatory</span></td>
+				</tr>
+				<TR>
+					<TD><?php echo $this->form2->Confirm;?></TD>
+					<td><a href="<?php echo $this->baseUrl();?>/transaction/fixed/fixed/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">
+					<input name="submit" type="submit" value="back"></a></TD>
+				</TR>
+				<tr>
+					<td colspan="4"><B style="color:red"><? echo $this->noaccount1;?></B></td>
+				</tr>
+			</table>
+		</form>
+	</fieldset>
+	</div>
+</div>
+<?php } ?>
+
+<?php if($this->Submit) { ?>
+<div>
+	<div style="width:50%;float:left">
+	<fieldset>
+		<legend>Transfer funds</legend>
+		<form name="form1" action="<?php echo $this->baseUrl();?>/transaction/fixed/transferfunds" method="POST" onsubmit='return validate(this)'>
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<tr >
+					<td width="40%">Transaction mode</td>
+					<td width="60%"><?php echo $this->transactionModetype;?></td> 
+				</tr>
+				<tr >
+					<td width="40%">Voucher/cheque/draft</td>
+					<td width="60%"><?php echo $this->paymenttype_details;?></td> 
+				</tr>
+				<tr>
+					<td width="40%">Description</td>
+						<td width="60%"><?php echo $this->transactiondescription; echo $this->form2->accountId;echo $this->form2->productId; echo $this->form2->memberId; echo $this->form2->capitalamount;echo $this->form2->interestamountto; echo $this->form2->penalinterest;
+						echo $this->form2->paymenttype1;
+						echo $this->form2->paymenttype_details1;
+						echo $this->form2->transactiondescription1;
+						echo $this->form2->maturedinterestamount;?></td>
+					</tr>
+			</table>
+			<table>
+				<TR>
+					<TD><?php echo $this->form2->Submit;?></TD>
+					<td><a href="<?php echo $this->baseUrl();?>/transaction/fixed/transferfunds/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">
+					<input name="submit" type="submit" value="back"></a></TD>
+				</TR>
+						<tr>
+						      <td colspan="4"><B style="color:red"><? echo $this->noaccount1;?></B></td>
+						</tr>
+			</table>
+		</form>
+	</fieldset>
+	</div>
+</div>
+<?php } ?>
+
+		<? } else { ?>
+			<B style="color:red"><? echo $this->noaccount; } ?></B>
+
+

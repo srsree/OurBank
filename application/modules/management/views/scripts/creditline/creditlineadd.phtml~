@@ -1,0 +1,139 @@
+ 
+<script>
+function getXMLHTTP() { //fuction to return the xml http object
+		var xmlhttp=false;	
+		try{
+			xmlhttp=new XMLHttpRequest();
+		}
+		catch(e)	{		
+			try{			
+				xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e){
+				try{
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e1){
+					xmlhttp=false;
+				}
+			}
+		}
+		 	
+		return xmlhttp;
+    }
+	function getState(institutionId) {		
+		
+		var strURL="institution?institutionId="+institutionId;
+
+		var req = getXMLHTTP();
+		
+		if (req) {
+			
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {						
+						document.getElementById('statediv').innerHTML=req.responseText;						
+					} else {
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					}
+				}				
+			}			
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+		var office=$('#institutionname').val();
+
+		if(office!='') {
+			$('#errorspan').show();
+			$('#tect').hide();
+alert('instute value'+office);
+		} else {
+			$('#errorspan').hide();
+			$('#tect').show();
+		}
+	}  
+</script>
+
+<BODY onload="getState(this.value);"></BODY> 
+<div>
+<div style="width:430px;float:left">  
+<fieldset>
+	<legend>New Creditline</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php echo $this->baseUrl();?>/management/creditline/creditlineadd" method="POST" name="form1" id="signupForm" class="cmxform">
+			<div class="register">
+			<div class="profile_tab"> 
+			<table style="float:left">
+				<tr>
+					<TD class="label" align="right" >Institution Name<span class="reqMark">*</span></TD>
+					<TD ><?php echo $this->form->institutionname;?></TD>
+				</TR>
+				<TR >
+					<TD class="label" align="right">Institution Amount R$<br/><br/><br/>maximum creditline Amount R$</TD>
+					<TD ><div id="errorspan" style="display:none" class="reqMark"><div id="statediv"></div></div><div id="tect"  class="reqMark"><?php echo $this->form->instituteamount;?><br/><?php echo $this->form->maxcreditlinelimit;?></div></TD>
+				</TR>
+				<tr>
+					<TD class="label" align="right" >creditline name<span class="reqMark">*</span></TD>
+					<TD ><?php echo $this->form->creditlinename;?></TD>
+				</TR>
+
+				<tr>
+					<TD class="label" align="right" >creditline shortname<span class="reqMark">*</span></TD>
+					<TD ><?php echo $this->form->creditline_shortname;?></TD>
+				</TR>
+
+				<tr>
+					<TD class="label" align="right" >creditline  Amount R$<span class="reqMark">*</span></TD>
+					<TD ><?php echo $this->form->creditlineamount;?></TD>
+				</TR>
+
+				<tr>
+					<TD class="label" align="right" >creditline interest %<span class="reqMark">*</span></TD>
+					<TD ><?php echo $this->form->creditlineinterest;?></TD>
+				</TR>
+
+				<tr>
+					<TD class="label" align="right" >creditline from<span class="reqMark">*</span></TD>
+					<TD ><?php echo $this->form->creditline_beginingdate;?></TD>
+				</TR>
+
+				<tr>
+					<TD class="label" align="right" >creditline to<span class="reqMark">*</span></TD>
+					<TD ><?php echo $this->form->creditline_closingdate;?></TD>
+				</TR>
+				<tr>
+					<TD class="label" align="right" ><?php echo $this->form->Submit;?></TD>
+					<TD ><a href="<?php echo $this->baseUrl(); ?>/management/creditline"><input name="submit" type="submit" class="officebutton" value="Back"></a>
+                                         </TD>
+				</TR>
+
+					<CENTER style="color:red"><?php echo $this->institution; ?></CENTER>
+					<CENTER style="color:red"><?php echo $this->totalremaininginstitutionamount; ?></CENTER>
+			</table>
+		</form>
+	</div>
+</fieldset>
+</div>
+<div style="width:360px;float:right;">
+<fieldset>
+	<legend>Alreadyexisting  Creditliness</legend>
+	<div class="cont-rgt-data">
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<TR class="tdbrownheading">
+				<Th width="40%" align="center">Creditlines</Th>
+				<Th width="30%" align="center">cl amount</Th>
+				<Th width="30%" align="center">cl closingdate</Th>
+			</TR>
+			<?php foreach ($this->creditlineName as $creditlinedetails): ?>
+			<TR class="tdbrown">
+				<td width="40%"><?php echo $creditlinedetails['creditlinename'];?></td>
+				<td width="30%">R$. <?php echo $creditlinedetails['creditlineamount'];?></td>
+				<td width="30%"><?php echo $creditlinedetails['creditline_closingdate'];?></td>
+			</tr>
+			<?php endforeach; ?>
+		</table>
+	</div>
+</fieldset>
+</div>
+</div>

@@ -1,0 +1,16 @@
+<?php
+class Feefor_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Fee info';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+    }
+
+    public function indexAction() {
+               
+ $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+    }
+
+}

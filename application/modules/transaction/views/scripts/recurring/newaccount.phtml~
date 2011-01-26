@@ -1,0 +1,283 @@
+<script>
+/**to select the value of sub office when there is any changes in office type*/					
+function getXMLHTTP() { //fuction to return the xml http object
+		var xmlhttp=false;	
+		try{
+			xmlhttp=new XMLHttpRequest();
+		}
+		catch(e)	{		
+			try{			
+				xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e){
+				try{
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e1){
+					xmlhttp=false;
+				}
+			}
+		}
+		 	
+		return xmlhttp;
+    }
+	
+	function getInterests(countryId,path) {
+		  var productId=document.form1.productId.value;
+		  var strURL = path+"/transaction/recurring/interests?country="+countryId+"&productId="+productId;
+		  //document.write(strURL);
+		var req = getXMLHTTP();
+		if (req) {
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {
+					document.getElementById('statediv').innerHTML=req.responseText;
+					} else {
+					alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					//document.write(countryId);
+					}
+				}
+			}
+			req.open("GET", strURL, true);
+			req.send(null);
+			}
+					
+			var perioddescription=$('#perioddescription').val();
+			if(perioddescription!='') {
+			$('#errorspan').show();
+			} else {
+			$('#errorspan').hide();
+			}
+						
+	}
+</script>  
+<div>
+	<div style="width:350px;float:left">
+		<fieldset>
+			<legend>Details</legend>
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet"> 
+				<?php if ($this->groupname) { ?>
+				<TR class="tdbrown">
+					<TD width="20%">Name</TD>
+					<TD width="20"><?php echo $this->groupname;?></TD>
+				</TR>
+				<? }?>
+				<?php if ($this->memberfirstname ) { ?>
+				<TR class="tdbrown">
+					<TD width="20%">Name</TD>
+					<TD width="20"><?php echo $this->memberfirstname;?></TD>
+				<? }?>
+				<?php foreach($this->recurringAccountDetails as $productRecurringDetails) : ?>
+				<TR>
+					<td width="40%"><b class="star">Producttype:</b></td>
+					<TD width="60%"><?php echo $this->escape($productRecurringDetails['productname']);?></TD>
+				</TR>
+				<TR>
+					<td width="40%"><b class="star">Productname:</b></td>
+					<TD width="60%"><?php echo $this->escape($productRecurringDetails['offerproductname']);?></TD>
+				</TR>
+				<TR>
+					<td width="40%" ><b class="star">beginDate:</b></td>
+					<TD width="60%"><?php echo $this->escape($productRecurringDetails['begin_date']);?></TD>
+				</TR>
+				<TR>
+					<td width="40%" ><b class="star">matureDate:</b></td>
+					<TD width="60%"><?php echo $this->escape($productRecurringDetails['mature_date']);?></TD>
+				</TR>
+				<TR>
+					<td width="40%"><b class="star">amount:</b></td>
+					<TD width="60%"><?php echo $this->escape($productRecurringDetails['recurring_amount']);?></TD>
+				</TR>
+				<?php endforeach;?>
+				<tr>
+					<td width="40%"><B style="color:red">capitalAmount:</b></td>
+					<TD width="60%"><B style="color:red"><?php echo $this->paidAmount;?></B></TD>
+				</TR>
+				<TR>
+					<td width="50%"><B style="color:red">grossInterest:</b></td>
+					<TD width="50%"><B style="color:red"><?php echo $this->simpleInterest;?></B></TD>
+				</TR>
+				<TR>
+					<td width="50%"><B style="color:red">grossAmount:</b></td>
+					<TD width="50%"><B style="color:red"><?php echo $this->matureAmount;?></B></TD>
+				</TR>
+			</table>
+		</fieldset>
+	</div>
+</div>
+
+<DIV style="float:left;width:50%">
+<?php If($this->membertypr_id==3) { ?>
+<a href="#" id="open">groupMembers</a>
+<div class="box">
+<div id="content1">
+	<fieldset>
+		<legend>Members in account</legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="30%">Name</td>
+			<td width="50%">code</td>
+		</tr>
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+			</tr>
+	<?php }?>
+		</table>
+</div></fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>
+</div>
+<?php }	?>
+<table width="100%"><TR><TD><HR></HR></TD></TR></table>
+</DIV>
+
+<div style="float:left;width:50%">
+	<fieldset>
+		<legend>transactionType</legend>
+		<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet" border="1">
+				<TR>
+					<td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/transaction/recurring/recurrings/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>/manualRepayment/no">Deposit</a></TD>
+				</TR>
+				<TR>
+					<td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/transaction/recurring/newaccount/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">accountRenewal</a></TD>
+				</TR>
+				<tr>
+					<td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/transaction/recurring/status/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">status</a></TD>
+				</TR>
+				<tr>
+					<td width="100%"><a href="<?php echo $this->baseUrl(); ?>/transaction/recurring/transfer/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>/matured/<?php echo base64_encode($this->paidAmount);?>">accountCloseAndTransferFunds</a></TD>
+				</TR>
+			</table>
+		</div>
+	</fieldset>
+</div>
+
+
+<?php if($this->noOfInstalmentPaid == $this->TotalnoOfInstalmentPaid) { ?>
+<div style="float:left;width:50%">
+	<fieldset>
+		<legend>transactionType</legend>
+		<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet" border="1">
+				<TR>
+					<td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/transaction/recurring/newaccount/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>/capital/<?php echo base64_encode($this->paidAmount);?>">capitalAmountRenewal</a></TD>
+				</TR>
+				<TR>
+					<td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/transaction/recurring/newaccount/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>/matured/<?php echo base64_encode($this->matureAmount);?>">maturedAmountRenewal</a></TD>
+				</TR>
+			</table>
+		</div>
+	</fieldset>
+</div>
+
+<div id="loanRepayment" style="float:left;width:100%">
+	<?php if(!$this->Submit) { ?>
+    <fieldset>
+        <legend>accountRenewal</legend>
+            <div class="cont-rgt-data">
+                <form name="form1" action="<?php echo $this->baseUrl();?>/transaction/recurring/newaccount" method="POST" >
+                    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <TR class="tdbrown">
+                            <TD width="40%">accountOpeningDate</TD>
+                            <TD width="60%"><?php echo $this->form2->member_id;?><?php echo $this->form2->accountId;?><?php echo $this->form2->productId; echo $this->form2->startdate;?><span class="reqMark">(yyyy-mm-dd)*</span></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">amount</TD>
+                            <TD width="60%"><?php echo $this->form2->recurringamount;?><span class="reqMark">*</span></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">recurringPeriod</TD>
+                            <TD width="60%"><?php echo $this->form2->perioddescription;?><span class="reqMark">Months *</span></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">recurringInterest</TD>
+                            <TD width="60%"><div id="statediv"><?php echo $this->form2->recurringinterest;?><span class="reqMark">*</span></div></TD>
+                        </TR>
+                        <?php if ($this->membertype_ID==3 ) { ?>
+                        <TR class="tdbrown">
+                            <TD width="40%">addMembers</TD>
+                            <TD width="60%"><?php echo $this->form2->memberfirstname;?></TD>
+                        </TR><? } ?>
+                </table>
+                <table>
+                    <tr>
+                        <td></td>
+                        <td ></td>
+                        <td><span class="reqMark">Markedfieldsaremandatory * </span></td>
+                    </tr>
+                    <TR>
+                        <TD><?php echo $this->form2->Confirm;?></td>
+						<td><a href="<?php echo $this->baseUrl();?>">
+                        <input name="submit" type="submit"  value="back" tabindex="25"></a></TD>
+                    </TR>
+                </table><B style="color:red"><?echo $this->Perioderror;?></B>
+            </form>
+        </div>
+    </fieldset>
+	<?php } ?>
+
+	<?php if($this->Submit) { ?>
+    <fieldset>
+        <legend>accountRenewal</legend>
+            <div class="cont-rgt-data">
+                <form name="form1" action="<?php echo $this->baseUrl();?>/transaction/recurring/newaccount" method="POST" >
+                    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <TR class="tdbrown">
+                            <TD width="40%">accountOpeningDate</TD>
+                            <TD width="60%"><?php echo $this->form2->member_id;?><?php echo $this->form2->accountId;?><?php echo $this->form2->productId; 
+							echo $this->form2->startdate1;
+							echo $this->form2->recurringamount1;
+							echo $this->form2->perioddescription1;
+							echo $this->form2->interest1;
+							echo $this->startdate;?></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">amount</TD>
+                            <TD width="60%"><?php echo $this->recurringamount;?></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">recurringPeriod</TD>
+                            <TD width="60%"><?php echo $this->perioddescription;?><span class="reqMark">Months *</span></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">recurringInterest</TD>
+                            <TD width="60%"><?php echo $this->interest;?></TD>
+                        </TR>
+                     <!--    <?php if ($this->membertype_ID==3 ) { ?>
+                         <TR class="tdbrown">
+                             <TD width="40%">addMembers</TD>
+                             <TD width="60%"><?php echo $this->form2->memberfirstname;?></TD>
+                         </TR><? } ?> -->
+                </table>
+                <table>
+                    <TR>
+                        <TD><?php echo $this->form2->Submit;?></td>
+						<td><a href="<?php echo $this->baseUrl();?>">
+                        <input name="submit" type="submit"  value="back" tabindex="25"></a></td>
+                    </TR>
+                </table>
+            </form>
+        </div>
+    </fieldset>
+	<?php } ?>
+</div>
+<?php } else { ?>
+<div id="loanRepayment" style="float:left;width:100%">
+    <fieldset>
+        <legend></legend>
+                    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <TR class="tdbrown">
+                            <TD width="40%"><SPAN style="color:red">This account cannot be reneved since all the installments has not been paid</span></TD>
+                       </TR>
+                </table>
+        </div>
+    </fieldset>
+</div>
+<?php } ?>
+
+

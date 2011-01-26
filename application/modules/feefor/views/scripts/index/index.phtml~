@@ -1,0 +1,19 @@
+<fieldset>
+    <legend>Fee for</legend>
+	<div class="cont-rgt-data">
+                <TABLE id="hor-minimalist-b">
+                    <TR>
+                        <TD>Fee for</TD>
+                        <TD><?php echo $this->form->feename;?></TD>   
+
+                    </TR>
+    
+                   
+    
+                   <tr>
+    <TD><a href="<?php echo $this->baseUrl(); ?>/management/fee">
+				<input name="submit" type="submit" class="officebutton" value="submit"></a></TD>
+                   </tr>
+            </TABLE>
+    </div>
+</fieldset>

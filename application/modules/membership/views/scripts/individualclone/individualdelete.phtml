@@ -1,0 +1,46 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php if($this->recordstatus_id == 3) { ?>
+<table id="hor-minimalist-b">
+    <tr>
+	<Th align="center"><p><B style="color:red">Are you sure you want to delete Member</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $this->escape($this->memberfirstname);?>" !</b></Th>
+    </tr>
+</table>
+<form action="<?php echo $this->baseUrl();?>/membership/individual/individualdelete/id/<?php echo $this->member_id; ?>" method="POST">
+<table id="hor-minimalist-b">
+        <TR>
+	   <TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+	   <TD  width="65%"  align="left" ><?php echo $this->form->remarks;?></TD>
+	</TR>
+	
+	<TR>
+            <TD width="35%" align="right"><?php echo $this->form->Yes;?></td>
+	<TD width="65%"><a href="<?php echo $this->baseUrl();?>/membership/individual/"><input name="submit" type="submit"  value="No" ></a></TD>
+    </TR>
+</table>
+</form>
+<?php } else { ?>
+<table id="hor-minimalist-b">
+    <tr>
+	<Th align="center"><p><B style="color:red">You cannot Detele Member</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $this->escape($this->memberfirstname);?>" As It is Active</b></Th>
+    </tr>
+</table>
+
+<?php } ?>

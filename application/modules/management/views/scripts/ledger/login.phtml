@@ -1,0 +1,38 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd"><html><title>Ourbank login</title><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><script src="javascript/login.js" type="text/javascript" language="javascript"></script><script language="javascript">$(document).ready(function(){$("#login_form").submit(function(){//remove all the class add the messagebox classes and start fading$("#msgbox").removeClass().addClass('messagebox').text('Validating....').fadeIn(1000);//check the username exists or not from ajax$.post("login/ajax_login.php",{ user_name:$('#username').val(),password:$('#password').val(),rand:Math.random() } ,function(data){if(data=='yes') //if correct login detail{$("#msgbox").fadeTo(200,0.1,function()  //start fading the messagebox{ //add message and change the class of the box and start fading$(this).html('Logging in.....').addClass('messageboxok').fadeTo(900,1,function(){ //redirect to secure pagedocument.location='index.php';});			  });}else {$("#msgbox").fadeTo(200,0.1,function() //start fading the messagebox{ //add message and change the class of the box and start fading$(this).html('PLEASE ENTER LOGIN DETAILS CORRECTLY...').addClass('messageboxerror').fadeTo(900,1);});		}				});return false; //not to post the  form physically});//now call the ajax also focus move from $("#password").blur(function(){$("#login_form").trigger('submit');});});</script><style type="text/css">*					{ margin: 0; padding: 0; }body				{ font-family: Georgia, serif; background: url(<?php echo $this->baseUrl();?>/images/login-page-bg.jpg) top center no-repeat #c4c4c4; color: #3a3a3a;  }.clear				{ clear: both; }form				{ width: 406px; margin: 170px auto 0; }legend				{ display: none; }fieldset			{ border: 0; }label				{ width: 115px; text-align: right; float: left; margin: 0 10px 0 0; padding: 9px 0 0 0; font-size: 16px; }input				{ width: 220px; display: block; padding: 4px; margin: 0 0 10px 0; font-size: 18px;					  color: #3a3a3a; font-family: Georgia, serif;}input[type=checkbox]{ width: 20px; margin: 0; display: inline-block; }					  .button				{ background: url(<?php echo $this->baseUrl();?>/images/button-bg.png) repeat-x top center; border: 1px solid #999;					  -moz-border-radius: 5px; padding: 5px; color: black; font-weight: bold;					  -webkit-border-radius: 5px; font-size: 13px;  width: 70px; }.button:hover		{ background: white; color: black; }</style></head><body>	<form action="<?php echo $this->baseUrl();?>/index/login" method="post">		<fieldset>					<legend>Log in</legend>						<label for="login">User Name</label>			<input type="text" id="username" name="username"/>			<div class="clear"></div>						<label for="password">Password</label>			<input type="password" id="password" name="password"/>			<div class="clear"></div>			<h style="color:red"><?php echo $this->message;?></h>			<div class="clear"></div>						<br />						<input type="submit" style="margin: -20px 0 0 287px;" class="button" name="commit" value="Log in"/>			</fieldset>	</form>	</body></html>

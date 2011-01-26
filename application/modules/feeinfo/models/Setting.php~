@@ -1,0 +1,13 @@
+<?php 
+class Feeinfo_Model_Setting extends Zend_Db_Table { 
+
+          public function insertFee($post,$createdby) {
+
+            $data = array('fee_id'=> '',
+                          'feename'=> $feename,
+                          'feedescription'=>$feedescription,
+				'feevalue'=>$feeamount);
+            $this->insert($data);
+        }
+    }
+}

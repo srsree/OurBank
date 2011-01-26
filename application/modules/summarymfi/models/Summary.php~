@@ -1,0 +1,180 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+
+class Summarymfi_Model_Summary extends Zend_Db_Table
+{
+ protected $_name = 'ourbank_office';
+
+
+
+        public function inactiveMemberDetails() {
+
+                $select = $this->select()
+                                ->setIntegrityCheck(false) 
+                                ->from(array('A' => 'ourbank_office'),array('COUNT(name)'));
+                                
+                            // die($select->__toString());
+
+                $result = $this->fetchAll($select);
+                return $result;
+            
+        }
+        public function allMembers() {
+
+                $select = $this->select()
+                                ->setIntegrityCheck(false) 
+                                ->from(array('A' => 'ourbank_members'),array('COUNT(member_id)'));
+                                                                
+                            // die($select->__toString());
+
+                $result = $this->fetchAll($select);
+                return $result;
+                                   }
+
+        public function activeMembers() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_membername'),array('COUNT(member_id)'));
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+
+           public function inactiveMembers() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_membername'),array('COUNT(member_id)'));
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+          public function savingAccounts() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_product'),array('COUNT(name)'))
+                                 ->where('A.category_id =1');
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+
+    
+         public function loanAccounts() {
+
+                $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_product'),array('COUNT(name)'))
+                                 ->where('A.category_id =2');
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+              public function totalLoans() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_loanaccounts'),array('SUM(loan_amount)'));
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+                public function loanDisburse() {
+
+                    $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_loan_disbursement'),array('SUM(amount_disbursed)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                }   
+                public function loanRepay() {
+
+                    $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_loan_repayment'),array('SUM(paid_amount)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                            }
+                public function rateLoan() {
+                             $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_loan_repayment'),array('SUM(paid_amount)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                            }
+                public function funders() {
+                      $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ob_funder'),array('COUNT(DISTINCT(name))'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                    }
+                public function fundings() {
+                      $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_funding'),array('COUNT(id)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                    }
+                public function totalFundings() {
+                      $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_funding'),array('SUM(amount), COUNT(id)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                    }
+            
+
+                //three query written in Controller page worked here
+                public function query1() {
+                        $this->db = Zend_Db_Table::getDefaultAdapter();
+                        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+                                $sql="SELECT SUM(amount_disbursed) - (SELECT SUM(paid_amount ) FROM ourbank_loan_repayment ) test FROM ourbank_loan_disbursement";
+                        $result = $this->db->fetchAll($sql);
+                        return $result;
+                }
+
+                public function query2() {
+                        $this->db = Zend_Db_Table::getDefaultAdapter();
+                        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+                                $sql1="SELECT ROUND(100 * SUM(paid_amount ) / (SELECT SUM( amount_disbursed ) FROM ourbank_loan_disbursement )) rate FROM ourbank_loan_repayment";
+                        $result = $this->db->fetchAll($sql1);
+                        return $result;
+                }
+
+                public function query3() {
+                        $this->db = Zend_Db_Table::getDefaultAdapter();
+                        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+                                 $sql2="SELECT (SUM( amount_disbursed ) - (SELECT SUM(paid_amount) FROM `ourbank_loan_repayment` )) *100 / SUM( amount_disbursed ) paid FROM `ourbank_loan_disbursement`";
+                        $result = $this->db->fetchAll($sql2);
+                        return $result;
+                }
+
+
+}
+

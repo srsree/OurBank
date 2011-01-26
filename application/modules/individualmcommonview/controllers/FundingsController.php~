@@ -1,0 +1,296 @@
+<?php
+class Management_FundingsController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Fundings';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+    }
+
+    public function indexAction() {
+        $this->view->title = "Fundings";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $funders = new Management_Model_Fundings();
+        $funders = $funders->getFundingsDetails();
+        foreach($funders as $funders) {
+                $searchForm->field1->addMultiOption($funders['funderaddress_id'], 
+                                                  $funders['fundername']);
+        }
+
+        $funding_currency_id = new Management_Model_Currency();
+        $funding_currency_id = $funding_currency_id->getCurrencyDetails();
+        foreach($funding_currency_id as $funding_currency_id) {
+                $searchForm->field5->addMultiOption($funding_currency_id['currencyname'], 
+                                                  $funding_currency_id['currencyname']);
+        }
+
+
+
+        $fundings = new Management_Model_Fundings();
+        $result = $fundings->getFundingsDetails();
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($searchForm->isValid($formData)) {
+                    $fundings = new Management_Model_Fundings();
+                    $result = $fundings->SearchFundings($searchForm->getValues());
+
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+                }
+            }
+        }
+    }
+
+    public function fundingsviewAction() {
+        $this->view->title = "View Fundings";
+        $fundingupdates_id=$this->_getParam('funding_id');
+
+        $fundings = new Management_Model_Fundings();
+        $fundingsview= $fundings->viewFundings($fundingupdates_id);
+       $this->view->fundings=$fundingsview;
+
+    }
+
+    public function fundingsaddAction() {
+
+       $funders = new Management_Model_Fundings();
+       $this->view->result = $funders->getFundingsDetails();
+
+        $fundingsForm = new Management_Form_Fundings ();
+        $this->view->form = $fundingsForm;
+
+        $funders = new Management_Model_Funders();
+        $funders = $funders->getFundersDetails();
+        foreach($funders as $funders) {
+                $fundingsForm->funder_id->addMultiOption($funders['funder_id'], 
+                                                  $funders['fundername']);
+        }
+
+        $fundtype = new Management_Model_Loan();
+        $fundtype = $fundtype->getloantype();
+        foreach($fundtype as $fundtype) {
+                $fundingsForm->fundtype_id->addMultiOption($fundtype['offerproduct_id'], 
+                                                  $fundtype['offerproductname']);
+        }
+
+        $funding_currency_id = new Management_Model_Currency();
+        $funding_currency_id = $funding_currency_id->getCurrencyDetails();
+        foreach($funding_currency_id as $funding_currency_id) {
+                $fundingsForm->funding_currency_id->addMultiOption($funding_currency_id['currency_id'], 
+                                                  $funding_currency_id['currencyname']);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+
+//             echo "<pre>hhhhhhhhhhhhhhhhhhhh";print_r($formData);
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($fundingsForm->isValid($formData)) {
+                    $dbAdapter = Zend_Db_Table::getDefaultAdapter();
+                    $data['funding_id']='';
+                    $dbAdapter->insert('ourbank_fundings', $data);
+                    $funding_id  = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_fundings','funding_id');
+                    $createby = $this->view->createdby;
+                    $today=date('Y-m-d');
+                    $periodfrom=$this->_getParam('fund_beginingdate');
+                    $periodclose=$this->_getParam('fund_closingdate'); 
+                    if($today > $periodfrom)
+                    {
+                        $this->view->validbegin='Begin Date should come AFTER TODAY i.e., '.date('Y-m-d');
+                    }
+                    else if($periodfrom > $periodclose)
+                    {
+                         $this->view->validbegin1='Close Date should come AFTER BEGIN DATE';
+                    }
+                    else
+                    {
+                    $fundings = new Management_Model_Fundings();
+                    $fundings->addFundings($fundingsForm->getValues(),$funding_id,$createby);
+                    $this->_redirect('management/fundings');
+
+                    }
+               }
+            }
+        }
+
+    }
+
+    public function fundingseditAction() {
+        $this->view->title = "Edit Fundings";
+        $fundingupdates_id = (int)$this->_getParam('funding_id');
+
+
+        $fundings = new Management_Model_Fundings();
+        $this->view->fundings = $fundings->getFundingsDetails();
+
+        $fundingsForm = new Management_Form_Fundings ();
+        $this->view->form = $fundingsForm;
+
+        $funders = new Management_Model_Funders();
+        $funders = $funders->getFundersDetails();
+        foreach($funders as $funders) {
+                $fundingsForm->funder_id->addMultiOption($funders['funder_id'], 
+                                                  $funders['fundername']);
+        }
+
+        $fundtype = new Management_Model_Loan();
+        $fundtype = $fundtype->getloantype();
+        foreach($fundtype as $fundtype) {
+                $fundingsForm->fundtype_id->addMultiOption($fundtype['offerproduct_id'], 
+                                                  $fundtype['offerproductname']);
+        }
+
+        $funding_currency_id = new Management_Model_Currency();
+        $funding_currency_id = $funding_currency_id->getCurrencyDetails();
+        foreach($funding_currency_id as $funding_currency_id) {
+                $fundingsForm->funding_currency_id->addMultiOption($funding_currency_id['currency_id'], 
+                                                  $funding_currency_id['currencyname']);
+        }
+
+        $fundings = new Management_Model_Fundings();
+        $fundings = $fundings->viewFundings($fundingupdates_id);
+        foreach($fundings as $fundings) {
+                $this->view->form->fundingupdates_id->setValue($fundings['fundingupdates_id']);
+                $this->view->form->funder_id->setValue($fundings['funder_id']);
+                $this->view->form->fundtype_id->setValue($fundings['fundtype_id']);
+                $this->view->form->fundingname->setValue($fundings['fundingname']);
+                $this->view->form->fundingamount->setValue($fundings['fundingamount']);
+                $this->view->form->funding_currency_id->setValue($fundings['funding_currency_id']);
+                $this->view->form->exchangerate->setValue($fundings['exchangerate']);
+                $this->view->form->fund_beginingdate->setValue($fundings['fund_beginingdate']);
+                $this->view->form->fund_closingdate->setValue($fundings['fund_closingdate']);
+                $this->view->form->funding_id->setValue($fundings['funding_id']);
+        }
+
+        $fundingsForm->fundingname->removeValidator('Db_NoRecordExists');
+        if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($fundingsForm->isValid($formData)) {
+                  $fundings = new Management_Model_Fundings();
+		  $sessionName = new Zend_Session_Namespace('ourbank');
+		  $createdby = $sessionName->primaryuserid;
+
+
+		  $funder_id = $fundingsForm->getvalue('funder_id');
+		  $fundtype_id = $fundingsForm->getvalue('fundtype_id');
+		  $fundingname = $fundingsForm->getvalue('fundingname');
+		  $fundingamount = $fundingsForm->getvalue('fundingamount');
+		  $funding_currency_id = $fundingsForm->getvalue('funding_currency_id');
+		  $exchangerate = $fundingsForm->getvalue('exchangerate');
+		  $fund_beginingdate = $fundingsForm->getvalue('fund_beginingdate');
+		  $fund_closingdate = $fundingsForm->getvalue('fund_closingdate');
+
+		  $fundername = $fundings->viewfunder($funder_id);
+		  foreach($fundername as $fundernames) {
+		      $fundername=$fundernames['fundername'];
+		  }
+
+		  $fundtypename = $fundings->viewfundtype($fundtype_id);
+		  foreach($fundtypename as $fundtypenames) {
+		      $fundtypename=$fundtypenames['offerproductname'];
+		  }
+
+		  $currencyname = $fundings->viewcurrency($funding_currency_id);
+		  foreach($currencyname as $currencynames) {
+		      $currencyname=$currencynames['currencyname'];
+		  }
+
+                  $fundings = $fundings->viewFundings($fundingupdates_id);
+                  foreach($fundings as $fundings) {
+	               $fundernameold=$fundings['fundername'];
+	               $fundtypenameold=$fundings['offerproductname'];
+	               $fundingnameold=$fundings['fundingname'];
+	               $fundingamountold=$fundings['fundingamount'];
+	               $currencynameold=$fundings['currencyname'];
+	               $exchangerateold=$fundings['exchangerate'];
+	               $fund_beginingdateold=$fundings['fund_beginingdate'];
+	               $fund_closingdateold=$fundings['fund_closingdate'];
+                  }
+
+		  $updateOldfundings = array('fundername' => $fundernameold,
+					'offerproductname' => $fundtypenameold,
+					'fundingname' => $fundingnameold,
+					'fundingamount' => $fundingamountold,
+					'currencyname' => $currencynameold,
+					'exchangerate' => $exchangerateold,
+					'fund_beginingdate' => $fund_beginingdateold,
+					'fund_closingdate' => $fund_closingdateold);
+
+		  $updateNewfundings = array('fundername' => $fundername,
+					'offerproductname' => $fundtypename,
+					'fundingname' => $fundingname,
+					'fundingamount' => $fundingamount,
+					'currencyname' => $currencyname,
+					'exchangerate' => $exchangerate,
+					'fund_beginingdate' => $fund_beginingdate,
+					'fund_closingdate' => $fund_closingdate);
+
+
+		$match = array();
+		foreach ($updateOldfundings as $key=>$val) {
+		  if ($val != $updateNewfundings[$key]) {
+		      $match[] = $key;
+		  }
+		}
+
+		if(count($match) <= 0) {              /** if the values are not changed */
+		  $this->view->nodata= 'Values are not changed in form';
+		} else {   
+		  /** if the values are changed */
+                   $fundings = new Management_Model_Fundings();
+                   $fundings->UpdateFundings($fundingupdates_id);
+		   $fundings->fundingsUpdate($updateOldfundings,$updateNewfundings,$createdby,$fundingupdates_id);
+                   $result = $fundings->editFundings($fundingsForm->getValues(),$createdby);
+                   $this->_redirect('management/fundings');
+		}
+              }
+           }
+       }
+     $this->view->form->Submit->setName('Update');
+
+    }
+
+    public function fundingsdeleteAction() {
+
+        $this->view->title = "Delete Fundings";
+
+        $fundingupdates_id=$this->_getParam('funding_id');
+        $this->view->fundingupdates_id=$fundingupdates_id;
+        $fundings = new Management_Model_Fundings();
+        $fundings = $fundings->viewFundings($fundingupdates_id);
+        $this->view->fundings = $fundings;
+        foreach ($this->view->fundings as $fundingsrecordstatus) {
+                 $this->view->fundingsrecordstatus=$fundingsrecordstatus['recordstatus_id'];
+        }
+
+        $deleteform = new Management_Form_Delete();
+        $this->view->deleteform = $deleteform;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+            $formData = $this->_request->getPost();
+            if ($deleteform->isValid($formData)) {
+                $remarks = $deleteform->getvalue('remarks');
+                $fundings = new Management_Model_Fundings();
+                $fundings->deleteFundings($fundingupdates_id,$remarks);
+                $this->_redirect('management/fundings');
+            }
+        }
+
+    }
+}

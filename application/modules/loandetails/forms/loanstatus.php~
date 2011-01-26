@@ -1,0 +1,60 @@
+<?php
+class Loanstatus_Form_loanstatus extends Zend_Form {
+    public function init()
+    {
+        Zend_Dojo::enableForm($this);
+    }
+
+
+    public function __construct()
+    {
+        Zend_Dojo::enableForm($this);
+        parent::__construct();
+			$date = new ZendX_JQuery_Form_Element_DatePicker('Date1');
+			$date->setAttrib('class', '');
+			$date->setJQueryParam('dateFormat', 'yy-mm-dd');
+			$date->setRequired(true)
+				->addValidator(new Zend_Validate_Date('YYYY-MM-DD'),true,
+				array('messages' =>array(Zend_Validate_Date::FALSEFORMAT => 'Enter the valid date')));
+
+
+			$Amount = new Zend_Form_Element_Text('Amount');
+			$Amount->setRequired(true)
+					->addValidators(array(array('NotEmpty'),array('Float'),array('GreaterThan',false,array('0'))));
+			$Amount->setAttrib('class', 'textfield');
+			$Amount->setAttrib('id', 'Amount');
+
+			$interestamount = new Zend_Form_Element_Text('interestamount');
+			$interestamount->setAttrib('class', 'textfield');
+			$interestamount->setAttrib('readonly', 'true');
+
+			$transactionMode = new Zend_Form_Element_Select('transactionMode');
+			$transactionMode->addMultiOption('','select');
+			$transactionMode->setAttrib('class','selectbutton');
+			$transactionMode->setAttrib('onchange','toggleField();');
+			$transactionMode->setAttrib('id','paymenttype');
+			$transactionMode->setRequired(true);
+
+			$transactionModeDetails = new Zend_Form_Element_Textarea('paymenttype_details');
+			$transactionModeDetails->setAttrib('class', 'txt_put');
+			$transactionModeDetails->setAttrib('id','paymenttype_details');
+			$transactionModeDetails->setAttrib('style','display:none');
+			$transactionModeDetails->setAttrib('rows','1');
+			$transactionModeDetails->setAttrib('cols','20');
+			$transactionModeDetails->setRequired(true);
+
+			$description = new Zend_Form_Element_Textarea('description');
+			$description->setAttrib('rows', '2');
+			$description->setAttrib('cols', '20');
+			$description->setRequired(true);
+
+			$installment_status = new Zend_Form_Element_Hidden('installment_status');
+
+
+			$submit = new Zend_Form_Element_Submit('Submit');
+			$submit->setAttrib('class', 'officesubmit');
+
+
+			$this->addElements( array($date,$Amount,$interestamount,$description,$transactionMode,$transactionModeDetails,$submit,$installment_status));
+		}
+	}

@@ -1,0 +1,136 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>	
+    <legend>view Activity</legend>
+        <div class="cont-rgt-data">
+        <?php foreach($this->loan as $loan) {  ?>
+            <table id="hor-minimalist-b">
+                <TR>
+                    <TH>Activity Details</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Sector Type</TD>
+                    <TD><?php echo $loan['productname'];?></TD>
+                    <td></td>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>Activity name</TD>
+                    <TD><?php echo $loan['offerproductname'];?></TD>
+                    <td>Short Name</td>
+                    <TD width="20%"><?php echo $loan['offerproductshortname'];?></TD>
+                </TR>
+                <TR>
+                    <TD>Description</TD>
+                    <TD><?php echo $loan['offerproduct_description'];?></TD>
+                    <td></td>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TH>Date</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Begin Date</TD>
+                    <TD><?php echo $loan['begindate'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>Close Date</TD>
+                    <TD><?php echo $loan['closedate'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>Applicable To</TD>
+                    <TD><?php echo $loan['membertype'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TH>Loan amounts</TH>
+                    <TH></TH>
+                    <TH>Installments</TH>
+                    <TH></TH>
+                 </TR>
+                 <TR>
+                    <TD>Minimum loan amount</TD>
+                    <TD><?php echo $loan['minmumloanamount'];?></TD>
+                    <TD>Minimum Freequency</TD>
+                    <TD><?php echo $loan['minimumfrequency'];?></TD>
+                </TR>
+                <TR>
+                    <TD>Maximum loan amount</TD>
+                    <TD><?php echo $loan['maximunloanamount'];?></TD>
+                    <TD>Maximum Freequency</TD>
+                    <TD><?php echo $loan['maximumfrequency'];?></TD>
+                </TR>
+                <TR>
+                    <TH>Penal fee</TH>
+                    <TH></TH>
+                    <TH>Hrace period</TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Penal</TD>
+                    <TD><?php echo $loan['penal_Interest'];?></TD>
+                    <TD>Grace On</TD>
+                    <TD><?php echo $loan['graceperiodnumber'];?>days</TD>
+
+                    </TR>
+<!--disable by gp -->
+           <!--   <TR>
+                    <TH>Interest types</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TH>From</TH>
+                    <TH>To</TH>
+                    <TH>Interests(%)</TH>
+                    <TH></TH>
+                 </TR>
+				<?php foreach($this->interests as $loaninterests) { ?>
+                <TR>
+                    <TD><?php echo $loaninterests['period_ofrange_monthfrom'];?></TD>
+                    <TD><?php echo $loaninterests['period_ofrange_monthto'];?></TD>
+                    <TD><?php echo $loaninterests['Interest'];?></TD>
+                    <TD></TD>
+                  </TR>
+				<?php } ?>
+            </table>-->
+			<?php } ?>
+            <br>
+            <table>
+                <TR>
+                    <td colspan="8"><a href="<?php echo $this->baseUrl(); ?>/management/loans/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+                </TR>
+            </table>
+    </div>
+</fieldset>
+

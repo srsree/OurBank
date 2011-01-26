@@ -1,0 +1,139 @@
+<?php
+    class Fundings_Form_Fundings extends Zend_Form {
+	public function init() 
+	{
+	    Zend_Dojo::enableForm($this);
+	}
+
+	public function __construct($options = null) 
+	{
+	    Zend_Dojo::enableForm($this);
+	    parent::__construct($options);
+	    
+            $fundingname = new Zend_Form_Element_Text('fundingname');
+	    $fundingname->setLabel('Funding Name');
+	    $fundingname->setRequired(true)
+				->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+	    $institutionId = new Zend_Form_Element_Select('institution_id');
+	    $institutionId->setLabel('Institution Name');
+            $institutionId->setRequired(true)
+						->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+						
+	    $funderId = new Zend_Form_Element_Select('funder_id');
+	    $funderId->setLabel('Funder Name');
+	    $funderId->setRequired(true)
+				->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));	
+										
+            $intrest = new Zend_Form_Element_Text('intrest');
+	    $intrest->setLabel('Intrest %');
+	    $intrest->setRequired(true)
+				->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));	
+									
+	    $fundingCurrencyId = new Zend_Form_Element_Select('funding_currency_id');
+	    $fundingCurrencyId->setLabel('Funding Currency');
+	    $fundingCurrencyId->setRequired(true)
+				->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));	
+											
+	    $fundingamount = new Zend_Form_Element_Text('fundingamount');
+	    $fundingamount->setLabel('Funding Amount R$');
+	    $fundingamount->setRequired(true)
+				->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));	
+																
+	    $exchangerate = new Zend_Form_Element_Text('exchangerate');
+	    $exchangerate->setLabel('Funding Exchange Rate');
+	    $exchangerate->setRequired(true)
+				->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));	
+																						
+																				                $fundBeginingDate = new Zend_Form_Element_Text('fund_beginingdate');
+	    $fundBeginingDate->setLabel('Funding Period From');
+	    $fundBeginingDate->setRequired(true)
+			      ->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));	
+						
+            $fundClosingDate = new Zend_Form_Element_Text('fund_closingdate');
+	    $fundClosingDate->setLabel('Funding Period To');
+	    $fundClosingDate->setRequired(true)
+			     ->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));						
+
+            $submit = new Zend_Form_Element_Submit('Submit');
+            $submit->setAttrib('id', 'save')
+                   ->setDecorators(array('ViewHelper',
+				   array('Description',array('tag'=>'','escape'=>false)),'Errors',
+				   array(array('data'=>'HtmlTag'), array('colspan' => '8 ')),
+				   array(array('data'=>'HtmlTag'), array('tag' => 'td ', 'colspan'=>'8')),
+				   array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+
+            $funding_id = new Zend_Form_Element_Hidden('funding_id');
+            $funding_id->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+            
+            $created_by = new Zend_Form_Element_Hidden('createdby');
+            $created_by->setValue('1')
+            ->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+
+            $created_date = new Zend_Form_Element_Hidden('createddate');
+            $created_date->setValue(date("y/m/d H:i:s"))
+            ->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+            $recordstatus_id = new Zend_Form_Element_Hidden('recordstatus_id');
+            $recordstatus_id->setValue('3')
+            ->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+					
+            $this->addElements(array($funderId,$institutionId,$fundingname,$fundingamount,$intrest,
+                                     $fundingCurrencyId,$exchangerate,$fundBeginingDate,$fundClosingDate,$submit,
+                                     $funding_id,$created_by,$created_date,$recordstatus_id));
+        }
+    }

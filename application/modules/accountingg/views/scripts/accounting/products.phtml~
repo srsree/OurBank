@@ -1,0 +1,65 @@
+
+<!--<div style="width:400px;float:left">
+    <fieldset>
+        <legend> Details </legend>
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                <TR>
+                   <td>MemberCode:</td><TD><? echo $this->membercode; ?></TD>
+                 </TR>
+                 <TR>
+                    <td><? echo $this->label; ?></td><TD><?php echo $this->groupname;echo $this->memberfirstname;?></TD>
+                 </TR>
+                    <TR>
+                        <td>Branch:</td><td width="50%"><?php echo $this->branch ;?></TD>
+                    </TR>
+                    <TR>
+                        <td>ProductType:</b></td><TD>
+                        <?php echo $this->productname;?></TD>
+                    </TR>
+                    <TR>
+                        <td>ProductName:</b></td><TD>
+                        <?php echo $this->offerproductname;?></TD>
+                    </TR>
+                    <TR>
+                        <td>Min Balance:</b></td><TD><?php echo $this->minimumDepositAmount;?></TD>
+                    </TR>
+                    <?php if($this->maximumDepositAmount) { ?>
+                    <TR>
+                        <td>Maximum Balance:</b></td>
+                        <TD><?php echo $this->maximumDepositAmount;?></TD>
+                    </TR>
+              <?php } ?>
+                    <?php if($this->minimumbalanceforinterest) { ?>
+                    <TR>
+                        <td>Min Balance for Interest</td>
+                        <TD><?php echo $this->minimumbalanceforinterest; ?></TD>
+                  </TR>
+                    <?php } ?>
+                        <?php if($this->penal_Interest) { ?>
+                    <TR>
+                        <td>Penal Fee:</td>
+                            <TD><?php echo $this->penal_Interest;?></TD>
+                    </TR>
+                    <?php } ?>
+
+
+
+
+                </table>
+<fieldset>
+    <legend>InterestDetails</legend>
+        <table id="hor-minimalist-b">
+            <tr>
+                <TD>Period Desciption</TD>
+                <TD>Interest</TD>
+            </tr>
+            <?php foreach($this->fetchingInterests as $productDetailsPeriods) : ?>
+            <tr class="tdbrown">
+                <TD><?php echo $this->escape($productDetailsPeriods->period_ofrange_description);?></TD>
+                <TD><?php echo $this->escape($productDetailsPeriods->Interest);?></TD>
+            </TR>
+            <?php endforeach;?>
+        </table>
+    </fieldset>
+</fieldset>
+</div>-->

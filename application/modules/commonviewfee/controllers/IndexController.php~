@@ -1,0 +1,39 @@
+<?php
+class Commonviewfee_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle="Fee";
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        echo $this->view->createdby = $sessionName->primaryuserid;
+    }
+
+    public function indexAction() {
+$addForm = new Commonviewfee_Form_Feedetails();
+                        $this->view->form=$addForm;
+$appliesTo = new Feecommon_Model_Feecommon();
+        $appliesTo = $appliesTo->getAppliesTo();
+        foreach($appliesTo as $appliesTo) {
+                $addForm->membertype->addMultiOption($appliesTo['membertype_id'],$appliesTo['membertype']);
+				}
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+ //$uptodate=$this->_getParam('holidayupto');echo "<h1>".$uptodate."</h1>";
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                
+                if ($addForm->isValid($formData)) {     
+
+		
+/*		$feeame= new Commonviewfee_Model_Setting();*/
+$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+				$data['fee_id']='';
+				$dbAdapter->insert('ob_fees', $data);
+				$fee_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ob_fees','fee_id');
+				echo $createdby = $this->view->createdby;
+
+		$feeame->insertFee($addForm->getValues(),$createdby,$fee_id);
+		 $this->_redirect('/fee');
+
+                }}
+}}
+}

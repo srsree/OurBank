@@ -1,0 +1,104 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/datepicker1.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+$("#field1").datepicker({"dateFormat":"yy/mm/dd"});
+$("#field2").datepicker({"dateFormat":"yy/mm/dd"});
+
+});
+</script>
+<?php  if(!$this->cbtransactiondetail) { ?>   
+<div id="searchDiv">
+
+<form action="<?php echo $this->baseUrl();?>/cbtransaction" method="POST">
+
+    <fieldset>
+        <legend>Search</legend>
+                <TABLE id="hor-minimalist-b">
+
+                   <tr>
+                            <td>From date</td>
+                            <td><?php echo $this->form->field1;?></td>
+                            <td>To date</td>
+                            <td><?php echo $this->form->field2;?></td>
+                    </tr>
+			<tr>
+				<TD>Bank name</TD>
+				<td><?php echo $this->form->field3;?></td>
+				<TD>Account number</TD>
+				<td><?php echo $this->form->field4;?></td>
+			</tr>
+                    <tr>
+                            <td><? echo $this->form->Search;?></td>
+                   </tr>
+        	</TABLE>
+			<input type="submit" name="Search" id="Submit" value="Search">			
+
+ 	</fieldset> 
+</form>
+	   </div>
+
+			<?php } ?>
+<div class="register">
+     <div class="profile_tab">
+<?php if($this->cbtransactiondetail) { ?>
+          <table id="hor-minimalist-b">
+
+                <tr>
+ <td id="reportth">account number</td>
+		    <td id="reportth">Transaction date</td>
+	            <td id="reportth">activity name.</td>
+	            <td id="reportth">bank name </td>
+	           	<td align="right" id="reportth">credit R$</td>
+	            <td align="right" id="reportth">debit R$</td>
+			
+                </tr>
+
+		
+                <?php foreach($this->cbtransactiondetail as $bankdetails) { ?>
+	          	<tr>  	
+					<td><?php echo $bankdetails['account_number']; ?></td>
+					<td><?php echo $bankdetails['transaction_date']; ?></td>
+					<td><?php echo $bankdetails['activityname']; ?></td>
+					<td><?php echo $bankdetails['Institute_bank_name']; ?></td>
+					<td align="right"><?php echo $bankdetails['amount_to_bank']; ?></td>
+					<td align="right"><?php echo $bankdetails['amount_from_bank']; ?></td>
+				</tr>
+			<?php } ?>
+
+</TABLE>
+
+
+<form action="<?php echo $this->baseUrl();?>/cbtransaction/index/pdfdisplay" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/cbtransaction/index/reportdisplay/file/Cbtransaction.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+			<input type="hidden" name="field1" value="<?php echo $this->field1;?>">
+			<input type="hidden" name="field2" value="<?php echo $this->field2;?>">
+            <input type="hidden" name="field3" value="<?php echo $this->field3;?>">
+            <input type="hidden" name="field4" value="<?php echo $this->field4;?>">
+            <input type="submit" value="PDF" id="submit">
+
+</form>
+<?php } ?>
+</div>
+</div>

@@ -1,0 +1,103 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<script>
+function getXMLHTTP() {
+    var xmlhttp=false;	
+        try{
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e) {
+            try {	
+                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e){
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e1){
+                    xmlhttp=false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+function getGroups(officetype_id,path) {	
+
+    var strURL=path+"/management/attendance/groupname?officetype_id="+officetype_id;
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+        }
+        var perioddescription=$('#perioddescription').val();
+        if(perioddescription!='') {
+            $('#errorspan').show();
+        } else {
+            $('#errorspan').hide();
+          }
+}
+</script>
+<fieldset>
+    <legend>Meeting Information</legend>
+        <div class="register">
+            <div class="profile_tab">
+                <form action="<?php  echo $this->baseUrl();?>/management/attendance/attendanceadd" method="POST" name="joe" id="signupForm" class="cmxform">
+                    <table id="hor-minimalist-b">
+                    
+                        <tr>
+                            <td class="label">OfficeType<span class="reqMark">*</span></td>
+                            <td><?php  echo $this->form->officetype_id;?></td>
+                        </tr>
+                        
+                         <tr>
+                            <td><label>Group Name</label></td>
+                            <td><div id = "statediv"><?php  echo $this->group;?></td>
+                        </tr>
+                        <tr>
+			    <td><label></label></td>
+			    <td><div id = "statediv"><?php echo $this->meeting_days;?></td>
+                        </r>
+                        <tr>
+	 		    <TD><label></label></TD>
+			    <TD><div id = "statediv"><?php echo $this->timeg;?></td>
+                        </tr>
+                        <tr>
+                            <td><R id = "statediv"><?php echo $this->memberfirstname;?> </td>
+                        </tr>
+                        <tr>
+                        <td class="label"><?php echo $this->form->Submit;?></td>
+                        <td><a href="<?php echo $this->baseUrl(); ?>/management/attendance">
+			<input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+                    </tr>
+	         </table>
+	   </form>
+	</div>
+    </div>
+</fieldset>

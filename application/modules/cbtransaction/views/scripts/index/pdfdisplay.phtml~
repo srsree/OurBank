@@ -1,0 +1,8 @@
+
+<form action="<?php echo $this->baseUrl();?>/reports/generalledger/pdfdisplay" method="POST"
+onClick="window.open('/ourbank/public/reports/generalledger/reportdisplay/file/productwise.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+           
+
+            <input type="submit" value="PDF" id="submit">
+
+</form>

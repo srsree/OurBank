@@ -1,0 +1,52 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/management/newoffice/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Office type:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Office Short Name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">City:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Office Name:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+<!-- <p align="right"><a href="<?php echo $this->baseUrl()?>/management/newoffice/tree">Office tree structure</a></p> -->
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Office Name</th>
+        <th>Short Name</th>
+        <th>Office Type</th>
+<!--        <th>City</th>-->
+           </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $office): ?>
+    <tr>
+    <td><a href="<?php echo $this->baseUrl()."/officecommonview/index/commonview/id/".$office['id']; ?>"><?php echo $this->escape($office['name']);?></a></td>
+    <td><?php echo $this->escape($office['short_name']);?></td>
+    <td><?php echo $this->escape($office['type']);?></td>
+<!--    <td><?php echo $this->escape($office['officecity']);?></div></td>-->
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<br>
+

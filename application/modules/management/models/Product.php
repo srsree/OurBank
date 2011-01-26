@@ -1,0 +1,250 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+?>
+
+<?php
+class Management_Model_Product extends Zend_Db_Table {
+	protected $_name = 'ourbank_productdetails';
+
+	public function fetchAllProductDetails() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('p' => 'ourbank_productdetails'),array('product_id'))
+			->where('p.recordstatus_id = 3 or p.recordstatus_id = 1');
+// 			->join(array('c'=>'ourbank_categorydetails'),'p.category_id = c.category_id')
+// 			->where('c.recordstatus_id = 3 or c.recordstatus_id = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function fetchAllProductNames() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('p' => 'ourbank_productdetails'),array('product_id'))
+			->where('p.recordstatus_id = 3 and p.category_id=2');
+			$result = $this->fetchAll($select);
+			return $result->toArray();
+	}
+        
+        public function fetchAllProductNames_loan() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('p' => 'ourbank_productdetails'),array('product_id'))
+			->where('p.recordstatus_id = 3 and p.category_id=1');
+			$result = $this->fetchAll($select);
+			return $result->toArray();
+          //   die($select->__toString($select));
+	}
+
+	public function viewProduct($product_id) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_productdetails'),array('product_id'),array('a.recordstatus_id','a.productname',
+											'a.productshortname','a.product_description'))
+			->where('a.product_id = ?',$product_id)
+			->where('a.recordstatus_id = 3 or a.recordstatus_id = 1');
+// 			->join(array('b' => 'ourbank_categorydetails'),'a.category_id = b.category_id',array('a.recordstatus_id','b.categoryname','b.category_id'))
+// 			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+//  		die($select->__toString($select));
+	}
+
+	public function editProductdetails($product_id) {
+			$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_productdetails'),array('product_id'),array('a.recordstatus_id','a.productname',
+											'a.productshortname','a.product_description'))
+			->where('a.product_id = ?',$product_id)
+			->where('a.recordstatus_id = 3 or a.recordstatus_id = 1')
+			->join(array('b' => 'ourbank_categorydetails'),'a.category_id = b.category_id',array('a.recordstatus_id','b.categoryname','b.category_id'))
+			->where('b.recordstatus_id = 3 or b.recordstatus_id = 1')
+			->join(array('c' => 'ourbank_productbank'),'a.product_id = c.product_id')
+			->where('c.recordstatus_id = 3 or c.recordstatus_id = 1')
+			->join(array('d' => 'ourbank_bankaddress'),'c.bank_id = d.bank_id',array('d.bankname','d.bank_id'))
+			->where('d.recordstatus_id = 3 or d.recordstatus_id = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+//  		die($select->__toString($select));
+	}
+
+       
+
+	public function addProduct($post,$product_id,$category_id) {
+		$sessionName = new Zend_Session_Namespace('ourbank');
+		$createdby = $sessionName->primaryuserid;
+		$data = array('productupdates_id'=> '',
+					'product_id'=> $product_id,
+					'productname'=>$post['productname'],
+					'productshortname'=>$post['productshortname'],
+ 					'category_id'=>$category_id,
+					'product_description'=>$post['product_description'],
+					'recordstatus_id'=>'3',
+					'createdby'=>$createdby,
+					'createddate'=>date("Y-m-d"),
+					'editedby'=>$createdby,
+					'editeddate'=>date("Y-m-d"));
+		$this->insert($data);
+	}
+
+	public function editProduct($post,$product_id,$category_id) {
+		$sessionName = new Zend_Session_Namespace('ourbank');
+		$createdby = $sessionName->primaryuserid;
+		$where = 'product_id = '.$product_id;
+		$data = array('productname'=>$post['productname'],
+					'productshortname'=>$post['productshortname'],
+					'category_id'=>$category_id,
+					'product_description'=>$post['product_description'],
+					'createdby'=>$createdby,
+					'createddate'=>date("Y-m-d"),
+					'editedby'=>$createdby,
+					'editeddate'=>date("Y-m-d"));
+		$this->update($data,$where );
+	}
+
+	public function deleteProduct($product_id,$remarks) {
+		$data = array('recordstatus_id'=> 5,'remarks'=>$remarks);
+		$where = 'product_id = '.$product_id;
+		$this->update($data , $where );
+	} 
+
+	public function deleteProductbanks($product_id,$input = array())
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where[] = "product_id = '".$product_id."'";
+		$where[] = "recordstatus_id = '3'";
+		$result = $this->db->update('ourbank_productbank',$input,$where);
+		return $result;
+	}
+
+	public function SearchProduct($post = array()) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('b' => 'ourbank_productdetails'),array('product_id'))
+			->where('b.recordstatus_id = 3 OR b.recordstatus_id = 1')
+// 			->join(array('a' => 'ourbank_categorydetails'),'b.category_id = a.category_id')
+// 			->where('a.recordstatus_id = 3 OR a.recordstatus_id = 1')
+// 			->where('a.category_id like "%" ? "%"',$post['field1'])
+			->where('b.productname like "%" ? "%"',$post['field2'])
+			->where('b.productshortname like "%" ? "%"',$post['field3'])
+			->where('b.product_description like "%" ? "%"',$post['field4']);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function productstatus($product_id) {
+		$data = array('recordstatus_id'=> 1);
+		$where = 'product_id = '.$product_id;
+		$this->update($data,$where);
+	}
+
+	public function getUpdatesinformation($post = array()) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_productupdates'),array('productupdates_id'))
+			->join(array('b' => 'ourbank_userloginupdates'),'a.modified_by =b.user_id')
+			->where('b.recordstatus_id = 1 or b.recordstatus_id = 3');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function productUpdate($updateOldProduct = array(),$updateNewProduct = array(),$createdby,$product_id)
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$match = array();
+		foreach ($updateOldProduct as $key=>$val) {
+			if ($val != $updateNewProduct[$key]) {                           /** if the values are changed */
+				$match[] = $key;
+			}
+		}
+		if(count($match) <= 0){
+		} else {
+			foreach($match as $product) {
+				$tableName ='ourbank_productdetails';
+				$productUpdates = array('productupdates_id'=>'',
+										'product_id' => $product_id,
+										'table_name'=>$tableName,
+										'fieldname'=>$product,
+										'previous_data'=>$updateOldProduct[$product],
+										'current_data'=>$updateNewProduct[$product],
+										'modified_by'=>$createdby,
+										'modified_date'=>date("Y-m-d"));
+				$this->db->insert('ourbank_productupdates',$productUpdates);
+			}
+			$where[] = "product_id = $product_id";
+			$input1=  array('recordstatus_id' => '2');
+			$result = $this->db->update('ourbank_productbank',$input1,$where);
+		}
+	}
+
+	public function addExtendedproduct($input) {
+		$db = $this->getAdapter();
+		$db->insert("ourbank_Product_extended",$input);
+		return ;
+	}
+
+	public function fetchAllbankId()
+	{
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('p' => 'ourbank_bankaddress'),array('bank_id'))
+			->where('p.recordstatus_id = 3 or p.recordstatus_id=1');
+		$result = $this->fetchAll($select);
+                        
+		return $result->toArray();
+//                   print_r($result);
+  		//die($select->__toString($select));
+	}
+
+	public function insertbank($input = array())
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$this->db->insert('ourbank_productbank',$input);
+		return '1';
+	} 
+
+        public function update_insertbank($input = array())
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$this->db->insert('ourbank_productbank',$input);
+		return '1';
+	} 
+
+	public function viewbankDetails($product_id) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('p' => 'ourbank_productbank'),array('product_id'))
+			->where('p.product_id = ?',$product_id)
+			->where('p.recordstatus_id = 3 or p.recordstatus_id = 1')
+			->join(array('c'=>'ourbank_bankaddress'),'p.bank_id = c.bank_id')
+			->where('c.recordstatus_id = 3 or c.recordstatus_id = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+                //die($select->__toString($select));
+	}
+
+	public function insertproductId($input = array())
+	{
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+		$this->db->insert("ourbank_product",$input);
+		$result = $this->db->lastInsertId('ourbank_product');
+		return $result;
+	}
+}

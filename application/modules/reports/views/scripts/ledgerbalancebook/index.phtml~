@@ -1,0 +1,107 @@
+<?php  if(!$this->ledgedatlist) { ?>   
+
+<form action="<?php echo $this->baseUrl();?>/reports/Ledgerbalancebook/index" method="POST">  
+
+<fieldset>
+<legend>Ledger details</legend>
+
+<TABLE width="100%">
+			
+
+<tr>
+<td class="label">Begin Date</td>
+<td><?php  echo $this->form->field2;?></td>
+
+
+					
+<td class="label">Close Date</td>
+<td><?php  echo $this->form->field3;?></td>
+</tr>
+<tr>
+<td colspan="4" align="center"><? echo $this->form->Search;?></td>
+
+</tr>
+</table>
+</fieldset>
+<?}?>
+<?php  if($this->ledgedatlist) { ?>   
+
+<div style="float:left;width:380px">
+<fieldset>
+<legend>Receipt List</legend>
+
+<table id="hor-minimalist-b">
+<TR>
+<TH >GL.LF no</TH>
+<TH >Liabilities</TH>
+
+<TH >Amount</TH>
+				<?php $totalcredit="0"; ?>
+
+</TR>
+		<?php foreach($this->ledgedatlist as $savingsDebit) { ?>
+<td><?php echo $savingsDebit["glsubcode_id"];?></td>
+<td><?php echo $savingsDebit["productname"];?></td>
+<td><?php echo $savingsDebit["amount_to_bank"];?></td>
+<?php $totalcredit=$totalcredit+$savingsDebit["amount_to_bank"]; ?>
+
+
+	</TR>
+<?php }?>
+<tr><TD></TD>
+<TD>TOTAL</TD>
+<TD><?php echo $totalcredit ?></TD>
+
+</tr>
+<TR>
+</TR>
+<TR>
+</TR>
+
+<TR>
+</TR>
+<TR>
+</TR>
+</table>
+
+</fieldset>
+</div>
+<tr style="float:left;width:380px">
+<fieldset>
+<legend>Payments List</legend>
+<table id="hor-minimalist-b">
+<TR>
+<TH >GL.LF no</TH>
+<TH >Assets</TH>
+
+<TH >Amount</TH>
+</TR>
+				<?php $totaldebit="0"; ?>
+
+<?php foreach($this->ledgedatlist as $savingsDebit) { ?>
+
+<tr>
+<td><?php echo $savingsDebit["glsubcode_id"];?></td>
+<td><?php echo $savingsDebit["productname"];?></td>
+<td><?php echo $savingsDebit["amount_from_bank"];?></td>
+<?php $totaldebit=$totaldebit+$savingsDebit["amount_from_bank"]; ?>
+</TR>
+
+<?php }?>
+<tr><TD></TD>
+<TD>TOTAL</TD>
+<TD><?php echo $totaldebit ?></TD>
+
+</tr>
+</table>
+</div>
+<form action="<?php echo $this->baseUrl();?>/reports/ledgerbalancebook/pdfdisplay" method="POST"
+onClick="window.open('/ourbank/public/reports/ledgerbalancebook/reportdisplay/file/ledgerbalance.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+                       	<input type="hidden" name="field1" value="<?php echo $this->field2;?>">
+			<input type="hidden" name="field2" value="<?php echo $this->field3;?>">
+
+			<input type="submit" value="PDF" id="submit">
+
+</form>
+
+<?php }?>

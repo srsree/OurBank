@@ -1,0 +1,71 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<!-- delete form action !-->
+<form action="<?php echo $this->baseUrl();?>/user/index/delete/id/<?php echo $this->id; ?>" method="POST">
+	<div class="register">
+		<div class="profile_tab"> 
+			<fieldset>
+			<legend>Delete user details</legend>
+			<table id="hor-minimalist-b">
+<!-- display datas in delete form  !--> 
+
+			<?php foreach($this->userdetails as $funder_view){?>
+                          
+			<tr>
+				<td class = "firsttd">User name:</td>
+				<td class = "secondtd"><?php echo $funder_view['username'];?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Bank:</td>
+				<td class = "secondtd"><?php echo $funder_view['bankname'];?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Gender:</td>
+				<td class = "secondtd"><?php echo $funder_view['sex'];?></td>
+				<td class = "thirdtd"></td>
+
+			</tr>
+			<tr>
+				<td class = "firsttd">Designation:</td>
+				<td class = "secondtd"><?php echo $funder_view['name'];?></td>
+				<td class = "thirdtd"></td>
+
+			</tr>
+			<tr>
+				<td class = "firsttd">Granted as:</td>
+				<td class = "secondtd"><?php echo $funder_view['grant'];?></td>
+				<td class = "thirdtd"></td>                  
+			<?php } ?>
+<!-- delete confirmation !-->
+			<tr>
+				<td><font color="red">Do you want to delete</font><?php echo $this->delete; ?></td>
+			</tr> 
+
+			
+		</table>
+				<input type="submit" name="DELETE" id="Submit" value="DELETE">			
+
+<a href="<?php echo $this->baseUrl();?>/user/index/edituserdetail/id/<?php echo $this->user_id ?>"><input type="button" name="no" value="No"></a>
+
+	</fieldset>
+	</div>
+	</div>
+</form>

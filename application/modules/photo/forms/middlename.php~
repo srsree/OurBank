@@ -1,0 +1,31 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class Middlename_Form_middlename extends Zend_Form
+{
+	public function init()
+	{
+	$membermiddlename = new Zend_Form_Element_Text('membermiddlename');
+        $membermiddlename->setAttrib('class', 'txt_put');
+        $membermiddlename->setAttrib('id', 'membermiddlename');
+        $membermiddlename->setAttrib('tabindex', '5');
+        $membermiddlename->setAttrib($value,'true');
+
+	$memberlastname = new Zend_Form_Element_Text('memberlastname');
+        $memberlastname->setAttrib('class', 'txt_put');
+        $memberlastname->setAttrib('id', 'closedate');
+        $memberlastname->setAttrib('tabindex', '6');
+        $memberlastname->setAttrib($value,'true');
+
+      
+         $submit = new Zend_Form_Element_Submit('Submit');
+	 $back= new Zend_Form_Element_Submit('Back');
+
+
+         $this->addElements( array ($membermiddlename,$memberlastname,$submit,$back));
+
+		
+	}
+}
+/** end of class */

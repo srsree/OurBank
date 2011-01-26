@@ -1,0 +1,119 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if($this->savings) { ?>
+<fieldset>
+    <legend>List</legend>
+            <?php $totalCredit = "0";
+              $totalTransferCredit = "0";
+              $totalDebit = "0";
+              $totalTransferDebit = "0";
+            ?>
+            <table id="hor-minimalist-b">
+                <form action="<?php echo $this->baseUrl();?>/reports/receiptspayments" method="POST">
+                    <TR>
+                            <TH >Receipt</TH>
+                            <TH class = "label">Amount</TH>
+                            <TH >Payments</TD>
+                            <TH class = "label">Amount</TD>
+                    </TR>
+                    <TR>
+                            <?php foreach($this->savingsCredit as $savingsCredit) { ?>
+                            <TD ><?php echo $savingsCredit->offerproductname ?></TD>
+                            <TD align = "right"><?php echo $amountCredit = $savingsCredit->savingcredit ?></TD>
+                            <?php } foreach($this->savingsDebit as $savingsDebit) { ?>
+                            <TD ><?php echo $savingsDebit->offerproductname ?></TD>
+                            <TD align = "right" ><?php echo $amountDebit = $savingsDebit->savingdebit ?></TD>
+                            <?php } ?>
+                    </TR>
+                    <TR>
+                            <?php foreach($this->fixedCredit as $fixedCredit) { ?>
+                            <TD ><?php echo $fixedCredit->offerproductname ?></TD>
+                            <TD align = "right" ><?php echo $fixedCredit->fixedcredit; 
+                            $amountCredit = $amountCredit + $fixedCredit->fixedcredit; ?></TD>
+                            <?php } foreach($this->fixedDebit as $fixedDebit) { ?>
+                            <TD ><?php echo $fixedDebit->offerproductname ?></TD>
+                            <TD align = "right" ><?php echo $fixedDebit->fixeddebit; 
+                            $amountDebit = $amountDebit + $fixedDebit->fixeddebit;?></TD>
+                            <?php } ?>
+                    </TR>
+                    <TR>
+                            <?php foreach($this->recurringCredit as $recurringCredit) { ?>
+                            <TD ><?php echo $recurringCredit->offerproductname ?></TD>
+                            <TD align = "right" ><?php echo $recurringCredit->recurringcredit; 
+                            $amountCredit = $amountCredit + $recurringCredit->recurringcredit; ?></TD>
+                            <?php } foreach($this->recurringDebit as $recurringDebit) { ?>
+                            <TD ><?php echo $recurringDebit->offerproductname ?></TD>
+                            <TD align = "right" ><?php echo $recurringDebit->recurringdebit; 
+                            $amountDebit = $amountDebit + $recurringDebit->recurringdebit; ?></TD>
+                            <?php } ?>
+                    </TR>
+                    <TR>
+                            <?php foreach($this->laonCredit as $laonCredit) { ?>
+                            <TD ><?php echo $laonCredit->offerproductname ?></TD>
+                            <TD align = "right" ><?php echo $laonCredit->loancredit; 
+                            $amountCredit = $amountCredit + $laonCredit->loancredit; ?></TD>
+                            <?php } foreach($this->loanDebit as $loanDebit) { ?>
+                            <TD ><?php echo $loanDebit->offerproductname ?></TD>
+                            <TD align = "right"><?php echo $loanDebit->loandebit; 
+                            $amountDebit = $loanDebit + $loanDebit->loandebit; ?></TD>
+                            <?php } ?>
+                    </TR>
+                    <TR>
+                            <TD ><b>Total</b></TD>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $amountCredit); ?></B></TD>
+                            <TD ><b>Total</TD></TD>
+                            <TD align = "right"><B><?php echo sprintf("%4.2f", $amountDebit); ?></B></TD>
+                    </TR>
+
+                </form>
+            </table>
+<form action="<?php echo $this->baseUrl();?>/reports/receiptspayments/pdftransaction" method="POST"
+onClick="window.open('/ourbank/public/reports/receiptspayments/reportdisplay/file/ReceiptsPayments.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+            <input type="submit" value="PDF" id="submit">
+</form>
+</fieldset>
+<?php } else {?>
+
+<fieldset>
+    <legend> search </legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+                <form action="<?php echo $this->baseUrl();?>/reports/receiptspayments" method="POST">
+                    <TR>
+                            <TD >Date From</TD>
+                            <TD ><?php echo $this->form->field1;?></TD>
+                            <TD >Date To</TD>
+                            <TD ><?php echo $this->form->field2;?></TD>
+                    </TR>
+                    <TR>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ><?php echo $this->form->Search;?></TD>
+                    </TR>
+
+                </form>
+            </table>
+        </div>
+</fieldset>
+
+
+<?php } ?>
+
+

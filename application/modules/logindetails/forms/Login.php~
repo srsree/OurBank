@@ -1,0 +1,28 @@
+<?php class Logindetails_Form_Login extends Zend_Form {
+
+
+		
+	
+
+	public function init() 
+	{
+
+		$vtype=array('Alpha','StringLength');
+		$formfield = new App_Form_Field ();
+
+// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+
+		
+	
+        	$username = $formfield->field('Text','username','','','mand','Email',true,'','','','','',1,0);
+               	$password = $formfield->field('Password','password','','','mand','password',true,'','','','','',1,0);
+
+        // Hidden Feilds 
+        $user_id = $formfield->field('Hidden','user_id','','','','',false,'','','','','',0,1);
+	$recordstatusId = $formfield->field('Hidden','recordstatus_id','','','','',false,'','','','','',0,3);
+
+					
+	$this->addElements(array($username,$password,$user_id,
+            $recordstatusId));
+    }
+}

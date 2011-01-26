@@ -1,0 +1,53 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/bank/index/index" method="POST">
+                            <table width="100%" id = "fieldsets">
+                                <tr>
+                                    <td class="label">Bank name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                    <td class="label"></td>
+                                    <td ><? echo $this->form->Search;?></td>
+                                </tr>
+
+
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+<?php if (count($this->paginator)): ?>
+<table id="hor-minimalist-b" summary="">
+    <tr class="tdbrownheading">
+        <th>Bank Name</th>
+        <th>Active</td>
+
+    </tr>
+
+    <?php foreach ($this->paginator as $bank ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/bankcommonview/index/commonview/id/".$bank['Institute_bank_id']; ?>"><?php echo $this->escape($bank['Institute_bank_name']);?></a></td>
+
+        <?php if ($bank['Institute_bank_status'] == 1) { ?>
+        <td>Yes</td>
+        <?php } else { ?>
+        <td>Edit</td>
+        <?php } ?>
+     <?php endforeach; ?>
+    </tr>
+    <tr>
+	<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<?php endif; ?>
+
+
+
+
+
+
+
+
+

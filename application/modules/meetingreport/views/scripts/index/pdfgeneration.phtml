@@ -1,0 +1,60 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<fieldset>
+        <legend><?php echo $this->translate("Holiday"); ?></legend>
+<table id="hor-minimalist-b">
+    <tr>
+        <th><?php echo $this->translate("Bank Name"); ?></th>
+	<th><?php echo $this->translate("Group Name"); ?></th>
+        <th><?php echo $this->translate("Meeting Name"); ?></th>
+	<th><?php echo $this->translate("Meeting Day"); ?></th>
+	<th><?php echo $this->translate("Meeting Time"); ?></th>
+	<th><?php echo $this->translate("Meeting Place"); ?></th>
+       
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $holiday): ?>
+    <tr>
+        
+	<td><?php echo $this->escape($holiday['bankname']); ?></td>
+	<td><?php echo $this->escape($holiday['meetingname']);?></td> 
+	<td><?php echo $this->escape($holiday['name']);?></td>
+	<td><?php echo $this->escape($holiday['day']);?></td>
+	<td><?php echo $this->escape($holiday['time']);?></td>
+	<td><?php echo $this->escape($holiday['place']);?></td>
+	
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+		<td colspan="6" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?></div></td>
+		</tr>
+</table>
+
+</fieldset>
+<form action="<?php echo $this->baseUrl();?>/meetingreport/index/pdfgeneration/field1/<? echo $this->institute_bank_id;?>/field2/<? echo $this->group_id;?>/field3/<? echo $this->fromDate;?>/field4/<? echo $this->toDate;?>" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/meetingreport/index/reportdisplay/file/meeting<? echo date('Y-m-d');?>.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+
+           <BR> <input type="submit" value="<?php echo $this->translate('PDF'); ?>" id="submit">
+</form>
+
+

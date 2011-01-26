@@ -1,0 +1,38 @@
+<?php
+class  Commonviewuser_Form_Userdetails extends Zend_Form {
+
+    public function init() {
+$user_id = new Zend_Form_Element_Hidden('user_id');
+			
+			$username = new Zend_Form_Element_Text('username');
+			$username->setAttrib('class', '');
+			$username->setAttrib('size', '10');
+		
+			$gender = new Zend_Form_Element_Select('gender');
+$gender->addMultiOption('','Select...');
+$gender->setAttrib('class', 'txt_put');
+$gender->setRequired(true)
+->addValidators(array(array('NotEmpty')));
+                       
+			
+$designation = new Zend_Form_Element_Select('designation');
+$designation->addMultiOption('','Select...');
+$designation->setAttrib('class', 'txt_put');
+$designation->setRequired(true)
+->addValidators(array(array('NotEmpty')));
+                       
+                       
+$officename = new Zend_Form_Element_Select('officebranch');
+$officename->addMultiOption('','Select...');
+$officename->setAttrib('class', 'txt_put');
+$officename->setRequired(true)
+->addValidators(array(array('NotEmpty')));
+                       
+                        $submit = new Zend_Form_Element_Submit('Submit');
+			$back= new Zend_Form_Element_Submit('Back');
+			$update = new Zend_Form_Element_Submit('Update');
+
+		        $this->addElements(array($update,$user_id,$back,$username,$gender,$designation,$submit,$officename));
+
+    }
+}

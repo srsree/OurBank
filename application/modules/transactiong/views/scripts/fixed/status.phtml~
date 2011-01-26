@@ -1,0 +1,198 @@
+<div>
+	<div style="width:350px;float:left">
+		<fieldset>
+			<legend>Details</legend>
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<Tr>
+					<td><b class="star">Name</b></td>
+					<TD><?php echo $this->offerproductname;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star">Account number:</b></td>
+					<TD><?php echo $this->accountnumber;?></TR>.
+				</TR>
+				<TR>
+					<td><b class="star">Begin date:</b></td>
+					<TD><?php echo $this->begin_date;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star">Mature date:</b></td>
+					<TD><?php echo $this->mature_date;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star">Amount:</b></td>
+					<TD><?php echo $this->fixed_amount;?></TD>
+				</TR>
+				<TR>
+					<td><b class="star">Interest rates:</b></td>
+					<TD><?php echo $this->fixed_interest;?></TD>
+				</TR>
+
+				<TR>
+					<td><b class="star"><SPAN style="color:red">Matured interest:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->interestamount;?></SPAN></TD>
+				</TR>
+				<TR>
+					<td><b class="star"><SPAN style="color:red">Total matured amount:</SPAN></b></td>
+					<TD><SPAN style="color:red"><?php echo $this->Totalamount;?></SPAN></TD>
+				</TR>
+			</table>
+		</fieldset>
+	</div>
+</div>
+
+<DIV style="float:left;width:50%">
+<?php If($this->membertype_id==3) { ?>
+<a href="#" id="open">Group members</a>
+<div class="box">
+<div id="content1">
+	<fieldset>
+		<legend>Members in account</legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="30%">Name</td>
+			<td width="50%">Code</td>
+		</tr>
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+			</tr>
+	<?php }?>
+		</table>
+</div></fieldset>
+<p><a href="#" id="close">Hide</a></p>
+</div>
+</div>
+<?php }	?>
+<table width="100%"><TR><TD><HR></HR></TD></TR></table>
+</DIV>
+
+<div>
+	<div style="width:50%;float:left">
+		<fieldset>
+			<legend>Transaction type</legend>
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<?php if($this->matureddate < $this->currentdate) { ?>
+			<TR><td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/transaction/fixed/renewal/accountId/
+			<?php echo base64_encode($this->accountid);?>/productId/
+			<?php echo base64_encode($this->productid);?>/memberId/
+			<?php echo base64_encode($this->memberid);?>">Account renewal</a></TD>
+			</TR>
+			<?php } ?>
+			<TR><td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/transaction/fixed/transferfunds/accountId/
+			<?php echo base64_encode($this->accountid);?>/productId/
+			<?php echo base64_encode($this->productid);?>/memberId/
+			<?php echo base64_encode($this->memberid);?>">finalize and close funds</a></TD>
+			</TR>
+			<TR><td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/transaction/fixed/status/accountId/
+			<?php echo base64_encode($this->accountid);?>/productId/
+			<?php echo base64_encode($this->productid);?>/memberId/
+			<?php echo base64_encode($this->memberid);?>">Status</a></TD>
+			</TR>
+			</table>
+		</fieldset>
+	</div>
+</div>
+
+<table width="100%"><TR><TD><HR></HR></TD></TR></table>
+<?php if(!$this->Submit) { ?>
+<fieldset>
+	<legend>Status details</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php  echo $this->baseUrl();?>/transaction/fixed/status/accountId/<?php  echo $this->accountid;?>/productId/<?php  echo $this->productid;?>/memberId/<?php  echo $this->memberid;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+        		<TR>
+					<td>Status</td>
+					<TD><?php echo $this->recurringForm->accountId;?><?php echo $this->recurringForm->productId;?><SPAN style="color:red">&nbsp;  &nbsp; &nbsp;<strong>
+					<?php echo $this->status; ?></strong></SPAN></TD>
+				</TR>
+				<TR>	
+					<td>Change status</td>
+					<TD><?php echo $this->form3->newStatus;?></TD>
+				</TR>
+				<TR>
+					<td>Description</td>
+					<TD><?php echo $this->form3->description;?></TD>
+				</TR>
+				<TR>
+					<td>Existing total amount</td>
+					<TD><?php echo $this->form3->totalamount;?></TD>
+				</TR>
+			</table><br>
+			<table>
+				<tr>
+					<TD><?php echo $this->form3->Confirm;?></td>
+
+					<td><a href="<?php echo $this->baseUrl();?>/transaction/fixed/fixed/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">
+					<input name="submit" type="submit" value="back"></a></B></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</fieldset>
+<?php } ?>
+
+<?php if($this->Submit) { ?>
+<fieldset>
+	<legend>Status details</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php  echo $this->baseUrl();?>/transaction/fixed/status/accountId/<?php  echo $this->accountid;?>/productId/<?php  echo $this->productid;?>/memberId/<?php  echo $this->memberid;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+        		<TR>
+					<td>Status</td>
+					<TD><?php echo $this->recurringForm->accountId;?><?php echo $this->recurringForm->productId;?>
+						<?php echo $this->form3->newStatus1;?>
+						<?php echo $this->form3->description1;?>
+						<?php echo $this->form3->totalamount1;?>
+						<SPAN style="color:red">&nbsp;  &nbsp; &nbsp;<strong>
+					<?php echo $this->status; ?></strong></SPAN></TD>
+				</TR>
+				<TR>	
+					<td>Change status</td>
+					<TD><?php echo $this->newrecordstatus;?></TD>
+				</TR>
+				<TR>
+					<td>Description</td>
+					<TD><?php echo $this->description;?></TD>
+				</TR>
+				<TR>
+					<td>Existing total amount</td>
+					<d><?php echo $this->totalamount;?></TD>
+				</TR>
+			</table><br>
+			<table>
+				<tr>
+					<TD><?php echo $this->form3->Submit;?></td>
+					<td><a href="<?php echo $this->baseUrl();?>/transaction/fixed/status/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">
+					<input name="submit" type="submit" value="back"></a></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</fieldset>
+<?php } ?>
+<!--
+<?php //if(($this->noInstalment!=$this->noOfInstalmentPaied) && $this->categoryType=='1') { ?>
+<b style="color:blue">Loan still have to pay</b>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr>
+				<Th>sl no</Th>
+				<Th>Account no</Th>
+				<Th>Account name</Th>
+				<Th>Balance</Th>
+			</tr>
+	<?php //for($i=$this->countNo;$i>0;$i--) { ?>
+			<tr>
+				<TD><?php echo $i; ?></TD>
+				<TD><?php echo $this->remainLoan['account_number'.$i]; ?></TD>
+				<TD><?php echo $this->remainLoan['productname'.$i]; ?></TD>
+				<TD><?php echo $this->remainLoan['stillHaveToPay'.$i]; ?></TD>
+			</tr>
+	<?php// } ?>
+		</table>
+<?php// }?> -->
+
+
+</div>

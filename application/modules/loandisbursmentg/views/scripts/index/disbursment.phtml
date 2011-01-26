@@ -1,0 +1,140 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+-->
+
+<div style="float:left;width:350px"> 
+    <?php foreach($this->details as $details) { ?>
+        <table id="hor-minimalist-s">
+            <TR>
+                <TH>Menber details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td>Name </td>
+                <TD><?php echo $details->name ?></TD>
+            </TR>
+
+            <TR>
+                <td>Branch</td>
+                <TD><?php echo $details->officename ?></TD>
+            </TR>
+            <TR>
+                <td>Code</td>
+                <TD><?php echo $details->code ?></TD>
+
+            </TR>
+            <TR>
+                <td> Account code</td>
+                <td><?php echo $details->number ?></TD>
+            </TR>
+            <TR>
+                <TH>Loan Details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td>Loan name</b></td>
+                <td><?php echo $details->loanname ?></TD>
+            </TR>
+            <TR>
+                <td>Loan amount R$</b></td>
+                <td><?php echo $details->amount ?></TD>
+            </TR>
+
+            <TR>
+                <td>Interest rate %</td>
+                <TD><?php echo $details->interest ?></TD>
+            </TR>
+
+            <TR>
+            <td>Installments</td>
+                <TD><?php echo $details->installments ?></TD>
+            </TR>
+            <TR>
+                <td>Sanctioned date</b></td>
+                <td><?php echo $details->sanctioned ?></TD>
+            </TR>
+            <TR>
+                <td>Fee</b></td>
+                <td></TD>
+            </TR> 
+        </table> 
+    <?php } ?>
+	<?php if(count($this->group) != 0) { ?>
+        <table id="hor-minimalist-s">
+            <TR>
+                <TH>Member code </TH>
+                <TH>Member name</TH>
+            </TR>
+		<?php foreach ($this->group as $group) { ?>
+            <TR>
+                <td><?php echo $group->code; ?></b></td>
+                <td><?php echo $group->name; ?></TD>
+            </TR>
+		<?php }?>
+		</table>
+	<?php } ?>
+    <br/>
+</div>
+<?php if (count($this->active) != 1 ){ ?> 
+<div style="float:right;width:350px"> 
+    <table id="hor-minimalist-s">
+    	<TR>
+        	<TH>Loan has been disbursed</TH>
+        </TR>
+	</table>
+</div>
+<?php } else { ?>
+<div style="float:right;width:350px"> 
+    <fieldset>
+        <legend> Loan disbursement </legend>
+        <form name="form1" action="<?php echo $this->baseUrl();?>/loandisbursmentg/index/disbursment/accNum/<?php echo base64_encode($this->accNum);?>" method="POST">
+            <table class="fieldsets">
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Date</label></TD>
+                    <TD><?php echo $this->loan->date; ?></TD>
+                </TR>
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Amount R$</label></TD>
+                    <TD><?php echo $this->loan->Amount;?></TD>
+                </TR>
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Description</label></TD>
+                    <TD><?php echo $this->loan->description;?></TD>
+                </TR>
+
+                <TR>
+                    <TD><label for="fld3">Send sms</label></TD>
+                    <TD><?php echo $this->loan->sms;?></TD>
+                </TR>
+            </table>
+            <br/>
+            <div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->loan->Submit;?>
+                </div>
+                <div class="rtbtns">
+                    <a href="<?php echo $this->baseUrl();?>/loandisbursment/index"><?php echo $this->loan->Back;?></a>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>
+<?php } ?>

@@ -1,0 +1,77 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->  
+<div id="searchDiv">
+<fieldset>
+    <legend><?php echo $this->translate('Search'); ?></legend>
+    <form name = "searchform" action="<?php echo $this->baseUrl();?>/activity/index" method="POST">
+        <table class="fieldsets"> 
+            <?php echo $this->form;?>
+        </table>
+        <div class="btnhouse">
+            <div class="ltbtns">
+                <input type = "Submit" name = "Search" id="Search" value = "Search"/>
+            </div>
+        </div>
+            </form>
+    </fieldset>
+</div>
+<?php  if((count($this->paginator) ==0) && ($this->search == true))  { ?>
+<font color='RED'><?php echo $this->translate('Record not found try again'); ?>.</font>
+<?php } ?>
+    <?php if (count($this->paginator)){ ?>
+    <table id="hor-minimalist-b">
+        <tr>
+            <th><?php echo $this->translate('Activities'); ?></th>
+            <th><?php echo $this->translate('Sectors'); ?></td>
+            <th><?php echo $this->translate('Active'); ?></td>
+        </tr>
+
+    	<?php foreach ($this->paginator as $loan ){ ?>
+            <tr>
+                <td><a href="<?php echo $this->baseUrl()."/activity/index/activityview/id/".$loan['id']; ?>">
+                <?php echo $this->escape($loan['name']); ?></a></td>
+                <td><?php echo $this->escape($loan['sectorname']);?></td>
+                <td><?php if($loan['status'] == 1) { echo $this->translate('Yes'); } else { echo $this->translate('No'); } ?></td>
+            <tr>
+    	<?php } ?>
+   	<tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+	</tr>
+</table>
+ <?php } ?>

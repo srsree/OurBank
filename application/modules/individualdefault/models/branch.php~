@@ -1,0 +1,17 @@
+<?php
+class Branch_Model_branch extends Zend_Db_Table {
+    protected $_name = 'ourbank_membername';
+
+     public function getBranchOffice() {
+
+         $select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->from('ourbank_bankaddress')
+                        ->where('recordstatus_id = 3 OR recordstatus_id = 1');
+         //   return $result = $this->fetchAll($select);
+        die($select->__toString($select));
+    }
+
+
+
+}

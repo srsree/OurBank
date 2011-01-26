@@ -1,0 +1,42 @@
+<fieldset>
+    <legend>RepaymentDetailsOfGroupLoan</legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+
+                    <TR class="tdbrown">
+			   
+                            <Th><?php echo $this->ZendTranslate->_("groupName"); ?></TD>
+			    <Th><?php echo $this->ZendTranslate->_("office"); ?></TD>
+			    <Th><?php echo $this->ZendTranslate->_("accountNumber"); ?></TD>
+			    <Th><?php echo $this->ZendTranslate->_("loanAmount"); ?></TD>
+			    <Th><?php echo $this->ZendTranslate->_("paid"); ?></TD>
+                            <Th><?php echo $this->ZendTranslate->_("balance"); ?></TD>
+                            <Th><?php echo $this->ZendTranslate->_("RepayDate"); ?></TD>
+
+    
+                    </TR>
+                    <?php 
+                    foreach($this->loanDetails as $loanDetails1){  ?>
+                     
+                    <TR>
+			   
+			  
+
+                            	<TD><?php echo $loanDetails1['groupname'];?></TD>
+			    	<TD><?php echo $loanDetails1['office_name'];?></TD>
+		                <td><?php echo $loanDetails1['account_number'];?></td>
+                                <td><?php echo $loanDetails1['groupmember_loanamount'];?></td>
+                                <td><?php echo $loanDetails1['groupmemberloaninstallmentpaid_amount'];?></td>
+                                <td><?php echo $loanDetails1['groupmember_loanamount']-$loanDetails1['groupmemberloaninstallmentpaid_amount'];?></td>
+                                <td><?php echo $loanDetails1['groupmemberloaninstallmentpaid_date']; ?>
+                    </TR>
+                 <?php } ?>
+            <table>
+		     
+            <br>
+	    </table>
+		   
+            </table>
+        </div>
+</fieldset>
+

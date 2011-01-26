@@ -1,0 +1,112 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<form id="Form1" action ="<?php echo $this->baseUrl();?>/membership/group/editgroup" method="POST">   
+<div class="register">
+    <div class="profile_tab">   
+	<div style="width:570px;float:left">
+	   <fieldset>
+    <legend>Edit Group</legend>
+	<div class="cont-rgt-data">
+
+            <TABLE id="hor-minimalist-b">
+
+                <TR>
+                    <TD>Group Name</TD>
+                    <TD><?php echo $this->form->groupname;?></TD>
+
+                </TR>
+                <TR>
+                    <TD>Group Branch</TD>
+                    <TD><?php echo $this->form->office_id;?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD>Group Address</TD>
+                    <TD><?php echo $this->form->groupaddress_line1;?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD>Line 2</TD>
+                    <TD><?php echo $this->form->groupaddress_line2;?></TD>
+			<input type = "hidden" class="txt_put" name = "groupname_id" value = "<?php echo $this->groupname_id;?>">
+
+                </TR>
+
+                <TR>
+                    <TD>Line 3</TD>
+                    <TD><?php echo $this->form->groupaddress_line3;?></TD>
+
+                 </TR>
+
+                <TR>
+                    <TD>Group Location</TD>
+                    <TD><?php echo $this->form->groupaddress_location;?></TD>
+		</TR>
+  		<TR>
+ 		      <TD><a href="<?php echo $this->baseUrl(); ?>/membership/group">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+		      <TD><?php echo $this->form->submit?></TD>
+                     
+                    
+	       </TR> 
+	</TABLE>
+
+    </div>
+</fieldset>
+	</div>
+            <fieldset>
+    <legend>Group Members</legend>
+
+         	<TABLE id="hor-minimalist-b">
+		    <tr>
+                            <td><?php echo $this->form->member_id;?></td>
+                    </TR>
+		</TABLE>
+
+</fieldset>
+
+</div>
+</div>
+   
+
+<CENTER style="color:red"><?php echo $this->updateerror; ?></CENTER>
+
+
+</form>

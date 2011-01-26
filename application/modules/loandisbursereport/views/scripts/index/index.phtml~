@@ -1,0 +1,70 @@
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/loandisbursereport/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Credit Line:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Bank Name:</td>
+                                    <td ><div id="groupDiv"><? echo $this->form->field2;?></div></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+
+
+
+
+
+
+<? if($this->check) { ?>
+<fieldset>
+        <legend>Loan Disbursement</legend>
+	<h3>
+		<font color=red>Creditline Name :</font> <?php echo $this->creditline_name;?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<font color=red>Amount : </font> <? echo $this->creditline_portfolio;?>
+	</h3>
+
+
+<table id="hor-minimalist-b">
+    <tr>
+      	<th>Sector Name</th>
+	<th>amount_disbursed </th>
+    </tr>
+        <?php $totalDisbursed = 0; if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $disburse ) { ?>
+    	<tr>
+		<td><?php echo $this->escape($disburse['sector_name']);?></td> 
+		<td><?php echo $this->escape($disburse['amount_disbursed']);?></td> 
+		
+	<?php $totalDisbursed+=$disburse['amount_disbursed'];} ?>
+	<?php endif; ?>
+    	</tr>
+	<tr>
+		<TD>Total</TD><TD><? echo $totalDisbursed; ?></TD><TD></TD>
+	</tr>
+    <tr>
+		<td colspan="6" align="right">
+			<div class="pagination">
+				<?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?>
+			</div>
+		</td>
+		</tr>
+</table>
+
+</fieldset>
+<? } ?>
+
+

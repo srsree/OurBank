@@ -1,0 +1,89 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+ <link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#field7").datepicker({"dateFormat":"dd-mm-yy"});
+    $("#field8").datepicker({"dateFormat":"dd-mm-yy"});
+});
+</script>
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/fundings/index" method="POST">
+                            <table width="100%" id = "fieldsets">
+                                <tr>
+                                    <td class="label">Fundings name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                    <td class="label">Fundings period from:</td>
+                                    <td ><? echo $this->form->field7;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Fundings amount:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                    <td class="label">Fundings period to</td>
+                                    <td ><? echo $this->form->field8;?></td>
+                                </tr>
+                                <tr>
+                                    <td><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+<?php $convertdate = new Creditline_Model_dateConvertor(); ?>
+<?php if (count($this->paginator)): ?>
+<table id="hor-minimalist-b" summary="">
+    <tr class="tdbrownheading">
+        <th>Fundings name</th>
+        <th>Fundings amount</td>
+        <th>Fundings period from</td>
+        <th>Fundings period to</td>
+    </tr>
+    <?php foreach ($this->paginator as $fundings ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/fundingscommonview/index/commonview/id/".$fundings['id']; ?>"><?php echo $this->escape($fundings['name']);?></a></td>
+        <td><?php echo $this->escape($fundings['amount']); ?></td>
+        <td><?php echo $this->escape($convertdate->phpnormalformat($fundings['beginingdate']));?></td>
+        <td><?php echo $this->escape($convertdate->phpnormalformat($fundings['closingdate']));?></td>
+     <?php endforeach; ?>
+    </tr>
+        <tr>
+	<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<?php endif; ?>
+
+
+
+
+
+
+
+
+

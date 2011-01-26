@@ -1,0 +1,179 @@
+<BODY onload="toggleField();"></BODY>
+<?php $convertdate = new Creditline_Model_dateConvertor(); ?>
+<div style="float:left;width:350px"> 
+    <?php foreach($this->member as $memberdetails) { ?>
+        <table id="hor-minimalist-s">
+            <?php if($this->type=='3') { ?>
+            <TR>
+                <td>Group name</td>
+                <TD><? echo $memberdetails['group_name']; ?></TD>
+            </TR>
+            <?php } else { ?>
+            <TR>
+                <td>Name</td>
+                <TD><? echo $memberdetails['member_name']; ?></TD>
+            </TR>
+            <?php } ?>
+            <TR>
+                <td>Branch</td>
+                <TD><? echo $memberdetails['Institute_bank_name']; ?></TD>
+            </TR>
+            <TR>
+            <td>Member code</td>
+                <TD><? echo $memberdetails['member_code']; ?></TD>
+            </TR>
+            <TR>
+                <td>Account code</td>
+                <td><? echo $memberdetails['account_number']; ?></TD>
+            </TR>
+            <TR>
+                <td>Sector name</b></td>
+                <TD><? echo $memberdetails['sector_name']; ?></TD>
+            </TR>
+            <TR>
+                <td>Activity name</b></td>
+                <td><? echo $memberdetails['activity_name']; ?></TD>
+            </TR>
+            <TR>
+                <td>Loan amount R$</b></td>
+                <td><? echo $memberdetails['loan_amount']; ?></TD>
+            </TR>
+            <TR>
+                <td>Fee amount R$</b></td>
+                <td><? echo $memberdetails['fee']; ?></TD>
+            </TR>
+            <TR>
+                <td>Amount delivered R$</b></td>
+                <td><?php echo sprintf("%4.2f", $this->amountdelivered); ?></TD>
+            </TR>
+            <TR>
+                <td>Interest rate %</td>
+                <td><? echo $memberdetails['loan_interest']; ?></TD>
+            </TR>
+            <TR>
+                <td>Billet R$</td>
+                <TD><?php echo sprintf("%4.2f", $memberdetails['billet']); ?></TD>
+            </TR>
+            <TR>
+            <td>Installments</td>
+                <TD><? echo $memberdetails['loan_installments']; ?></TD>
+            </TR>
+            <TR>
+                <td>Sanctioned date</b></td>
+                <td><? echo $convertdate->phpnormalformat($memberdetails['loansanctioned_date']); ?></TD>
+            </TR>
+        </table> 
+    <?php } ?>
+</div>
+    <?php if($this->type=='3') { ?>
+        <div style="float:right;width:350px"> 
+            <DIV>
+                <a href="#" id="open">Group members</a>
+                <div class="box">
+                    <div id="content1">
+                        <table id="hor-minimalist-s">
+                            <tr class="tdbrownheading">
+                                <th>Name</th>
+                                <th>Member code</th>
+                            </tr>
+                            <?php foreach($this->groupmembers as $groupmembers) { ?>
+                            <tr>
+                                <td><?php echo $groupmembers['member_name'];?></td>
+                                <td><?php echo $groupmembers['member_code'];?></td>
+                            </tr>
+                            <?php } ?>
+                        </table>
+                        <p><a href="#" id="close">hide</a></p>
+                    </div>
+                </div>
+            </DIV>
+        </div>
+    <?php } ?>
+
+
+<?php if($this->totladisburseAmount) { ?>
+<div style="float:right;width:350px"> 
+<table id="hor-minimalist-s">
+    <tr>
+        <th>Type</th>
+        <th>Installment</th>
+        <th>Amount</th>
+        
+    </tr>
+    <tr>
+        <td>Paid</td>
+       <td><?php echo $this->noOfInstalmentPaid;?></td>
+       <td>R$ <?php echo $this->paidAmount;?></td>
+    </tr>
+    <tr>
+        <td>Due</td>
+       <td><?php echo $this->balanceInstallment;?></td>
+       <td>R$ <?php echo $this->stillHaveToPay;?></td>
+    </tr>
+</table>
+</div>
+
+    <table id="hor-minimalist-b">
+        <tr>
+            <th>Inst.</th>
+            <th>Principal</th>
+            <th>Interest</th>
+            <th>Billet</th>
+            <th>Inst. amt</th>
+            <th>Due date</th>
+            <th>Status</th>
+            <th>Current due</th>
+        </tr>
+        <?php 
+            $total1 = 0;
+            $total2 = 0;
+            $total3 = 0;
+            $total4 = 0;
+            $total5 = 0;
+        ?>
+        <?php foreach($this->loanInstalments as $loanInstalmentDetails) { ?>
+        <tr>
+            <td><?php echo $loanInstalmentDetails['accountinstallment_id']; ?></td>
+            <td>R$. <?php echo $loanInstalmentDetails['installment_principal_amount']; 
+                            $total1 = $total1 + $loanInstalmentDetails['installment_principal_amount'];
+                        ?></td>
+            <td>R$. <?php echo $loanInstalmentDetails['accountinstallment_interest_amount'];
+
+                            $total2 = $total2 + $loanInstalmentDetails['accountinstallment_interest_amount'];
+                        ?></td>
+            <td>R$. <?php echo sprintf("%4.2f", $loanInstalmentDetails['billet']);
+                            $total3 = $total3 + $loanInstalmentDetails['billet'];
+                         ?></td>
+            <td>R$. <?php echo $loanInstalmentDetails['accountinstallment_amount'];
+                            $total4 = $total4 + $loanInstalmentDetails['accountinstallment_amount'];
+                             ?></td>
+
+
+            <td><?php echo $convertdate->phpnormalformat($loanInstalmentDetails['accountinstallment_date']);  ?></td>
+            <td><?php echo $loanInstalmentDetails['statusdescription'];  ?></td>
+
+            <td><?php echo $loanInstalmentDetails['current_due']; 
+                $total5 = $total5 + $loanInstalmentDetails['current_due'];
+                ?></td>
+        </tr>
+        <?php } ?>
+        <tr>
+            <th><b>Total</b></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total1); ?></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total2); ?></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total3); ?></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total4); ?></th>
+            <th></th>
+            <th></th>
+            <th>R$ <?php echo sprintf("%4.2f", $total5); ?></th>
+        </tr>
+    </table>
+<?php } ?>
+
+<div style="float: left; width: 800px">
+<form action="<?php echo $this->baseUrl();?>/loandetails/index/pdftransaction/accountNumber/<?php echo $this->accNo;?>" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/loandetails/index/reportdisplay/file/loandetails_<? echo $this->accNo;?>.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+
+          <BR> <input type="submit" value="PDF" id="submit">
+</form>
+</div>

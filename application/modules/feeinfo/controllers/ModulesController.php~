@@ -1,0 +1,14 @@
+<?php
+class Administration_ModulesController extends Zend_Controller_Action {
+    public function init() {
+        $this->view->pageTitle='Settings';
+    }
+
+    public function indexAction() {
+
+
+
+    }
+	
+}
+

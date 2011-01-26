@@ -1,0 +1,145 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<table id="hor-minimalist-b">
+	
+		<tr>
+			<th class = "firsttd">User information</th>
+			<th class = "secondtd"></th>
+
+			<th class="thirdtd"><a href="<?php echo $this->baseUrl()."/user/index/edituserdetail/id/".$this->id; ?>">
+			<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th> 
+<? foreach($this->userdetails as $edit_id) { ?>
+			<tr>
+				<td class = "firsttd">User name:</td>
+				<td class = "secondtd"><?php echo $edit_id['username'];?></td>
+				<td class = "third"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Bank:</td>
+				<td class = "secondtd"></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Gender:</td>
+				<td class = "secondtd"></td>
+				<td class = "third"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Designation:</td>
+				<td class = "secondtd"><?php echo $edit_id['designation_name'];?></td>
+				<td class = "third"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Granted as:</td>
+				<td class = "secondtd"></td>
+				<td class = "thirdtd"></td>
+			</tr>
+		<br/>
+		<?php } ?>
+  
+ </table>
+<table id="hor-minimalist-b">
+    <tr>
+        <th class="firsttd">Address information</th>
+        <th class="secondtd"></th>
+        <?php if(count($this->address)!=0) {
+        foreach($this->address as $edit_id) { ?>	
+        <th><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th>
+        <?php }} else { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id;  ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"></a></th>
+        <?php } ?>
+    </tr>
+
+    <?php foreach($this->address as $address_view){ ?>
+    <tr>
+        <td class="firsttd">Address line1:</td>
+        <td class = "secondtd"><?php echo $address_view['address1']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Address line2:</td>
+        <td class = "secondtd"><?php echo $address_view['address2']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Address line3:</td>
+        <td class = "secondtd"><?php echo $address_view['address3']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">City:</td>
+        <td class = "secondtd"><?php echo $address_view['city']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">State:</td>
+        <td class = "secondtd"><?php echo $address_view['state']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Country:</td>
+        <td class = "secondtd"><?php echo $address_view['country']; ?></td >
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Pin code:</td>
+        <td class = "secondtd"><?php echo $address_view['zipcode']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <?php } ?>
+</table>
+<br/>
+   <table id="hor-minimalist-b">
+
+                         <tr>
+				<th class = "firsttd">User personal information</th>
+ 				<th class = "secondtd"></th>
+				<?php if(($this->personal)!=NULL) {
+                            	foreach($this->personal as $edit_id) { ?>
+ 				<th class = "thirdtd "><a href="<?php echo $this->baseUrl();?>/personalinfo/index/edit/id/<?php echo $this->id;?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20">
+					<?php }} else { ?>
+				<TH><a href="<?php echo $this->baseUrl();?>/personalinfo/index/add/id/<?php echo $this->id; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></TH>
+                         	<?php } ?></a></th>
+
+			</tr>
+				<?php 
+                           $convertdate = new Creditline_Model_dateConvertor();
+
+foreach($this->personal as $personal_info){?>
+                        <tr>
+				<td class = "firsttd">Date of birth:</td>
+				<td class = "secondtd"><?php echo $startdate=$convertdate->phpnormalformat($personal_info['date_of_birth']); ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+                        <tr>
+				<td class = "firsttd">Date of join:</td>
+				<td class = "secondtd"><?php echo $startdate=$convertdate->phpnormalformat($personal_info['date_of_join']); ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Email:</td>
+				<td class = "secondtd"><?php echo $personal_info['email']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+
+                        <?php } ?>
+
+		</table>
+  		<br/>

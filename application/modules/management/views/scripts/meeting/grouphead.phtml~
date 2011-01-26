@@ -1,0 +1,39 @@
+<head> 
+<script>
+function getGroupHead(group,path) {
+alert('group');
+/*alert(path);
+var strURL=path+"/management/meeting/grouphead?group="+group;
+/*alert(strURL);*/
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv1').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problonchange="getGroupHead(this.value,'/ourbank/public/management/meeting/grouphead')"em while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+        }
+        var perioddescription=$('#perioddescription').val();
+        if(perioddescription!='') {
+            $('#errorspan').show();
+        } else {
+            $('#errorspan').hide();
+          }
+}
+</script>
+</head>
+<body>
+
+<select name='group_head'  id="subOffice1" class="selectbutton" onchange="getGroupHead(this.value)">
+<option value=''>Select</option>
+<?php foreach($this->selectedGrouphead as $eacharraysent) { ?>
+<option value="<?php echo $eacharraysent->group_head;?>"><?php echo $eacharraysent->group_head;?><?php echo $eacharraysent->officetype;?>
+<? } ?>
+</select>
+</body>

@@ -1,0 +1,56 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+
+
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/attendance.js"></script>
+<div id = "searchDiv">
+<fieldset>
+<legend><?php echo $this->translate("Add attendance"); ?></legend>
+	<form action="<?php echo $this->baseUrl();?>/attendance/index/attendanceadd/attendance_id/<?php echo $this->attendance_id;?>" method="POST">
+		<table class="fieldsets">
+			
+			<TR >
+				<TD><label for="fld1" class="mand"><?php echo $this->translate("Meeting date"); ?></TD>
+				<TD ><?php echo $this->attendanceform->meeting_date;?></TD>
+			</TR>
+			<TR >
+				<TD><label for="fld1" class="mand"><?php echo $this->translate("Meeting name"); ?></TD>
+				<TD ><?php echo $this->attendanceform->meeting_name;?></TD>
+			</TR>
+
+			<TR>
+				<TD><label for="fld3"><?php echo $this->translate("Members"); ?></TD>
+				<TD colspan="2"><div id="statediv"></div></TD>
+			</TR>
+
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<input type="Submit" name="Submit" name="Submit" value="<?php echo $this->translate('Submit'); ?>">
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/attendanceindex"><input type="button" value="<?php echo $this->translate('Back'); ?>"></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>
+

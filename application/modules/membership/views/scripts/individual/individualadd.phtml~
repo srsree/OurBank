@@ -1,0 +1,64 @@
+<form action="<?php echo $this->baseUrl();?>/membership/individual/individualadd" method="POST" name= "myform">
+            <div id="container-1">
+             <fieldset>
+	           <legend>Add Individual Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+                       <table id="hor-minimalist-b">
+
+                          <tr><td>First Name:</td>
+                         <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/membername/index">ADD</a></TD>
+                        </tr>
+                
+                           <tr><td>Middle and Last Name:</td>
+                         <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/middlename/index">ADD</a></TD>
+                        </tr>
+
+
+
+
+                        <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='branch_name') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr><td>Branch Name:</td>
+                         <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/branch/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+
+                        <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='member_address') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr><td>Member address:</td>
+                         <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/address/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+
+
+
+                         <?php 
+                            foreach($this->plugin as $selectplugin){
+                            if($selectplugin['plugin_name']=='personal') {
+                            if($selectplugin['staus']==1) {
+                            ?>
+                        <tr><td>Member Personal Information</td>
+                         <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/personal/index">ADD</a></TD>
+                        </tr>
+                         <?php }}} ?>
+
+                         </table>
+                   </div>
+	         </div>
+            </fieldset>
+        </div>
+</form>
+
+ 

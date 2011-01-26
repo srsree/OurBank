@@ -1,0 +1,46 @@
+<?php
+class Individual_IndividualController extends Zend_Controller_Action
+{
+
+    public function init()
+    {
+        $this->view->pageTitle = "Individual Member";
+    }
+
+    public function indexAction()
+    {
+        $this->view->title = "Individual Member";
+        $searchForm = new Individual_Form_Search();
+        $this->view->form = $searchForm;
+
+        $individual = new Individual_Model_Individual();
+
+        $result = $individual->getMemberDetails();
+
+	$page = $this->_getParam('page',1);
+	$paginator = Zend_Paginator::factory($result);
+	$paginator->setItemCountPerPage(5);
+	$paginator->setCurrentPageNumber($page);
+	$this->view->paginator = $paginator;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+	   
+            if ($this->_request->isPost()) {
+
+		if ($searchForm->isValid($this->_request->getPost())) {
+		    $result = $individual->memberSearch($searchForm->getValues());
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+		} 
+                if (!$result) {
+		    echo "<font color='RED'>Records Not Found Try Again...</font>";
+		}
+	    }
+	}
+    }
+
+ 
+}

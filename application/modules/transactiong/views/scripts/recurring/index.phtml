@@ -1,0 +1,87 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php if (!$this->recurringAccountsSearch )  { ?>
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="cont-rgt-data">
+                <form action="<?php echo $this->baseUrl();?>/transaction/recurring" method="POST">
+                    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <tr>
+                            <td>Account Number/Membercode</td>
+                            <td><?php echo $this->form->member_id;?></td>
+                        </tr>
+                        <tr>
+                            <TD colspan = "2"><?php echo $this->form->Search;?></TD>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+    </fieldset>
+	</div>
+	<?}?>
+<?php if ($this->membertype_ID==3) { ?>
+    <fieldset>
+        <legend>Member details</legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <TR class="tdbrown">
+                        <TD width="20%">Name</TD>
+                        <TD width="20"><?php echo $this->groupname;?></TD>
+                    </TR>
+                    <TR class="tdbrown">
+                        <TD width="20%">Code</TD>
+                        <TD width="20"><?php echo $this->membercode;?></TD>
+                    </TR>
+                </table>
+            </div>
+</fieldset>
+<? }?>
+<?php if ($this->membertype_ID==4 ) { ?>
+    <fieldset>
+        <legend>memberDetails</legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <TR class="tdbrown">
+                            <TD width="20%">Name</TD>
+                            <TD width="20"><?php echo $this->memberfirstname;?></TD>
+                        <TR class="tdbrown">
+                            <TD width="20%">code</TD>
+                            <TD width="20"><?php echo $this->membercode;?></TD>
+                        </TR>
+               </table>
+            </div>
+        </fieldset>
+<? } ?>
+<?php if ($this->membertype_ID==3 || $this->membertype_ID==4 ) { ?>
+<fieldset>
+    <legend>recurringAccounts</legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                <TR>
+                    <td><span class="reqMark">Account</span></td><td><span class="reqMark">Productname</span></td></TR>
+                    <?php foreach($this->accountIDFetch as $arrayroles2)  { ?>
+<TR><TD><a href="<?php echo $this->baseUrl();?>/transaction/recurring/recurring/accountId/<?php echo base64_encode($arrayroles2['account_id']);?>/productId/<?php echo base64_encode($arrayroles2['product_id']);?>"><?php echo $arrayroles2['account_number'];?></a></TD>
+                <TD><?php echo $this->offerproductname;?></TD></TR>
+                <? } ?>
+        </table>
+    </div>
+</fieldset>
+<? } ?>

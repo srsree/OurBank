@@ -1,0 +1,48 @@
+<?php
+class Enquiry_Model_VoucherDetails extends Zend_Db_Table_Abstract {
+
+ public function fetchTransaction($fromDate,$toDate,$voucherId) 
+    {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "Select A.transaction_date, A.transaction_id,                    A.transaction_amount,A.transaction_interest_amount,E.paymenttype_description,A.transaction_mode_details,H.transaction_type,G.login_name from 
+                ourbank_transaction A,
+                ourbank_groupaddress B,
+                ourbank_members C,
+                ourbank_accounts D,
+                ourbank_paymenttypes E,
+                ourbank_userloginupdates G,
+                ourbank_transaction_type H
+                WHERE
+                (A.transaction_date BETWEEN '".$fromDate."' AND '".$toDate."') AND
+                (A.transaction_id = '$voucherId') AND
+                (B.group_id = C.member_id) AND
+                (C.member_id = D.member_id) AND
+                (D.account_id = A.account_id) AND
+                (E.paymenttype_id = A.paymenttype_mode) AND
+                (A.created_by = G.user_id) AND
+                (H.transactiontype_id = A.transaction_type) AND
+                (B.recordstatus_id = 3)
+        UNION
+                SELECT E.transaction_date,E.transaction_id,E.transaction_amount,E.transaction_interest_amount,G.paymenttype_description,E.transaction_mode_details,H.transaction_type,J.login_name  FROM
+                ourbank_accounts A,
+                ourbank_members C,
+                ourbank_membername D,
+                ourbank_transaction E,
+                ourbank_paymenttypes G,
+                ourbank_transaction_type H,
+                ourbank_userloginupdates J
+                WHERE
+                (E.transaction_date BETWEEN '".$field2."' AND '".$field3."') AND
+                (E.transaction_id= '$field4')  AND
+                (A.account_id = E.account_id) AND
+                (A.member_id = C.member_id) AND
+                (C.member_id = D.member_id) AND
+                (H.transactiontype_id = E.transaction_type) AND
+                (G.paymenttype_id = E.paymenttype_mode) AND
+                (E.created_by= J.user_id) AND
+ 		(D.recordstatus_id = 3)";
+        $result = $this->db->fetchAll($sql,array($field2,$field3,$field4));
+        return $result;
+    }
+}

@@ -1,0 +1,46 @@
+<?php
+class  Commonviewuser_Form_Feedetails extends Zend_Form {
+
+    public function init() {
+		$fee_id = new Zend_Form_Element_Hidden('fee_id');
+		$officebranch = new Zend_Form_Element_Select('officebranch');
+		$officebranch->addMultiOption('','Select...');
+		$officebranch->setAttrib('class', 'txt_put');
+		$officebranch->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+
+		$gender = new Zend_Form_Element_Select('gender');
+		$gender->addMultiOption('','Select...');
+		$gender->setAttrib('class', 'txt_put');
+		$gender->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+
+		$designation = new Zend_Form_Element_Select('designation');
+		$designation->addMultiOption('','Select...');
+		$designation->setAttrib('class', 'txt_put');
+		$designation->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+
+
+		
+		
+
+		$firstname = new Zend_Form_Element_Text('username');
+		$firstname->setAttrib('class', '');
+		$firstname->setAttrib('size', '10');
+		
+		        $grant_id = new Zend_Form_Element_MultiCheckbox('grant_id');
+$grant_id->addValidator('Count', false, 1);
+		
+                       
+		
+		
+		
+		$submit = new Zend_Form_Element_Submit('Submit');
+		$back= new Zend_Form_Element_Submit('Back');
+		$update = new Zend_Form_Element_Submit('Update');
+
+		$this->addElements(array($update,$fee_id,$back,$firstname,$submit,$officebranch,$gender,$designation,$grant_id));
+
+    }
+}

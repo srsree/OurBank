@@ -1,0 +1,62 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<head>
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/reset-min.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/styles.css" />
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#holidayfrom").datepicker({});
+    $("#holidayupto").datepicker({});
+    $("#repayment_date").datepicker({});
+    $("#begindate").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#closedate").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#begindate33").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#fund_beginingdate").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#fund_closingdate").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#date1").datepicker({});
+    $("#loanAccountdate").datepicker({"dateFormat":"yy-mm-dd"});
+});
+</script>
+</head> 
+
+
+
+    <div id="ourbanklogo">
+      <h1><a href="#" title="OurBank">OurBank</a></h1>
+    </div>
+    <div id="welcomebar"><span class="welcomusr">Welcome <a href="#"><?php echo $this->username;?></a></span> <span class="longdate"><?php echo date("r");?></span><span class="signout"><a href="<?php  echo $this->baseUrl();?>/index/logout">signout</a></span>
+    </div>
+
+    <div id="navigation">
+      <div id="mainmenu">
+        <ul>
+	<li><a href="<?php  echo $this->baseUrl();?>/creditlinemain"><span>Creditline</span></a></li>
+	<li ><a href="<?php  echo $this->baseUrl();?>/accountingg"><span>Accounting</span></a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/transactiong"><span>Transaction</span></a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/reports"><span>Reports</span></a></li>        
+	<li><a href="<?php  echo $this->baseUrl();?>/meetingmain"><span>Meeting</span></a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/membership"><span>Membership</span></a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/management"><span>Management</span></a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/settings"><span>Setting</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+

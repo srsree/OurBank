@@ -1,0 +1,66 @@
+<?php
+class Loanduereport_Model_loanduereport extends Zend_Db_Table
+{
+protected $_name = 'ob_installmentdetails';
+
+    public function loanSearchh($fromDate,$toDate)
+    {
+           $select=$this->select()
+                        ->setIntegrityCheck(false)
+                        ->join(array('a'=>'ob_installmentdetails'),array('Installmentserial_id'))
+                        ->where('a.accountinstallment_date >= "'.$fromDate.'"  AND a.accountinstallment_date <= "'.$toDate.'"')
+                        ->where('a.installment_status=5 || a.installment_status=4')
+                        ->join(array('b'=>'ob_loan_accounts'),'b.account_id=a.account_id',array('loanaccount_id'))
+                        ->where('b.recordstatus_id = 3 || b.recordstatus_id = 1')
+                        ->join(array('c'=>'ob_accounts'),'c.account_id=b.account_id',array('account_number'))
+                        ->where('c.accountstatus_id = 3 || c.accountstatus_id = 1')
+                        ->join(array('f'=>'ob_member_details'),'f.member_id=c.member_id',array('member_id'))
+                        ->where('f.recordstatus_id=3 || f.recordstatus_id=1');
+                        $result = $this->fetchAll($select);
+                        return $result->toArray();
+                	die($select->__toString($select)); 
+   }
+
+    public function loanSearhb($brancId,$fromDate,$toDate)
+    {
+           $select=$this->select()
+                        ->setIntegrityCheck(false)
+                        ->join(array('a'=>'ob_installmentdetails'),array('Installmentserial_id'))
+                        ->where('a.accountinstallment_date >= "'.$fromDate.'"  AND a.accountinstallment_date <= "'.$toDate.'"')
+                        ->where('a.installment_status=5 || a.installment_status=4')
+                        ->join(array('b'=>'ob_loan_accounts'),'b.account_id=a.account_id',array('loanaccount_id'))
+                        ->where('b.recordstatus_id = 3 || b.recordstatus_id = 1')
+                        ->join(array('c'=>'ob_accounts'),'c.account_id=b.account_id',array('account_number'))
+                        ->where('c.accountstatus_id = 3 || c.accountstatus_id = 1')
+                        ->join(array('f'=>'ob_member_details'),'f.member_id=c.member_id',array('member_id'))
+                        ->where('f.recordstatus_id=3 || f.recordstatus_id=1')
+			->join(array('e'=>'ob_institute_bank_details'),'e.Institute_bank_id=f.Institute_bank_id',array('Institute_bank_id'))
+                         ->where('e.recordstatus_id = 3 || e.recordstatus_id = 1')
+			->where('e.Institute_bank_id=?',$brancId);
+                        $result = $this->fetchAll($select);
+                        return $result->toArray();
+                	die($select->__toString($select)); 
+   }
+
+     public function getBranchOffice()
+    {
+           $select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->join(array('a'=>'ob_institute_bank_details'),array('Institute_bank_id'),array('a.Institute_bank_name','a.Institute_bank_id'))
+			->where('a.submodule_id=2')
+                        ->where('recordstatus_id = 3 OR recordstatus_id = 1');
+                        return $result = $this->fetchAll($select);
+                        die($select->__toString($select));
+    }
+
+    public function getBranchOffice()
+    {
+           $select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->join(array('a'=>'ob_institute_bank_details'),array('Institute_bank_id'),array('a.Institute_bank_name','a.Institute_bank_id'))
+			->where('a.submodule_id=2')
+                        ->where('recordstatus_id = 3 OR recordstatus_id = 1');
+                        return $result = $this->fetchAll($select);
+                        die($select->__toString($select));
+    }
+}

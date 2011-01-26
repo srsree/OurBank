@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="application"/>
+	<buildpathentry kind="src" path="library/Amz/Controller/Action/Helper"/>
+	<buildpathentry kind="src" path="library/Amz/Controller/Plugin"/>
+	<buildpathentry kind="src" path="library/Zend"/>
+	<buildpathentry kind="src" path="library/ZendX"/>
+	<buildpathentry kind="src" path="public"/>
+	<buildpathentry kind="src" path="tests"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

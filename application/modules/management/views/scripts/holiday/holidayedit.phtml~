@@ -1,0 +1,35 @@
+<fieldset>
+<legend>Edit</legend>
+<table id="hor-minimalist-b"> 
+<form action="<?php echo $this->baseUrl();?>/management/holiday/holidayedit" method="POST">
+<TABLE id="hor-minimalist-b">
+<TR>
+<TD class="label">Holidayname<span class="reqMark">*</span></TD>
+<TD><?php echo $this->form->holidayname; echo $this->form->holidayupdate_id;?></TD>   
+</TR>
+<TR>
+<TD class="label">OfficeName<span class="reqMark">*</span></TD>
+<TD><?php echo $this->form->office_id;?></TD>
+</TR>
+<TR>
+<TD class="label">Holidayfrom<span class="reqMark">*</span></TD>
+<TD><?php echo $this->form->holidayfrom;?><span class="reqMark">&nbsp;[ yyyy-mm-dd ]</span></TD>
+</TR>
+<TR>
+<TD class="label">Holidayupto<span class="reqMark">*</span></TD>
+<TD ><?php echo $this->form->holidayupto;?><span class="reqMark">&nbsp;[ yyyy-mm-dd ]</span></TD>
+</TR>
+<TR>
+<TD class="label">Repayment<span class="reqMark">*</span></TD>
+<TD ><?php echo $this->form->repayment_date;?><span class="reqMark">&nbsp;[ yyyy-mm-dd ]</span></TD>
+</TR>
+<TR>
+<TD class="label"><?php echo $this->form->Submit;?></TD>
+<TD><a href="<?php echo $this->baseUrl(); ?>/management/holiday">
+<input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+</TR>
+</TABLE>
+</form>
+</div>
+</div>
+</fieldset>

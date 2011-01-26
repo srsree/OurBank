@@ -1,0 +1,98 @@
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+                <TR>
+                    <TH width=200%>Summary  Information of MFI's</TH> 
+                    <th></th><th></th>
+                </TR>
+                 <?php foreach($this->savings as $savings1){?>
+                    <TR>
+                        <td>Number of Branch Offices</td>
+                        <TD><?php echo $savings1['COUNT(name)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->savings1 as $allmembers){?>
+                    <TR>
+                        <td>Number of Members</td>
+                        <TD><?php echo $allmembers['COUNT(member_id)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->activeMembers as $activemember){?>
+                    <TR>
+                        <td>Number of Active Members</td>
+                        <TD><?php echo $activemember['COUNT(member_id)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->inactiveMembers as $inactivemember){?>
+                    <TR>
+                        <td>Number of Inactive Members</td>
+                        <TD><?php echo $inactivemember['COUNT(member_id)']?></TD>   
+                   </tr>
+                  <?php } ?>
+               
+                
+                 <?php foreach($this->loanAccounts as $loanaccounts){?>
+                    <TR>
+                        <td>Number of Loan Accounts</td>
+                        <TD><?php echo $loanaccounts['COUNT(name)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                   <?php foreach($this->totalLoans as $totalloans){?>
+                    <TR>
+                        <td>Total Figure of Loans Amount</td>
+                        <TD>Rs<?php echo $totalloans['SUM(loan_amount)']?>/-</TD>   
+                   </tr>
+                  <?php } ?>
+                   <?php foreach($this->loanDisburse as $loandisburse){?>
+                    <TR>
+                        <td>Total Amount of Loans Disbursed</td>
+                        <TD>Rs<?php echo $loandisburse['SUM(amount_disbursed)']?>/-</TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->loanRepay as $loanrepay){?>
+                    <TR>
+                        <td>Total Amount of Loans Repaid</td>
+                        <TD>Rs<?php echo $loanrepay['SUM(installmentpaid_amount)']?>/-</TD>   
+                   </tr>
+                   <?php } ?>
+                   <?php foreach($this->sql1 as $rateofRepay){  ?>
+                        <TR>
+                           <td>The Rate of Loan Repayment</font></td>
+                           <TD><?php echo $rateofRepay->rate;?>%</TD>
+                       </TR>
+                    <?php } ?>
+                    <?php foreach($this->sql as $loanDetails1){  ?>
+                        <TR>
+                            <td>The Amount of Loan Outstanding Details<font color ="red"> "(LoanDisbursed - LoanRepaid)"</font></td>
+                            <TD>Rs<?php  echo $loanDetails1->test;?>/-</TD>
+                    </TR>
+                    <?php } ?>
+                   <?php foreach($this->sql2 as $rateofRepay){  ?>
+                        <TR>
+                           <td>The Rate of Loan Outstanding Details</font></td>
+                           <TD><?php echo $rateofRepay->paid;?>%</TD>
+                       </TR>
+                    <?php } ?>
+                   
+                    <?php foreach($this->funders as $Funders){?>
+                    <TR>
+                        <td>Total Number of Funders</td>
+                        <TD><?php echo $Funders['COUNT(DISTINCT(name))']?></TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->fundings as $Fundings){?>
+                    <TR>
+                        <td>Total Number of Fundings by Funders</td>
+                        <TD><?php echo $Fundings['COUNT(id)']?></TD>
+                   </tr>
+                   <?php } ?>
+                   <?php foreach($this->totalFundings as $totalfundings){?>
+                    <TR>
+                        <td>Amount of Fundings funded for <font color ="red">"<?php echo $totalfundings['COUNT(id)']?>"</font> are</td>
+                        <TD>Rs<?php echo $totalfundings['SUM(amount)']?>/-</TD>
+                   </tr>
+                  <?php } ?>
+                    
+                 
+              </table>
+	   <?php echo $this->Error;?>
+        </div>

@@ -1,0 +1,158 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php
+if((!$this->income) && (!$this->expenditure)){ ?>
+<form action="<?php echo $this->baseUrl();?>/incomeexpenditure/index" method="POST">
+<div id="searchDiv">
+    <fieldset>
+        <legend><?php echo $this->translate('Search'); ?></legend>
+            <div class="search">
+                <TABLE id="hor-minimalist-b">
+                   <tr>
+                            <TD><?php echo $this->translate('As of date'); ?></td>
+                            <td><?php echo $this->form->datefrom;?></td>
+                   
+                            <td><input type="submit" name="Search" value="Search"/></td>
+                           
+                   </tr>
+        	</TABLE>
+	   </div>
+ 	</fieldset> 
+</div>
+</form>
+<?php } ?>
+<?php  
+$i=0;
+$j=0;
+$totalincome=0;$totalexpe=0;
+$countvalue1 =count($this->income);
+$countvalue2 =count($this->expenditure);
+$count = $countvalue1>$countvalue2?$countvalue1:$countvalue2; 
+if($this->income){ ?>
+	<h5 align="right"><?php echo $this->translate('As of'); ?> <font color='#039'><?php echo $this->asofdate;?></font></h5>
+	<h5 style="text-align:right">* <?php echo $this->translate('Amount in'); ?> <font color="red"><?php echo $this->translate('Rs'); ?></font></h5>
+<div style="float:left;width:370px">
+<h5>Credit</h5>
+            <TABLE id="hor-minimalist-s" summary="">
+                <tr bgcolor="Silver" >
+	            <td><font color="black"><?php echo $this->translate('Income'); ?></font></td>
+	            <td align="right"><font color="black"><?php echo $this->translate('Amount'); ?></font></td>
+                </tr>
+		<tr>
+                <?php foreach($this->income as $income) { $i++; ?>
+		<tr>
+                    <td><?php echo $income['header']; ?></td>
+		    <td align="right"><?php echo $income['credit']; $totalincome +=$income['credit']?></td>
+                </tr>
+		<?php } ?>
+		
+		<?php 
+			for($j=$i;$j<=$count;$j++){ 
+			 if($j==$count){ ?>
+				<tr>
+					<TD><b><?php echo $this->translate('Grand Total'); ?></b></TD>
+					<td align="right"><b><?php echo sprintf("%4.2f",$totalincome);?></b></td>
+				</tr>
+			<?php } else {?>
+				<tr>
+					<td><?php echo "----";?></td>
+					<td align="right"><?php echo "----";?></td>
+				</tr>
+		
+			<?php } } ?>
+	   </TABLE>
+	
+ </div>
+ <?php $i=0;$j=0; ?>
+	 
+<div style="float:right;width:370px">
+<h5>Debit</h5>
+	<TABLE id="hor-minimalist-s" summary="">
+                <tr bgcolor="Silver">
+	            <td><font color="black"><?php echo $this->translate('Expenditure'); ?></font></td>
+	            <td align="right"><font color="black"><?php echo $this->translate('Amount'); ?></font></td>
+                </tr>
+		<tr>
+                <?php foreach($this->expenditure as $expe) { $i++; ?>
+		<tr >
+                    <td><?php echo $expe['header']; ?></td>
+		    <td align="right"><?php echo $expe['credit']; $totalexpe +=$expe['credit']?></td>
+                </tr>
+		<?php }  ?>
+		
+		<?php
+			for($j=$i;$j<=$count;$j++){ 
+			 if($j==$count){ ?>
+				<tr>
+					<TD><b><?php echo $this->translate('Grand Total'); ?></b></TD>
+					<td align="right"><b><?php echo sprintf("%4.2f",$totalexpe);?></b></TD>
+				</tr>
+			<?php  } else {?>
+				<tr>
+					<td><?php echo "----";?></td>
+					<td align="right"><?php echo "----";?></td>
+				</tr>
+		
+			<?php } }  ?>
+		</TABLE>
+</div>	
+	
+<div style="float:left;width:800px">
+<form action="<?php echo $this->baseUrl();?>/incomeexpenditure/index/pdftransaction" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/incomeexpenditure/index/reportdisplay/file/<?php echo $this->fdate; ?>incomeexpenditure.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+            <input type="hidden" name="fdate" value="<?php echo $this->fdate; ?>">
+          
+
+            <input type="submit" value="PDF" id="submit">
+
+</form>
+</div>
+<?php } ?>
+<?php  
+if(($this->income) && ($this->expenditure)){  ?>
+
+<?php 
+if($totalincome>$totalexpe){ 
+$result = $totalincome-$totalexpe;
+	 echo "<font color='green'><h5>".$this->translate('Excess of income')." <font color='red'>".$result."</font>"; ?>/-<?php echo " ".$this->translate('over expenditure')."</h5></font>"; 
+}
+if($totalincome<$totalexpe){
+$result = $totalexpe-$totalincome;
+	 echo "<font color='green'><h5>".$this->translate('Excess of expenditure')." <font color='red'>".$result."</font>"; ?>/-<?php echo " ".$this->translate('over income')."</h5></font>"; 
+
+} } ?>

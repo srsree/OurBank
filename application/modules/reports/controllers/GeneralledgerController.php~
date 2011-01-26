@@ -1,0 +1,125 @@
+<?php
+
+class Reports_GeneralledgerController extends Zend_Controller_Action
+{
+
+function init()
+{ 
+$this->view->pageTitle = "General Ledger";
+$this->view->tilte = "Reports";
+	
+}
+function indexAction()
+{ 
+$this->view->pageTitle = "General Ledger";
+$this->view->tilte = "Reports";
+$searchForm = new Management_Form_Search();
+$this->view->form = $searchForm;
+$GeneralList = new Reports_Model_Generalledger();
+$products = $GeneralList->fetchAllProductNames();
+foreach($products as $products) {
+$searchForm->field5->addMultiOption($products['product_id'],$products['productname']);
+
+}
+if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+$fromDate = $this->_request->getParam('field2');
+$toDate = $this->_request->getParam('field3');
+$product = $this->_request->getParam('field5');
+
+
+
+if(!$product&& $fromDate && $toDate) {
+$datedet = $GeneralList->fetchledgerDetails($fromDate,$toDate);
+
+if (!$datedet) {
+echo 'No Transactions yet Records';
+} else {
+$this->view->ledgedatlist = $datedet;
+}}
+elseif($product && !$fromDate && !$toDate) {
+$datede = $GeneralList->fetchproductDetails($product);
+if (!$datede) {
+echo 'No Transactions yet Records';
+} else {
+$this->view->ledgedatlist = $datede;
+}}
+elseif($product && $fromDate && $toDate) {
+$dated = $GeneralList->fetchallDetails($product,$fromDate,$toDate);
+if (!$dated) {
+echo 'No Transactions yet Records';
+} else {
+$this->view->ledgedatlist = $dated;
+}}
+elseif(!$product && !$fromDate && !$toDate) {
+$date = $GeneralList->fetchemptyDetails();
+if (!$date) {
+echo 'No Transactions yet Records';
+} else {
+$this->view->ledgedatlist = $date;
+}}
+                $this->view->field1 = $fromDate;
+                $this->view->field2 = $toDate;
+                $this->view->field3 = $product;
+
+}
+
+}
+public function reportdisplayAction() {
+        $this->_helper->layout->disableLayout();
+        $file1 = $this->_request->getParam('file'); 
+        $this->view->filename = "/ourbank/reports/".$file1;
+    }
+public function pdfdisplayAction() 
+{ 
+
+       echo $fromDate = $this->_request->getParam('field2'); 
+      echo $toDate = $this->_request->getParam('field2');
+       echo $product = $this->_request->getParam('field3');
+
+        $pdf = new Zend_Pdf();
+        $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+        $pdf->pages[] = $page;
+
+        // Image
+        $image_name = "/var/www/ourbank/public/images/logo.jpg";
+        $image = Zend_Pdf_Image::imageWithPath($image_name);
+        //$page->drawImage($image, 25, 770, 570, 820);
+    $page->drawImage($image, 30, 770, 130, 820);
+        $page->setLineWidth(1)->drawLine(25, 25, 570, 25); //bottom horizontal
+        $page->setLineWidth(1)->drawLine(25, 25, 25, 820); //left vertical
+        $page->setLineWidth(1)->drawLine(570, 25, 570, 820); //right vertical
+        $page->setLineWidth(1)->drawLine(570, 820, 25, 820); //top horizontal
+        //set the font
+        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 8);
+    
+        $text = array("Date",
+                     "product name",
+                     "credit",
+                     "debit",
+                     "balance");
+$x0 = 60; 
+
+$x1 = 120; 
+        $x2 = 230; 
+        $x3 = 350;
+        $x4 = 460;
+        $x5 = 360;
+
+$page->drawLine(50, 740, 550, 740);
+        $page->drawLine(50, 720, 550, 720);
+        $page->drawText($text[0], $x0, 725);
+
+        $page->drawText($text[1], $x1, 725);
+        $page->drawText($text[2], $x2, 725);
+        $page->drawText($text[3], $x3, 725);
+        $page->drawText($text[4], $x4, 725);
+
+
+
+    
+    
+        $pdf->save('/var/www/ourbank/reports/GL.pdf');
+        $path = '/var/www/ourbank/reports/GL.pdf';
+        chmod($path,0777);
+}
+}

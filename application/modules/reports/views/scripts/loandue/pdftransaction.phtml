@@ -1,0 +1,82 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php
+if($this->loanView){
+        ?>
+<fieldset>
+    <legend>Loans</legend>
+
+            <TABLE id="hor-minimalist-b" >
+                <tr>
+	            <th>Account Number.</th>
+                    <th>Due Date</th>
+                    <th>OverDue Amount</th>
+	            <th>CurrentDue Amount</th>
+	        </tr>
+<?php
+ foreach($this->loanView as $loandue) { 
+if($loandue['installment_status']==5)
+{
+$overduetotal += $loandue['accountinstallment_amount'];
+}
+if($loandue['installment_status']==4)
+{
+$currentduetotal += $loandue['accountinstallment_amount'];
+}
+?>
+		<tr>
+	            <td><?php echo $loandue['account_number']; ?></td>
+                     <td><?php echo $loandue['accountinstallment_date']; ?></td>
+                    <td>
+                    <?php if($loandue['installment_status'] == 5) {
+                                
+                                echo $loandue['accountinstallment_amount'];
+                                 //  $this->amountPaid = $this->amountPaid + $loandue['accountinstallment_amount'];
+                     } ?>
+                    </td> 
+                      <td>
+                       <?php if($loandue['installment_status']==4)
+                         echo $loandue['accountinstallment_amount']; 
+                        ?>
+                    </td> 
+                </tr>
+<?php } 
+?>
+                <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td><?php echo $overduetotal; ?></td>
+                    <td><?php echo $currentduetotal; ?></td>
+                </tr>
+                <tr>
+                    <td>Outstanding Balance</td>
+                    <td></td>
+                    <td></td>
+                    <td><?php 
+                        $outstanding_amount=$overduetotal+$currentduetotal;
+                        echo $outstanding_amount; ?></td>
+                </tr>
+    </TABLE>
+</fieldset>
+<?php }
+ ?>
+
+
+

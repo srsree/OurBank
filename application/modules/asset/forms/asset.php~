@@ -1,0 +1,21 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class Asset_Form_asset extends Zend_Form
+{
+	public function init()
+	{
+	
+	      
+	
+         $submit = new Zend_Form_Element_Submit('Submit');
+	 $back= new Zend_Form_Element_Submit('Back');
+
+
+         $this->addElements( array ($submit,$back));
+
+		
+	}
+}
+/** end of class */

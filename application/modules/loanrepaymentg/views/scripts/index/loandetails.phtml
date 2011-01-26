@@ -1,0 +1,201 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<script type="text/javascript" src="jquery-1.3.1.js"></script>
+	<script type="text/javascript">
+	    $(document).ready(function(){
+	        $(".txt").each(function() {
+ 	            $(this).keyup(function(){
+                calculateSum();
+	            });
+	        });
+	    });
+	    function calculateSum() {
+	        var sum = 0;
+	        $(".txt").each(function() {
+            if(!isNaN(this.value) && this.value.length!=0) {
+	                sum += parseFloat(this.value);
+           }
+	        });
+	        $("#amount").val(sum.toFixed(2));
+	    }
+</SCRIPT> 
+<?php if (count($this->active) == 1 ){ ?> 
+    <table id="hor-minimalist-b">
+    	<TR>
+        	<TH>First disburse the loan</TH>
+        </TR>
+	</table>
+<?php } else { ?>
+<div style="float:left;width:350px"> 
+    <?php foreach($this->details as $details) { ?>
+        <table id="hor-minimalist-s">
+            <TR>
+                <TH>Menber details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td>Name </td>
+                <TD><?php echo $details->name ?></TD>
+            </TR>
+
+            <TR>
+                <td>Branch</td>
+                <TD><?php echo $details->officename ?></TD>
+            </TR>
+            <TR>
+                <td>Code</td>
+                <TD><?php echo $details->code ?></TD>
+
+            </TR>
+            <TR>
+                <td> Account code</td>
+                <td><?php echo $details->number ?></TD>
+            </TR>
+            <TR>
+                <TH>Loan Details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td>Loan name</b></td>
+                <td><?php echo $details->loanname ?></TD>
+            </TR>
+            <TR>
+                <td>Loan amount R$</b></td>
+                <td><?php echo $details->amount ?></TD>
+            </TR>
+
+            <TR>
+                <td>Interest rate %</td>
+                <TD><?php echo $details->interest ?></TD>
+            </TR>
+
+            <TR>
+            <td>Installments</td>
+                <TD><?php echo $details->installments ?></TD>
+            </TR>
+            <TR>
+                <td>Sanctioned date</b></td>
+                <td><?php echo $details->sanctioned ?></TD>
+            </TR>
+            <TR>
+                <td>Fee</b></td>
+                <td></TD>
+            </TR> 
+        </table> 
+		<br>
+        <table id="hor-minimalist-s" border="1">
+
+            <TR>
+                <TH colspan="8">Installment status</TH>
+                <TH></TH>
+                <TH></TH>
+
+            </TR>
+            <TR>
+                <TH width="50">Type</TH>
+                <TH>Installments</TD>
+                <TH colspan="9">Amount</TH>
+            </TR>
+            <TR>
+                <TD width="50">Paid</TD>
+				<?php foreach ($this->paid as $paid) { ?>
+                <TD><?php echo $paid->paidCount ; ?></TD>
+                <TD colspan="9"><?php echo $paid->paidAmt ; ?></TD>
+				<?php } ?>
+            </TR>
+            <TR>
+                <TD width="50">Due</TD>
+				<?php foreach ($this->unpaid as $unpaid) { ?>
+                <TD><?php echo $unpaid->unpaidCount ; ?></TD>
+                <TD colspan="9"><?php echo $unpaid->unpaidAmt ; ?></TD>
+				<?php } ?>
+            </TR>
+		</table>
+    <?php } ?>
+    <br/>
+</div>
+<?php $convertdate = new Creditline_Model_dateConvertor(); ?>
+
+<div style="float:right;width:350px"> 
+        <table id="hor-minimalist-s">
+                <TR>
+                    <TH>Current Due</TH>
+                    <TH></TH>
+                </TR>
+                <TR>
+                    <TD bgcolor="#FAFAFA"><label for="fld1">Principal</label></TD>
+                    <TD bgcolor="#FAFAFA"><?php echo $this->loan->p; ?></TD>
+                </TR>
+                <TR>
+                    <TD bgcolor="#FAFAFA"><label for="fld1">Interest</label></TD>
+                    <TD bgcolor="#FAFAFA"><?php echo $this->loan->int;?></TD>
+                </TR>
+                <TR>
+                    <TD bgcolor="#FAFAFA"><label for="fld1">Total</label></TD>
+                    <TD bgcolor="#FAFAFA"><?php echo $this->loan->totalAmt;?></TD>
+                </TR>
+			</table>
+	<br>
+    <fieldset>
+        <legend> Loan repayment </legend>
+		<form name="form1" action="<?php echo $this->baseUrl();?>/loanrepaymentg/index/loandetails" method="POST" name="joe" id="signupForm" class="cmxform">
+            <table class="fieldsets">
+                <TR>
+                    <TD><label for="fld1" class="mand">Date</label></TD>
+                    <TD><?php echo $this->loan->date; ?></TD>
+                </TR>
+				<?php if (count($this->group) !=0) { ?>
+				<TR>
+ 					<TD><label for="fld1" class="mand"></label></TD>
+                    <TD>Amount</TD>
+				</TR>
+				<?php foreach ($this->group as $group) {?>
+				<TR>
+ 					<TD>-&nbsp;<?php echo $group->name;?></TD>
+                    <TD><input type = "text" id = "<?php echo $group->id?>" name = "<?php echo $group->id?>" size ="8" class="txt" onkeyup = "totalAmount(this.value)"></TD>
+				</TR>
+				<?php } ?>
+                <TR>
+                    <TD><label for="fld1" class="mand">Amount R$</label></TD>
+                    <TD><input type = "text" id = "amount" name = "amount" size ="8"></TD>
+                </TR>
+				<?php } else { ?>
+                <TR>
+                    <TD><label for="fld1" class="mand">Amount R$</label></TD>
+                    <TD><?php echo $this->loan->amount;?></TD>
+                </TR>
+				<?php } ?>
+                <TR>
+                    <TD><label for="fld1" class="mand">Payment mode</label></TD>
+                    <TD><?php echo $this->loan->transactionMode;?></TD>
+                </TR>
+                <TR>
+                    <TD></TD>
+                    <TD><?php echo $this->loan->paymenttype_details;?>
+                    <h id="details" style="display:none">voucher/cheque/draft number</h></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Description</label></TD>
+                    <TD><?php echo $this->loan->description;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld3">Send sms</label></TD>
+                    <TD><?php echo $this->loan->sms;?></TD>
+                </TR>
+            </table>
+            <br/>
+            <div><?php echo $this->repaydate; ?><?php echo $this->currentdate; ?></div>
+            <div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->loan->Submit;?>
+                </div>
+                <div class="rtbtns">
+                    <a href="<?php echo $this->baseUrl();?>/loanrepaymentg/index"><?php echo $this->loan->Back;?></a>
+                </div>
+            </div>
+			<?php echo $this->loan->accNum;?>
+        </form>
+    </fieldset>
+</div>
+<?php } ?>

@@ -1,0 +1,227 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+?>
+
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+
+class Enquiry_Model_Summary extends Zend_Db_Table
+{
+ protected $_name = 'ourbank_officenames';
+
+
+
+        public function inactiveMemberDetails() {
+
+                $select = $this->select()
+                                ->setIntegrityCheck(false) 
+                                ->from(array('A' => 'ourbank_officenames'),array('COUNT(office_name)'))
+                                ->where('A.officetype_id = 4')
+                                ->join(array('B' => 'ourbank_officehierarchy'),'A.officetype_id = B.officetype_id');
+                                
+                            // die($select->__toString());
+
+                $result = $this->fetchAll($select);
+                return $result;
+            
+        }
+        public function allMembers() {
+
+                $select = $this->select()
+                                ->setIntegrityCheck(false) 
+                                ->from(array('A' => 'ourbank_members'),array('COUNT(member_id)'));
+                                                                
+                            // die($select->__toString());
+
+                $result = $this->fetchAll($select);
+                return $result;
+                                   }
+
+        public function activeMembers() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_membername'),array('COUNT(member_id)'))
+                                 ->where('A.recordstatus_id =3');
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+
+           public function inactiveMembers() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_membername'),array('COUNT(member_id)'))
+                                 ->where('A.recordstatus_id =1');
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+          public function savingAccounts() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_productdetails'),array('COUNT(productname)'))
+                                 ->where('A.category_id =1');
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+
+        public function totalSavings() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_savingsaccounts'),array('SUM(savings_amount)'))
+                                 ->where('A.recordstatus_id =3');
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+         public function loanAccounts() {
+
+                $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_productdetails'),array('COUNT(productname)'))
+                                 ->where('A.category_id =2');
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+              public function totalLoans() {
+ 
+                 $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_loanaccounts'),array('SUM(loan_amount)'))
+                                 ->where('A.recordstatus_id =3');
+                                 // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                     }
+                public function loanDisburse() {
+
+                    $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_loan_disbursement'),array('SUM(amount_disbursed)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                }   
+                public function loanRepay() {
+
+                    $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_loan_repayment'),array('SUM(loaninstallmentpaid_amount)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                            }
+                public function rateLoan() {
+                             $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_loan_repayment'),array('SUM(loaninstallmentpaid_amount)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                            }
+
+                public function funders() {
+                      $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_funderdetails'),array('COUNT(DISTINCT(fundername))'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                    }
+                public function fundings() {
+                      $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_fundingdetails'),array('COUNT(funding_id)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                    }
+                public function totalFundings() {
+                      $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_fundingdetails'),array('SUM(fundingamount), COUNT(funding_id)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                    }
+                 public function interestAmount() {
+                             $select = $this->select()
+                                 ->setIntegrityCheck(false)
+                                 ->from(array('A' => 'ourbank_transaction'),array('SUM(transaction_interest_amount)'));
+                                           // die($select->__toString());
+                $result = $this->fetchAll($select);
+                return $result;
+                                            }
+
+}
+
+//                  public function loanOutstanding() {
+//    
+// //                        $select = $this->select()
+// //                                       ->setIntegrityCheck(false)
+// //                                       ->from(array('A' => 'ourbank_loan_disbursement', array('SUM(A.amount_disbursed)',
+// //                                       ->from(array('B' => 'ourbank_loan_repayment',array('SUM(B.loaninstallmentpaid_amount'))))));
+//                                               //die($select->__toString());
+//                                $select = $this->select()
+//                                  ->setIntegrityCheck(false)
+//                                  ->from(array('ourbank_loan_disbursement'),array('SUM(amount_disbursed)',
+//                                $select1 = $this->select()
+//                                  ->from(array('ourbank_loan_repayment'),array('SUM( loaninstallmentpaid_amount)'))
+//                                   $result1 = $this->fetchAll($select1);
+//                                 return $result1;
+//                                     ));
+//                                   $result = $this->fetchAll($select);
+// 
+//                     return $result;
+// 
+//                                 } 
+
+
+//  SELECT SUM( amount_disbursed ) disbusedamount, (select SUM( loaninstallmentpaid_amount ) 
+//                          FROM ourbank_loan_repayment) paidamount,
+//                         SUM( amount_disbursed )- (select SUM( loaninstallmentpaid_amount ) 
+//                         FROM ourbank_loan_repayment) differenceamount
+//                         FROM ourbank_loan_disbursement';*/
+
+
+

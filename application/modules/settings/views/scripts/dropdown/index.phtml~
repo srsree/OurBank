@@ -1,0 +1,129 @@
+<script type="text/javascript" language="JavaScript">
+function check(yy)
+{ 
+var div0=document.getElementById(1);
+if(yy==1){
+div0.style.display='block';
+}
+}
+</script> 
+<fieldset>
+<legend>dropDown</legend>
+<div class="cont-rgt-data">
+<TABLE id="hor-minimalist-b" summary="">
+<tr><td valign = "top">
+<form id="Form1" action ="<?php echo $this->baseUrl();?>/settings/dropdown" method="POST">
+<select name = "tableName" class="txt_put" onchange="document.getElementById('Form1').submit()">
+<option>Choose...</option>
+<option value="ourbank_gender">Gender</option>
+<option value="ourbank_membermaritalstatus">marital Status</option>
+<option value="ourbank_membertypes">applicable To</option>
+<option value="ourbank_currency">Currency</option>
+<option value="ourbank_feefrequency">Frequency of deposit</option>
+<option value="ourbank_frequencyofpayment">installment Frequency</option>
+<option value="ourbank_interesttypes">interest Type</option>
+<option value="ourbank_graceperiods">grace Period</option>
+<option value="ourbank_holidayrepayment">Repayment</option>
+<option value="ourbank_paymenttypes">transaction Mode</option>
+<option value="ourbank_transaction_type">transaction Type</option>
+</select>
+<!--<input type="submit" value="Go" id="Submit1" />-->
+</form>
+</td>
+<td width="80%">
+<form id="Form1" action ="<?php echo $this->baseUrl();?>/settings/dropdown" method="POST">
+<?php if($this->table == 10) { ?>
+<fieldset>
+<legend>List of <? echo substr($this->tableName,8); ?></legend>
+<TABLE id="hor-minimalist-b" summary="">
+
+<?php foreach($this->tblcontent as $tblcontent) { 
+//print_r($tblcontent);    
+?>
+<tr class="tdbrown">
+<? switch ($this->tableName) { ?>
+<?  case "ourbank_gender" : ?> 
+                                
+<td width="80">  <?php echo $tblcontent['sex']; ?></td>
+<input type = "hidden" name = "pK" value = "gender_id">
+<input type = "hidden" name = "attribute" value = "sex">
+<? break; ?>
+
+<?  case "ourbank_membermaritalstatus" : ?> 
+<td width="80">  <?php echo $tblcontent['membermaritalstatusdescription']; ?></td>
+<input type = "hidden" name = "pK" value = "membermaritalstatus_id">
+<input type = "hidden" name = "attribute" value = "membermaritalstatusdescription">
+<? break; ?>
+
+<?  case "ourbank_membertypes" : ?> 
+<td width="80">  <?php echo $tblcontent['membertype']; ?></td>
+<input type = "hidden" name = "pK" value = "membertype_id">
+<input type = "hidden" name = "attribute" value = "membertype">
+<? break; ?>
+
+<?  case "ourbank_currency" : ?> 
+<td width="80">  <?php echo $tblcontent['currencyname']; ?></td>
+<input type = "hidden" name = "pK" value = "currency_id">
+<input type = "hidden" name = "attribute" value = "currencyname">
+<? break; ?>
+
+<?  case "ourbank_feefrequency" : ?> 
+<td width="80">  <?php echo $tblcontent['feefrequencytype']; ?></td>
+<input type = "hidden" name = "pK" value = "feefrequency_id">
+<input type = "hidden" name = "attribute" value = "feefrequencytype">
+<? break; ?>
+
+<?  case "ourbank_frequencyofpayment" : ?> 
+<td width="80">  <?php echo $tblcontent['timefrequencytype']; ?></td>
+<input type = "hidden" name = "pK" value = "timefrequncy_id">
+<input type = "hidden" name = "attribute" value = "timefrequencytype">
+<? break; ?>
+
+<?  case "ourbank_interesttypes" : ?> 
+<td width="80">  <?php echo $tblcontent['description']; ?></td>
+<input type = "hidden" name = "pK" value = "interesttype_id">
+<input type = "hidden" name = "attribute" value = "description">
+<? break; ?>
+
+<?  case "ourbank_graceperiods" : ?> 
+<td width="80">  <?php echo $tblcontent['graceperiodtype']; ?></td>
+<input type = "hidden" name = "pK" value = "graceperiod_id">
+<input type = "hidden" name = "attribute" value = "graceperiodtype">
+<? break; ?>
+
+<?  case "ourbank_holidayrepayment" : ?> 
+<td width="80">  <?php echo $tblcontent['repaymentdescription']; ?></td>
+<input type = "hidden" name = "pK" value = "holidayrepayment_id">
+<input type = "hidden" name = "attribute" value = "repaymentdescription">
+<? break; ?>
+
+<?  case "ourbank_paymenttypes" : ?> 
+<td width="80">  <?php echo $tblcontent['paymenttype_description']; ?></td>
+<input type = "hidden" name = "pK" value = "paymenttype_id">
+<input type = "hidden" name = "attribute" value = "paymenttype_description">
+<? break; ?>
+
+<?  case "ourbank_transaction_type" : ?> 
+<td width="80">  <?php echo $tblcontent['transaction_type']; ?></td>
+<input type = "hidden" name = "pK" value = "transactiontype_id">
+<input type = "hidden" name = "attribute" value = "transaction_type">
+<? break; ?>
+
+<?php } ?>
+</tr>
+<?php } ?>
+
+<tr><td><input type = "button" name = "New" value = "New <?echo ucfirst(substr($this->tableName,8)); ?>" class= "NormalBtn"  onclick="check('01');"></td></tr>
+</table>
+<div id="1" style="display: none">
+<?php echo $this->form->textvalue;
+      echo $this->form->Add; 
+      echo $this->form->table_name; 
+?>
+</div>
+<?php } ?>
+</fieldset>
+</div>
+
+</fieldset>
+</form></td></tr></TABLE></div></fieldset>

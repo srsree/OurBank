@@ -1,0 +1,69 @@
+<?php
+class Management_Form_Fundings extends ZendX_JQuery_Form {
+    public function init() {
+
+        $fundingupdates_id = new Zend_Form_Element_Hidden('fundingupdates_id');
+
+        $fundingupdates_id = new Zend_Form_Element_Hidden('fundingupdates_id');
+
+
+        $funder_id = new Zend_Form_Element_Select('funder_id');
+        $funder_id->addMultiOption('','Select...');
+        $funder_id->setAttrib('class', 'txt_put');
+        $funder_id->setRequired(true)
+                     ->addValidators(array(array('NotEmpty')));
+
+        $fundtype_id = new Zend_Form_Element_Select('fundtype_id');
+        $fundtype_id->addMultiOption('','Select...');
+        $fundtype_id->setAttrib('class', 'txt_put');
+        $fundtype_id->setRequired(true)
+                     ->addValidators(array(array('NotEmpty')));
+
+        $fundingname = new Zend_Form_Element_Text('fundingname');
+        $fundingname->addValidator(new Zend_Validate_Db_NoRecordExists('ourbank_fundingdetails', 'fundingname'));
+        $fundingname->setAttrib('class', 'txt_put');
+        $fundingname->setRequired(true)
+                        ->addValidators(array(array('NotEmpty')));
+
+        $funding_currency_id = new Zend_Form_Element_Select('funding_currency_id');
+        $funding_currency_id->addMultiOption('','Select...');
+        $funding_currency_id->setAttrib('class', 'txt_put');
+        $funding_currency_id->setRequired(true)
+                            ->addValidators(array(array('NotEmpty')));
+
+        $fundingamount = new Zend_Form_Element_Text('fundingamount');
+        $fundingamount->setAttrib('class', 'txt_put');
+        $fundingamount->setRequired(true)
+                       ->addValidators(array(array('Digits',)));
+
+        $exchangerate = new Zend_Form_Element_Text('exchangerate');
+        $exchangerate->setAttrib('class', 'txt_put');
+        $exchangerate->setRequired(true)
+                       ->addValidators(array(array('Float',)));
+
+        $fund_beginingdate = new ZendX_JQuery_Form_Element_DatePicker('fund_beginingdate');
+        $fund_beginingdate->setAttrib('class', 'txt_put');
+        $fund_beginingdate->setJQueryParam('dateFormat', 'yy-mm-dd');
+        $fund_beginingdate->setRequired(true)
+                   ->addValidators(array(array('NotEmpty',)));
+
+        $fund_closingdate  = new ZendX_JQuery_Form_Element_DatePicker('fund_closingdate');
+        $fund_closingdate->setAttrib('class', 'txt_put');
+        $fund_closingdate->setJQueryParam('dateFormat', 'yy-mm-dd');
+        $fund_closingdate->setRequired(true)
+                   ->addValidators(array(array('NotEmpty',)));
+
+        $submit = new Zend_Form_Element_Submit('Submit');
+        $submit->removeDecorator('DtDdWrapper');
+
+        $this->addElements(array($fundingupdates_id,$fundingupdates_id,
+                                 $funder_id,$fundtype_id,
+                                 $fundingname,$funding_currency_id,
+                                 $fundingamount,$exchangerate,
+                                 $fund_beginingdate,$fund_closingdate,
+                                 $submit));
+
+    }
+
+
+}

@@ -1,0 +1,332 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+
+class Reports_CashscrollController extends Zend_Controller_Action
+{
+    function init() { 
+        $this->view->pageTitle = "Cash Scroll";
+    }
+
+    function indexAction() {
+        $searchForm = new Reports_Form_Search();
+        $this->view->form = $searchForm;
+        
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+            $fromDate = $this->_request->getParam('field1'); 
+            $toDate = $this->_request->getParam('field2');
+            $formData = $this->_request->getPost();
+            if ($searchForm->isValid($formData)) {
+                $this->view->savings = 10;
+                $transaction = new Reports_Model_Cashscroll();
+
+                //Saving Account Credit and Debit
+                $ggg=$this->view->savingsCredit = $transaction->totalSavingsCredit($fromDate,$toDate);
+                foreach($ggg as $ggg1){}
+                echo "hi";
+                $this->view->savingsDebit = $transaction->totalSavingsDebit($fromDate,$toDate);
+
+                //Fixed Account Credit and Debit
+                $this->view->fixedCredit = $transaction->totalFixedCredit($fromDate,$toDate);
+                $this->view->fixedDebit = $transaction->totalFixedDebit($fromDate,$toDate);
+
+                //Fixed Account Credit and Debit
+                $this->view->recurringCredit = $transaction->totalRecurringCredit($fromDate,$toDate);
+                $this->view->recurringDebit = $transaction->totalRecurringDebit($fromDate,$toDate);
+
+                //Laon Account Credit and Debit
+                $this->view->laonCredit = $transaction->totalLoanCredit($fromDate,$toDate);
+                $this->view->loanDebit = $transaction->totalLoanDedit($fromDate,$toDate);
+
+                //
+                // Opening Balance and Closing Balance
+                //
+                $sumOsc = 0; $sumOrc = 0; $sunOfc = 0; $sumOlc =0;
+                $osc = $transaction->openingSavingsCredit($fromDate);
+                foreach($osc as $osc1) {
+                $sumOsc = $sumOsc + $osc1->openingsavingcredit;
+                }
+
+                $orc = $transaction->openingRecurringCredit($fromDate);
+                foreach($orc as $orc1) {
+                $sumOrc = $sumOrc + $orc1->openingrecurringcredit;
+                }
+
+                $ofc = $transaction->openingFixedCredit($fromDate);
+                foreach($ofc as $ofc1) {
+                $sunOfc = $sunOfc + $ofc1->openingfixedcredit;
+                }
+
+                $olc = $transaction->openingLoanCredit($fromDate);
+                foreach($olc as $olc1) {
+                $sumOlc = $sumOlc + $olc1->openingloancredit;
+                }
+
+                $this->view->openingBalance = $sumOsc + $sumOrc + $sunOfc + $sumOlc;
+
+                $this->view->field1 = $fromDate;
+                $this->view->field2 = $toDate;
+            }
+         }
+    }
+
+    function reportdisplayAction() {
+        $this->_helper->layout->disableLayout();
+        $file1 = $this->_request->getParam('file'); 
+
+$app = $this->view->baseUrl();
+$word=explode('/',$app);
+$projname = $word[1];
+
+
+        $this->view->filename = "/'.$projname.'/reports/".$file1;
+    }
+
+
+    function pdftransactionAction() { 
+        $pdf = new Zend_Pdf();
+        $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+        $pdf->pages[] = $page;
+
+
+$app = $this->view->baseUrl();
+$word=explode('/',$app);
+$projname = $word[1];
+
+
+
+        // Image
+        $image_name = "/var/www/".$projname."/public/images/logo.jpg";
+        $image = Zend_Pdf_Image::imageWithPath($image_name);
+        //$page->drawImage($image, 25, 770, 570, 820);
+    
+        $page->drawImage($image, 30, 770, 130, 820);
+        $page->setLineWidth(1)->drawLine(25, 25, 570, 25); //bottom horizontal
+        $page->setLineWidth(1)->drawLine(25, 25, 25, 820); //left vertical
+        $page->setLineWidth(1)->drawLine(570, 25, 570, 820); //right vertical
+        $page->setLineWidth(1)->drawLine(570, 820, 25, 820); //top horizontal
+        //set the font
+        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 8);
+    
+        $text = array("Cash Scroll",
+                    "SL No.",
+                    "Receipt",
+                    "Amount",
+                    "Total",
+                    "Payment",
+                    "Opening Balance",
+                    "Closing Balance");
+        $this->view->savings = 10;
+        $page->drawText("Date : ".date('d-m-Y'),500, 800); //date('Y-m-d')
+        $page->drawText("Date : ".date('d-m-Y'),500, 800); 
+        $page->drawText($text[0],240, 780);$page->drawText($text[0],240, 780);
+
+        $x1 = 60; 
+        $x2 = 120; 
+        $x3 = 220;
+        $x4 = 340;
+        $x5 = 400;
+        $x6 = 500;
+    
+        $page->drawLine(50, 740, 550, 740);
+        $page->drawLine(50, 720, 550, 720);
+
+        $page->drawText($text[1], $x1, 725);
+        $page->drawText($text[2], $x2, 725);
+        $page->drawText($text[3], $x3, 725);
+        $page->drawText($text[1], $x4, 725);
+        $page->drawText($text[5], $x5, 725);
+        $page->drawText($text[3], $x6, 725);
+    
+
+    
+        $y1 = 710;
+        $y2 = 710;
+
+        $fromDate = $this->_request->getParam('field1'); 
+        $toDate = $this->_request->getParam('field2');
+
+        $transaction = new Reports_Model_Cashscroll();
+
+                $this->view->savings = 10;
+
+                $this->view->savingsCredit = $transaction->totalSavingsCredit($fromDate,$toDate);
+                $this->view->savingsDebit = $transaction->totalSavingsDebit($fromDate,$toDate);
+
+                //Fixed Account Credit and Debit
+                $this->view->fixedCredit = $transaction->totalFixedCredit($fromDate,$toDate);
+                $this->view->fixedDebit = $transaction->totalFixedDebit($fromDate,$toDate);
+
+                //Fixed Account Credit and Debit
+                $this->view->recurringCredit = $transaction->totalRecurringCredit($fromDate,$toDate);
+                $this->view->recurringDebit = $transaction->totalRecurringDebit($fromDate,$toDate);
+
+                //Laon Account Credit and Debit
+                $this->view->laonCredit = $transaction->totalLoanCredit($fromDate,$toDate);
+                $this->view->loanDebit = $transaction->totalLoanDedit($fromDate,$toDate);
+
+                //Saving Account Credit and Debit
+                $savingsCredit = $transaction->totalSavingsCredit($fromDate,$toDate);
+                $savingsDebit = $transaction->totalSavingsDebit($fromDate,$toDate);
+
+                //Fixed Account Credit and Debit
+                $fixedCredit = $transaction->totalFixedCredit($fromDate,$toDate);
+                $fixedDebit = $transaction->totalFixedDebit($fromDate,$toDate);
+
+                //Fixed Account Credit and Debit
+                $recurringCredit = $transaction->totalRecurringCredit($fromDate,$toDate);
+                $recurringDebit = $transaction->totalRecurringDebit($fromDate,$toDate);
+
+                //Laon Account Credit and Debit
+                $laonCredit = $transaction->totalLoanCredit($fromDate,$toDate);
+                $loanDebit = $transaction->totalLoanDedit($fromDate,$toDate);
+
+                //
+                // Opening Balance and Closing Balance
+                //
+                $sumOsc = 0; $sumOrc = 0; $sunOfc = 0; $sumOlc =0; $sum =0;
+                $osc = $transaction->openingSavingsCredit($fromDate);
+                foreach($osc as $osc1) {
+                $sumOsc = $sumOsc + $osc1->openingsavingcredit;
+                }
+
+                $orc = $transaction->openingRecurringCredit($fromDate);
+                foreach($orc as $orc1) {
+                $sumOrc = $sumOrc + $orc1->openingrecurringcredit;
+                }
+
+                $ofc = $transaction->openingFixedCredit($fromDate);
+                foreach($ofc as $ofc1) {
+                $sunOfc = $sunOfc + $ofc1->openingfixedcredit;
+                }
+
+                $olc = $transaction->openingLoanCredit($fromDate);
+                foreach($olc as $olc1) {
+                $sumOlc = $sumOlc + $olc1->openingloancredit;
+                }
+
+                $this->view->openingBalance = $sumOsc + $sumOrc + $sunOfc + $sumOlc;
+                $openingBalance = 0;
+                $openingBalance = $this->view->openingBalance;
+
+        $amountCredit = "0";
+        $amountDebit = "0";
+        $i = 0; $j=0;
+
+        foreach($savingsCredit as $savingsCredit) {
+            $i++;
+            $page->drawText($i,$x1, $y1);
+            $page->drawText($savingsCredit->offerproductname,$x2, $y1);
+            $page->drawText($savingsCredit->transaction_amount,$x3, $y1);
+            $amountCredit = $amountCredit + $savingsCredit->transaction_amount;
+            $y1 = $y1 - 15;
+        }
+        foreach($savingsDebit as $savingsDebit) {
+            $j++;
+            $page->drawText($j,$x4, $y2);
+            $page->drawText($savingsDebit->offerproductname,$x5, $y2);
+            $page->drawText($savingsDebit->transaction_amount,$x6, $y2);
+            $amountDebit = $amountDebit + $savingsDebit->transaction_amount;
+            $y2 = $y2 - 15;
+        }
+        foreach($fixedCredit as $fixedCredit) {
+            $i++;
+            $page->drawText($i,$x1, $y1);
+            $page->drawText($fixedCredit->offerproductname,$x2, $y1);
+            $page->drawText($fixedCredit->transaction_amount,$x3, $y1);
+            $amountCredit = $amountCredit + $fixedCredit->transaction_amount;
+            $y1 = $y1 - 15;
+        }
+        foreach($fixedDebit as $fixedDebit) {
+            $j++;
+            $page->drawText($j,$x4, $y2);
+            $page->drawText($fixedDebit->offerproductname,$x5, $y2);
+            $page->drawText($fixedDebit->transaction_amount,$x6, $y2);
+            $amountDebit = $amountDebit + $fixedDebit->transaction_amount;
+            $y2 = $y2 - 15;
+        }
+    
+        foreach($recurringCredit as $recurringCredit) {
+            $i++;
+            $page->drawText($i,$x1, $y1);
+            $page->drawText($recurringCredit->offerproductname,$x2, $y1);
+            $page->drawText($recurringCredit->transaction_amount,$x3, $y1);
+            $amountCredit = $amountCredit + $recurringCredit->transaction_amount;
+            $y1 = $y1 - 15;
+        }
+        foreach($recurringDebit as $recurringDebit) {
+            $j++;
+            $page->drawText($j,$x4, $y2);
+            $page->drawText($recurringDebit->offerproductname,$x5, $y2);
+            $page->drawText($recurringDebit->transaction_amount,$x6, $y2);
+            $amountDebit = $amountDebit + $recurringDebit->transaction_amount;
+            $y2 = $y2 - 15;
+        }
+        foreach($laonCredit as $laonCredit) {
+            $i++;
+            $page->drawText($i,$x1, $y1);
+            $page->drawText($laonCredit->offerproductname,$x2, $y1);
+            $page->drawText($laonCredit->transaction_amount,$x3, $y1);
+            $amountCredit = $amountCredit + $laonCredit->transaction_amount;
+            $y1 = $y1 - 15;
+        }
+        foreach($loanDebit as $loanDebit) {
+            $j++;
+            $page->drawText($j,$x4, $y2);
+            $page->drawText($loanDebit->offerproductname,$x5, $y2);
+            $page->drawText($loanDebit->transaction_amount,$x6, $y2);
+            $amountDebit = $amountDebit + $loanDebit->transaction_amount;
+            $y2 = $y2 - 15;
+        }
+        $page->drawLine(50, $y1, 550, $y1);
+                //opening balnce
+        $page->drawText($text[6], $x1, $y1 - 10);
+        $page->drawText(sprintf("%4.2f", $openingBalance), $x3, $y1 -10);
+
+        //closing Balance
+        $page->drawText($text[7], $x4, $y1 -10); 
+        $page->drawText(sprintf("%4.2f", ( $sum = ($amountCredit + $openingBalance) - $amountDebit)), $x6, $y1 -10);
+
+        $page->drawLine(50, $y1 = $y1 - 20, 550, $y1);
+        $page->drawLine(50, $y1 -20, 550, $y1-20);
+    
+
+        $page->drawText($text[4], $x1, $y1 -15);$page->drawText($text[4], $x1, $y1 -15);
+        $page->drawText(sprintf("%4.2f", ($amountCredit + $openingBalance)), $x3, $y1 -15);
+        $page->drawText(sprintf("%4.2f", ($amountCredit + $openingBalance)), $x3, $y1 -15);
+        $page->drawText($text[4], $x4, $y1 -15); $page->drawText($text[4], $x4, $y1 -15);
+        $page->drawText(sprintf("%4.2f", $amountDebit + $sum), $x6, $y1 -15);
+        $page->drawText(sprintf("%4.2f", $amountDebit + $sum), $x6, $y1 -15);  
+    
+        // Virtual table
+        $page->setLineWidth(1)->drawLine(50, $y1 - 20, 50, 740); //Table left vertical
+        $page->setLineWidth(1)->drawLine(300, $y1 - 20, 300, 740); //Table center vertical
+        $page->setLineWidth(1)->drawLine(550, $y1 - 20, 550, 740); //table rigth vertical
+        //$page->drawText("ಭಾವನಾ. ಕೆ. ಎಸ್ ",$x6 + 30, $y1 -15, 'UTF-8'); 
+
+        $pdfData = $pdf->render();
+    
+    
+        $pdf->save('/var/www/'.$projname.'/reports/cashscroll.pdf');
+        $path = '/var/www/'.$projname.'/reports/cashscroll.pdf';
+        chmod($path,0777);
+
+    }
+}

@@ -1,0 +1,41 @@
+<div style="float:left;width:350px"> 
+<table id="hor-minimalist-s">
+   <TR>
+      <td>Member code:</td><TD><? echo $this->membercode; ?></TD>
+   </TR>
+   <TR>
+        <td><? echo $this->label; ?></td>
+         <td><?php echo $this->groupname; echo $this->memberfirstname;?></TD>
+    </TR>
+    <TR>
+        <td>Branch</td><td><?php echo $this->branch ;?></td>
+    </TR>
+</table>
+<br/>
+<table id="hor-minimalist-s">
+     <tr>
+         <th>Loans</th>
+     </tr>
+     <?php foreach ($this->savingsProducts as $savingsProducts) { ?>
+     <tr>
+         <td><a href = "<?php echo $this->baseUrl();?>/account/index/loans/activityId/<?php echo $savingsProducts->activity_id;?>/memberId/<?php echo $this->memberId;?>/" ><?php echo $savingsProducts->activity_name;?></a></td>
+    </tr>
+    <?php }  ?>
+</table>
+</div>
+
+<div style="float:right;width:350px">
+    <table id="hor-minimalist-s">
+       <TR>
+           <th>Account</td>
+           <th>Products</th>
+       </TR>
+       <?php foreach($this->account as $arrayroles2)  { ?>
+       <TR>
+           <TD><?php echo $arrayroles2->account_number;?></TD>
+           <TD><?php echo $arrayroles2->activity_name;?></TD>
+       </TR>
+       <? } ?>
+     </table>
+</div>
+

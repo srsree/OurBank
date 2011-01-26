@@ -1,0 +1,14 @@
+<?php
+class Management_Model_productsavings extends Zend_Db_Table {
+	protected $_name = 'ourbank_productssaving';
+
+	public function editproductssaving($post,$offerproductupdate_id) {
+		$where = 'offerproductupdate_id = '.$category_id;
+		$data = array('frequencyofdeposit'=>$post['frequencyofdeposit'],
+					'minmumdeposit'=>$post['minmumdeposit'],
+					'minimumbalanceforinterest'=>$post['minimumbalanceforinterest'],
+					'frequencyofinterestupdating'=>$post['frequencyofinterestupdating'],
+					'Int_timefrequency_id'=>$post['Int_timefrequency_id']);
+		$this->update($data,$where);
+	}
+}

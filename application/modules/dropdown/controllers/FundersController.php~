@@ -1,0 +1,88 @@
+<?php
+class Management_FundersController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Funders';
+    }
+
+    public function indexAction() {
+        $this->view->title = "Funders";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $funders = new Management_Model_Funders();
+        $result = $funders->getFundersDetails();
+
+        foreach($result as $funders) {
+                $searchForm->field1->addMultiOption($funders['fundername'],$funders['fundername']);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($searchForm->isValid($formData)) {
+                    $funders = new Management_Model_Funders();
+                    $result = $funders->SearchFunder($searchForm->getValues());
+
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+                }
+            }
+        }
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+
+    }
+
+    public function fundersviewAction() {
+        $this->view->title = "View Funders";
+        $funderaddress_id = (int)$this->_getParam('id');
+
+        $funders = new Management_Model_Funders();
+        $result = $funders->viewFunders($funderaddress_id);
+        $this->view->funders = $result;
+    }
+
+    public function fundersaddAction() {
+        $this->view->title = "Add Funders";
+        $funders = new Management_Model_Funders();
+        $this->view->result = $funders->getFundersDetails();
+
+        $fundersForm = new Management_Form_Funders();
+        $this->view->form = $fundersForm;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($fundersForm->isValid($formData)) {
+
+                    $dbAdapter = Zend_Db_Table::getDefaultAdapter();
+                    $data['funder_id']='';
+                    $dbAdapter->insert('ourbank_funders', $data);
+                    $funder_id  = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_funders','funder_id');
+
+                    $funders = new Management_Model_Funders();
+                    $result = $funders->addFunder($fundersForm->getValues(),$funder_id);
+                    $this->_redirect('management/funders/index');
+               }
+            }
+        }
+    }
+
+    public function funderseditAction() {
+
+    }
+
+    public function fundersdeleteAction() {
+
+    }
+}

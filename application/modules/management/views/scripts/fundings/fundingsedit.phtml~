@@ -1,0 +1,74 @@
+<div>
+<div style="width:470px;float:left">
+<fieldset>
+    <legend>Edit NewFundings</legend>
+        <div class="cont-rgt-data">
+            <form action="<?php echo $this->baseUrl();?>/management/fundings/fundingsedit" method="POST">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <tr>
+                        <TD>Funders</TD>
+                        <TD><?php echo $this->form->funder_id; echo $this->form->fundingupdates_id;
+                                  echo $this->form->funding_id;?></TD>
+                    </TR>
+			<tr> 
+                        <td>Instituition Name</td>
+                        <td><?php echo $this->form->institutionname;?></td>
+						</tr>
+                  
+                    <tr> 
+                        <td>Funding Name</td>
+                        <td><?php echo $this->form->fundingname;?></td>
+                   </tr>
+                    <tr> 
+                        <td>Funding Amount</td>
+                        <td><? echo $this->form->fundingamount;?></td>
+                    </tr>
+                    <tr> 
+                        <td>Funding Currency</td>
+                        <td><? echo $this->form->funding_currency_id;?></td>
+                    </tr>
+                    <tr> 
+                        <td>Currency Exchanging Rate</td>
+                        <td><? echo $this->form->exchangerate;?></td>
+                    </tr>
+                    <tr> 
+                        <td>Funding Period From   (yyyy-mm-dd)</td>
+                        <td><? echo $this->form->fund_beginingdate;?></td>
+                    </tr>
+                    <tr> 
+                        <td>Funding Period To   (yyyy-mm-dd)</td>
+                        <td><? echo $this->form->fund_closingdate;?></td>
+                    </tr>
+                </table>
+            </div>
+        <table width="100%">
+            <TR>
+                 <td><a href="<?php echo $this->baseUrl(); ?>/management/fundings"><input name="submit" type="submit" class="NormalBtn" 
+                                    value="back"></a></td>
+                    <td align="right"><?echo $this->form->Submit;?></td>
+            </TR>
+        </table>
+            <b style="color:red;"><?php echo $this->existedFunderName; ?></b>
+    </form>
+</fieldset>
+</div>
+    <div style="width:320px;float:left;">
+    <fieldset>
+        <legend>Alreadyexisting Funders</legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <TR class="tdbrownheading">
+                        <th>Funders Name</th>
+                        <th>Funding Amount</th>
+                    </TR>
+                    <?php foreach($this->fundings as $fundings) : ?>
+                    <tr>
+                        <td><?php echo $this->escape($fundings['fundingname']);?></td>
+                        <td> <?php echo $this->escape($fundings['fundingamount']);?></td>
+                    </tr>
+                    <?php endforeach;?>
+            </table>
+        </div>
+</fieldset>
+</div>
+</div>

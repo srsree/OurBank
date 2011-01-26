@@ -1,0 +1,34 @@
+<fieldset>
+    <legend>View Category</legend>
+	<div class="cont-rgt-data">
+        <?php foreach($this->category as $category) {  ?>
+            <TABLE id="hor-minimalist-b">
+                <TR>
+                    <TD>Category Name</TD>
+                    <TD><?php echo $category['categoryname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Category Description</TD>
+                    <TD><?php echo $category['categorydescription'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD><a href="<?php echo $this->baseUrl(); ?>/management/category">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+              </TR>
+        </TABLE>
+<?php } ?>
+    </div>
+</fieldset>
+
+

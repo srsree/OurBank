@@ -1,0 +1,22 @@
+<?php
+class Loancount_Model_Loancount extends Zend_Db_Table {
+	protected $_name = 'ob_accounts';
+
+	
+	public function countofloanaccount(){
+
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_accounts'),array('account_id'),array('member_id','count(account_number) as Account'))
+			->group('a.member_id')
+			->join(array('b' => 'ob_member_details'),'a.member_id = b.member_id')
+			->join(array('c' => 'ob_member'),'c.member_id = b.member_id ')
+			->where('c.member_type = 4')
+			->where('b.recordstatus_id = 3');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+		//die($select->__toString($select));
+	}
+
+
+}

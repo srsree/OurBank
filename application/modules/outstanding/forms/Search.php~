@@ -1,0 +1,17 @@
+<?php
+class Outstanding_Form_Search extends ZendX_JQuery_Form {
+    public function init() {
+	//$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+	$formfield = new App_Form_Field ();
+	$bank = $formfield->field('Select','bank','','','','',false,'','','','','','','');
+	$activity = $formfield->field('Select','activity','','','','',false,'','','','','','','');
+	$creditline = $formfield->field('Select','creditline','','','','',false,'','','','','','','');
+	$year = $formfield->field('Select','year','','','','',true,'','','','','','','');
+	$month = $formfield->field('Select','month','','','','',true,'','','','','','','');
+        $submit = new Zend_Form_Element_Submit('Search');
+	 $pdf=new Zend_Form_Element_Submit('PDF');
+
+        $this->addElements(array($bank,$activity,$creditline,$month,$year,$submit,$pdf));
+
+    }
+}

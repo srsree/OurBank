@@ -1,0 +1,49 @@
+
+
+
+<div id = "searchDiv">
+<fieldset>
+<legend>Edit penalty</legend>
+	<form action="<?php echo $this->baseUrl();?>/penalty/index/penaltyedit/penalty_id/<?php echo $this->penalty_id;?>" method="POST">
+		<table class="fieldsets">
+			<TR>
+			<TD colspan="4" align="right"><a href="<?php echo $this->baseUrl();?>/penalty/index/penaltydelete/penalty_id/<?php echo $this->penalty_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></a></TD>
+			</TR>
+				<TR >
+				<TD ><label for="fld1" class="mand">Penalty name</TD>
+				<TD ><?php echo $this->penaltyform->penaltyname;?></TD>
+			</TR>
+			<TR >
+				<TD ><label for="fld1" class="mand">Penalty per month</TD>
+				<TD ><?php echo $this->penaltyform->penalty_per_month;?></TD>
+			
+				<TD ><label for="fld1" class="mand">Unit per month</TD>
+				<TD ><?php echo $this->penaltyform->unit_per_month;?></TD>
+			</TR>
+			<TR >
+				<TD ><label for="fld1" class="mand">Penalty per day</TD>
+				<TD ><?php echo $this->penaltyform->penalty_per_day;?></TD>
+			
+				<TD ><label for="fld1" class="mand">Unit per day</TD>
+				<TD ><?php echo $this->penaltyform->unit_per_day;?></TD>
+			</TR> 
+			<TR >
+				<TD ><label for="fld1" class="mand">Creditline name</TD>
+				<TD ><?php echo $this->penaltyform->creditlinename;?></TD><td></td><td></td>
+			</TR> 
+			<TR >
+				<TD ><label for="fld1" class="mand">Active</TD>
+				<TD ><?php echo $this->penaltyform->status;?></TD>
+			</TR> 
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<input type="Submit" name="Update" value="Update">
+			</div>
+			<div class="rtbtns">
+			<a href="<? echo $this->baseUrl();?>/penaltycommonview/index/index/penalty_id/<?php echo $this->penalty_id;?>"><input type="button" value="Back"></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>

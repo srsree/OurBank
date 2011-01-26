@@ -1,0 +1,128 @@
+<?php
+class Management_Form_User extends Zend_Form {
+    public function init() {
+        $user_id = new Zend_Form_Element_Hidden('user_id'); 
+
+        $officetype_id = new Zend_Form_Element_Select('officetype_id');
+        $officetype_id->setRequired(true);
+        $officetype_id->addMultiOption('','select'.'...');
+        $officetype_id->setAttrib('class','NormalBtn');
+
+        $first_name = new Zend_Form_Element_Text('first_name');
+        $first_name->setRequired(true)
+                   ->addValidators(array(array('NotEmpty')));
+				   $first_name->setAttrib('class', 'txt_put');
+				   
+				   $userlast_name = new Zend_Form_Element_Text('userlast_name');
+				   $userlast_name->setRequired(true)
+                   ->addValidators(array(array('NotEmpty')));
+				   $userlast_name->setAttrib('class', 'txt_put');
+
+        $middle_name = new Zend_Form_Element_Text('middle_name');
+        $middle_name->setAttrib('class', 'txt_put');
+
+        $dateofjoin = new ZendX_JQuery_Form_Element_DatePicker('dateofjoin');
+        $dateofjoin->setJQueryParam('dateFormat', 'yy-mm-dd');
+        $dateofjoin->setAttrib('class', 'txt_put');
+
+        $dateofbirth = new ZendX_JQuery_Form_Element_DatePicker('dateofbirth');
+        $dateofbirth->setJQueryParam('dateFormat', 'yy-mm-dd');
+        $dateofbirth->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $dateofbirth->setAttrib('class', 'txt_put');
+
+        $marital_status = new Zend_Form_Element_Select('membermaritalstatus_id');
+        $marital_status->setAttrib('class', 'NormalBtn');
+        $marital_status->setAttrib('id', 'marital_status');
+        $marital_status->setAttrib('tabindex', '15');
+
+        $membertitle = new Zend_Form_Element_Select('membertitle');
+        $membertitle->setAttrib('class', 'NormalBtn');
+        $membertitle->setAttrib('id', 'membertitle');
+        $membertitle->setAttrib('tabindex', '15');
+
+        $line1 = new Zend_Form_Element_Text('line1');
+        $line1->setRequired(true)
+              ->addValidators(array(array('NotEmpty')));
+	    $line1->setAttrib('class', 'txt_put');
+			  
+	$loginname = new Zend_Form_Element_Text('loginname');
+        $loginname->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+        $loginname->setAttrib('class', 'txt_put');
+        $loginname->addValidator(new Zend_Validate_Db_NoRecordExists('ourbank_userloginupdates', 'login_name'));
+		
+	$password = new Zend_Form_Element_Password('password');
+        $password->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+        $password->setAttrib('class', 'txt_put');
+		
+	$confirmpassword = new Zend_Form_Element_Password('confirmpassword');
+        $confirmpassword->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+        $confirmpassword->setAttrib('class', 'txt_put');
+		
+	$designation = new Zend_Form_Element_Text('designation');
+        $designation->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+        $designation->setAttrib('class', 'txt_put');
+		
+	$email = new Zend_Form_Element_Text('Email');
+        $email->setAttrib('class', 'txt_put');
+		
+	$personnelid = new Zend_Form_Element_Text('personnelid');
+        $personnelid->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+        $personnelid->setAttrib('class', 'txt_put');
+		
+	$telephonenumber = new Zend_Form_Element_Text('telephonenumber');
+        $telephonenumber->setRequired(true)
+		->addValidators(array(array('NotEmpty')));
+        $telephonenumber->setAttrib('class', 'txt_put');
+				
+		
+        $gender = new Zend_Form_Element_Select('gender_id');
+        $gender->setAttrib('class', 'NormalBtn');
+        $gender->setAttrib('id', 'gender_id');
+        $gender->setAttrib('tabindex', '15');
+
+        $line2 = new Zend_Form_Element_Text('line2');
+        $line2->setAttrib('class', 'txt_put');
+
+        $line3 = new Zend_Form_Element_Text('line3');
+        $line3->setAttrib('class', 'txt_put');
+
+        $city = new Zend_Form_Element_Text('city');
+        $city->setRequired(true)
+             ->addValidators(array(array('NotEmpty')));
+        $city->setAttrib('class', 'txt_put');
+
+        $state = new Zend_Form_Element_Text('state');
+        $state->setRequired(true)
+              ->addValidators(array(array('NotEmpty')));
+        $state->setAttrib('class', 'txt_put');
+
+        $country = new Zend_Form_Element_Text('country');
+        $country->setRequired(true)
+                ->addValidators(array(array('NotEmpty')));
+        $country->setAttrib('class', 'txt_put');
+
+        $pincode = new Zend_Form_Element_Text('pincode');
+        $pincode->setRequired(true)
+                ->addValidators(array(array('NotEmpty')));
+        $pincode->setAttrib('class', 'txt_put');
+
+        $grant_id = new Zend_Form_Element_MultiCheckbox('grant_id');
+
+        $submit = new Zend_Form_Element_Submit('Submit');
+        $submit->removeDecorator('DtDdWrapper');
+
+        $this->addElements(array($officetype_id,$office_name,$userlast_name,
+		                         $gender,$line1,$line2,$line3,$loginname,$confirmpassword,$designation,
+		                         $city,$state,$country,$first_name,$personnelid,
+                                 $pincode,$dateofbirth,$membertitle,$email,$telephonenumber,
+                                 $marital_status,$middle_name,$dateofjoin,$password,
+                                 $salitation,$grant_id,$submit,$user_id));
+
+}
+}

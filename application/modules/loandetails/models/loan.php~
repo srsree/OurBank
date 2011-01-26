@@ -1,0 +1,40 @@
+<?php
+class Loandisbursment_Model_loan extends Zend_Db_Table {
+	protected $_name = 'ob_accounts';
+
+	public function search($accountNumber) {
+		$select = $this->select()
+			->setIntegrityCheck(false) 
+			->join(array('A' => 'ob_member'),array('member_id')) 
+			->join(array('C' => 'ob_member_details'),'A.member_id=C.member_id')
+			->where('C.recordstatus_id = 3 or C.recordstatus_id = 1')
+			->join(array('E' => 'ob_accounts'),'C.member_id=E.member_id')
+			->where('E.account_number = ?',$accountNumber)
+			->where('E.accountstatus_id = 3 or E.accountstatus_id = 1')
+			->join(array('H' => 'ob_loan_accounts'),'H.account_id=E.account_id')
+			->where('H.recordstatus_id = 3 or H.recordstatus_id = 1')
+			->join(array('F' => 'ob_activity_details'),'E.activity_id=F.activity_id')
+			->where('F.recordstatus_id = 3 or F.recordstatus_id = 1')
+			->join(array('P' => 'ob_sector_details'),'F.sector_id=P.sector_id')
+			->where('P.recordstatus_id = 3 or P.recordstatus_id = 1')
+			->join(array('Q' => 'ob_institute_bank_details'),'Q.Institute_bank_id=C.bank_id')
+			->where('Q.recordstatus_id = 3 or Q.recordstatus_id = 1')
+			->join(array('T' => 'ob_member_types'),'A.member_type=T.membertype_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+	}
+
+	public function transactionInsert($input = array())
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$result = $this->db->insert('ob_transaction',$input);
+		return $this->db->lastInsertId('ob_transaction');
+        }
+
+	public function disbursementInsertion($input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$this->db->insert("ob_loan_disbursement",$input);
+		return '1';
+	} 
+}

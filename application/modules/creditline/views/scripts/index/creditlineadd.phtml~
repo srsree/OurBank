@@ -1,0 +1,46 @@
+
+
+
+<div id = "searchDiv">
+<fieldset>
+<legend>Add creditline</legend>
+	<form action="<?php echo $this->baseUrl();?>/creditline/index/creditlineadd" method="POST">
+		<table class="fieldsets">
+			
+			<TR >
+				<TD ><label for="fld1" class="mand">Name</TD>
+				<TD ><?php echo $this->creditlineform->creditlinename;?></TD>
+			</TR>
+			<TR >
+				<TD ><label for="fld1" class="mand">Protfolio value - R$</TD>
+				<TD ><?php echo $this->creditlineform->portfoliovalue;?></TD>
+			</TR>
+			<TR >
+				<TD ><label for="fld1" class="mand">Start date</TD>
+				<TD ><?php echo $this->creditlineform->creditline_beginingdate;?><SPAN style="color:red"><?php echo $this->startMsg;?></SPAN></TD>
+			</TR>
+			<TR >
+				<TD ><label for="fld1" class="mand">End date</TD>
+				<TD ><?php echo $this->creditlineform->creditline_closingdate;?><SPAN style="color:red"><?php echo $this->endMsg;?></SPAN></TD>
+			</TR>
+			<TR >
+				
+				<TD ><label for="fld1" class="mand">Active</TD>
+				<TD ><?php echo $this->creditlineform->status;?></TD>
+			</TR>
+			<!--<TR >
+				<TD ><?php /*echo $this->creditlineform->Submit;?></TD>
+				<TD > <a href="<?php echo $this->baseUrl();?>/creditlineindex"><?php echo $this->creditlineform->Back;*/?></a></TD>
+			</TR>-->
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<?php echo $this->creditlineform->Submit;?>
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/creditlineindex"><?php echo $this->creditlineform->Back;?></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>

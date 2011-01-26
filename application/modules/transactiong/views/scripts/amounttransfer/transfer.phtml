@@ -1,0 +1,80 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div style="float:left;width:380px">
+<fieldset>
+<legend>Savings Details</legend>
+<form action="<?php echo $this->baseUrl();?>/transaction/amounttransfer/transferto" method="POST">
+    <TABLE id="hor-minimalist-b">
+        <?php foreach($this->savingDetails as $savingDetails) {  ?>
+                <TR>
+                    <TD>Name</TD>
+                    <TD><?php echo $savingDetails['name'];?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD>Account Name</TD>
+                    <TD><?php echo $savingDetails['offerproductname'];?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD>Account Number</TD>
+                    <TD><?php echo $accno = $savingDetails['account_number'];?></TD>
+
+                </TR>
+                <TR>
+                    <TD>Balance</TD>
+                    <TD><?php echo $this->balance;?></TD>
+
+                </TR>
+                <TR>
+                    <TD><a href="<?php echo $this->baseUrl(); ?>/management/category">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                    <TD></TD>
+
+              </TR>
+        <?php } ?>
+        </TABLE>
+<input type="hidden" name="member_id" value="<?php echo $accno;?>">
+    <TABLE id="hor-minimalist-b">
+        <?php foreach($this->savingDetails as $savingDetails) {  ?>
+                <TR>
+                    <TD>To Account Number</TD>
+                    <TD><input type="text" name="accountto" class="txt_put"></TD>
+
+                </TR>
+                <TR>
+                <TD>Amount</TD>
+                    <TD><input type="text" name="amount" class="txt_put"></TD>
+
+                </TR>
+                <TR>
+                    <TD></TD>
+                    <TD><input type="submit" name="Search" value="Search"></TD>
+
+                </TR>
+
+
+        <?php } ?>
+        </TABLE>
+</form>
+</div>
+</fieldset>

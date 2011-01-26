@@ -1,0 +1,264 @@
+<?php
+class Management_FundersController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Funders';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+
+    }
+
+    public function indexAction() {
+
+        $storage = new Zend_Auth_Storage_Session();
+        $data = $storage->read();
+        if(!$data){
+            $this->_redirect('index/login');
+         }
+        $this->view->title = "Funders";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $funders = new Management_Model_Funders();
+        $result = $funders->getFundersDetails();
+
+        foreach($result as $funders) {
+                $searchForm->field1->addMultiOption($funders['fundername'],$funders['fundername']);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($searchForm->isValid($formData)) {
+                    $funders = new Management_Model_Funders();
+                    $result = $funders->SearchFunder($searchForm->getValues());
+
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+                }
+            }
+        }
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+
+    }
+
+    public function fundersviewAction() {
+        $this->view->title = "View Funders";
+        $funderaddress_id = (int)$this->_getParam('id');
+
+        $funders = new Management_Model_Funders();
+        $result = $funders->viewFunders($funderaddress_id);
+        $this->view->funders = $result;
+    }
+
+    public function fundersaddAction() {
+        $this->view->title = "Add Funders";
+        $funders = new Management_Model_Funders();
+        $this->view->result = $funders->getFundersDetails();
+
+        $fundersForm = new Management_Form_Funders();
+        $this->view->form = $fundersForm;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($fundersForm->isValid($formData)) {
+
+                    $dbAdapter = Zend_Db_Table::getDefaultAdapter();
+                    $data['funder_id']='';
+                    $dbAdapter->insert('ourbank_funders', $data);
+                    $funder_id  = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_funders','funder_id');
+
+                    $funders = new Management_Model_Funders();
+                    $result = $funders->addFunder($fundersForm->getValues(),$funder_id);
+                    $this->_redirect('management/funders/index');
+               }
+            }
+        }
+    }
+
+    public function funderseditAction() {
+        $this->view->title = "Edit Funders";
+        $funderaddress_id = (int)$this->_getParam('id');
+
+        $funders = new Management_Model_Funders();
+        $this->view->funders = $funders->getFundersDetails();
+
+        $fundersForm = new Management_Form_Funders();
+        $this->view->form = $fundersForm;
+
+        $funders = new Management_Model_Funders();
+        $result = $funders->viewFunders($funderaddress_id);
+        foreach($result as $funders) {
+                $this->view->form->fundername->setValue($funders->fundername);
+                $this->view->form->fundershortname->setValue($funders->fundershortname);
+                $this->view->form->funderaddress1->setValue($funders->funderaddress1);
+                $this->view->form->funderaddress2->setValue($funders->funderaddress2);
+                $this->view->form->funderaddress3->setValue($funders->funderaddress3);
+                $this->view->form->fundercity->setValue($funders->fundercity);
+                $this->view->form->funderstate->setValue($funders->funderstate);
+                $this->view->form->fundercountry->setValue($funders->fundercountry);
+                $this->view->form->funderpincode->setValue($funders->funderpincode);
+                $this->view->form->funderphone->setValue($funders->funderphone);
+                $this->view->form->emailaddress->setValue($funders->emailaddress);
+                $this->view->form->funderaddress_id->setValue($funders->funderaddress_id);
+                $this->view->form->funder_id->setValue($funders->funder_id);
+        }
+
+        $fundersForm->fundername->removeValidator('Db_NoRecordExists');
+        $fundersForm->fundershortname->removeValidator('Db_NoRecordExists');
+        if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+            $formData = $this->_request->getPost();
+            if ($this->view->form->isValid($formData)) {
+
+                $funderaddress_id=$this->_request->getParam('funderaddress_id');
+                $funderId=$this->_request->getParam('funder_id');
+                $fundername=$this->_request->getParam('fundername');
+                $fundershortname=$this->_request->getParam('fundershortname');
+                $funderaddress1=$this->_request->getParam('funderaddress1');
+                $funderaddress2=$this->_request->getParam('funderaddress2');
+                $funderaddress3=$this->_request->getParam('funderaddress3');
+                $fundercity=$this->_request->getParam('fundercity');
+                $funderstate=$this->_request->getParam('funderstate');
+                $fundercountry=$this->_request->getParam('fundercountry');
+                $funderpincode=$this->_request->getParam('funderpincode');
+                $funderphone=$this->_request->getParam('funderphone');
+                $emailaddress=$this->_request->getParam('emailaddress');
+
+
+
+                $funders = new Management_Model_Funders();
+                $result = $funders->viewFunders($funderaddress_id);
+                foreach($result as $result) {
+                        $fundername1 = $result->fundername;
+                        $fundershortname1 = $result->fundershortname;
+                        $funder_id = $result->funder_id;
+                        $funderaddress11 = $result->funderaddress1;
+                        $funderaddress21 = $result->funderaddress2;
+                        $funderaddress31 = $result->funderaddress3;
+                        $fundercity1 = $result->fundercity;
+                        $funderstate1 = $result->funderstate;
+                        $fundercountry1 = $result->fundercountry;
+                        $funderpincode1 = $result->funderpincode;
+                        $funderphone1 = $result->funderphone;
+                        $emailaddress1 = $result->emailaddress;
+                        $createdby=$result->createdby;
+                        $createddate=$result->createddate;
+                 }
+                 $updateOlddata =  array('fundername' =>$fundername1,
+                                         'fundershortname' =>$fundershortname1,
+                                         'funderaddress1' =>$funderaddress11,
+                                         'funderaddress2' =>$funderaddress21,
+                                         'funderaddress3' =>$funderaddress31,
+                                         'fundercity' =>$fundercity1,
+                                         'funderstate' =>$funderstate1,
+                                         'fundercountry' =>$fundercountry1,
+                                         'funderpincode' =>$funderpincode1,
+                                         'funderphone' =>$funderphone1,
+                                         'emailaddress' =>$emailaddress1);
+
+                 $updateNewdata =  array('fundername' =>$fundername,
+                                         'fundershortname' =>$fundershortname,
+                                         'funderaddress1' =>$funderaddress1,
+                                         'funderaddress2' =>$funderaddress2,
+                                         'funderaddress3' =>$funderaddress3,
+                                         'fundercity' =>$fundercity,
+                                         'funderstate' =>$funderstate,
+                                         'fundercountry' =>$fundercountry,
+                                         'funderpincode' =>$funderpincode,
+                                         'funderphone' =>$funderphone,
+                                         'emailaddress' =>$emailaddress);
+
+                             $data=array('funderaddress_id'=>$funderaddress_id,
+                                         'funder_id' => $funderId,
+                                         'fundername' => $fundername,
+                                         'fundershortname' => $fundershortname,
+                                         'funderaddress1' => $funderaddress1,
+                                         'funderaddress2' => $funderaddress2,
+                                         'funderaddress3' => $funderaddress3,
+                                         'fundercity' => $fundercity,
+                                         'funderstate' => $funderstate,
+                                         'fundercountry' => $fundercountry,
+                                         'funderpincode' => $funderpincode,
+                                         'emailaddress' => $emailaddress,
+                                         'funderphone' => $funderphone,
+                                         'recordstatus_id' =>'3',
+                                         'createdby'=>$createdby,
+                                         'createddate'=>$createddate);
+
+                            $match = array();
+                            foreach ($updateOlddata as $key=>$val) {
+                                if ($val != $updateNewdata[$key]) {
+                                    $match[] = $key;
+                            }
+                }
+                if(count($match) <= 0) {
+                   $this->view->updatEerror='Values are not changed in form';
+                } else {
+                     $date=date("y/m/d H:i:s");	
+                     $createdby = $this->view->createdby;
+                     $funders = new Management_Model_Funders();
+                     $funders->funderUpdate($data,$updateOlddata,$updateNewdata,$createdby,$funderaddress_id);
+
+                     $this->_redirect('management/funders');
+                }
+            }
+        }
+     $this->view->form->Submit->setName('Update');	
+    }
+
+    public function fundersdeleteAction() {
+        $this->view->title = "Delete Funders";
+        $funderaddress_id = (int)$this->_getParam('id');
+        $this->view->funderaddress_id = $funderaddress_id;
+
+        $funders = new Management_Model_Funders();
+        $result = $funders->viewFunders($funderaddress_id);
+        $this->view->funders = $result;
+        foreach($this->view->funders as $funders){
+            $this->view->recordstatus_id = $funders['recordstatus_id'];
+        }
+
+        $deleteform = new Management_Form_Delete();
+        $this->view->deleteform = $deleteform;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+            $formData = $this->_request->getPost();
+            if ($deleteform->isValid($formData)) {
+                $funders = new Management_Model_Funders();
+                $result = $funders->viewFunders($funderaddress_id);
+                $this->view->funders = $result;
+
+                $remarks = $deleteform->getvalue('remarks');
+                $funderaddress_id  = (int)$this->_getParam('funderaddress_id');
+                $funds = new Management_Model_Funders();
+                $funds->deleteFunders($funderaddress_id,$remarks);
+                $this->_redirect('management/funders');
+            }
+        }
+
+    }
+
+    public function howtouseAction() {
+        $this->_helper->layout->disableLayout();
+        $funders = new Management_Model_Funders();
+        $this->view->result = $funders->getFundersusage();
+//         foreach($this->view->result as $result) {
+//                echo $result['Comments']; 
+// 
+// 
+//         }
+
+
+    }
+}

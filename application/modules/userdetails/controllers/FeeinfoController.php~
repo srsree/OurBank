@@ -1,0 +1,17 @@
+<?php
+class Officeinfo_IndexController extends Zend_Controller_Action
+{
+
+    public function init() {
+        $this->view->pageTitle='Office info';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+    }
+
+    public function indexAction() {
+                $officeinfo=new Officeinfo_Form_Officeinfo();
+                $this->view->officeinfo=$officeinfo;
+
+    }
+
+}

@@ -1,0 +1,21 @@
+<div class="searchDiv">
+    <fieldset>
+    
+	<table id="hor-minimalist-b">
+		<th  width="40%">Member code</th><th width="40%">Member name</th><th width="40%">Number of accounts</th>
+			<? if (count($this->loancount)): ?>
+			<?php foreach ($this->loancount as $loandetails ): ?>
+		<tr>
+		<td><?php echo $this->escape($loandetails['membercode']); ?></td>
+		<td><?php echo $this->escape($loandetails['member_name']);?></td>
+		<td><?php echo $this->escape($loandetails['Account']);?></td>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		</tr>
+	</table>
+<form action="<?php echo $this->baseUrl();?>/loancount/index/pdftransaction" method="POST"
+onClick="window.open('<?php echo $this->baseUrl(); ?>/loancount/index/reportdisplay/file/loancount.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+                 <input type="submit" value="PDF" id="submit">
+</form>
+</fieldset>
+</div>

@@ -1,0 +1,69 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/reports/summaryloans" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Begin Date:</td>
+                                    <td ><?php echo $this->form->field3;?></td>
+                                    <td class="label">Close Date:</td>
+                                    <td ><?php echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Branch:</td>
+                                    <td ><?php echo $this->form->field1;?></td>
+                                    <td class="label"></td>
+                                    <td ><?php echo $this->form->Search;?></td>
+                                </tr>
+
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+<?php if($this->Loan && $this->accountLoan) { ?>
+<fieldset>
+    <legend>Loans</legend>
+	<div class="cont-rgt-data">
+            <TABLE id="hor-minimalist-b" summary="">
+                <tr>
+	            <th>accountNumber.</th>
+	            <th>Name</th>
+	            <th>address</th>
+	            <th>amount</th>
+                    <th>Paid</th>
+                    <th>balance</th>
+                </tr>
+                <?php $i = 0; ?>
+                <?php foreach($this->Loan as $Loan1) { $amountPaid =0; $balance = 0;?>
+		<tr>
+	            <td><?php echo $Loan1->account_number; ?></td>
+	            <td><?php echo $Loan1->Name;?></td>
+	            <td><?php echo $Loan1->Address; ?></td>
+                    <td>R$. <?php echo $Loan1->loan_amount; ?></td>
+                    <?php foreach($this->accountLoan as $Loan) { 
+                    if($Loan1->account_id == $Loan->account_id) { ?>
+                        <?php $loan_amount = $Loan->loan_amount;
+ 			    if($Loan->installment_status == 2) {
+                                $amountPaid =0;
+				$amountPaid = $amountPaid+$Loan->accountinstallment_amount ;
+				$amountPaid = $amountPaid;
+                            } ?> 
+	                    <?php     $balance = $loan_amount - $amountPaid;
+                            $balance = $loan_amount - $amountPaid;?>
+                       <?php } ?>
+                <?php } ?>
+                <?php if($amountPaid) { ?>
+                    <td>R$. <?php echo $amountPaid; ?></td>
+                    <?php } else { ?>
+                    <td> -- </td>
+                    <?php } if ($balance) { ?>
+                    <td>R$. <?php echo $balance; } ?></td>
+                </tr>
+                <?php } ?>
+	    </TABLE>
+	</div>
+</fieldset>
+<?php } ?>

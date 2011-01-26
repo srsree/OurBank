@@ -1,0 +1,43 @@
+
+
+
+
+
+
+
+
+         
+<strong><script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+ <link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#fund_beginingdate").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#fund_closingdate").datepicker({"dateFormat":"yy-mm-dd"});
+});</strong>
+</script>
+
+
+
+<form action="<?php echo $this->baseUrl();?>/personalinfo/index/add/id/<?php echo $this->id; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>/path/<?php echo $this->path1; ?>/index/<?php echo $this->path2; ?>" method="POST"> 
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>User personal information</legend>
+		<table class="fieldsets">	
+						                    	<?php echo $this->form;?>
+</table>
+                <div class="ltbtns">
+			<input type="submit" name="Submit" id="Submit" value="Submit">			
+                 </div>
+                <div class="rtbtns">
+                   <a href="<?php echo $this->baseUrl();?>/user"><?php echo $this->form->Back;?></a>
+                </div>
+</fieldset>
+
+</div>
+</div>
+
+</form>

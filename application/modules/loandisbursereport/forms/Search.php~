@@ -1,0 +1,30 @@
+<?php
+class Loandisbursereport_Form_Search extends Zend_Form {
+   public function init() {
+        Zend_Dojo::enableForm($this);
+	}
+
+        public function __construct($path) {
+        Zend_Dojo::enableForm($this);
+        parent::__construct($path);
+
+	$field1 = new Zend_Form_Element_Select('field1');
+	$field1->addMultiOption('','Select');
+	$field1->setAttrib('class', 'txt_put');
+	
+	$field1->setRegisterInArrayValidator(false);
+
+	$field2 = new Zend_Form_Element_Select('field2');
+	$field2->addMultiOption('','Select');
+	$field2->setAttrib('class', 'txt_put');
+	$field2->setRegisterInArrayValidator(false);
+
+
+	
+
+	$submit = new Zend_Form_Element_Submit('Search');
+
+	$this->addElements(array($field1,$field2,$submit));
+
+    }
+}

@@ -1,0 +1,28 @@
+<?php
+class Personal_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Personal Details';
+        $sessionName = new Zend_Session_Namespace('Personal Details');
+        $this->view->createdby = $sessionName->primaryuserid;
+    }
+
+    public function indexAction() {
+        $personal=new Personal_Form_personal();
+        $this->view->form=$personal;
+            $model=new Personal_Model_personal();
+            $maritalStatus = $model->getMaritalStatus();
+            foreach($maritalStatus as $maritalStatus) {
+                    $personal->membermaritalstatus_id->addMultiOption($maritalStatus->membermaritalstatus_id,$maritalStatus->membermaritalstatusdescription);
+            }
+    
+            $physicalStatus = $model->getPhysicalStatus();
+            foreach($physicalStatus as $physicalStatus) {
+                $personal->physicalstatus_id->addMultiOption($physicalStatus->memberphysicalstatus_id,$physicalStatus->memberphysicalstatusdescription);
+            }
+	
+    }
+
+
+
+}

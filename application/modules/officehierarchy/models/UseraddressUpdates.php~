@@ -1,0 +1,57 @@
+<?php
+class Management_Model_UseraddressUpdates extends Zend_Db_Table_Abstract {
+    protected $_name = 'ourbank_useraddressupdates';
+
+    public function addaddressdetails($post,$user_id) {
+        $data = array('useraddress_id' => '',
+                      'user_id' => $user_id,
+                      'personnel_idcardnumber'=> $post['personnelid'],
+                      'marital_status'=>$post['membermaritalstatus_id'],
+                      'useraddress_id'=> '',
+                      'addressline1'=>$post['line1'],
+                      'addressline2'=>$post['line2'],
+                      'addressline3'=>$post['line3'],
+                      'city'=>$post['city'],
+                      'state'=>$post['state'],
+                      'country'=>$post['country'],
+                      'postal_code'=>$post['pincode'],
+                      'telephone'=>$post['telephonenumber'],
+                      'emailid'=>$post['Email'],
+                      'recordstatus_id'=>3);
+      $this->insert($data);
+    }
+
+        public function userIdUpdate($user_id,$input = array()) {
+                $this->db = Zend_Db_Table::getDefaultAdapter();
+                $where[] = "user_id = '".$user_id."'";
+                $result = $this->db->update('ourbank_users',$input,$where);
+        }
+
+        public function UpdateUsersaddress($user_id) {
+
+                $data = array('recordstatus_id'=> 2);
+                $where = 'user_id = '.$user_id;
+                $this->update($data , $where );
+                    }
+
+ public function edituseraddressdetails($post,$createby,$user_id) {
+        $data = array('useraddress_id' => '',
+                      'user_id' => $user_id,
+                      'personnel_idcardnumber'=> $post[''],
+                      'marital_status'=>$post['membermaritalstatus_id'],
+                      'useraddress_id'=> '',
+                      'addressline1'=>$post['line1'],
+                      'addressline2'=>$post['line2'],
+                      'addressline3'=>$post['line3'],
+                      'city'=>$post['city'],
+                      'state'=>$post['state'],
+                      'country'=>$post['country'],
+                      'postal_code'=>$post['pincode'],
+                      'telephone'=>$post['telephonenumber'],
+                      'emailid'=>$post['Email'],
+                      'createdby'=>$createby,
+                      'recordstatus_id'=>3);
+      $this->insert($data);
+    }
+
+}

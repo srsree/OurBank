@@ -1,0 +1,25 @@
+
+<div style="width:480px;float:left"> 
+<fieldset>
+    <legend>Add Bank</legend> 
+            <table id="hor-minimalist-b"> 
+                <?php echo $this->form;?>
+            </table>
+
+</fieldset>
+</div>
+<div style="width:300px;float:left"> 
+<fieldset>
+    <legend>Existing Banks</legend> 
+            <table id="hor-minimalist-b"> 
+			<TR class="tdbrownheading">
+				<Th width="100%">Bank Name</Th>
+			</TR>
+			<?php foreach($this->institutionName as $institutionname) { ?>
+			<TR class="tdbrown">
+				<td><?php echo $this->escape($institutionname['institutionname']);?></td>
+			</tr>
+			<?php } ?>
+            </table>
+</fieldset>
+</div>

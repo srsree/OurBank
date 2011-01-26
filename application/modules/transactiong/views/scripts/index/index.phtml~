@@ -1,0 +1,26 @@
+
+<table id="hor-minimalist-b">
+        <tr>
+        <th>V No.</td>
+        <th >A/c Number</td>
+        <th>Transaction Date</td>
+        <th>Creidt</td>
+        <th>Debit</td>
+        <th>Transaction Mode</td>
+        <th>Transacted By</td>  
+        <th>Status</td>
+    </tr>
+    <?php foreach($this->transactionByDate as $transaction) : ?>
+    <tr>
+       <td><?php echo $transaction['transaction_id'];?></td>
+       <td><?php echo $transaction['account_number'];?> </td>
+       <td><?php echo $transaction['transaction_date'];?></td>
+       <td><?php echo $transaction['transaction_amount'];?></td>
+       <td><?php echo $transaction['paymenttype_description'];?></td>
+       <td><?php echo $transaction['login_name'];?></td>
+       <td><?php echo $transaction['recordstatusdescription'];?></td>
+       <td><?php echo $transaction['recordstatusdescription'];?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+

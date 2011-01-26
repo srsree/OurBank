@@ -1,0 +1,263 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<script>
+function getXMLHTTP() {
+    var xmlhttp=false;	
+        try{
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e) {
+            try {	
+                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e){
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e1){
+                    xmlhttp=false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+function getInterests(countryId,path) {	
+   var productId = eval(document.form1.productId.value);
+    var strURL=path+"/accounting/accounting/interests?country="+countryId+"&productId="+productId;
+
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+        }
+        var perioddescription=$('#perioddescription').val();
+        if(perioddescription!='') {
+            $('#errorspan').show();
+        } else {
+            $('#errorspan').hide();
+          }
+}
+function calculateTotalAmount() {
+
+    var amount = eval(document.form1.amount.value);
+    var feeTotal = eval(document.form1.feeTotal.value);
+    var tAmount =  (amount + feeTotal);
+    document.form1.tAmount.value = tAmount;
+}
+</script>
+
+<div style="width:400px;float:left">
+    <fieldset>
+        <legend> Details </legend>
+            <table id="hor-minimalist-b">
+                <TR>
+                   <td> MemberCode:</td>
+                   <TD><? echo $this->membercode; ?></TD>
+               </TR>
+               <TR>
+                    <td><? echo $this->label; ?></td>
+                    <TD><?php echo $this->groupname;echo $this->memberfirstname;?></TD>
+               </TR>
+               <TR>
+                    <td> Branch:</td>
+                    <td><?php echo $this->branch ;?></TD>
+              </TR>
+              <TR>
+                    <td>ProductType:</b></td>
+                    <TD><?php echo $this->productname;?></TD>
+              </TR>
+              <TR>
+                    <td> ProductName :</b></td>
+                    <TD><?php echo $this->offerproductname;?></TD>
+                    </TR>
+                    <TR>
+                        <td> Minimum Balance:</b></td><TD><?php echo $this->minimumDepositAmount;?></TD>
+                    </TR>
+                    <?php if($this->maximumDepositAmount) { ?>
+                    <TR>
+                        <td> Maximum Balance:</b></td>
+                        <TD><?php echo $this->maximumDepositAmount;?></TD>
+                    </TR>
+              <?php } ?>
+                    <?php if($this->minimumbalanceforinterest) { ?>
+                    <TR>
+                        <td>Minimum Balance for interest</td>
+                        <TD><?php echo $this->minimumbalanceforinterest; ?></TD>
+                  </TR>
+                    <?php } ?>
+                        <?php if($this->penal_Interest) { ?>
+                    <TR>
+                        <td> Penal Fee:</td>
+                            <TD><?php echo $this->penal_Interest;?></TD>
+                    </TR>
+                    <?php } ?>
+                </table>
+<fieldset>
+    <legend>Interest Details</legend>
+        <table id="hor-minimalist-b">
+            <tr><TD>Period Desciption</TD>
+                <TD>Interest</TD>
+            </tr>
+            <?php foreach($this->fetchingInterests as $productDetailsPeriods) : ?>
+            <tr class="tdbrown">
+                <TD><?php echo $this->escape($productDetailsPeriods->period_ofrange_description);?></TD>
+                <TD><?php echo $this->escape($productDetailsPeriods->Interest);?></TD>
+            </TR>
+            <?php endforeach;?>
+        </table>
+    </fieldset>
+</fieldset>
+</div>
+
+<?php if(!$this->Submit) { ?>
+<div style="float:right;width:350px">
+    <fieldset>
+        <legend>New Loanaccount</legend>
+            <div class="cont-rgt-data">
+                <form name="form1" action="<?php echo $this->baseUrl();?>/accounting/accounting/loans" method="POST" onsubmit='return validate(this)'>
+                    <table id="hor-minimalist-b">
+                        <TR>
+                            <TD>Date<B style="color:red">(yyyy-mm-dd) *</B></TD>
+                            <TD><?php echo $this->loan->productId; echo $this->loan->memberId; echo $this->loan->typeId;
+                                echo $this->loan->loanAccountdate; echo $this->loan->Type;?></TD>
+                        </TR>
+                        <TR>
+                            <TD>Amount<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->loan->amount;?></TD>
+                        </TR>
+                        <?php if($this->Loanfee) { ?>
+                        <TR>
+                            <TD>Fee</TD>
+                            <TD><?php foreach($this->Loanfee as $fee) { ?>
+                                <input type="text" name = "fee" value="<?php echo $fee->feevalue; ?>" size="8" class = "txt_put" readonly="true">
+                                <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                                 <?php } ?></TD>
+                             <input type = "hidden" name = "feeTotal" value = "<?php echo $this->feeTotal;?>"><br>
+
+                        </TR> 
+
+                        <?php } ?>
+
+
+                        <TR>
+                            <TD>Installments<B style="color:red">(Months) *</B></TD>
+                            <TD><?php echo $this->loan->loanInterest;?></TD>
+                        </TR>
+                        <TR>
+                            <TD>Interest<span class="reqMark">*</span></TD>
+                            <TD><div id="statediv"><?php echo $this->loan->interest;?></div></TD>
+                        </TR>
+                        <?php  if($this->savingAccount){ ?>
+                        <TR>
+                            <TD>For Surity<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->loan->savingAccount;?></div></TD>
+                        </TR>
+                        <?php } ?>
+                       
+                        <?php if ($this->membertype_ID==3 ) { ?>
+                        <TR>
+                            <TD>AddMembers<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->loan->memberfirstname;?></TD>
+                        </TR>
+                    <? } ?>
+                </table>
+                <table>
+                    <TR>
+                        <TD><?php echo $this->loan->Submit;?></TD>
+                        <TD><a href="<?php echo $this->baseUrl();?>/accounting/accounting/member/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type; ?>"><?php echo $this->loan->Back;?></a></TD>
+                    </TR>
+                </table>
+            </form>
+        </div>
+    </fieldset>
+</div>
+<?php } ?>
+<?php if($this->Submit) { ?>
+<div style="float:right;width:350px">
+    <fieldset>
+        <legend>New Loanaccount</legend>
+            <div class="cont-rgt-data">
+                <form name="form1" action="<?php echo $this->baseUrl();?>/accounting/accounting/loans" method="POST" onsubmit='return validate(this)'>
+                    <table id="hor-minimalist-b">
+                        <TR>
+                            <TD>Date<B style="color:red">(yyyy-mm-dd) *</B></TD>
+                            <TD><?php echo $this->loan->productId; echo $this->loan->memberId; echo $this->loan->typeId;
+                                echo $this->date1; echo $this->loan->Type;?>
+                                <input type="hidden" name="date1" value="<?php echo $this->date1; ?>"></TD>
+                        </TR>
+                        <TR>
+                            <TD>Amount<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->amount;?>
+                                <input type="hidden" name="amount" value="<?php echo $this->amount; ?>"></TD>
+                        </TR>
+                        <?php if($this->Loanfee) { ?>
+                        <TR>
+                            <TD>Fee</TD>
+                            <TD><?php foreach($this->Loanfee as $fee) { ?>
+                                <input type="text" name = "fee" value="<?php echo $fee->feevalue; ?>" size="8" class = "txt_put" readonly="true">
+                                <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                                 <?php } ?></TD>
+                             <input type = "hidden" name = "feeTotal" value = "<?php echo $this->feeTotal;?>"><br>
+                        </TR> 
+                        <?php } ?>
+                        <TR>
+                            <TD>Installments<B style="color:red">(Months) *</B></TD>
+                            <TD><?php echo $this->period;?>
+                            <input type="hidden" name="period" value="<?php echo $this->period; ?>"></TD>
+                        </TR>
+                        <TR>
+                            <TD>Interest<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->interest;?>
+                                <input type="hidden" name="interest" value="<?php echo $this->interest; ?>"></TD>
+                        </TR>
+                        <?php  if($this->savingAccount){ ?>
+                        <TR>
+                            <TD>For Surity<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->loan->savingAccount;?></div></TD>
+                        </TR>
+                        <?php } ?>
+                        <?php if ($this->membertype_ID==3 ) { ?>
+                        <TR>
+                            <TD>AddMembers<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->loan->memberfirstname;?></TD>
+                        </TR>
+                    <? } ?>
+                </table>
+                <table>
+                    <TR>
+                        <TD><?php echo $this->loan->Yes;?></TD>
+                        <TD><a href="<?php echo $this->baseUrl();?>/accounting/accounting/member/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type; ?>"><?php echo $this->loan->Back;?></a></TD>
+                    </TR>
+                </table>
+            </form>
+        </div>
+    </fieldset>
+</div>
+<?php } ?>

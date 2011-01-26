@@ -1,0 +1,75 @@
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/creditline/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">CreditLine name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Creditline name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Creditline From:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Creditline To:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+
+<fieldset>
+	<legend>Credit Line</legend>
+	<table id="hor-minimalist-b" summary="">
+    	<tr class="tdbrownheading">
+        <th>Credit Line Name</th>
+        
+        <th>Portfolio Value</th>
+        
+       <th>Start Date</th>
+       <th>End Date</th>
+        <th>Edit</td>
+        <th>Delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $creditline ): ?>
+    <tr>
+     
+    <td><a href="<?php echo $this->baseUrl()."/creditline/index/creditlineview/creditline_id/".$creditline['creditline_id']; ?>"><?php echo $this->escape($creditline['name']);?></a></td>
+     <td><?php echo $this->escape($creditline['protfolio_value']); ?></td>
+    
+    <td><?php echo $this->escape($creditline['start_date']);?></td>
+    <td><?php echo $this->escape($creditline['end_date']);?></div></td>
+
+    <td><a href="<?php echo $this->baseUrl()."/creditline/index/creditlineedit/creditline_id/".$creditline['creditline_id']; ?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl()."/creditline/index/creditlinedelete/creditline_id/".$creditline['creditline_id']; ?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+        <?php endforeach; ?>
+        <?php endif; ?>
+
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</tr>
+</table>
+<br>
+    <table>
+        <TR>        
+                   <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/creditline/index/creditlineadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Creditline"></a></td>
+        </TR>
+    </table>
+</fieldset>

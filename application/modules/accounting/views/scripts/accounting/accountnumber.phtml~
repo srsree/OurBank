@@ -1,0 +1,19 @@
+<table id = "hor-minimalist-b">
+<tr>
+<td>
+
+
+<br>
+<li><b>Congragulations</b></li>
+<p>
+>Congragulations a new Personal account has been created wth the Account Number <?php echo $this->account_number; ?></p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+</table>
+
+
+
+
+
+
+

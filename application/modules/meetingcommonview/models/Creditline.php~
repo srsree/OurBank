@@ -1,0 +1,71 @@
+<?php
+class Creditline_Model_Creditline extends Zend_Db_Table {
+	protected $_name = 'ob_creditline';
+
+
+	public function insertCreditlineID($creditline_id) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$this->db->insert('ob_creditline',$creditline_id);
+		$result = $this->db->lastInsertId('creditline_id');
+		return $result;
+	}
+
+	public function insertCreditline($post,$creditline_id) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$data = array('creditline_id'=> $creditline_id,
+					'creditline_name'=>$post['creditlinename'],
+					'creditline_portfolio'=>$post['portfoliovalue'],
+					'creditline_start_date'=>$post['creditline_beginingdate'],
+					'creditline_end_date'=>$post['creditline_closingdate'],
+					'creditline_status'=>$post['status'],
+					'created_by' => 'admin',
+					'created_date' => date('Y-m-d'),
+					'recordstatus_id'=>3);
+		$this->db->insert('ob_creditline_details',$data);
+	}
+
+	public function fetchAllcreditlinedetails() {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->from('ob_creditline_details')
+			->where('recordstatus_id = 3')
+			->order(array('creditline_id DESC'));
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function fetchCreditline($creditline_id) {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->from('ob_creditline_details')
+			->where('recordstatus_id = 3')
+			->where('creditline_id = '.$creditline_id);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function updateCreditline($creditline_id,$post) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where = 'creditline_id = '.$creditline_id;
+		$this->db->update('ob_creditline_details',$post , $where );
+	}
+
+	public function deletecreditlineinfo($creditline_id) {
+	$this->db = Zend_Db_Table::getDefaultAdapter();
+		$post = array('recordstatus_id' => 5);
+		$where = 'creditline_id = '.$creditline_id;
+		$this->db->update('ob_creditline_details',$post , $where );
+	}
+
+	public function SearchCreditline($post) {
+               $select = $this->select()
+			->setIntegrityCheck(false)  
+			->from('ob_creditline_details')
+			->where('recordstatus_id = 3')
+			->where('creditline_name like "%" ? "%"',$post['field2'])
+			->where('creditline_start_date like "%" ? "%"',$post['field3'])
+			->where('creditline_end_date like "%" ? "%"',$post['field4'])
+               $result = $this->fetchAll($select);
+               return $result->toArray();
+       }
+}

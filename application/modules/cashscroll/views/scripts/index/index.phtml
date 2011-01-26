@@ -1,0 +1,178 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php if($this->savings) { ?>
+<h5 align="right"><?php echo $this->translate('As of'); ?> <?php echo "<font color='#039'>".$this->field1."</font>"; ?></h5> 
+<h5 style="text-align:right">* <?php echo $this->translate("Amount in"); ?> <font color="red"><?php echo $this->translate("Rs"); ?></font></h5>
+
+<div style="float:left;width:370px">
+            <?php 
+              $i = 0;
+              $j = 0;
+              $k = 0;
+              $l = 0;
+              $amountCredit = "0";
+              $amountDebit = "0";
+              $grandTotal = "0";
+              $total = "0";
+              $countvalue1 =count($this->savingsCredit);
+              $countvalue2 =count($this->savingsDebit);
+              $count = $countvalue1>$countvalue2?$countvalue1:$countvalue2; 
+            ?>
+<h5><?php echo $this->translate("Credit"); ?></h5>
+    <table id="hor-minimalist-s">
+        <TR>
+            <TH ><?php echo $this->translate("Sl No."); ?></TH>
+            <TH ><?php echo $this->translate("Particulars"); ?></TH>
+            <TH ><?php echo $this->translate("Amount"); ?></TH>
+        </TR>
+        <?php foreach($this->savingsCredit as $savingsCredit) { 
+                $l++;  $i++;?>
+        <TR>
+            <TD ><?php echo $l; ?></TD>
+            <TD ><?php echo $savingsCredit->account_number; ?></TD>
+            <TD ><?php 
+               echo $savingsCredit->amount_to_bank; 
+               $amountCredit = $amountCredit + $savingsCredit->amount_to_bank; 
+                ?></TD>
+        </TR>
+
+        <?php } ?>
+	<?php 
+			for($j=$i;$j<=$count;$j++){ 
+			 if($j==$count){ ?>
+				<tr>
+				        <TD></TD>
+					<TD><b><?php echo $this->translate("Total Receipt"); ?></b></TD>
+					<td ><b><?php echo sprintf("%4.2f", $amountCredit);?></b></TD>
+				</tr>
+				<tr>
+                                        <TD></TD>
+                                        <TD><b><?php echo $this->translate("Opening Cash"); ?></b></TD>
+                                        <TD ><b><?php echo sprintf("%4.2f", $this->openingBalance)?></b></TD>
+                                </tr>
+                                <tr>
+                                        <TD></TD>
+                                        <TD><b>Total</b></TD>
+                                        <?php if($amountCredit+$this->openingBalance != "0") { ?>
+                                        <TD  ><B><?php echo $grandTotal = sprintf("%4.2f", $amountCredit+$this->openingBalance); ?></TD></TD>
+                                        <?php } else { ?>
+                                        <TD width = "52"  ><B>----</B></TD>
+                                        <?php } ?>
+                                </tr>
+			<?php } else {?>
+				<tr>
+				        <TD></TD>
+					<td><?php echo "----";?></td>
+					<td><?php echo "----";?></td>
+				</tr>
+		
+			<?php } }  $i=0;$j=0; ?>
+
+
+    </table>
+  </div>
+
+<div style="float:left;width:370px">
+<h5><?php echo $this->translate("Debit"); ?></h5>
+    <table id="hor-minimalist-s" >
+        <TR>
+            <TH ><?php echo $this->translate("Sl No."); ?></TH>
+            <TH ><?php echo $this->translate("Particulars"); ?></TH>
+            <TH ><?php echo $this->translate("Amount"); ?></TH>
+        </TR>
+        <?php foreach($this->savingsDebit as $savingsDebit) {
+        $k++; $i++; ?>
+        <TR>
+            <TD ><?php echo $k; ?></TD>
+            <TD ><?php echo $savingsDebit->account_number; ?></TD>
+            <TD  ><?php
+                echo $savingsDebit->amount_from_bank; 
+                $amountDebit = $amountDebit + $savingsDebit->amount_from_bank;?></TD>
+        </TR>
+
+        <?php } ?>
+		<?php
+			for($j=$i;$j<=$count;$j++){ 
+			 if($j==$count){ ?>
+				<tr>
+				        <TD></TD>
+					<TD><b><?php echo $this->translate("Total Payment"); ?></b></TD>
+					<td ><b><?php echo sprintf("%4.2f",$amountDebit);?></b></TD>
+                                </tr>
+				<tr>
+                                        <TD></TD>
+                                        <TD><b><?php echo $this->translate("Closing Cash"); ?></b></TD>
+                                        <TD ><b><?php echo $total = sprintf("%4.2f",($grandTotal - $amountDebit)); ?></b></TD>
+                                </tr>
+                                <tr>
+                                        <TD></TD>
+                                        <TD><b><?php echo $this->translate("Total"); ?></b></TD>
+                                        <?php if($amountDebit + $total != "0") { ?>
+                                        <TD  ><B><?php echo sprintf("%4.2f", $amountDebit + $total); ?></TD></TD>
+                                        <?php } else { ?>
+                                        <TD width = "52"  ><B>----</B></TD>
+                                        <?php } ?>
+                                </tr>
+			<?php  } else {?>
+				<tr>
+       				        <TD></TD>
+					<td><?php echo "----";?></td>
+					<td ><?php echo "----";?></td>
+				</tr>
+		
+			<?php } }  ?>
+
+
+    </table>
+</div>
+
+    <form action="<?php echo $this->baseUrl();?>/cashscroll/index/pdftransaction" method="POST"
+onClick="window.open('<?php echo $this->baseUrl(); ?>/cashscroll/index/reportdisplay/file/cashscroll.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+            <input type="hidden" name="field1" value="<?php echo $this->field1; ?>">
+           <div class="btnhouse">
+				<div class="ltbtns">
+					<TD > <input type="submit" value="<?php echo $this->translate('PDF'); ?>" id="submit"></TD>
+				</div>
+            </div>
+</form>
+
+
+<?php } else {?>
+<div id="searchDiv">
+    <fieldset>
+        <legend><?php echo $this->translate("Search"); ?></legend>
+             <table width="100%">
+                <form action="<?php echo $this->baseUrl();?>/cashscroll/index" method="POST">
+                   <tr>
+                            <TD><?php echo $this->translate('As of date'); ?></td>
+                            <td><?php echo $this->form->datefrom;?></td>
+                   
+                            <td><input type="submit" name="Search" value="<?php echo $this->translate('Search'); ?>"/></td>
+                           
+                   </tr>
+                </form>
+            </table>
+       
+</fieldset>
+</div>
+
+<?php } ?>
+
+

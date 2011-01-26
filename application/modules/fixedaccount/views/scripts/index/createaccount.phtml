@@ -1,0 +1,165 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<script type="text/javascript">
+
+function getXMLHTTP() {
+    var xmlhttp=false;	
+    try{
+        xmlhttp=new XMLHttpRequest();
+    }
+    catch(e) {		
+        try{			
+            xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        catch(e){
+            try{
+            xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            catch(e1){
+                    xmlhttp=false;
+            }
+        }
+    }
+    return xmlhttp;
+}
+
+
+
+
+function getInterests(path,interest) {	
+    var strURL=path+"/fixedaccount/index/getinterests?interest="+interest;
+
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('interestdiv').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+        }
+        var perioddescription=$('#perioddescription').val();
+        if(perioddescription!='') {
+            $('#errorspan').show();
+        } else {
+            $('#errorspan').hide();
+          }
+}
+</script>
+
+<div style="float:left;width:380px"> 
+    <table id="hor-minimalist-s" summary="Employee Pay Sheet">
+        <? foreach ($this->account as $account) { ?>
+            <TR>
+                <TH>Member details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <TD>Member code:</td>
+                <TD><? echo $account->code; ?></TD>
+            </TR>
+            <TR>
+                <TD>Name:</td>
+                <TD><?php echo $account->name;?></TD>
+            </TR>
+            <TR>
+                <TD>Branch:</td>
+                <TD><?php echo $account->officename ;?></TD>
+            </TR>
+            <TR>
+                <TH>Product details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <TD>Product name:</td>
+                <TD><?php echo $account->productname;?></TD>
+            </TR>
+            <TR>
+                <TD>Min balance:</b></td>
+                <TD><?php echo $account->minbalance;?></TD>
+            </TR>
+            <TR>
+                <TD>Penal interest</td>
+                <TD><?php echo $account->mininterest; ?></TD>
+            </TR>
+            <TR>
+                <TH>Interest per annum</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <TD><B>Periods in months</B></TD>
+                <TD><B>Interest</B></TD>
+            </TR>
+        <?php }  ?>
+        <?php if ($this->interestRates) {
+                foreach ($this->interestRates as $interestRates) { ?>
+                    <TR>
+                        <TD><?php echo $interestRates->period_ofrange_description; ?></TD>
+                        <TD><?php echo $interestRates->Interest; ?></TD>
+                    </TR>
+                <?php } 
+        } ?>
+    </table>
+
+</div>
+<div style="float:left;width:350px">
+    <fieldset>
+    <legend>New fixed account</legend>
+    <form name="fixedform" action="<?php echo $this->baseUrl();?>/fixedaccount/index/createaccount" method="POST">
+    <table class="fieldsets">
+        <TR>
+            <TD><label for="fld1" class="mand">Date of account</TD>
+            <TD><?php echo $this->fixedForm->date1;?></TD>
+        </TR>
+        <TR>
+            <TD><label for="fld1" class="mand">Period</TD>
+            <TD><?php echo $this->fixedForm->period;?></TD>
+        </TR>
+        <TR>
+            <TD><label for="fld1" class="mand">Interest</TD>
+            <TD><div id="interestdiv"><?php echo $this->fixedForm->interest;?></div></TD>
+        </TR>
+        <TR>
+            <TD><label for="fld1" class="mand">Fixed amount</TD>
+            <TD><?php echo $this->fixedForm->tAmount;?></TD>
+        </TR>
+        <?php if($this->gp_members) { ?>
+        <TR>            <TD></td>
+            <TD><br><?php foreach($this->gp_members as $gpmembers) {
+            echo "<input type=checkbox name=members[] value=".$gpmembers['id'].">".$gpmembers['name']."<br>";
+            } ?></TD>
+
+        </TR>
+            <? } ?>
+        <TR>
+            <TD><?php echo $this->fixedForm->Submit; ?></TD>
+            <TD><?php echo $this->fixedForm->Back; ?></td>
+        </TR>
+
+        <?php echo '<font color=RED>'.$this->maxdate.'</font>'; ?>
+    </table>
+    <?php echo $this->fixedForm->Id; ?> <?php echo $this->fixedForm->memberId; ?> 
+ <?php echo $this->fixedForm->code; ?> 
+    </form>
+</div>

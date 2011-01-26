@@ -1,0 +1,64 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+
+
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Penalty VIEW</legend>
+	<?php foreach($this->fetchpenalty as $fetchpenalty){ ?>
+		<table style="float:left">
+			<tr>
+				<td colspan="5" class="td_border">Penalty</td>
+			</tr>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $fetchpenalty['penalty_name'];?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Per Month<span class="reqMark">*</span></TD>
+				<TD ><?php echo $fetchpenalty['penalty_per_month']." ".$fetchpenalty['unitPenalty_per_month'];?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			
+				<!--<TD class="label" align="right" width="40%">Unit / Month<span class="reqMark">*</span></TD>
+				<TD ><?php /*echo $fetchpenalty['unitPenalty_per_month'];*/?><SPAN style="color:red"></SPAN></TD></SPAN></TD>-->
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Per Day<span class="reqMark">*</span></TD>
+				<TD ><?php echo $fetchpenalty['penalty_per_day']." ".$fetchpenalty['unitPenalty_per_day'];?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			
+				<!--<TD class="label" align="right" width="40%">Unit / Day<span class="reqMark">*</span></TD>
+ 				<TD ><?php /*echo $fetchpenalty['unitPenalty_per_day'];*/?><SPAN style="color:red"></SPAN></TD></SPAN></TD>--> 
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%">Credit Line Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $fetchpenalty['creditlinename'];?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%">Status<span class="reqMark">*</span></TD>
+				<TD ><?php  if($fetchpenalty['status']) echo "Active"; else echo "In Active";?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%"></TD>
+				<TD ><a href="<?php echo $this->baseUrl();?>/penalty/index"><input type="button" value="Back"></a></TD>
+			</TR>
+		</table>
+	<? } ?>
+</fieldset>

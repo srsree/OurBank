@@ -1,0 +1,43 @@
+<?php
+
+class Enquiry_InterestController extends Zend_Controller_Action
+{
+
+    public function init()
+    {
+       $this->view->pageTitle='Repayment of  List';
+    }
+
+    public function indexAction() {
+
+       $sessionName = new Zend_Session_Namespace('ourbank');
+       $sessionName->primaryuserid;
+       $this->view->title = "Transaction Due Amount";
+
+       $searchForm = new Enquiry_Form_Search();
+       $this->view->form = $searchForm;
+
+       if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+               $formData = $this->_request->getPost();
+
+            if ($this->_request->isPost()) {
+
+               echo $transaction_date = $this->_request->getParam('field6'); 
+
+                        $transaction = new Enquiry_Model_Interest(); 
+                        $transactionDetails = $transaction->fetchTransactionDetails($transaction_date);
+                        
+
+                       if (!$transactionDetails) {
+                            
+                            echo "<font color='RED'>No Transaction has been recorded for this Date</font>";
+                                } else {
+                     
+                                $this->view->transaction = $transactionDetails;
+                        }
+                  }
+            }
+        }
+    }
+
+

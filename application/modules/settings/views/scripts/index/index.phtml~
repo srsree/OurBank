@@ -1,0 +1,80 @@
+<head><script>
+function getXMLHTTP() {
+var xmlhttp=false;   
+try{
+xmlhttp=new XMLHttpRequest();
+}
+catch(e) {
+try {   
+xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+}
+catch(e){
+try {
+xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+}
+catch(e1){
+xmlhttp=false;
+}
+}
+}
+return xmlhttp;
+}
+
+
+
+function getmember(office_id,path) {   
+alert('hiiii');
+var strURL=path+"/se/group/getgroups?office_id="+office_id;
+
+var req = getXMLHTTP();
+if (req) {
+req.onreadystatechange = function() {
+if (req.readyState == 4) {
+if (req.status == 200) {
+document.getElementById('statediv').innerHTML=req.responseText;
+} else {
+alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+}
+}
+}
+req.open("GET", strURL, true);
+req.send(null);
+}
+var perioddescription=$('#perioddescription').val();
+if(perioddescription!='') {
+$('#errorspan').show();
+} else {
+$('#errorspan').hide();
+}
+}
+
+
+
+
+</script></head> 
+<fieldset>
+<legend>Languages</legend>
+<form action="<?php echo $this->baseUrl();?>/settings" method="POST">
+<TABLE id="hor-minimalist-b">
+<TR>
+<TD class="label">Change Language<span class="reqMark">*</span></TD>
+<td><?php echo $this->form->languages;?></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td><td></td>
+</TR>
+
+<TR>
+<td><?php echo $this->form->Submit;?></td>
+
+</TR>
+</TABLE>
+</form>
+</div>
+</div>
+</fieldset>

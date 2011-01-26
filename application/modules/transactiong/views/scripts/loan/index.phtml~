@@ -1,0 +1,65 @@
+<div>
+	<?php If($this->member) { ?>
+	<fieldset>
+		<legend>memberDetails</legend>
+		<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<TR><td width="30%">Name:</td><TD width="50%"><?php echo $this->name ;?></TD></TR>
+				<TR><td width="30%">Member code:</td><TD width="50%"><?php echo $this->code ;?></TD></TR>
+				<TR><td width="30%">Account number:</td><TD width="50%"><?php echo $this->accountCode ;?></TD></TR>
+				<?php If($this->type==3) { ?>
+					<TR><td>Number of Members in Group:</td><TD width=""><?php echo $this->noOfMemberinGroup;?></TD></TR>
+				<?php } ?>
+			</table> 
+		</div>
+	</fieldset> 
+	<?php } else { ?>
+    <fieldset>
+        <legend>Search</legend>
+            <div class="cont-rgt-data">
+                <form action="<?php echo $this->baseUrl();?>/transaction/loan" method="POST">
+                    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <tr>
+                            <td>Account Number</td>
+                            <td><?php echo $this->form->member_id;?></td>
+                        </tr>
+                        <tr>
+                            <TD colspan = "2"><?php echo $this->form->Search;?></TD>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+    </fieldset>
+	<?php } ?>
+</div>
+
+<div>
+<?php If($this->type==3) { ?>
+<a href="#" id="open">group Members</a>
+<div class="box">
+<div id="content1">
+	<fieldset>
+		<legend> <?php echo $this->memberListtitle;?> </legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="30%">Name</td>
+			<td width="50%">code</td>
+		</tr>
+
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+			</tr>
+
+	<?php }?>
+		</table>
+</div></fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>
+</div>
+<?php }?>
+</div>
+

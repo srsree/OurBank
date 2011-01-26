@@ -1,0 +1,41 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<div id = "searchDiv">
+<fieldset>
+<legend><?php echo $this->translate('Edit creditline'); ?></legend>
+	<form action="<?php echo $this->baseUrl();?>/creditline/index/creditlineedit/id/<?php echo $this->id;?>" method="POST">
+		<table class = "fieldsets">
+			<TR>
+			<TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/creditline/index/creditlinedelete/creditline_id/<?php echo $this->id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
+			</TR>
+			<?php echo $this->form;?>
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<input type="Submit" name="Update" value="Update">
+			</div>
+			<div class="rtbtns">
+			<a href="<? echo $this->baseUrl();?>/creditlinecommonview/index/creditlinecommonviewview/id/<? echo $this->id; ?>"><input type="button" value="<?php echo $this->translate('Back'); ?>"></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>

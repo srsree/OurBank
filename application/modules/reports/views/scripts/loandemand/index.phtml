@@ -1,0 +1,169 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>	
+
+		<TABLE id="hor-minimalist-b" >
+
+			<tr>	<td><b>Acc no.<b></td>
+				<td><b>princi 1<b></td>
+				<td><b>int 2<b></td>
+				<td><b>princi 3<b></td>
+				<td><b>Int 4<b></td>
+				<td><b>Tot Princi 5(1+3)<b></td>
+				<td><b>Tot Int 6(2+4)<b></td>
+				<td><b>princi 7<b></td>
+				<td><b>int 8<b></td>
+				<td><b>princi 9<b></td>
+				<td><b>Int 10<b></td>
+				<td><b>Tot Princi 11(7+9)<b></td>
+				<td><b>Tot Int 12(8+10)<b></td>
+				<td><b>PRINCIPAL13(5-11)<b></td>
+				<td><b>INTEREST 14(6-12)<b></td>
+
+			</tr>
+<tr>	<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+
+			</tr>
+				<?php $totalAmount=0 ?>
+				<?php $totalinterest=0 ?>
+				<?php $currentamount=0 ?>
+				<?php $currentinterest=0 ?>
+				<?php $totalprincipal=0 ?>
+				<?php $totalint=0 ?>
+				<?php $aprin=0 ?>
+				<?php $aint=0 ?>
+				<?php $npri=0 ?>
+				<?php $nint=0 ?>
+				<?php $totpri=0 ?>
+				<?php $totint=0 ?>
+				<?php $fprinci=0 ?>
+				<?php $fint=0 ?>
+
+
+		<?php  foreach($this->currentLoan as $fixedDebit) { ?>
+			<tr>	
+				<TD><?php echo $fixedDebit["account_number"];?></TD>
+				<TD><?php echo $fixedDebit["amount"];?></TD>
+				<TD><?php echo $fixedDebit["interest"];?></TD>
+				<TD><?php echo $fixedDebit["currentamount"];?></TD>
+				<TD><?php echo $fixedDebit["currentinterest"];?></TD>
+				<TD><?php echo $fixedDebit["amount"]+$fixedDebit["currentamount"];?></TD>
+				<TD><?php echo $fixedDebit["interest"]+$fixedDebit["currentinterest"];?></TD>
+				<TD><?php echo $fixedDebit["paidamount"];?></TD>
+				<TD><?php echo $fixedDebit["paidinterest"];?></TD>
+				<TD><?php echo $fixedDebit["nextamount"];?></TD>
+				<TD><?php echo $fixedDebit["nextinterest"];?></TD>
+ 				<TD><?php echo $fixedDebit["paidamount"]+$fixedDebit["nextamount"];?></TD> 
+ 				<TD><?php echo $fixedDebit["paidinterest"]+$fixedDebit["nextinterest"];?></TD> 
+ 				<?php $princi=$fixedDebit["amount"]+$fixedDebit["currentamount"];?>
+ 				<?php $principaid=$fixedDebit["paidamount"]+$fixedDebit["nextamount"];?>
+ 				<TD><?php echo $mainprinci=$princi-$principaid;?></TD> 
+ 				<?php $int=$fixedDebit["interest"]+$fixedDebit["currentinterest"];?> 
+ 				<?php $pint=$fixedDebit["paidinterest"]+$fixedDebit["nextinterest"];?>
+ 				<TD><?php echo $mainint=$int-$pint;?></TD> 
+
+
+			</tr>
+
+				<?php $totalAmount = $totalAmount + $fixedDebit["amount"]; ?>
+				<?php $totalinterest = $totalinterest + $fixedDebit["interest"]; ?>
+				<?php $currentamount = $currentamount + $fixedDebit["currentamount"]; ?>
+				<?php $currentinterest = $currentinterest + $fixedDebit["currentinterest"]; ?>
+				<?php $totalprincipal = $totalprincipal + $fixedDebit["amount"]+$fixedDebit["currentamount"]; ?>
+				<?php $totalint = $totalint + $fixedDebit["interest"]+$fixedDebit["currentinterest"]; ?>
+				<?php $aprin = $aprin + $fixedDebit["paidamount"]; ?>
+				<?php $aint = $aint + $fixedDebit["paidinterest"]; ?>
+				<?php $npri = $npri + $fixedDebit["nextamount"]; ?>
+				<?php $nint = $nint + $fixedDebit["nextinterest"]; ?>
+				<?php $totpri = $totpri + $fixedDebit["paidamount"]+$fixedDebit["nextamount"]; ?>
+				<?php $totint = $totint + $fixedDebit["paidinterest"]+$fixedDebit["nextinterest"]; ?>
+				<?php $fprinci = $fprinci+$fixedDebit["amount"]+$fixedDebit["currentamount"]-($fixedDebit["paidamount"]+$fixedDebit["nextamount"]); ?>
+				<?php $fint = $fint+$fixedDebit["interest"]+$fixedDebit["currentinterest"]-($fixedDebit["paidinterest"]+$fixedDebit["nextinterest"]); ?>
+
+				<?php }?>	
+
+		
+
+
+			<tr>	<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+
+			</tr>
+<tr>
+				<td>TOTAL</td>
+				<td><?php echo $totalAmount; ?></td>
+				<td><?php echo $totalinterest; ?></td>
+				<td><?php echo $currentamount; ?></td>
+				<td><?php echo $currentinterest; ?></td>
+				<td><?php echo $totalprincipal; ?></td>
+				<td><?php echo $totalint; ?></td>
+				<td><?php echo $aprin; ?></td>
+				<td><?php echo $aint; ?></td>
+				<td><?php echo $npri; ?></td>
+				<td><?php echo $nint; ?></td>
+				<td><?php echo $totpri; ?></td>
+				<td><?php echo $totint; ?></td>
+				<td><?php echo $fprinci; ?></td>
+				<td><?php echo $fint; ?></td>
+
+			</tr>
+	
+
+
+
+		</TABLE>
+
+
+	</fieldset>
+
+<form action="<?php echo $this->baseUrl();?>/reports/loandemand/pdfdisplay" method="POST"
+onClick="window.open('/ourbank/public/reports/loandemand/reportdisplay/file/DCB.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+           
+
+            <input type="submit" value="PDF" id="submit">
+
+</form>

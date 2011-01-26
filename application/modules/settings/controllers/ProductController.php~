@@ -1,0 +1,69 @@
+<?php
+class Management_ProductController extends Zend_Controller_Action {
+    public function init() {
+        $this->view->pageTitle='Product';
+    }
+    public function indexAction() {
+        $this->view->title = "PRODUCT";
+
+        $product = new Management_Model_Product();
+        $result = $product->fetchAllProductDetails();
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+        }
+
+    public function productviewAction() {
+        $this->view->title = "View Product";
+        $product_id = (int)$this->_getParam('id');
+        $product = new Management_Model_Product();
+        $result = $product->viewProduct($product_id);
+        $this->view->product = $result;
+    }
+
+    public function productaddAction() {
+        $this->view->title = "New Product";
+        $productForm = new Management_Form_Product();
+        $this->view->form = $productForm;
+
+        $model = new Management_Model_Category();
+        $category_id = $model->getCategoryDetails();
+        foreach($category_id as $category_id) {
+                $productForm->category_id->addMultiOption($category_id['category_id'], 
+                                                     $category_id['categoryname']);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($productForm->isValid($formData)) {
+                                    $category = new Management_Model_categoryi();
+                                    $result = $category->addCategoryi();
+                                    $category_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_category','category_id');
+
+                                    $category = new Management_Model_Category();
+                                    $result = $category->addCategory($categoryForm->getValues(),$category_id);
+
+                                    $this->_redirect('management/category/index');
+               }
+            }
+        }
+            $this->view->form = $productForm;
+    }
+
+    public function productdeleteAction() {
+        $this->view->title = "Delete Product";
+    }
+
+    public function producteditAction() {
+        $this->view->title = "Edit Product";
+    }
+
+
+    }
+
+
+

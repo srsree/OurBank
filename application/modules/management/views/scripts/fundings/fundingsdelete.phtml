@@ -1,0 +1,109 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+    <legend>View Fundings</legend>
+        <div class="cont-rgt-data">
+                <?php foreach($this->fundings as $fundings) { ?>
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <tr>
+                        <TD>Funders</TD>
+                        <TD><?php echo $fundings['fundername'];?></TD>
+                    </TR>
+                   <tr> 
+                        <td>Instituition Name</td>
+			<TD><?php echo $fundings['institutionname'];?></TD>
+		</tr>
+                    <tr> 
+                        <td>Funding Name</td>
+                        <td><?php echo $fundings['fundingname'];?></td>
+                   </tr>
+                    <tr> 
+                        <td>Funding Amount</td>
+                        <td><?php echo  $fundings['fundingamount'];?></td>
+                    </tr>
+			<tr> 
+                        <td>Interest</td>
+			<td><?php echo  $fundings['interest'];?></td>
+			</tr>
+                    <tr> 
+                        <td>Funding Currency</td>
+                        <td><?php echo $fundings['currencyname'];?></td>
+                    </tr>
+                    <tr> 
+                        <td>Currency Exchanging Rate</td>
+                        <td><?php  echo  $fundings['exchangerate'];?></td>
+                    </tr>
+                    <tr> 
+                        <td>Funding Period From   (yyyy-mm-dd)</td>
+                        <td><?php echo  $fundings['fund_beginingdate'];?></td>
+                    </tr>
+                    <tr> 
+                        <td>Funding Period To   (yyyy-mm-dd)</td>
+                        <td><?php echo  $fundings['fund_closingdate'];?></td>
+                    </tr>
+                </table>
+                <?php } ?>
+            </div>
+        <table width="100%">
+            <TR>
+                 <td><a href="<?php echo $this->baseUrl(); ?>/management/fundings"><input name="submit" type="submit" class="NormalBtn" 
+                                    value="back"></a></td>
+                    <td></td>
+            </TR>
+        </table>
+</fieldset>
+
+
+<?php if($this->recordstatus_id == 1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<?php foreach($this->funders as $funders) {  ?>
+    <tr>
+        <Th align="center"><p><B style="color:red">No you cannot delete since the product exists for </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $funders['fundername'];?>' Funds</b></Th>
+    </tr>
+<?php } ?>
+</table>
+<?php } else { ?>
+<?php foreach($this->fundings as $fundings) {  ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+    <tr>
+        <th><B style="color:red">Are you sure you want to delete Funding</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $fundings['fundingname'];?>" ?*</b></th>
+    <tr>
+</table>
+<?php } ?>
+<fieldset>
+    <legend>Delete Fundings</legend>
+        <div class="cont-rgt-data">
+            <form action="<?php echo $this->baseUrl();?>/management/fundings/fundingsdelete/id/<?php echo $this->fundingupdates_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <TR>
+                        <TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+                        <TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+                    </TR>
+                    <TR>
+                        <TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+                        <TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/funders">
+                        <input name="submit" type="submit"  value="No" ></a></TD>
+                    </TR>
+                </table>
+            </form>
+        </div>
+</div>
+</fieldset>
+<?php } ?>

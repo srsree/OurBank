@@ -1,0 +1,84 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Office Name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Office Short Name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">City:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Office Type:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div>  
+<fieldset>
+<legend>Insurance</legend>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Product Name</th>
+        <th>Minimum Frequency</td>
+        <th>Maximum Frequency</td>
+        <th>Minimum Loan Amount</th>
+        <th>edit</td>
+        <th>delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $insurance): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/management/loans/loansview/id/".$insurance['offerproductupdate_id']; ?>">
+                     <?php echo $this->escape($insurance['offerproductname']); ?></a></td>
+    <td><?php echo $this->escape($insurance['minimumfrequency']);?></td>
+    <td><?php echo $this->escape($insurance['maximumfrequency']);?></td>
+    <td><?php echo $this->escape($insurance['minmumloanamount']);?></div></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/loans/loansedit/id/<?php echo $insurance['offerproductupdate_id'];?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/loans/loansdelete/id/<?php echo $insurance['offerproductupdate_id'];?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+        <?php endforeach; ?>
+        <?php endif; ?>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/insurance/insuranceadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Insurance"></a></td>
+    </tr>
+</table>
+</fieldset>

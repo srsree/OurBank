@@ -1,0 +1,150 @@
+<fieldset>
+	<legend>viewUse</legend>
+	<div class="cont-rgt-data">
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+ 	<tr>
+            <?php foreach($this->user as $user) {  ?>
+                <TD><label>officeBranch</label></TD>
+			    <TD><?php echo $user['office_id'];?></TD>
+				<TD><label>middleName</label></TD>
+				<TD><?php echo $user['middlename'];?></TD>
+			</TR>
+			<tr>
+                <TD><label>firstName</label></TD>
+				<TD><?php echo $user['title1'];?><?php echo $user['firstname'];?></TD>
+				<TD><label>lastName</label></TD>
+				<TD><?php echo $user['lastname'];?></TD>
+			</TR>
+			<TR>
+            <?php foreach($this->userAddress as $userAddress) {  ?>
+                <TD><label>maritalStatus</label></TD>
+				<TD><?php echo $userAddress['marital_status'];?></TD>
+                <?}?>
+				<TD><label>Gender</label></TD>
+				<TD><?php echo $user['gender'];?></TD>
+			</r>
+			<tr>
+                <TD><label>dateOfBirth</label></TD>
+				<TD><?php echo $user['dateofbirth'];?></TD>
+				<TD></TD>
+				<TD></TD>
+			</TR>
+		</table>
+                <?}?>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr>
+              		<Th>address</Th>
+			</tr> 
+		</table>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                <?php foreach($this->userAddress as $userAddress) {  ?>
+			<tr>
+				<TD><label>line1</label></TD>
+				<TD><?php echo $userAddress['addressline1'];?></td>
+				<TD><label>Postal Code</label></TD>
+				<TD><?php echo $userAddress['postal_code'];?></td>
+			</tr>
+       		        <tr>
+				<TD><label>line2</label></TD>
+				<TD><?php echo $userAddress['addressline2'];?></td>
+				<TD><label>telephonenumber</label></TD>
+				<TD><?php echo $userAddress['telephone'];?></td>
+			</tr>
+        	        <tr>
+				<TD><label>line3</label></TD>
+				<TD><?php echo $userAddress['addressline3'];?></td>
+				<TD><label>email</label></TD>
+				<TD><?php echo $userAddress['emailid']; ?></td>
+			</tr>
+       		        <tr>
+				<TD><label>City</label></TD>
+				<TD><?php echo $userAddress['city'];?></td>
+				<TD><label></label></TD>
+				<TD></td>
+			</tr>
+      		        <tr>
+				<TD><label>state</label></TD>
+				<TD><?php echo $userAddress['state'];?></td>
+				<TD><label>fax</label></TD>
+				<TD><?php  echo $userAddress['officeFax'];?></td>
+			</tr>
+      		        <tr>
+				<TD><label>country</label></TD>
+				<TD><?php echo $userAddress['country'];?></td>
+				<TD><label></label></TD>
+				<TD></td>
+			</tr>
+                <?}?>
+		</table>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr>
+				<Th>grantedAs</Th>
+			</tr> 
+		</table>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+            <?php foreach($this->user as $user) {  ?>
+      		        <tr>
+				<TD><label>designation</label></TD>
+				<TD><?php  echo $user['designation'];?></td>
+             <?}?>
+            <?php foreach($this->userAddress as $userAddress) {  ?>
+				<TD><label>personnelId</label></TD><td></td><td></td>
+				<TD><?php  echo $userAddress['personnel_idcardnumber'];?></td>
+			</tr>
+            <?}?>
+      		        <tr>
+                        	<TD><label>grants</label></TD>
+				<TD><? foreach($this->checkbox as $grantname) {
+				echo $grantname['grantname'].'<br>';
+				}?></td>
+            <?php foreach($this->user as $user) {  ?>
+				<TD><label>dateOfJoin</label></TD>
+				<TD><? echo $user['dateofjoin']?></td>
+			</tr>
+            <?}?>
+			<tr>
+				<TD colspan="4"><input name="submit" type="submit" onclick="history.go(-1)" 
+					class="officebutton" value="Back"></TD>
+			</tr>
+		</table>
+	</div>
+</fieldset>
+<?php if($this->recordstatus_id==1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<?php foreach($this->user as $user) {  ?>
+	<tr>
+		<Th align="center"><p><B style="color:red">No you cannot delete since the user exists for </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $user['firstname'];?>' Office</b></Th>
+    </tr>
+<?php } ?>
+</table>
+<?php } else { ?>
+<?php foreach($this->user as $user) {  ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+		<th><B style="color:red">Are you sure you want to delete User</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $office['firstname'];?>" ?*</b></th>
+	<tr>
+</table>
+<?php } ?>
+<fieldset>
+	<legend>Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/management/user/userdelete/id/<?php echo $this->user_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+					</TR>
+					<TR>
+						<TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+						<TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/user/">
+						<input name="submit" type="submit"  value="No" ></a></TD>
+					</TR>
+				</table>
+				</form>
+			</div>
+		</div>
+</fieldset>
+<?php } ?>
+
+
+

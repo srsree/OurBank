@@ -1,0 +1,29 @@
+<?php
+class Plugin_Model_memberplugin extends Zend_Db_Table 
+{
+	protected $_name = 'member_ship_plugin';
+
+	public function fetch_all_detail() 
+        {
+	$select = $this->select()
+
+			->setIntegrityCheck(false)  
+
+			->join(array('p' => 'member_ship_plugin'),array('plugin_id'));
+
+
+		$result = $this->fetchAll($select);
+
+		return $result->toArray();
+                die($select->__toString($select));
+	}
+
+       public function updateModule($rootid,$status)
+        {
+       echo $rootid;
+        echo $status;
+        $data = array('staus'=> $status);
+        $where= 'plugin_id='. $rootid;
+        $this->update('member_ship_plugin',$data,$where);
+        }
+}

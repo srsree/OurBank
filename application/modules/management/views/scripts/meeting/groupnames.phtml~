@@ -1,0 +1,6 @@
+<select name='group'  id="subOffice1" class="selectbutton">
+<option value=''>select...</option>
+<?php foreach($this->selectedSuboffice as $eacharraysent) { ?>
+<option value="<?php echo $eacharraysent->groupname;?>"><?php echo $eacharraysent->groupname;?><?php echo $eacharraysent->officetype;?></option>
+<? } ?>
+</select>

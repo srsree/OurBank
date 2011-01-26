@@ -1,0 +1,59 @@
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/graceperiodindex/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Creditline name:</td>
+                                    <td ><? echo $this->form->search_credit_grace;?></td>
+                                    <td class="label">Days:</td>
+                                    <td ><? echo $this->form->search_days;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Grace period name:</td>
+                                    <td ><? echo $this->form->search_gracename;?></td>
+
+                                </tr>
+
+                        </table>
+			<div class="btnhouse">
+				<div class="ltbtns">
+				<input type="Submit" name="Search" value="Search">
+				</div>
+			</div>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+
+
+	<table id="hor-minimalist-b" summary="">
+    	<tr class="tdbrownheading">
+        <th>Grace period name</th>
+        <th>No. of days</th>
+	<th>Creditline name</th>
+	
+	</tr>
+		<?php if (count($this->paginator)): ?>
+		<?php foreach ($this->paginator as $graceperiod ): ?>
+	<tr>
+	
+	<td><a href="<?php echo $this->baseUrl()."/graceperiodcommonview/index/index/graceperiod_id/".$graceperiod['id']; ?>"><?php echo $this->escape($graceperiod['name']);?></a></td>
+	<td><?php echo $this->escape($graceperiod['days']); ?></td>
+	
+	<td><?php echo $this->escape($graceperiod['creditline_name']);?></td>
+		<?php endforeach; ?>
+		<?php endif; ?>
+	
+	<tr>
+		<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+					'/partials/my_pagination_control.phtml'); ?></div></td>
+	</tr>
+	</tr>
+	</table>
+	

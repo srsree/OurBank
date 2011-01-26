@@ -1,0 +1,350 @@
+
+	<script>
+	    $(document).ready(function(){
+	        //iterate through each textboxes and add keyup
+        //handler to trigger sum event
+	        $(".txt").each(function() {
+	            $(this).keyup(function(){
+                calculateSum();
+	            });
+	        });
+	    });
+	    function calculateSum() {
+	        var sum = 0;
+	        //iterate through each textboxes and add the values
+	        $(".txt").each(function() {
+	 	            //add only if the value is number
+            if(!isNaN(this.value) && this.value.length!=0) {
+	                sum += parseFloat(this.value);
+           }
+	        });
+	        //.toFixed() method will roundoff the final sum to 2 decimal places
+	        $("#amount").val(sum.toFixed(2));
+	    }
+	</script> 
+<?php If($this->type==3) { ?>
+<DIV>
+<a href="#" id="open">Group Members</a>
+<div class="box">
+<div id="content1">
+	<fieldset>
+		<legend> <?php echo $this->memberListtitle;?> </legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="30%">Name</td>
+			<td width="50%">code</td>
+		</tr>
+
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+			</tr>
+	<?php }?>
+		</table>
+		</div>
+	</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>
+</div>
+
+</DIV>
+<br />
+	<?php }?>
+<?php if($this->totladisburseAmount==0) {?>
+<div class="cont-rgt-data">
+	<CENTER>First disburse the approved Loan</CENTER>
+		<a href="<?php echo $this->baseUrl();?>/transaction/loan/view/accountcode/
+				<?php echo base64_encode($this->accountCode);?>/code/
+				<?php echo base64_encode($this->code);?>/categoryType/<?php echo $this->categoryType;?>
+						/block/loanDisbursement">Loan disbursement</a>
+</div>
+<?php } else { ?>
+<!--loan repament detals div-->
+<div>
+<fieldset>
+	<legend>loan details</legend>
+	<div style="float:left;width:380px">
+		<fieldset>
+			<legend>Sanctioned Details</legend>
+			<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet" >
+				<tr><td width="30%">loanAmount R$ :</td><TD width="50%">R$. <?php echo $this->loanAmountSanctioned;?></TD></tr>
+				<tr><td width="30%">interestRates :</td><TD width="50%"><?php echo $this->rateOfIntrest.'%';?></TD></tr>
+				<tr><td width="30%">Installments:</td><TD width="50%"><?php echo $this->noInstalment;?></TD></tr>
+			</table>
+			</div>
+		</fieldset>
+	</div>
+
+	<div style="float:left;width:350px">
+	<?php if($this->totladisburseAmount) {?>
+		<fieldset>
+			<legend>Current Details</legend>
+			<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet" border="1">
+				<tr>
+					<th>Type</th>
+					<th>Installments</th>
+					<th>amount R$</th>
+				<tr>
+				<tr><td>Paid</td>
+					<TD width="40%"><?php echo $this->noOfInstalmentPaied;?></TD>
+					<TD width="40%">R$. <?php echo $this->paiedAmount;?></TD>
+				</tr>
+				<tr><td>Due</td>
+					<TD width="40%"><?php echo $this->balanceInstalment;?></TD>
+					<TD width="40%">R$. <?php echo $this->stillHaveToPay;?></TD>
+				</tr>
+			</table>
+			</div>
+		</fieldset>		
+		<?php } ?>
+	</div>
+</fieldset>
+</div>
+<!--End of loan repament detals div-->
+<table width="100%"><TR><TD><HR></HR></TD></TR></table>
+<div id="loanRepayment" style="float:left;width:100%">
+<?php if(!$this->Submit) { ?>
+<?php if($this->block=='loanRepayment') { ?>
+
+<?php If($this->type==3) { ?>
+<fieldset>
+	<legend>Type of Transaction</legend>
+		<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<tr>
+					<TD><a href="<?php echo $this->baseUrl(); ?>/transaction/loan/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/loanRepayment/manualRepayment/no">Repayment (group)</a></TD>
+
+					<td><a href="<?php echo $this->baseUrl(); ?>/transaction/loan/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/loanRepayment/manualRepayment/yes">Repayment (individual)</a></td>
+				</tr>
+			</table>
+		</div>
+	</fieldset>
+<?php } ?>
+
+
+
+
+	<fieldset>
+		<legend>Loan Repayment</legend>
+		<div class="cont-rgt-data">
+		<form action="<?php  echo $this->baseUrl();?>/transaction/loan/view/block/loanRepayment/manualRepayment/<?php echo $this->manualRepayment;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+		<SAMP style="background-color:yellow;color:red"><?php echo $this->showGracePeriod; ?></SAMP>
+<?php if($this->noOfOverDueInstalment>0) { ?>
+<div style="color:red">You have <?php echo $this->noOfOverDueInstalment; ?> Over due of amount <?php echo $this->dueAmount; ?></div>
+
+<?php } else { ?>
+<div style="color:red">Next Due <?php echo $this->nextInstallment; ?></div>
+<? } ?>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+
+<?php if($this->manualRepayment=='yes') { ?>
+<tr><TD>	<fieldset>
+		<legend> Enter Individual member amount  </legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="33%">Name</td>
+			<td width="33%">Amount R$</td>
+		</tr>
+
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="33%"><?php $a='amount'.$arrayroles1['member_id'];echo $this->loanrepaymentAmountForm->$a; ?></TD>
+			</tr>
+	<?php }?>
+		</table>
+		</div>
+	</fieldset></TD></tr>
+<?php } ?>
+			<TR class="tdbrown1">
+				<td width="30%">Amount R$ <span class="reqMark">*</span><?php echo $this->loanrepaymentAmountForm->accountcode; ?>
+					<?php echo $this->loanrepaymentAmountForm->membercode; ?>
+					<?php echo $this->loanrepaymentAmountForm->categoryId; ?>
+					<?php echo $this->loanrepaymentAmountForm->transactionType_id; ?><?php echo $this->loanrepaymentAmountForm->installment_status; ?></td>
+				<TD><?php echo $this->loanrepaymentAmountForm->amount; ?></td>
+			</tr>
+			<tr>
+				<td width="20%">Date &nbsp;&nbsp;<B style='color:red'>(yyyy-mm-dd)<span class="reqMark">*</span></b></td>
+				<TD><?php echo $this->loanrepaymentAmountForm->loanRepaymentDate; ?></TD>
+			</tr>
+			<tr class="tdbrown1">
+				<td width="20%">Loan interest amount R$<span class="reqMark">*</span></td>
+				<TD><?php echo $this->loanrepaymentAmountForm->loanInterestAmountPaied; ?></TD>
+			</TR>
+			<TR class="tdbrown1">
+				<td width="20%">Transaction mode<span class="reqMark">*</span></td>
+				<TD><?php echo $this->loanrepaymentAmountForm->transactionMode; ?>
+					<?php echo $this->loanrepaymentAmountForm->paymenttype_details;?>
+					<h id="details" style="display:none">voucher/cheque/draft number</h></td>
+			</TR>
+			<?php if($this->loanrepaymentAmountForm->fine) { ?>
+				<tr class="tdbrown1">
+					<td width="20%">Fine R$<span class="reqMark">*</span></td>
+					<TD><?php echo $this->loanrepaymentAmountForm->fine; ?></TD>
+				</TR>
+				<?php } ?>
+
+				<tr><TD colspan="4"><?php echo $this->loanrepaymentAmountForm->confirm; ?></TD></TR>
+		</table>
+		</form>
+		</div>
+	</fieldset>
+<?php } ?>
+<?php } ?>
+
+
+
+
+<?php if($this->Submit) { ?>
+<?php if($this->block=='loanRepayment') { ?>
+<?php If($this->type==3) { ?>
+<fieldset>
+	<legend>Type of Transaction</legend>
+		<div class="cont-rgt-data">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<tr>
+					<TD><a href="<?php echo $this->baseUrl(); ?>/transaction/loan/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/loanRepayment/manualRepayment/no">Repayment (group)</a></TD>
+
+					<td><a href="<?php echo $this->baseUrl(); ?>/transaction/loan/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/loanRepayment/manualRepayment/yes">Repayment (individual)</a></td>
+				</tr>
+			</table>
+		</div>
+	</fieldset>
+<?php } ?>
+
+
+
+
+	<fieldset>
+		<legend>Loan Repayment</legend>
+		<div class="cont-rgt-data">
+		<form action="<?php  echo $this->baseUrl();?>/transaction/loan/view/block/loanRepayment/manualRepayment/<?php echo $this->manualRepayment;?>" method="POST" name="joe" id="signupForm" class="cmxform">
+		<SAMP style="background-color:yellow;color:red"><?php echo $this->showGracePeriod; ?></SAMP>
+<?php if($this->noOfOverDueInstalment>0) { ?>
+<div style="color:red">You have <?php echo $this->noOfOverDueInstalment; ?> Over due of amount <?php echo $this->dueAmount; ?></div>
+
+<?php } else { ?>
+<div style="color:red">Next Due <?php echo $this->nextInstallment; ?></div>
+<? } ?>
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+
+<?php if($this->manualRepayment=='yes') { ?>
+<tr><TD>	<fieldset>
+		<legend> Enter Individual member amount  </legend>
+		<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+			<td width="33%">Name</td>
+			<td width="33%">Amount R$</td>
+		</tr>
+
+	<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="33%"><?php $a='amount'.$arrayroles1['member_id'];echo $this->loanrepaymentAmountForm->$a; ?></TD>
+			</tr>
+	<?php }?>
+		</table>
+		</div>
+	</fieldset></TD></tr>
+<?php } ?>
+			<TR class="tdbrown1">
+				<td width="30%">Amount R$<?php echo $this->loanrepaymentAmountForm->accountcode; ?>
+					<?php echo $this->loanrepaymentAmountForm->membercode; ?>
+					<?php echo $this->loanrepaymentAmountForm->categoryId; ?>
+					<?php echo $this->loanrepaymentAmountForm->transactionType_id; ?><?php echo $this->loanrepaymentAmountForm->installment_status; ?><?php echo $this->loanrepaymentAmountForm->repayableamounts1; ?><?php echo $this->loanrepaymentAmountForm->loanRepaymentDate1; ?><?php echo $this->loanrepaymentAmountForm->transactionMode1; ?><?php echo $this->loanrepaymentAmountForm->paymenttype_details1; ?><?php echo $this->loanrepaymentAmountForm->fine1; ?></td>
+				<TD><?php echo $this->repayableamounts; ?></td>
+			</tr>
+			<tr>
+				<td width="20%">Date &nbsp;&nbsp;<B style='color:red'>(yyyy-mm-dd)</b></td>
+				<TD><?php echo $this->loanRepaymentDate; ?></TD>
+			</tr>
+			<tr class="tdbrown1">
+				<td width="20%">Loan interest amount R$</td>
+				<TD><?php echo $this->loanInterestAmountPaied; ?></TD>
+			</TR>
+			<TR class="tdbrown1">
+				<td width="20%">Transaction mode</td>
+				<TD><?php echo $this->transactionModetype; ?></td>
+			</TR>
+			<?php if ($this->transactionMode!=1) { ?>
+			<TR class="tdbrown1">
+				<td width="20%">voucher/cheque/draft number</td>
+				<TD><?php echo $this->paymenttype_details; ?></td>
+			</TR>
+			<?php } ?>
+			<?php if($this->loanrepaymentAmountForm->fine) { ?>
+				<tr class="tdbrown1">
+					<td width="20%">Fine R$</td>
+					<TD><?php echo $this->repayamount; ?></TD>
+				</TR>
+			<?php } ?>
+
+			<tr class="tdbrown1">
+				<td width="20%"><?php echo $this->loanrepaymentAmountForm->pay; ?></td>
+				<td><a href="<?php echo $this->baseUrl(); ?>/transaction/loan/view/accountcode/
+					<?php echo base64_encode($this->accountCode);?>/code/
+					<?php echo base64_encode($this->code);?>/categoryType/
+					<?php echo $this->categoryType;?>/block/loanRepayment/manualRepayment/<?php echo $this->manualRepayment;?>"><input name="submit" type="submit" class="officebutton" value="back"></a></TD>
+			</TR>
+		</table>
+		</form>
+		</div>
+	</fieldset>
+<?php } ?>
+<?php } ?>
+
+
+<?php if($this->block=='loanDetails') { ?>
+	<fieldset>
+		<legend>Loan repayment details</legend>
+		<div class="cont-rgt-data">
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr>
+				<th>Installment no</th>
+				<th>Installment amount R$</th>
+				<th>Interest amount R$</th>
+				<th> Principal amount R$</th>
+				<th>Due date</th>
+				<th>Installment status</th>
+			</tr>
+			<?php foreach($this->loanInstalments as $loanInstalmentDetails) { ?>
+			<tr>
+				<td><?php echo $loanInstalmentDetails['accountinstallment_id']; ?></td>
+				<td>R$. <?php echo $loanInstalmentDetails['accountinstallment_amount']; ?></td>
+				<td>R$. <?php echo $loanInstalmentDetails['accountinstallment_interest_amount'];?></td>
+				<td>R$. <?php echo $loanInstalmentDetails['installment_principal_amount']; ?></td>
+				<td><?php echo $loanInstalmentDetails['accountinstallment_date'];  ?></td>
+				<?php	if($loanInstalmentDetails['installment_status']=='5') {?>
+				<TD><B style="color:red"><?php echo $loanInstalmentDetails['statusdescription'];  ?></B></td>
+				<?php }else if($loanInstalmentDetails['installment_status']=='2') {?>
+				<TD><B style="color:Green"><?php echo $loanInstalmentDetails['statusdescription'];  ?></B></td>
+				<?php } else if($loanInstalmentDetails['installment_status']=='3' || $loanInstalmentDetails['installment_status']=='4' ) { ?>
+				<td><?php echo $loanInstalmentDetails['statusdescription'];  ?></td>
+				<?php } ?>
+			</tr>
+			<?php } ?>
+		</table>
+		</div>
+	</fieldset>
+<?php } ?>
+
+</div>
+<?php }  ?>

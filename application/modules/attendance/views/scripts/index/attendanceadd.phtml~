@@ -1,0 +1,31 @@
+
+
+
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/attendance.js"></script>
+<div id = "searchDiv">
+<fieldset>
+<legend>Add attendance</legend>
+	<form action="<?php echo $this->baseUrl();?>/attendance/index/attendanceadd/attendance_id/<?php echo $this->attendance_id;?>" method="POST">
+		<table class="fieldsets">
+			
+			<?php echo $this->attendanceform->meeting_date;?>
+			<?php echo $this->attendanceform->meeting_name;?>
+
+			<TR>
+				<TD><label for="fld3">Members</TD>
+				<TD colspan="2"><div id="statediv"></div></TD>
+			</TR>
+
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<input type="Submit" name="Submit" name="Submit" value="Submit">
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/attendanceindex"><input type="button" value="Back"></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>
+

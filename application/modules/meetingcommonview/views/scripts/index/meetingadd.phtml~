@@ -1,0 +1,50 @@
+
+
+
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Meeting ADD</legend>
+	<form action="<?php echo $this->baseUrl();?>/meeting/index/meetingadd" method="POST">
+		<table style="float:left">
+			<tr>
+				<td colspan="5" class="td_border">Credit Line</td>
+			</tr>
+			<TR >
+				<TD class="label" align="right" width="40%">Meeting Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->meeting_name;?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Office Type<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->office_type;?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Group Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->group_name;?><SPAN style="color:red"><?php echo $this->startMsg;?></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Group Head<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->group_head;?><SPAN style="color:red"><?php echo $this->endMsg;?></SPAN></TD>
+			</TR>
+			<TR >
+				
+				<TD class="label" align="right" width="40%">Meeting Place<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->meeting_place;?></TD>
+			</TR>
+			<TR >
+				
+				<TD class="label" align="right" width="40%">Meeting Time<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->meeting_time;?></TD>
+			</TR>
+			<TR >
+				
+				<TD class="label" align="right" width="40%">Meeting Day<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->meeting_day;?></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%"></TD>
+				<TD ><?php echo $this->meetingForm->Submit;?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+		</table>
+	</form>
+</fieldset>

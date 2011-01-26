@@ -1,0 +1,37 @@
+<?php
+class Transaction_Form_Expenditure extends Zend_Form{
+
+ public function init() {
+
+        $ledgercode=new Zend_Form_Element_Select('ledgercode');
+	$ledgercode->addMultiOption('','Select'.'...');
+        $ledgercode->setAttrib('class', 'selectbutton');
+
+        $amount=new Zend_Form_Element_Text('amount');
+        $amount->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $amount->setAttrib('class', 'txt_put');
+
+        $transactiondate=new Zend_Form_Element_Text('transactiondate');
+        $transactiondate->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $transactiondate->setAttrib('class', 'txt_put');
+
+	$description = new Zend_Form_Element_Textarea('description');
+	$description->setAttrib('class', 'textfield');
+ 	$description->setAttrib('rows','1');
+	$description->setAttrib('cols','20');
+	$description->setAttrib('id', 'description');
+	$description->setRequired(true);
+
+
+        $submit = new Zend_Form_Element_Submit('Submit');
+        $submit->setAttrib('class', 'officesubmit');
+
+
+         $this->addElements(array($ledgercode,$amount,$transactiondate,$description,$submit));
+	}
+}
+
+
+/**class end*/

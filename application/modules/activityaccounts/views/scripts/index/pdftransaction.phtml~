@@ -1,0 +1,12 @@
+<?php if($this->results){ ?>
+
+	  <table id="hor-minimalist-b">
+		<tr><th>Activity name</th><th>No of accounts</th></tr>
+<?php foreach($this->results as $activityresult){ ?>
+	<tr>
+	<td><?php echo $activityresult['activity_name']; ?></td>
+	<td><?php echo $activityresult['COUNT(a.account_id)']; ?></td>
+	</tr>
+<?php } ?>
+        </table>
+<?php } ?>

@@ -1,0 +1,12 @@
+<html>
+<head>
+</head>
+<body>
+    <fieldset>
+        <legend>Log in</legend>
+            <?php echo $this->errors; ?>
+                    <?php echo $this->form; ?>
+        </fieldset>
+    </body>
+</html>
+

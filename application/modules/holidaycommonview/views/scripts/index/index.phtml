@@ -1,0 +1,108 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php //foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php //echo $this->escape($changelog['filedname']);?></td>
+<td ><?php //echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php //echo $this->escape($changelog['current_data']);?></td>
+<td ><?php //echo $this->escape($changelog['login_name']);?></td>
+<td ><?php //echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php //endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+<br/><br/>-->
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/management/category" method="POST">
+                            <table width="100%">
+                                <tr>
+                                               <td class="label">Holiday name:</td>
+							<td ><? echo $this->form->name;?></td>
+							<td class="label">Office name:</td>
+							<td ><? echo $this->form->office_id;?></td>
+                                </tr>
+<tr>
+  <td class="label">Holiday from:</td>
+							<td ><? echo $this->form->holiday_from;?></td>
+							<td class="label">Holiday upto:</td>
+							<td ><? echo $this->form->holiday_upto;?></td>
+</tr>                        
+</table>
+					<input type="submit" name="Search" id="Submit" value="Search">			
+
+                    </form>	
+            </div>
+    </fieldset> 
+</div>  
+    <fieldset>
+      
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Holiday Name</th>
+        <th>Office name</td>
+        <th>Holiday from</th>
+		<th>Holiday upto</th>
+		<th>Repayment date</th>
+
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $category ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/category/index/categoryview/id/".$category['id']; ?>">
+                     <?php echo $this->escape($category['name']); ?></a></td>
+    <td><?php echo $this->escape($category['description']);?></td>
+    <td><?php echo $this->escape($category['created_date']);?></div></td>
+    
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/holiday/index/holidayadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Holiday"></a></td>
+    </tr>
+</table>
+</fieldset>

@@ -1,0 +1,9 @@
+<?php
+return array(
+    'Category  Name' => 'कातेगोरी नामे ',
+    'Category  Description' => 'Category  Description',
+
+
+
+);
+

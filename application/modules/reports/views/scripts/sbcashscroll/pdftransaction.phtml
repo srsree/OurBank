@@ -1,0 +1,170 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if($this->savings) { ?>
+
+<div style="float:left;width:380px">
+<fieldset>
+    <legend>Credit List</legend>
+        <?php $totalCredit = "0";
+              $totalTransferCredit = "0";
+              $totalDebit = "0";
+              $totalTransferDebit = "0";
+        ?>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH >LF No.</TH>
+            <TH >Credit</TH>
+            <TH>A/C No.</TH>
+            <TH class = "label">Cash</TH>
+            <TH class = "label">Transfer</TH>
+        </TR>
+
+
+        <?php foreach($this->savingsCredit as $savingsCredit) { ?>
+        <TR>
+            <TD ><?php echo $savingsCredit->glsubcode_id ?></TD>
+            <TD ><?php echo $savingsCredit->offerproductname ?></TD>
+            <TD ><?php echo $savingsCredit->account_id ?></TD>
+            <?php if($savingsCredit->paymenttype_mode == 1) {?>
+            <TD align = "right"><?php echo $savingsCredit->transaction_amount; 
+            $totalCredit = $totalCredit + $savingsCredit->transaction_amount; ?></TD>
+            <TD></TD>
+            <?php } elseif($savingsCredit->paymenttype_mode == 5) { ?>
+            <TD></TD>
+            <TD align = "right"><?php echo $savingsCredit->transaction_amount; 
+            $totalTransferCredit = $totalTransferCredit + $savingsCredit->transaction_amount; ?></TD>
+            <?php } ?>
+        </TR>
+        <?php } ?>
+        <TR>
+            <td><b>Total</b></td>
+            <td></td>
+            <td></td>
+            <?php if ($totalCredit != "0") { ?>
+            <td align="right"><b><?php echo sprintf("%4.2f", $totalCredit); ?></b></td>
+            <?php } else { ?>
+            <td align="right"><b>----</b></td>
+            <?php } ?>
+            <?php if ($totalCredit != "0") { ?>
+            <td align="right"><b><?php echo sprintf("%4.2f", $totalTransferCredit); ?></b></td>
+            <?php } else { ?>
+            <td align="right"><b>----</b></td>
+            <?php } ?>
+        </TR>
+
+    </table>
+
+</fieldset>
+</div>
+<div style="float:left;width:380px">
+<fieldset>
+    <legend>Debit List</legend>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH >LF No.</TH>
+            <TH >Debit</TH>
+            <TH>A/C No.</TH>
+            <TH class = "label">Cash</TH>
+            <TH class = "label">Transfer</TH>
+        </TR>
+        <?php foreach($this->savingsDebit as $savingsDebit) { ?>
+        <TR>
+            <TD ><?php echo $savingsDebit->glsubcode_id ?></TD>
+            <TD ><?php echo $savingsDebit->offerproductname ?></TD>
+            <TD ><?php echo $savingsDebit->account_id ?></TD>
+            <?php if($savingsDebit->paymenttype_mode == 1) {?>
+            <TD align = "right" ><?php echo $savingsDebit->transaction_amount;
+            $totalDebit = $totalDebit + $savingsDebit->transaction_amount; ?></TD>
+            <TD></TD>
+            <?php } elseif($savingsDebit->paymenttype_mode == 5) { ?>
+            <TD></TD>
+            <TD align = "right"><?php echo $savingsCredit->transaction_amount; 
+            $totalTransferDebit = $totalTransferDebit + $savingsCredit->transaction_amount; ?></TD>
+            <?php } ?>
+        </TR>
+        <?php } ?>
+        
+        <TR>
+            <td><b>Total</b></td>
+            <td></td><br>      
+            <td></td>
+            <?php if ($totalDebit != "0") { ?>
+            <td align="right"><b><?php echo sprintf("%4.2f", $totalDebit); ?></b></td>
+            <?php } else { ?>
+            <td align="right"><b>----</b></td>
+            <?php } ?>
+            <?php if ($totalTransferDebit != "0") { ?>
+            <td align="right"><b><?php echo sprintf("%4.2f", $totalTransferDebit); ?></b></td>
+            <?php } else { ?>
+            <td align="right"><b>----</b></td>
+            <?php } ?>
+        </TR>
+
+    </table>
+
+</div>
+</fieldset>
+<?php } else {?>
+
+<fieldset>
+    <legend> search </legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+                <form action="<?php echo $this->baseUrl();?>/reports/sbcashscroll/index" method="POST">
+                    <TR>
+                            <TD >Date From</TD>
+                            <TD ><?php echo $this->form->field1;?></TD>
+                            <TD >Date To</TD>
+                            <TD ><?php echo $this->form->field2;?></TD>
+                    </TR>
+                    <TR>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ><?php echo $this->form->Search;?></TD>
+                    </TR>
+
+                </form>
+            </table>
+        </div>
+</fieldset>
+
+
+<?php } ?>
+
+

@@ -1,0 +1,26 @@
+<form action="<?php echo $this->baseUrl();?>/category/index/categoryedit/id/<? echo $this->id; ?>" method="POST">
+ 	<div id="container-1">
+		<div class="profile_tab">
+
+			<fieldset>
+				<legend>edit category Information</legend>
+					<table class="fieldsets">	
+						<TR>
+							<TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/category/index/categorydelete/id/<? echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
+						</TR>
+						<?php echo $this->form;?>
+
+
+ 					</table>
+						<div class="btnhouse">
+							<div class="ltbtns">
+ 								<input type="submit" name="Update" id="Submit" value="Update">                 
+							</div>
+								<div class="rtbtns">
+								<a href="<?php echo $this->baseUrl();?>/fee"><?php echo $this->form->Back;?></a>
+								</div>
+						</div>
+			</fieldset>
+		</div>
+	</div>
+</form>

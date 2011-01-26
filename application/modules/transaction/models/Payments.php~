@@ -1,0 +1,32 @@
+<?php
+class Transaction_Model_Payments extends Zend_Db_Table {
+	protected $_name = 'ourbank_Expenditure';
+
+
+	public function addpaymentsfromaccounts($tablenamefrom,$bankIDfrom,$fromglsubcodeid,$toglsubcodeid,$transaction_id,$amount) {
+
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$data = array('bank_id'=> $bankIDfrom,
+				'glsubcode_id_from'=>$fromglsubcodeid,
+				'glsubcode_id_to'=>$toglsubcodeid,
+				'tranasction_number'=>$transaction_id,
+				'credit'=>'',
+				'debit'=>$amount,
+				'record_status'=>'3');
+		return $this->db->insert($tablenamefrom,$data);
+	}
+
+
+	public function addpaymentstoaccounts($tablenameto,$bankIDto,$fromglsubcodeid,$toglsubcodeid,$transaction_id,$amount) {
+
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$data = array('bank_id'=> $bankIDto,
+				'glsubcode_id_from'=>$fromglsubcodeid,
+				'glsubcode_id_to'=>$toglsubcodeid,
+				'tranasction_number'=>$transaction_id,
+				'credit'=>$amount,
+				'debit'=>'',
+				'record_status'=>'3');
+		return $this->db->insert($tablenameto,$data);
+	}
+}

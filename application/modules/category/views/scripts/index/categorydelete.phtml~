@@ -1,0 +1,53 @@
+<div style="width:480px;float:left"> 
+
+
+<fieldset>
+	<legend>Delete category</legend>
+			<TABLE id="hor-minimalist-b">
+        <?php foreach($this->categorydetails as $category) {  ?>
+
+				<TR>
+					<TD>Category Name</TD>
+					<TD></TD>
+					<TD></TD>
+					<TD><?php echo $category['name'];?></TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD>Category Description</TD>
+					<TD></TD>
+					<TD></TD>
+					<TD><?php echo $category['description'];?></TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD><a href="<?php echo $this->baseUrl(); ?>/category">
+					<input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+</fieldset>
+
+<?php } ?>
+
+<fieldset>
+	<legend>Confirm Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/category/index/categorydelete/id/<?php echo $this->id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+									</table>
+</tr>
+							<input type="submit" name="DELETE" id="Submit" value="DELETE">			
+
+						<input name="submit" type="submit"  value="No" ></a></TD>
+					</TR>
+				</form>
+			
+</fieldset>
+</div>

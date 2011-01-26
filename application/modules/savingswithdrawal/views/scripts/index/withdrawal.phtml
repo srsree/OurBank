@@ -1,0 +1,126 @@
+<div style="float:left;width:350px"> 
+    <?php foreach($this->details as $details) { ?>
+        <table id="hor-minimalist-s">
+            <TR>
+                <TH>Member details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td>Name </td>
+                <TD><?php echo $details->name ?></TD>
+            </TR>
+
+            <TR>
+                <td>Branch</td>
+                <TD><?php echo $details->officename ?></TD>
+            </TR>
+            <TR>
+                <td>Code</td>
+                <TD><?php echo $details->code ?></TD>
+
+            </TR>
+            <TR>
+                <TH>Account details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td> Account number</td>
+                <td><?php echo $details->number ?></TD>
+            </TR>
+            <TR>
+                <td>Product name</td>
+                <td><?php echo $details->offername ?></TD>
+            </TR>
+            <TR>
+                <td>Created date</td>
+                <td><?php echo $details->createdDate ?></TD>
+            </TR>
+<!--            <TR>
+                <td>Balance</td>
+                <td><?php echo $details->balance ?></TD>
+            </TR>-->
+        </table> 
+    <?php } ?>
+	<?php if(count($this->group)) { ?>
+        <table id="hor-minimalist-s">
+            <TR>
+                <TH>Member code </TH>
+                <TH>Member name</TH>
+            </TR>
+		<?php foreach ($this->group as $group) { ?>
+            <TR>
+                <td><?php echo $group->code; ?></b></td>
+                <td><?php echo $group->name; ?></TD>
+            </TR>
+		<?php }?>
+		</table>
+	<?php } ?>
+</div>
+<div style="float:right;width:350px"> 
+    <fieldset>
+        <legend> Saving withdrawal</legend>
+        <form name="form1" action="<?php echo $this->baseUrl();?>/savingswithdrawal/index/withdrawal/accNum/<?php echo $this->accNum;?>" method="POST">
+            <table class="fieldsets">
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Date</label></TD>
+                    <TD><?php echo $this->form->date; ?></TD>
+                </TR>
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Amount R$</label></TD>
+                    <TD><?php echo $this->form->amount;?></TD>
+                </TR>
+				<TR>
+                    <TD><label for="fld1" class="mand">Transaction mode</label></TD>
+                    <TD><?php echo $this->form->transactionMode;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Description</label></TD>
+                    <TD><?php echo $this->form->description;?></TD>
+                </TR>
+
+            </table>
+            <br/>
+            <div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->form->Submit;?>
+                </div>
+                <div class="rtbtns">
+                    <a href="<?php echo $this->baseUrl();?>/savingsdeposit/index"><?php echo $this->form->Back;?></a>
+                </div>
+            </div>
+			<?php echo $this->form->accNum; ?>
+        </form>
+    </fieldset>
+</div>
+</br>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>V No.</td>
+        <th>Transaction date</td>
+        <th>Creidt</td>
+        <th>Debit</td>
+        <th>Payment mode</td>
+        <th>Transacted by</td>  
+    </tr>
+    <?php foreach($this->tran as $transaction) : ?>
+    <tr>
+       <td><?php echo $transaction->id; ?></td>
+       <td><?php echo $transaction->date; ?></td>
+       <?php if ($transaction->cr) {?>
+       <td><?php echo $transaction->cr; ?></td>
+       <?php } else { ?>
+       <td>----</td>
+       <?php } ?>
+       <?php if ($transaction->dt) { ?> 
+       <td><?php echo $transaction->dt; ?></td>
+       <?php } else { ?>
+       <td>----</td>
+       <?php } ?>
+
+       <td><?php echo $transaction->mode; ?></td>
+       <td><?php echo $transaction->name; ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>

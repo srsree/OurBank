@@ -1,0 +1,70 @@
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+   <script type="text/javascript">
+     google.load('visualization', '1', {packages: ['corechart']});
+   </script>
+   <script type="text/javascript">
+
+     function drawVisualization() {
+
+var data = new google.visualization.DataTable();
+       data.addColumn('string', 'Name');
+       data.addColumn('number', 'records');
+       data.addColumn('boolean', 'Total Rupees');
+       data.addRows(5);
+       data.setCell(0, 0, '16-25');
+       data.setCell(0, 1, <? echo $this->age1 ?>);
+       data.setCell(0, 2, true);
+       data.setCell(1, 0, '26-35');
+       data.setCell(1, 1, <? echo $this->age2 ?>);
+       data.setCell(1, 2, false);
+       data.setCell(2, 0, '36-40');
+       data.setCell(2, 1, <? echo $this->age3 ?>);
+       data.setCell(2, 2, true);
+       data.setCell(3, 0, '41-60');
+       data.setCell(3, 1, <? echo $this->age4 ?>);
+       data.setCell(3, 2, true);
+       data.setCell(4, 0, '60 above');
+       data.setCell(4, 1, <? echo $this->age5 ?>);
+       data.setCell(4, 2, true);
+       // Create and draw the visualization.
+       new google.visualization.PieChart(document.getElementById('visualization')).
+           draw(data,  {title:"Gender and activity chart-<?php if($this->genderid==1) { echo "Male";} else if($this->genderid==2){ echo "Female";} else { echo "Male and female";} ?>"});
+     }
+     google.setOnLoadCallback(drawVisualization);
+   </script>
+
+	<div class="maincol_box">
+	<div id="visualization" style="width: 600px; height: 350px;"></div>
+	</div>
+	 
+<div class="register">
+     <div class="profile_tab">
+		<table id="hor-minimalist-b">
+			
+                <tr><th>Age</th><th>No of account: <?php if($this->genderid==1) { echo "Male";} else if($this->genderid==2){ echo "Female";} else { echo "Male and female";} ?></th></tr>
+                
+               
+                <tr><td>Age between <?php echo $this->from1; ?> - <?php echo $this->to1; ?></td>
+                        <td><? echo $this->age1 ?></td>
+                </tr>
+
+                <tr><td>Age between <?php echo $this->from2; ?> - <?php echo $this->to2; ?></td>
+                       <td><? echo $this->age2 ?></td>
+                </tr>
+
+                <tr></td><td>Age between <?php echo $this->from3; ?> - <?php echo $this->to3; ?></td>
+                        <td><? echo $this->age3 ?></td>
+                </tr>
+
+                 <tr></td><td>Age between <?php echo $this->from4; ?> - <?php echo $this->to4; ?></td>
+                        <td><? echo $this->age4 ?></td>
+                </tr>
+
+                 <tr><td>Age above <?php echo $this->age; ?></td>
+                        <td><? echo $this->age5 ?></td>
+                </tr>
+
+          </table>
+     </div>
+</div>
+

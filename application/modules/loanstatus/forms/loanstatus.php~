@@ -1,0 +1,31 @@
+<?php
+class Loanstatus_Form_loanstatus extends Zend_Form {
+    public function init()
+    {
+        Zend_Dojo::enableForm($this);
+    }
+
+
+    public function __construct()
+    {
+        Zend_Dojo::enableForm($this);
+        parent::__construct();
+
+			$newStatus = new Zend_Form_Element_Select('newStatus');
+			$newStatus->setAttrib('class', 'NormalBtn');
+                        $newStatus->setRequired(true);
+                        $newStatus->addMultiOption('','Select...');
+
+			$description = new Zend_Form_Element_Textarea('description');
+			$description->setAttrib('rows', '2');
+			$description->setAttrib('cols', '20');
+			$description->setRequired(true);
+
+
+			$submit = new Zend_Form_Element_Submit('Submit');
+			$submit->setAttrib('class', 'officesubmit');
+
+
+			$this->addElements( array($newStatus,$description,$submit));
+		}
+	}

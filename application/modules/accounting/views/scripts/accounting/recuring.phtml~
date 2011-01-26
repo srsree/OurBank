@@ -1,0 +1,195 @@
+<script type="text/javascript" language="JavaScript1.3" >
+function getXMLHTTP() {
+    var xmlhttp=false;	
+        try{
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e) {
+            try {	
+                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e){
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e1){
+                    xmlhttp=false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+function getInterests(countryId) {
+    var productId = eval(document.form1.productId.value);
+    var strURL="/ourbank/public/accounting/accounting/interests?country="+countryId+"&productId="+productId;
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+        }
+        var perioddescription=$('#perioddescription').val();
+        if(perioddescription!='') {
+            $('#errorspan').show();
+        } else {
+            $('#errorspan').hide();
+          }
+}
+function calculateTotalAmount() {
+    var amount = eval(document.form1.amount.value);
+    var feeTotal = eval(document.form1.feeTotal.value);
+    var tAmount =  (amount + feeTotal);
+
+    document.form1.tAmount.value = tAmount;
+
+}
+</script>
+<body>
+<?php if(!$this->Submit) { ?>
+ <div style="float:right;width:350px">
+    <fieldset>
+        <legend>New Reccuring Account</legend>
+            <form name="form1" action="<?php echo $this->baseUrl();?>/accounting/accounting/recuring" method="POST">
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <TD>Date<B style="color:red"> yyyy-mm-dd</B></TD>
+                        <TD><?php echo $this->recuringForm->date1;?></TD>
+                        <td><?php echo $this->recuringForm->memberTypeIdv;?></td>
+                    </TR>
+                    <TR>
+                        <TD>Reccuring Amount</TD>
+                        <TD><?php echo $this->recuringForm->amount;
+                                  echo $this->recuringForm->typeId;
+                                  echo $this->recuringForm->productId;
+                                  echo $this->recuringForm->memberId;?></TD>
+                    </TR>
+                    <?php if($this->Savingfee) { ?>
+                    <TR>
+                        <TD> Fee </TD>
+                        <TD><?php foreach($this->Savingfee as $fee ) { ?> 
+                        <input type = text name = "fee2" value = "<?php echo $fee->feevalue;?>" 
+                               readonly = "true" class="txt_put">
+                        <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                        <?php } ?>
+                        <input type = "hidden" name = "feeTotal" id = "feeTotal" 
+                               value = "<?php echo $this->feeTotal;?>" readonly = "" class="txt_put"></TD>
+                        <td></td>
+                    </TR>
+                    <input type = "hidden" name= "mindeposit" value="<?php echo $this->minimumDepositAmount;?>">
+                    <TR>
+                        <TD>Paying Amount </TD>
+                        <TD><input type="text" name="tAmount" value="" id ="tAmount" class = "txt_put" readonly = "true"></TD>
+                        <td></td>
+                    </TR>
+                    <?php } ?>
+                    <TR>
+                        <TD>Period</TD>
+                        <TD><?php echo $this->recuringForm->period;?></TD>
+                    </TR>
+                    <TR>
+                        <TD>Interest</TD>
+                        <TD><div id="statediv"><?php echo $this->recuringForm->interest;?></TD>
+                    </TR>
+
+                   <?php if ($this->membertype_ID == 3 ) { ?>
+                    <TR>
+                        <TD>Members</TD>
+                        <TD><?php echo $this->recuringForm->memberfirstname;?><br>
+                            <?php echo $this->error1; ?></TD>
+                    </TR><? } ?>
+                </table>
+<br>
+                <table>
+                    <TR>
+                        <td><?php echo $this->recuringForm->Submit; ?></td>
+                        <td></td>
+                        <td></td>
+                        <TD><a href="<?php echo $this->baseUrl();?>/accounting/accounting/member/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type ?>">
+                            <?php echo $this->savingsForm->Back;?></a></TD>
+</TR>
+</table>
+</form>
+</fieldset>
+</div>
+<?php } ?>
+<?php if($this->Submit) { ?>
+ <div style="float:right;width:350px">
+    <fieldset>
+        <legend>New Reccuring Account</legend>
+            <form name="form1" action="<?php echo $this->baseUrl();?>/accounting/accounting/recuring" method="POST">
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <TD>Date<B style="color:red"> yyyy-mm-dd</B></TD>
+                        <TD><?php echo $this->date1;?>
+                            <input type="hidden" name = 'date1' value="<?php echo $this->date1;?>"></TD>
+                        <td><?php echo $this->recuringForm->memberTypeIdv;?></td>
+                    </TR>
+                    <TR>
+                        <TD>Reccuring Amount</TD>
+                        <TD><?php echo $this->amount;echo $this->recuringForm->productId;
+                                  echo $this->recuringForm->memberId;echo $this->$typeId;?>
+                           <input type="hidden" name = 'amount' value="<?php echo $this->amount;?>"></TD></TD>
+                    </TR>
+                    <?php if($this->Savingfee) { ?>
+                    <TR>
+                        <TD> Fee </TD>
+                        <TD><?php foreach($this->Savingfee as $fee ) { ?> 
+                        <input type = text name = "fee2" value = "<?php echo $fee->feevalue;?>" 
+                               readonly = "true" class="txt_put">
+                        <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                        <?php } ?>
+                        <input type = "hidden" name = "feeTotal" id = "feeTotal" 
+                               value = "<?php echo $this->feeTotal;?>" readonly = "" class="txt_put"></TD>
+                        <td></td>
+                    </TR>
+                    <input type = "hidden" name= "mindeposit" value="<?php echo $this->minimumDepositAmount;?>">
+                    <TR>
+                        <TD>Paying Amount </TD>
+                        <TD><?php echo $this->tAmount;?>
+                            <input type="hidden" name="tAmount" value="<?php  echo $this->tAmount;?>" id ="tAmount" class = "txt_put" 
+                            readonly = "true"></TD>
+                        <td><input type="hidden" name="typeId" value="<?php echo $this->typeId; ?>"  class = "txt_put" readonly = "true"></td>
+                    </TR>
+                    <?php } ?>
+                    <TR>
+                        <TD>Period</TD>
+                        <TD><?php echo $this->period;?>
+                            <input type = "hidden" name = 'period' value="<?php echo $this->period;?>"></TD>
+                    </TR>
+                    <TR>
+                        <TD>Interest</TD>
+                        <TD><?php echo $this->interest;?>
+                            <input type = "hidden" name = 'interest' value="<?php echo $this->interest;?>"></TD>
+                    </TR>
+
+                   <?php if ($this->membertype_ID == 3 ) { ?>
+                    <TR>
+                        <TD>Members</TD>
+                        <TD><?php echo $this->recuringForm->memberfirstname;?><br>
+                            <?php echo $this->messages; ?></TD>
+                    </TR><? } ?>
+                </table>
+<br>
+                <table>
+                    <TR>
+                        <td><?php echo $this->recuringForm->Yes; ?></td>
+                        <td></td>
+                        <td></td>
+                        <TD><a href="<?php echo $this->baseUrl();?>/accounting/index/member/memberId/<?php echo $this->memberId;?>/Type/<?php echo $this->Type ?>">
+                            <?php echo $this->recuringForm->Back;?></a></TD>
+</TR>
+</table>
+</form>
+</fieldset>
+</div>
+<?php } ?>
+</body>

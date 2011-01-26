@@ -1,0 +1,78 @@
+<fieldset>
+    <legend>View Category</legend>
+	<div class="cont-rgt-data">
+            <?php foreach($this->fee as $fee) {  ?>
+                <TABLE id="hor-minimalist-b">
+                    <TR>
+                        <TD>Fee Name</TD>
+                        <TD><?php echo $fee['feename'];?></TD>
+                    </TR>
+    
+                    <TR>
+                        <TD>Fee Amount</TD>
+                        <TD><?php echo $fee['feevalue'];?></TD>
+    
+                    </TR>
+    
+                    <TR>
+                        <TD>Fee Description</TD>
+                        <TD><?php echo $fee['feedescription'];?></TD>
+    
+                    </TR>
+    
+                    <TR>
+                        <TD>Fee Applies To</TD>
+                        <TD><?php echo $fee['membertype'];?></TD>
+    
+                    </TR>
+    
+                    <TR>
+                        <TD>Duration</TD>
+                        <TD><?php echo $fee['activity_description'];?></TD>
+    
+                    </TR>
+            </TABLE>
+        <?php } ?>
+    </div>
+
+
+</fieldset>
+
+
+<?php if($this->recordstatus_id == 3) { ?>
+<table id="hor-minimalist-b">
+    <tr>
+	<Th align="center"><p><B style="color:red">Are you sure you want to delete Fee</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $this->escape($this->feename);?>" !</b></Th>
+    </tr>
+</table>
+
+<table id="hor-minimalist-b">
+    <tr><TD width="20%" align="center"><?php echo $this->form;?></td></tr>
+    <TR>	
+	<TD width="80%"><a href="<?php echo $this->baseUrl();?>/management/fee"><input name="submit" type="submit"  value="No" ></a></TD>
+    </TR>
+</table>
+<?php } else { ?>
+<table id="hor-minimalist-b">
+    <tr>
+	<Th align="center"><p><B style="color:red">You cannot Detele Fee</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $this->escape($this->feename);?>" As It is Active</b></Th>
+    </tr>
+</table>
+
+<?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,69 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+<legend>Edit OfficeHierarchy</legend>
+	<div class="cont-rgt-data">
+			<form action="<?php  echo $this->baseUrl();?>/management/officehierarchy/edit" method="POST" name="joe">
+
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr class="tdbrownheading">
+  			<tr class="tdbrownheading">
+				<th width="33%">Office level</th>
+				<th width="33%">OfficeType</th>
+				<th width="33%">office TypeCode</th>
+  			</tr>
+		</tr>
+		<?php if(($this->Edit == 'Next' || $this->Confirm == 'confirm' )) { ?>
+						<?php echo $this->form1->officeNo;?>
+		<? for($i=1;$i<=$this->noOfficeLevel;$i++) { 
+			$a='officeType'.$i;
+			$b='officeCode'.$i;
+			$c='id'.$i;
+			$d='hierarchyLevel'.$i;
+		?>
+		<tr class="tdbrown">
+   			<td><?php echo $i." Office Level" ;?></td>
+    		<td> <?php echo $this->form1->$a;  ?><?php echo $this->form1->$c;  ?><?php echo $this->form1->$d;  ?></td> 
+    		<td> <?php echo $this->form1->$b;  ?></td>
+    	</tr>
+		<?php }?>
+		<tr class="tdbrown" style="display:none">
+			<td>After Which Level <?php echo $this->form1->officeLevel;?> </td>
+		</tr> 
+	<?php }  else { ?>
+		<tr class="tdbrown">
+   			<td><?php echo $this->hierarchyLevel." Office Level" ;?></td>
+    		<td> <?php echo $this->form1->officeType;  ?><?php echo $this->form1->hierarchyLevel;  ?><?php echo $this->form1->id;  ?></td> 
+    		<td> <?php echo $this->form1->officeCode;  ?></td>
+		</tr>
+	<?php } ?>
+	</table>
+
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+		<tr><TD colspan="5">			<div style="float:left"><?echo $this->form1->Edit;?></div>
+			<div style="float:left"><a href="<?php echo $this->baseUrl();?>"><input name="submit" type="submit" class="officebutton" 
+				value="cancel"></a></div></td>
+    	</tr>
+   	</table>
+	</form>
+	</div>
+<CENTER class="updateerror"><?php echo $this->officeTypeExisted; ?></CENTER>
+<CENTER class="updateerror"><?php echo $this->updatEerror; ?></CENTER>
+</filedset>

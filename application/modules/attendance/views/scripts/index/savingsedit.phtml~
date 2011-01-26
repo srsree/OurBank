@@ -1,0 +1,158 @@
+<fieldset>
+	<legend>Edit savings</legend>
+	<div class="register">
+		<div class="profile_tab">
+			<form action="<?php echo $this->baseUrl();?>/management/savings/savingsedit" method="POST" name="myform" id="signupForm" class="cmxform">
+				<div style="display:none">
+					<?php echo $this->form->offerproduct_id;?>
+					<?php echo $this->form->productshortname;?>
+					<?php echo $this->form->currentdates;?>
+				</div>
+
+				<table style="float:left"> 
+					<tr>
+						<td colspan="2" class="td_border">Product information</td>
+					</tr>
+				    <TR>
+						<TD class="txt_rgt" align="right">Product type<span class="reqMark">*</span></TD>
+						<TD ><?php echo $this->form->savingproductname;?></TD>
+					</TR>
+					<TR>
+						<TD class="txt_rgt" align="right">Product name<span class="reqMark">*</span></TD>
+						<TD ><?php echo $this->form->offerproductname;?><SPAN style="color:red"><?php echo $this->errorofferproductname; ?><SPAN style="color:red"></SPAN></TD>
+					</TR>
+					<TR>
+						<TD class="txt_rgt" align="right">short name<span class="reqMark">*</span></TD>
+						<TD ><?php echo $this->form->offerproductshortname;?></TD>
+					</TR>
+				    <TR>
+						<TD class="txt_rgt" align="right">Description<span class="reqMark">*</span></TD>
+						<TD ><?php echo $this->form->offerproduct_description;?></TD>
+					</TR>
+					<tr>
+						<td colspan="2" class="td_border1">Dates</td>
+					</tr>
+					<tr > 
+						<td class="txt_rgt" align="right">Begin date<span class="reqMark">*</span><B style='color:red'>yyyy-mm-dd</b></td>
+						<td ><?php echo $this->form->begindate;?></td>
+					</TR>
+					<?php if($this->productshortname !='ps') { ?>
+					<tr > 
+						<td class="txt_rgt" align="right">Closed date<span class="reqMark">*</span><B style='color:red'>yyyy-mm-dd</b></td>
+						<td ><? echo $this->form->closedate;?></td>
+					</tr>
+					<?php } ?>
+					<tr > 
+						<td class="txt_rgt" align="right">Applicable to<span class="reqMark">*</span></td>
+						<td ><? echo $this->form->applicableto;?></td>
+					</TR>
+					<?php if($this->productshortname=='ps') { ?>
+						<tr>
+							<td colspan="2" class="td_border1">Interest and Terms</td>
+						</tr>
+						<tr> 
+							<td class="txt_rgt" align="right">Initial deposit<span class="reqMark">*</span></td>
+							<td ><? echo $this->form->minmumdeposit;?></td>
+						</tr>
+						<tr > 
+							<td class="txt_rgt" align="right">Freequency of deposit<span class="reqMark">*</span></td>
+							<td ><? echo $this->form->frequencyofdeposit;?></td>
+						</tr>
+						<tr>
+							<td colspan="2" class="td_border1">Installments</td>
+						</tr>
+						<tr > 
+							<td class="txt_rgt" align="right">Interest cal period<span class="reqMark">*</span></td>
+							<td ><? echo $this->form->Int_timefrequency_id;?></td>
+						</tr>
+
+						<tr > 
+							<td class="txt_rgt" align="right">Interest on calculation<span class="reqMark">*</span></td>
+							<td ><? echo $this->form->frequencyofinterestupdating;?></td>
+						</tr>
+						<tr > 
+							<td class="txt_rgt" align="right">Minimum bal for interest<span class="reqMark">*</span></td>
+							<td ><? echo $this->form->minimumbalanceforinterest;?></td>
+						</tr>
+					<?php } ?>
+					<?php if($this->productshortname=='fd') { ?>
+						<tr>
+							<td colspan="2" class="td_border1">Interest and terms</td>
+						</tr>
+						<tr > 
+							<td class="txt_rgt" align="right">Minimum fixed anount<span class="reqMark">*</span></td>
+							<td ><?php echo $this->form->minimum_deposit_amount;?></td>
+						</tr>
+						<tr> 
+							<td class="txt_rgt" align="right">Maximum fixed amount<span class="reqMark">*</span></td>
+							<td ><?php echo $this->form->maximum_deposit_amount;?></td>
+						</tr>
+						<tr >
+							<td class="txt_rgt" align="right">Freequency of deposit<span class="reqMark">*</span></td>
+							<td ><? echo $this->form->frequency_of_deposit;?></td>
+						</tr>
+						<tr >
+							<td class="txt_rgt" align="right">Penal interest<span class="reqMark">*</span></td>
+							<td ><?php echo $this->form->penal_Interest;?></td>
+						</tr>
+					<?php } ?>
+					<?php if($this->productshortname=='rd') { ?>
+						<tr>
+							<td colspan="2" class="td_border1">Interest and terms</td>
+						</tr>
+						<tr > 
+							<td class="txt_rgt" align="right">Minimum recurring amount<span class="reqMark">*</span></td>
+							<td ><?php echo $this->form->minimum_deposit_amount;?></td>
+						</tr>
+						<tr > 
+							<td class="txt_rgt" align="right">Maximum recurring amount<span class="reqMark">*</span></td>
+							<td ><?php echo $this->form->maximum_deposit_amount;?></td>
+						</tr>
+						<tr > 
+							<td class="txt_rgt" align="right">Freequency of deposit<span class="reqMark">*</span></td>
+							<td ><? echo $this->form->frequency_of_deposit;?></td>
+						</tr>
+						<tr > 
+							<td class="txt_rgt" align="right">Penal interest<span class="reqMark">*</span></td>
+							<td ><?php echo $this->form->penal_Interest;?></td>
+						</tr>
+					<?php } ?>
+					<tr>
+						<td colspan="2" class="td_border1">Periods and rates</td>
+					</tr>
+					<tr> 
+						<Td align="left" >From (years) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To (years) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rate</Td>
+						<td></td>
+					</tr>
+						<?php $count = 0; ?>
+						<?php foreach($this->viewinterest as $interesttypes) { ?>  
+						<?php $count++; ?>
+					<tr>
+						<input type = "hidden" name = "count" value= "<?php echo $count;?>">
+						<td  align="left" >&nbsp;&nbsp;<input name ="ifrom<?php echo $count?>" type="text"  value="<?php echo $interesttypes['period_ofrange_monthfrom'];?>" size="3" class="txt_put">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name ="iTo<?php echo $count?>" type="text"  value="<?php echo $interesttypes['period_ofrange_monthto'];?>" size="3" class="txt_put">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name ="iRate<?php echo $count?>" type="text"  value="<?php echo $interesttypes['Interest'];?>" size="3" class="txt_put"></td>
+						<td ></td>
+					</tr>
+						<?php } ?>
+
+					<tr>
+						<td width="50%" ><input type="hidden" id="id" value="1">
+						<input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" /><div id="interestperiods"></div><input type="button" onClick="addFormField(); return false;" value="Add interest types"></td>	
+						<td width="50%"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="td_border"></td>
+					</tr>
+					<tr>
+						<td class="txt_rgt" align="right"><?php echo $this->form->Submit;?></td>
+						<td><a href="<?php echo $this->baseUrl(); ?>/management/savings/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+					</tr>
+					<tr>
+						<TD><?php echo $this->closedate;?></TD>
+						<TD><?php echo $this->maximumamount;?></TD>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</fieldset>

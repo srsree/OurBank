@@ -1,0 +1,47 @@
+    <fieldset>
+        <legend>Search account</legend>
+        <form action="<?php echo $this->baseUrl();?>/loandetails/index" method="POST">
+            <table class="fieldsets">
+                <tr>
+                    <td><label for="fld1" class="mand">Account number</label></td>
+                    <td><?php echo $this->form->member_id;?></td>
+                </tr>
+            </table>
+            <div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->form->Search;?>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+
+<?php if($this->accounts) { ?>
+	<table id="hor-minimalist-b">
+		<tr>
+			<Th>Account number</Th>
+			<Th>Name/Group name</th>
+			<Th>Activity name</th>
+			<Th>Type</th>
+			<Th></th>
+		</tr>
+		<?php foreach($this->accounts as $account) : ?>
+		<tr>
+			<td><a href="<?php echo $this->baseUrl();?>/loandetails/index/loandetails/accountNumber/<?php echo $account['account_number'];?>"><?php echo $account['account_number'];?></a></td>
+			<td><?php  echo $account['Name'];?></td>
+			<td><?php  echo $account['activity_name'];?></td>
+			<td><?php if ($account['member_type']==4) { 
+				    echo $account['membertype']; 
+			         } else {
+				    echo "-"; 
+			         } ?>
+			</td>
+			<td><?php if($account['member_type']==3) { 
+				 echo $account['membertype']; 
+				} else {
+				    echo "-";
+				}?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+<?php }?>

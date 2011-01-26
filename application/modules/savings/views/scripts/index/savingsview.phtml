@@ -1,0 +1,165 @@
+<div id="searchDiv">
+<fieldset>	
+		
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                 <tr>
+                    <th class = "firsttd"><?php echo $this->translate('productdetails'); ?></th>
+                    <th class = "secondtd"></th>  
+                     <th class = "secondtd"></th>
+                    <th class="thirdtd"><a href="<?php echo $this->baseUrl()."/savings/index/savingsedit/id/".base64_encode($this->id); ?>">
+                        <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th>
+                    </tr>
+		<?php $convertdate = new App_Model_dateConvertor();?>
+			<?php foreach($this->offerproduct as $offerproduct) { ?>
+			<TR>
+				<TD>product type</TD>
+				<TD><?php echo $offerproduct['productname'];?></TD>
+				<td></td>
+				<td></td>
+			</TR>
+			<TR>
+				<TD>product name</TD>
+				<TD><?php echo $offerproduct['pname'];?></TD>
+				<td>short name</td>
+				<TD><?php echo $offerproduct['psname'];?></TD>
+			</TR>
+			<TR>
+				<TD>description</TD>
+				<TD><?php echo $offerproduct['description'];?></TD>
+				<td></td>
+				<td></td>
+			</TR>
+			<tr>
+				<Th colspan="4">Date</Th>
+				
+			</tr> 
+
+			<TR>
+				<TD>begin date</TD>
+                                 <?php $bdate = $convertdate->phpnormalformat($offerproduct['begindate']) ?>
+				<TD><?php echo $bdate?></TD>
+				<TD></TD>
+				<TD></TD>
+			</TR>
+			<?php if ($offerproduct['shortname'] != 'ps') { ?>
+			<TR>
+				<TD> closed date</TD>
+                                <?php $cdate = $convertdate->phpnormalformat($offerproduct['closedate']) ?>
+				<TD><?php echo $cdate?></TD>
+				<TD></TD>
+				<TD></TD>
+			</TR>
+			<?php } ?>
+
+			<TR>
+				<TD>applicable to</TD>
+				<TD><?php echo $offerproduct['applicableperson'];?></TD>
+				<TD></TD>
+				<TD></TD>
+			</TR>
+			<TR>
+				<TD>GL subcode</TD>
+				<TD><?php echo $offerproduct['header'];?> -[<?php echo $offerproduct['glsubcode'];?>]</TD>
+				<TD></TD>
+				<TD></TD>
+			</TR>
+			<tr>
+				<Th colspan="2">Interest and terms</Th><th colspan="2">installments</Th>
+			</tr>
+			<?php if ($offerproduct['shortname'] == 'ps') { ?>
+			<TR>
+				<TD>initial deposit</TD>
+				<TD><?php echo $offerproduct['minmumdeposit'];?></TD>
+				<TD>interest cal period</TD>
+				<TD><?php $dbobj = new Savings_Model_Savings();
+                                       $intecalperiod =  $dbobj->interestcalperiod($offerproduct['Int_timefrequency_id']);
+                                        echo $intecalperiod;?> </TD>
+			</TR>
+
+			<TR>
+				<TD>frequency of deposit</TD>
+				<TD><?php echo $offerproduct['installment'];?></TD>
+				<TD>Interest on calculation</TD>
+				<TD><?php echo $offerproduct['frequencyofinterestupdating'];?></TD>
+			</TR>
+
+			<TR>
+				<TD>minimum balance for interest</TD>
+				<TD><?php echo $offerproduct['minimumbalanceforinterest'];?></TD>
+                                <TD></TD>
+				<TD></TD>
+			</TR>
+			<?php } ?>
+			<?php if ($offerproduct['shortname'] == 'fd') { ?>
+			<TR>
+				<TD>minimum fixed amount</TD>
+				<TD><?php echo $offerproduct['minimum_deposit_amount'];?></TD>
+				<TD>frequency of deposit</TD>
+				<TD>
+                                <?php $dbobj = new Savings_Model_Savings();
+                                       $frequencyperiod =  $dbobj->interestcalperiod($offerproduct['frequency_of_deposit']);
+                                        echo $frequencyperiod;?>
+                                </TD>
+			</TR>
+
+			<TR>
+				<TD>Maximum fixed amount</TD>
+				<TD><?php echo $offerproduct['maximum_deposit_amount'];?></TD>
+				<TD>penal interest</TD>
+				<TD><?php echo $offerproduct['penal_Interest'];?></TD>
+                        </TR>
+                        <tr>
+                                <TD>fee glcode</TD>
+				<TD><?php echo $offerproduct['header'];?></TD>
+                                <TD></TD><TD></TD>
+			</TR>
+			<?php } ?>
+			<?php if ($offerproduct['shortname'] == 'rd') { ?>
+			<TR>
+				<TD>minimum recurring amount</TD>
+				<TD><?php echo $offerproduct['minimum_deposit_amount'];?></TD>
+				<TD>frequency of deposit</TD>
+				<TD><?php $dbobj = new Savings_Model_Savings();
+                                       $frequencyperiod =  $dbobj->interestcalperiod($offerproduct['frequency_of_deposit']);
+                                        echo $frequencyperiod;?></TD>
+			</TR>
+
+			<TR>
+				<TD>Maximum recurring amount</TD>
+				<TD><?php echo $offerproduct['maximum_deposit_amount'];?></TD>
+				<TD>penal interest</TD>
+				<TD><?php echo $offerproduct['penal_Interest'];?></TD>
+			</TR>
+                        <tr>
+                                <TD>fee glcode</TD>
+				<TD><?php echo $offerproduct['header'];?></TD>
+                                <TD></TD><TD></TD>
+			</TR>
+			<?php } ?>
+			<?php } ?>
+		</table>
+
+		<table width="100%" id="hor-minimalist-b">
+			<tr>
+				<th width="15%">from(years)</th>
+				<th width="10%">to(years)</h>
+				<th width="10%">rate of interest</Th>
+                                
+			</tr>
+			<?php foreach($this->viewinterest as $interest) { ?>
+				<tr>
+					<td><?php echo $interest['period_ofrange_monthfrom'];?></TD>
+					<td><?php echo $interest['period_ofrange_monthto'];?></TD>
+					<td><?php echo $interest['Interest'];?></TD>
+				</tr>
+			<?php } ?>
+		</table>
+		<table>
+			<TR>
+				<td><a href="<?php echo $this->baseUrl(); ?>/savings/index">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+			</TR>
+		</table>
+	</div>
+</fieldset>
+</div>

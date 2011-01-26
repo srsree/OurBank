@@ -1,0 +1,50 @@
+
+
+<table  id="hor-minimalist-b">
+		<TR>
+			<TH class = "firsttd">Creditline Information</TH>
+			<TH class = "secondtd"></TH>
+			<TH class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/creditline/index/creditlineedit/id/<?php echo $this->id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></TH>
+		</TR>
+	<?php
+
+	$convertdate = new Creditline_Model_dateConvertor();
+
+	foreach($this->fetchcreditline as $fetchcreditline) { ?>
+		<TR >
+			<TD class = "firsttd">Name</TD>
+			<TD class = "secondtd"><?php echo $fetchcreditline['name'];?></TD>
+			 <TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd">Portfolio value</TD>
+			<TD class = "secondtd">R$ <?php echo $fetchcreditline['portfolio'];?></TD>
+			 <TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd">Start date</TD>
+			<TD class = "secondtd"><?php echo $startdate=$convertdate->phpnormalformat($fetchcreditline['start_date']);?></TD>
+			 <TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd">End date</TD>
+			<TD class = "secondtd"><?php echo $enddate=$convertdate->phpnormalformat($fetchcreditline['end_date']);?></TD>
+			 <TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd">Active</TD>
+			<TD class = "secondtd"><?php if($fetchcreditline['status']==1){ echo "Yes";} else { echo "No"; }?></TD>
+			 <TD class = "thirdtd"></TD>
+		</TR>
+	<?php   } ?>
+
+</table>
+
+<div class="btnhouse">
+	<div class="ltbtns">
+	
+	</div>
+	<div class="rtbtns">
+	<a href="<?php echo $this->baseUrl();?>/creditlineindex"><?php echo $this->creditlineform->Back;?></a>
+	</div>
+</div>

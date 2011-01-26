@@ -1,0 +1,16 @@
+<?php
+class Activityreport_Form_activityreport extends Zend_Form
+{
+    public function init()
+    {
+	 //$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+	$formfield = new App_Form_Field ();
+	$activity = $formfield->field('Select','activity','','','','Activity name','','','','','','',0,0);
+	$gender = $formfield->field('Select','gender','','','','Gender','','','','','','',0,0);
+	$report = $formfield->field('Radio','report','','','','','','','','','','',0,0);
+        $submit = new Zend_Form_Element_Submit('Search');
+	$pdf = new Zend_Form_Element_Submit('PDF');
+	$chart = new Zend_Form_Element_Submit('CHART');
+        $this->addElements(array($activity,$gender,$report,$submit));
+    }
+}

@@ -1,0 +1,11 @@
+<?php if($this->funderdetails =='funders') { ?>
+    <?php foreach($this->selectedfunders as $funders) { ?> 
+        <input type="radio"  name="funders" id="funders" value="<?php echo $funders->funder_id;?>" size="11"  class = "txt_put" style="background-color:#eeeeee"><?php echo $funders->fundername;?><br/>
+    <?php } ?> 
+<?php } else { ?>
+
+    <?php foreach($this->selectedgroup as $group) { ?> 
+        <input type="radio"  name="funders" id="funders" value="<?php echo $group->group_id;?>" size="11"  class = "txt_put" style="background-color:#eeeeee"><?php echo $group->groupname;?><br/>
+    <?php } ?> 
+
+<?php } ?>

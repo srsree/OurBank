@@ -1,0 +1,41 @@
+<?php
+class Interestratescommonview_IndexController extends Zend_Controller_Action{
+
+	public function init() {
+		$this->view->pageTitle = "Interest rates";
+		
+		$globalsession = new App_Model_Users();
+		$this->view->globalvalue = $globalsession->getSession();
+			$this->view->username = $this->view->globalvalue[0]['username'];
+			$this->view->createdby = $this->view->globalvalue[0]['id'];
+		
+		if (($this->view->globalvalue[0]['id'] == 0)) {
+			$this->_redirect('index/logout');
+		}
+		$this->view->adm = new App_Model_Adm();
+		$this->view->dateconvert = new Creditline_Model_dateConvertor();
+	}
+
+	public function indexAction() {
+//Acl
+// 		$acl = new App_Model_Acl();
+// 		$access = new App_Model_Access();
+// 		$role = $access->getRole($this->view->id);
+// 		
+// 		$accessid = $access->accessRights('Interestrates',$role,"indexAction");
+// 		$checkaccess = $acl->isAllowed($role,'Interestrates',$accessid);
+// 		if(($role) && ($checkaccess != NULL)) {
+
+		//view
+		$this->view->title = "Interest rates";
+
+
+		$this->view->interest_id=$interest_id=$this->_request->getParam('interest_id');
+		$fetchinterest=new Interestrates_Model_Interestrates();
+		$this->view->fetchinterest=$fetchinterest1=$fetchinterest->fetchinterestdetailsforID($interest_id);
+		foreach($fetchinterest1 as $fetchinterest1){$this->view->count1=10; }
+
+	}
+	
+}
+

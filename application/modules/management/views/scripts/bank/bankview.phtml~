@@ -1,0 +1,190 @@
+<!--<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php// foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php //echo $this->escape($changelog['filedname']);?></td>
+<td ><?php //echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php //echo $this->escape($changelog['current_data']);?></td>
+<td ><?php //echo $this->escape($changelog['login_name']);?></td>
+<td ><?php //echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php //endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+
+<br/><br/>   -->
+<fieldset>
+    <legend>View Bank</legend>
+	<div class="cont-rgt-data">
+        <?php foreach($this->bank as $bank) {  ?>
+            <TABLE id="hor-minimalist-b">
+                <TR>
+                    <TD>institution name</TD>
+                    <TD><?php echo $bank['bankname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>short name</TD>
+                    <TD><?php echo $bank['bankshortname'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Description</TD>
+                    <TD><?php echo $bank['bankdescription'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Address1</TD>
+                    <TD><?php echo $bank['address1'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Address2</TD>
+                    <TD><?php echo $bank['address2'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>Address3</TD>
+                    <TD><?php echo $bank['address3'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>city</TD>
+                    <TD><?php echo $bank['city'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>state</TD>
+                    <TD><?php echo $bank['state'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>country</TD>
+                    <TD><?php echo $bank['country'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>pincode</TD>
+                    <TD><?php echo $bank['pincode'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>phone</TD>
+                    <TD><?php echo $bank['phone'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+                <TR>
+                    <TD>fax</TD>
+                    <TD><?php echo $bank['fax'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+                <TR>
+                    <TD>email_Id</TD>
+                    <TD><?php echo $bank['email_Id'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+                <TR>
+                    <TD>contactperson</TD>
+                    <TD><?php echo $bank['contactperson'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+                <TR>
+                    <TD>contactperson_phone1</TD>
+                    <TD><?php echo $bank['contactperson_phone1'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>contactperson_phone2</TD>
+                    <TD><?php echo $bank['contactperson_phone2'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                <TR>
+                    <TD>contactperson_email</TD>
+                    <TD><?php echo $bank['contactperson_email'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+        </TABLE>
+        <br>
+        <TABLE>
+                <TR>
+                    <TD><a href="<?php echo $this->baseUrl(); ?>/management/institution/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+              </TR>
+      </TABLE>
+<?php } ?>
+    </div>
+</fieldset>
+
+

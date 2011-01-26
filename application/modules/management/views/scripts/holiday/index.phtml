@@ -1,0 +1,144 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+
+<html>
+<head><title>Special Effective</title>
+<script src="/Mahiti-OB/ourbank/transaction/javascript/jquery-1.2.3.pack.js"></script>
+<script type="text/javascript" language="JavaScript1.3">
+$(document).ready(function(){
+
+$('#content1').hide();
+$('#open').click(function(){
+
+$('#content1').show('slow');
+});
+$('a#close').click(function(){
+$('#content1').hide('slow');
+})
+});
+</script>
+
+</head>
+<body>
+
+
+<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+ <?php foreach ($this->changelog as $changelog): ?>
+<tr > 
+<td ><?php echo $this->escape($changelog['fieldname']);?></td>
+<td ><?php echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php echo $this->escape($changelog['current_data']);?></td>
+<td ><?php echo $this->escape($changelog['login_name']);?></td>
+<td ><?php echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+ <?php endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+
+</div>
+
+
+
+</body>
+</html> 
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/management/holiday" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Holiday Name:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Holiday From:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Office Name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Holiday UpTo:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+  <fieldset>
+        <legend>Holiday</legend>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Holiday Name</th>
+        <th>Office Name</th>
+        <th>Holiday From </th>
+        <th>Holiday Upto</th>
+        <th>Repayment</th>
+        <th>edit</th>
+        <th>delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $holiday ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/management/holiday/holidayview/id/".$holiday['holidayupdate_id']; ?>">
+                     <?php echo $this->escape($holiday['holidayname']); ?></a></td>
+    <td><?php echo $this->escape($holiday['office_name']);?></td>
+    <td><?php echo $this->escape($holiday['holidayfrom']);?></td>
+    <td><?php echo $this->escape($holiday['holidayfrom']);?></td>
+    <td><?php echo $this->escape($holiday['repayment_date']);?></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/holiday/holidayedit/id/<?php echo $holiday['holidayupdate_id'];?>">
+                 <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/holiday/holidaydelete/id/<?php echo $holiday['holidayupdate_id'];?>">
+                <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/holiday/holidayadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Holiday"></a></td>
+    </tr>
+</table>
+</fieldset>

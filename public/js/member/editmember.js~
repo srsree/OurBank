@@ -1,0 +1,66 @@
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+var current =0;
+
+ $(document).ready(function(){
+        $('#addPerson').click(addPerson)
+        });
+
+
+function editFormField() {
+	current++;
+
+	var id = document.getElementById("id").value;
+
+	$("#FamilyInformation").append("<p id='row" + id + "'>&nbsp;&nbsp;<label for='memberName" + id + "'>&nbsp;&nbsp;<input type='text' size='15' name='memberName"+current+"' id='memberName" + id + "' class = 'txt_put'>&nbsp;&nbsp;&nbsp;&nbsp;<label for='gender" + id + "'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name='gender"+current+"' id='gender" + id + "' class = 'txt_put'><option value='01'>Female</option><option value='02'>Male</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='age" + id + "'>&nbsp;&nbsp;<input type='text' size='3' name='age"+current+"' id='age" + id + "' class = 'txt_put'><label for='relationship" + id + "'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name='relationship"+current+"' id='relationship" + id + "' class = 'txt_put'><option value='01'>Father</option><option value='02'>Mother</option><option value='03'>Brother</option><option value='04'>Sister</option><option value='05'>Grand Father</option><option value='06'>Grand Mother</option><option value='07'>Grand Son</option><option value='08'>Grand Daughter</option><option value='09'>Uncle</option><option value='10'>Aunty</option></select><label for='mPhysicalStatus" + id + "'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name='mPhysicalStatus"+current+"' id='mPhysicalStatus" + id + "' class = 'txt_put'><option value='01'>Very Poor</option><option value='02'>Poor</option><option value='03'>Normal</option></select>&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;<label for='mMaritalStatus" + id + "'>&nbsp;&nbsp;&nbsp;<select name='mMaritalStatus"+current+"' id='mMaritalStatus" + id + "' class = 'txt_put'<option value='01'>Unmarried</option><option value='02'>Married</option><option value='03'>Widow</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='/Mahiti-OB/ourbank/management/images/delete.gif'  border=0 width='16' height='16'><hr/></a><p>");
+
+	$("#Health").append("<p id='row" + id + "'><label for='memberNameH" + id + "'>&nbsp;&nbsp;<input type='text' size='15' name='memberNameH"+current+"' id='memberNameH" + id + "' class = 'txt_put' readonly = 'true'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='healthprob" + id + "'><select name='healthprob"+current+"' id='healthprob" + id + "' class = 'txt_put'><option value='01'>HIV</option><option value='02'>ANC</option><option value='03'>Cancer</option><option value='04'>Leprosy</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='undertreatment" + id + "'><select name='undertreatment"+current+"' id='undertreatment" + id + "' class = 'txt_put'><option value='01'>Yes</option><option value='02'>No</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='Clinicaccessability" + id + "'><select name='Clinicaccessability"+current+"' id='Clinicaccessability" + id + "' class = 'txt_put'><option value='01'>Yes</option><option value='02'>No</option></select><hr/><p>");
+
+	$("#EconomicStatus").append("<p id='row" + id + "'><label for='memberNameES" + id + "'>&nbsp;&nbsp;<input type='text' size='15' name='memberNameES"+current+"' id='memberNameES" + id + "' class = 'txt_put'><label for='tx3t" + id + "'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='earning" + id + "'><select name='earning"+current+"' id='earning" + id + "' class = 'txt_put'><option value='01'>Yes</option><option value='02'>No</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='occupation" + id + "'><select name='occupation"+current+"' id='occupation" + id + "' class = 'txt_put'><option value='01'>Farmer</option><option value='02'>Teacher</option><option value='03'>Business</option><option value='04'>Carpenter</option><option value='05'>Cobler</option><option value='06'>Iron Smith</option><option value='07'>Gold Smith</option><option value='08'>Insurence Agent</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='benefits" + id + "'><select name='benefits"+current+"' id='benefits" + id + "' class = 'txt_put'><option value='01'>Yes</option><option value='02'>No</option></select></a><hr/><p>");
+
+	$("#Education").append("<p id='row" + id + "'><label for='memberNameE" + id + "'><input type='text' size='15' name='memberNameE"+current+"' id='memberNameE" + id + "' class = 'txt_put'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='qualification" + id + "'><select name='qualification"+current+"' id='qualification" + id + "' class = 'txt_put'><option value='01'>SSLC</option><option value='02'>PUC</option><option value='03'>BSc</option><option value='04'>BCom</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='schoolLoc" + id + "'><select name='schoolLoc"+current+"' id='schoolLoc" + id + "' class = 'txt_put'><option value='01'>Near</option><option value='02'>Far</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for='transportation" + id + "'><select name='transportation"+current+"' id='transportation" + id + "' class = 'txt_put'><option value='01'>Avialable</option><option value='02'>Not Avialable</option><option value='03'> Rearly Avialable</option></select><hr/><p>");
+
+	document.myform.memberCount.value = current;	
+	/*	
+	$('#row' + id).highlightFade({
+		speed:1000
+	});*/
+	
+	id = (id - 1) + 2;
+	document.getElementById("id").value = id;
+
+}
+
+function removeFormField(id) {
+
+	$(id).remove();
+	$(id).remove();
+	$(id).remove();
+	$(id).remove();
+
+}
+
+function deleteRow(i){
+    document.getElementById('myTable1').deleteRow(i)
+    document.getElementById('myTable2').deleteRow(i)
+    document.getElementById('myTable3').deleteRow(i)
+    document.getElementById('myTable4').deleteRow(i)
+
+}
+

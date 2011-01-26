@@ -1,0 +1,59 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class Interestrates_Form_Interestrates extends Zend_Form
+{
+	public function init()
+	{
+		
+		$interestname = new Zend_Form_Element_Text('interestname');
+		$interestname->addValidator(new Zend_Validate_Db_NoRecordExists('ourbank_interestrates','interest_name','recordstatus_id=3'));
+		$interestname->setAttrib('class', 'txt_put');
+		$interestname->setAttrib('id', 'penaltyname');
+		$interestname->setLabel('penaltyname')
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+		$start_range = new Zend_Form_Element_Text('start_range');
+		$start_range->setAttrib('class', 'txt_put');
+		$start_range->setAttrib('id', 'penalty_per_month');
+		$start_range->setLabel('penalty_per_month')
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+		
+		$end_range = new Zend_Form_Element_Text('end_range');
+		$end_range->setAttrib('class', 'txt_put');
+		$end_range->setAttrib('id', 'penalty_per_day');
+		$end_range->setLabel('penalty_per_day')
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+		$interest = new Zend_Form_Element_Text('interest');
+		$interest->setAttrib('class', 'txt_put');
+		$interest->setAttrib('id', 'penalty_per_day');
+		$interest->setLabel('penalty_per_day')
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+		$creditlinename = new Zend_Form_Element_Select('creditlinename');
+		$creditlinename->addMultiOption('','Select...');
+		$creditlinename->setAttrib('class', 'txt_put');
+		$creditlinename->setAttrib('id', 'applicableto');
+		$creditlinename->setRequired(true);
+		
+		$status = new Zend_Form_Element_Checkbox('status');
+		$status->setAttrib('class', 'txt_put');
+		$status->setAttrib('id', 'status');
+		$status->setLabel('Active')
+					->setRequired(true);
+
+
+		$submit = new Zend_Form_Element_Submit('Submit');
+		$submit->setAttrib('class', 'savings');
+		$submit->setAttrib('id', 'savings');
+
+		$this->addElements( array($interestname,$start_range,$end_range,$interest,$creditlinename,$status,$submit));
+	}
+}
+/** end of class */

@@ -1,0 +1,29 @@
+<?php
+class Plugin_IndexController extends Zend_Controller_Action 
+{
+    public function init()
+     {
+        $this->view->pageTitle='Plugin';
+     }
+
+    public function indexAction() 
+    {   
+        $this->view->title='Plugin';
+      	$storage = new Zend_Auth_Storage_Session();
+	$data = $storage->read();
+	if(!$data)
+        {
+		$this->_redirect('index/login');
+	}
+        $plugin_view = new Plugin_Model_memberplugin();
+        //display all the views
+         $plugin_detail= $plugin_view->fetch_all_detail();
+        print_r($plugin_detail);
+//         $this->view->plugin_details = $plugin_view->fetch_all_detail();
+//         print_r($this->view->plugin_details);
+
+
+    }
+
+} 
+

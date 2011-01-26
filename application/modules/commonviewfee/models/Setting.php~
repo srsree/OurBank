@@ -1,0 +1,23 @@
+<?php 
+class Commonviewfee_Model_setting extends Zend_Db_Table { 
+ protected $_name = 'ourbank_feedetails';
+
+
+ public function insertFee($post,$createdby,$fee_id) {
+
+            $data = array('feedetails_id'=> '',
+                          'fee_id'=> $fee_id,
+                          'recordstatus_id'=>'3',
+                          'feename'=>$post['feename'],
+                          'feedescription'=>$post['feedescription'],
+                          'feevalue'=>$post['feeamount'],
+                          'feeappliesto_id'=>$post['membertype'],
+
+						  'createdby'=> $createdby);
+            $this->insert($data);
+        }
+
+
+
+
+}

@@ -1,0 +1,194 @@
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+/**to select the value of sub office when there is any changes in office type*/		
+$(function() {
+  	$(".officesubmit").click(function() {
+		// validate and process form
+		// first hide any error messages
+ 
+		var name = $("input#officeLevel").val();
+		var current =$("input#officeNo").val();
+		current=current-1;
+			if (name > current || name<=0 || name == "" || name == "a" || name == "b") {
+				alert('office level should be less then '+(current+1)+' and more then 0');
+				$("input#officeLevel").css({backgroundColor:"#FFFFD5"});
+				$("input#officeLevel").css({border:"2px solid red"});
+      			$("input#officeLevel").focus();
+      			return false;
+    		}
+		for(var i=1;i<=10;i++) {
+
+	  		var name = $("input#officeCode"+i).val();
+			if (name == "") {
+				alert('* marked  are mandatory');
+				$("input#officeCode"+i).css({backgroundColor:"#FFFFD5"});
+				$("input#officeCode"+i).css({border:"2px solid red"});
+     			$("input#officeCode"+i).focus();
+      			return false;
+    		}
+
+			var name = $("input#officeCode"+i).val();
+			if (name.length != 2) {
+				alert('For office code only 2character allowed');
+				$("input#officeCode"+i).css({backgroundColor:"#FFFFD5"});
+				$("input#officeCode"+i).css({border:"2px solid red"});
+				$("input#officeCode"+i).focus();
+				return false;
+			}
+
+	  		var name = $("input#officeType"+i).val();
+			if (name == "") {
+				alert('* marked  are mandatory');
+				$("input#officeType"+i).css({backgroundColor:"#FFFFD5"});
+				$("input#officeType"+i).css({border:"2px solid red"});
+      			$("input#officeType"+i).focus();
+      			return false;
+    		}
+
+			var name = $("input#officeType"+i).val();
+			if (name.length < 4) {
+				alert('For office type minimum 4 character enter');
+				$("input#officeType"+i).css({backgroundColor:"#FFFFD5"});
+				$("input#officeType"+i).css({border:"2px solid red"});
+				$("input#officeType"+i).focus();
+			 	return false;
+			}
+		}
+	});
+});
+
+			
+function getXMLHTTP() { //fuction to return the xml http object
+		var xmlhttp=false;	
+		try{
+			xmlhttp=new XMLHttpRequest();
+		}
+		catch(e)	{		
+			try{			
+				xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e){
+				try{
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e1){
+					xmlhttp=false;
+				}
+			}
+		}
+		 	
+		return xmlhttp;
+    }
+	
+	function getState(subOfficeId) {
+alert(subOfficeId);
+		var strURL="inlineedit?subOfficeId="+subOfficeId;
+
+		var req = getXMLHTTP();
+		
+		if (req) {
+				$('#addofficehierarchy').hide();	
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {						
+						document.getElementById('statediv'+subOfficeId).innerHTML=req.responseText;						
+					} else {
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					}
+				}				
+			}			
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+		$('.b1').hide();
+		
+	}
+/**end*/
+
+
+
+	function reload(val)
+  	{
+  		self.location='index?officeNo=' + val ;
+	}
+
+
+	function addPerson() {
+ 	var current =$("#officeNo").val();
+	var limit=current+1;
+	var maxLevel=10;
+    	//console.log('running addPerson')
+		if(current == maxLevel) {
+       	   alert("you reached max level ..you cant create more then "+maxlevel+" level");
+		} else if (current == limit)  {
+         	 alert("AT a time u can create only one level");
+    	} else {
+   			//current keeps track of how many people we have.
+   			current++;
+    		var strToAdd = ' <input type="hidden" name="officeNo" id="officeNo" value="'+current+'" size="2" class="textfield" />'
+ 	   		//console.log(strToAdd)
+    		$('#mainField').append(strToAdd)
+			$('#next').show();
+			$('#mainField').show();
+			$('#OFFICE_NO').hide();
+			$('#addofficehierarchy').hide();
+			$('#Edit').hide();
+			$('#next').show();
+$('.b1').attr('disabled', 'disabled');
+
+		}
+	}
+
+
+
+	$(document).ready(function(){
+   	$('#addofficehierarchy').click(addPerson)
+	});
+
+/**validation for limit number of char*/
+$(document).ready(function() {
+$('input#officeCode1').autotab({ target: 'officeCode1', maxlength: 2, format: 'alpha' });
+	for(var i=2;i<10;i++)
+	{
+		$('input#officeType'+i).autotab({ target: 'officeType'+i,maxlength: 50, format: 'alphas' });
+		$('input#officeCode'+i).autotab({ target: 'officeCode'+i,maxlength: 2, format: 'alpha' });
+	}
+$('input#officeLevel').autotab({ target: 'officeLevel',maxlength: 2, format: 'number' });
+
+});
+
+/**to change color of text box acc to validation*/
+$(function() {
+  	$('.error').hide();
+  	$('.error1').hide();
+	$('.error2').hide()
+  	$('input.txt_put').css({});
+	$('input.txt_put').blur(function(){
+    	$(this).css({backgroundColor:"#FFFFFF"});
+  	});
+
+});
+
+
+/**field validtion with color chage in text box and border*/
+
+
+					
+

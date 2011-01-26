@@ -1,0 +1,97 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<head>
+<title><?php echo $this->escape($this->title); ?></title>
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/site.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/reset.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/style2.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/wforms.css" />
+</head>
+
+
+<body>
+<div id="container">
+    <div id="header"><?php echo $this->render('creditlinemainheader.phtml'); ?></div>
+
+  <div id="leftnavig">
+
+	
+	<?php if($this->pageTitle == "Creditline details") { ?>
+		<h4><a href="#">Creditline</a></h4>
+                <ul>
+                <li><a href="<?php  echo $this->baseUrl();?>/creditlineindex">Creditline</a></li>
+                <li><a href="<?php  echo $this->baseUrl();?>/interestratesindex">Interest</a></li>
+                <li><a href="<?php  echo $this->baseUrl();?>/graceperiodindex">Graceperiod</a></li>
+                <li><a href="<?php  echo $this->baseUrl();?>/penaltyindex">Penalty</a></li>
+                </ul>
+	<?php } ?>
+
+	<?php if($this->pageTitle == "Credit line") { ?>
+		<h4><a href="#">Creditline</a></h4>
+		<ul>
+		<li><a href="<?php  echo $this->baseUrl();?>/creditlineindex"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16"> Search</a></li>
+		
+		<li><a href="<?php  echo $this->baseUrl();?>/creditline/index/creditlineadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New Creditline</a></li>
+		</ul>
+	<?php } ?>
+
+	<?php if($this->pageTitle == "Grace period") { ?>
+		<h4><a href="#">Grace period</a></h4>
+		<ul>
+		<li><a href="<?php  echo $this->baseUrl();?>/graceperiodindex"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16"> Search</a></li>
+		<li><a href="<?php  echo $this->baseUrl();?>/graceperiod/index/graceperiodadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New Graceperiod </a></li>
+		</ul>
+	<?php } ?>
+
+	<?php if($this->pageTitle == "Interest rates") { ?>
+		<h4><a href="#">Interest rates</a></h4>
+		<ul>
+		<li><a href="<?php  echo $this->baseUrl();?>/interestratesindex"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16"> Search</a></li>
+		<li><a href="<?php  echo $this->baseUrl();?>/interestrates/index/interestratesadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New Interest </a></li>
+		</ul>
+	<?php } ?>
+	
+	<?php if($this->pageTitle == "Penalty") { ?>
+		<h4><a href="#">Penalty</a></h4>
+		<ul>
+		<li><a href="<?php  echo $this->baseUrl();?>/penaltyindex"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16"> Search</a></li>
+		<li><a href="<?php  echo $this->baseUrl();?>/penalty/index/penaltyadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New Penalty</a></li>
+		</ul>
+	<?php } ?>
+
+
+   
+  </div>
+
+    <div id="pagecontent">
+        <h3><?php echo $this->pageTitle;?></h3>
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+  <div id="footer">
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
+  </div>
+</div>
+</BODY>
+</html>
+

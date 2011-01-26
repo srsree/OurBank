@@ -1,0 +1,112 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<head>
+<title><?php echo $this->escape($this->title); ?></title>
+
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/reset-min.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/styles.css" />
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#datefrom").datepicker({"dateFormat":"dd/mm/yy"});
+    $("#dateto").datepicker({"dateFormat":"dd/mm/yy"});
+});
+</script>
+</head>
+
+<body>
+<div id="container">
+    <div id="header"><?php echo $this->render('reportsheader.phtml'); ?></div>
+
+
+  <div id="leftnavig">
+    <?php if($this->type == "savings") { ?>
+    <h4><a>Savings</a></h4>
+    <ul>
+      <li><a href="<?php  echo $this->baseUrl();?>/reports/sbcashscroll/index/type/savings">SB supplementary</a></li>
+      <li><a href="<?php  echo $this->baseUrl();?>/reports/personalsavings/index/type/savings"> personal savings Details</a></li>
+      <li><a href="<?php  echo $this->baseUrl();?>/reports/Savingsummary/index/type/savings">Savings summary</a></li>
+      <li><a href="<?php  echo $this->baseUrl();?>/reports/Saccountsummary/index/type/savings">Savings account Summary</a></li>
+    </ul>
+    <?php } ?>
+
+   <?php if($this->type == "loans") { ?>
+   <h4><a>Loans</a></h4>
+   <ul>
+
+<!--<li><a href="<?php  echo $this->baseUrl();?>/par">Portfolio at risk</a></li>-->
+               <li ><a href="<?php  echo $this->baseUrl();?>/loanslist">Loan amount with creditline amount</a></li>
+               <li ><a href="<?php  echo $this->baseUrl();?>/loancount">Loan count</a></li>
+<!--		<li><a href="<?php  echo $this->baseUrl();?>/loandisbursereport">Loan Disburse Report</a></li>-->
+		<li><a href="<?php  echo $this->baseUrl();?>/outstanding">Client Outstanding Balance</a></li>
+		<li><a href="<?php  echo $this->baseUrl();?>/activityoutstanding">Activity Outstanding Balance</a></li>
+   </ul>
+   <?php } ?>
+
+    <?php if($this->type == "others") { ?>
+    <h4><a>Others</a></h4>
+    <ul>
+        <li class="selected"><a href="<?php  echo $this->baseUrl();?>/attendancereport">Attendance Report</a></li>
+	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/meetingreport">Meeting Report</a></li>
+	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/agereport">Age Ratio Report</a></li>
+	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/activityreport">Activity Wise Report</a></li>	
+<li class="selected"><a href="<?php  echo $this->baseUrl();?>/activityaccounts">Activitywise accounts</a></li>
+                	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/cbtransaction">Community bank transaction</a></li>	
+	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/cbmonthlytransaction">CB monthly transaction</a></li>	
+	
+	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/cashscroll">Cash scroll</a></li>
+       <li class="selected"><a href="<?php  echo $this->baseUrl();?>/transferscroll">Transfer scroll</a></li>
+           <li class="selected"><a href="<?php  echo $this->baseUrl();?>/loansupplementary">Loan supplementary</a></li>
+       <li class="selected"><a href="<?php  echo $this->baseUrl();?>/daybook">Day book</a></li>
+       <li class="selected"><a href="<?php  echo $this->baseUrl();?>/generalledger">General ledger</a></li>
+       <li class="selected"><a href="<?php  echo $this->baseUrl();?>/incomeexpenditure">Income & expenditure</a></li>
+       <li class="selected"><a href="<?php  echo $this->baseUrl();?>/depositsummary">Deposit summary</a></li>
+       <li class="selected"><a href="<?php  echo $this->baseUrl();?>/dcb">Demand collection & balance</a></li>
+       <li class="selected"><a href="<?php  echo $this->baseUrl();?>/currentloanlist">Current loanlist</a></li>
+       <li class="selected"><a href="<?php  echo $this->baseUrl();?>/savingsdetails">Savings details</a></li>
+
+    </ul>
+    <?php } ?>
+
+    <?php if(($this->pageTitle == "Reports") && (!$this->type == "others")) { ?>
+    <h4><a href="#">Reports</a></h4>
+    <ul>
+        <li><a href="<?php  echo $this->baseUrl();?>/reports/index/index/type/others">General reports</a></li>
+     </ul>
+    <?php } ?>
+  </div>
+
+    <div id="pagecontent">
+        <h3><?php echo $this->pageTitle;?></h3>
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+  <div id="footer">
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
+  </div>
+</div>
+</BODY>
+</html>
+

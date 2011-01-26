@@ -1,0 +1,45 @@
+
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/membershipgroup.js"></script>
+
+               
+<div id = "searchDiv">
+<fieldset>
+<legend>Group details</legend>
+<form action="<?php echo $this->baseUrl();?>/groupdefault/index/groupaccount" method="POST" onsubmit="return valid()">
+		 <table class="fieldsets"> 
+
+			<TR>
+				<TD><label for="fld1" class="mand">Branch name:</td>
+				<TD><?php echo $this->form->office;?></TD>
+			</TR>	
+			<TR>		
+				<TD><label for="fld1" class="mand">Group name:</td>
+				<TD><?php echo $this->form->groupname;?></TD>
+			</TR>
+
+			<TR>
+				<TD><label for="fld1" class="mand">Created date:</TD>
+				<TD ><?php echo $this->form->Created_Date;?></TD></TD>
+		        </TR>
+
+		</table><br/>
+		<table class="fieldsets">
+			<TR id="membersdiv">
+				
+				
+			</TR>
+                  </table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<?php echo $this->form->Submit;?>
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/group/index"><?php echo $this->form->Back;?></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>
+<?php if($this->error) { echo "<font color = 'red'><b>You are wrongly chosen group head , please chose again</b>"; } ?>
+
+

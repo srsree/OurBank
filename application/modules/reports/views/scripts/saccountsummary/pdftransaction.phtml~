@@ -1,0 +1,125 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<form action="<?php echo $this->baseUrl();?>/reports/saccountsummary/index" method="POST">
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search">
+                <TABLE id="hor-minimalist-b">
+                   <tr>
+                            <td>Branch</td>
+                            <TH><?php echo $this->form->field1;?></td>
+                            <td></td>
+                            <TH><? echo $this->form->Search;?></TH>
+                   </tr>
+        	</TABLE>
+	   </div>
+ 	</fieldset> 
+</div>
+</form>
+<?php if ($this->result && $this->accountBalanc ) { ?>
+<fieldset>
+    <legend>Savings Accounts Details</legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+
+                    <TR>
+                            <?php if ($this->officeName) { ?>
+                            <TD><B>Branch Name</B></TD>
+                            <TD><B><?php echo $this->officeName; ?></B></TD>
+
+                            <?php } ?>
+                    </TR>
+            </table>
+            <table id="hor-minimalist-b">
+                    <TR >
+			   
+                            <TH >Product</TH>
+			    <TH >subProducts</TH>
+			    <TH >Account Number</TH>
+			    <TH >Total Savings Amount</TH>
+                    </TR>
+                    <?php foreach($this->result as $savingsdetails){  ?>
+                     
+                    <TR>
+			      	<TD><?php echo $savingsdetails['productname'];?></TD>
+                                <TD><?php echo $savingsdetails['offerproductname'];?></TD>
+			    	<TD align="centre"><?php echo $savingsdetails['account_number'];?></TD>
+
+                                <?php  foreach($this->accountBalanc as $balance1){
+                                            
+                                   if($savingsdetails["offerproduct_id"] == $balance1["offerproduct_id"]) {?>
+
+                                    <?php if($balance1["transaction_type"] == 1) {
+                                    
+                                    
+                                        $this->depositAmount = $this->depositAmount + $balance1["transaction_amount"];
+                                        $this->deposit = $this->deposit + $balance1["transaction_amount"];
+
+                                        } if($balance1["transaction_type"] == 2) {
+                                    
+                                        $this->withdrawlAmount = $this->withdrawlAmount + $balance1["transaction_amount"];
+                                        $this->withdrawl = $this->withdrawl + $balance1["transaction_amount"];
+                                        }
+        
+                                        $this->totalamount = $this->depositAmount - $this->withdrawlAmount;
+                                        
+                                        $this->sum = $this->deposit - $this->withdrawl;
+        
+                                    } 
+                                    
+                                } if($this->totalamount) { ?>
+                                
+		                <td align="right"><?php  echo sprintf("%4.2f", $this->totalamount);
+                                               $this->totalamount =0; 
+                                               $this->withdrawlAmount =0;  
+                                               $this->depositAmount =0; ?></td>
+                                <? } else {?>
+                                <td></td>
+                                <? }?>
+                    </TR>
+                 <?php } ?>
+	    </table>
+            <table align = "right" >
+		     <TR>
+                        <TH></TH>
+                        <TH></TH>
+			<TH align="left">Total</TH>
+			<TH align="right"><?php  echo sprintf("%4.2f", $this->sum);?></TH>
+                        
+                        
+			
+		   </TR>
+            <br>
+
+		   
+            </table>
+        </div>
+</fieldset>
+
+<form action="<?php echo $this->baseUrl();?>/reports/saccountsummary/pdftransaction/field1/<?php echo $this->office_id;?>" method="POST"
+onClick="window.open('/ourbank/public/reports/saccountsummary/reportdisplay/file/saccountsummaryreport.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+
+           <BR> <input type="submit" value="PDF" id="submit">
+
+
+</form>
+
+<?php } ?>
+

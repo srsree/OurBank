@@ -1,0 +1,15 @@
+<?php
+
+class Enquiry_CurrentsavingController extends Zend_Controller_Action
+{
+    public function init()
+    {
+       $this->view->pageTitle='Current Savings List';
+    }
+    public function index() {
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $sessionName->primaryuserid;
+        $this->view->title = "Current Savings List";
+                            }
+
+}

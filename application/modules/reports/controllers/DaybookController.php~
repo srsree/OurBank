@@ -1,0 +1,757 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+
+class Reports_DaybookController extends Zend_Controller_Action
+{
+    function init() { 
+        $this->view->pageTitle = "Day Book";
+ 
+    }
+
+    function indexAction() {
+        $searchForm = new Reports_Form_Search();
+        $this->view->form = $searchForm;
+        
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+		$fromDate = $this->_request->getParam('field1'); 
+		$toDate = $this->_request->getParam('field2');
+
+            if ($searchForm->isValid($formData)) {
+                $this->view->savings = 10;
+                $transaction = new Reports_Model_Daybook();
+
+//echo $this->view->pageTitle;
+
+// $test=$transaction->test(5,$fromDate,$toDate);
+// foreach($test as $test1){ echo "Test : ".$test1['tamt']."<br>";
+// }
+// echo "&&&&&&&<pre>";print_r($test1);
+                 //Saving Account Credit and Debit
+                $ts22=$this->view->savingsCredit = $transaction->totalSavingsCredit(1,$fromDate,$toDate);
+                foreach($ts22 as $ts2){  echo $ts2['savingcredit']; } 
+//                 echo "<pre>"; print_r($ts2);
+
+//echo $ts['savingcredit']."<br>";
+                $ts1=$this->view->savingsDebit = $transaction->totalSavingsDebit(1,$fromDate,$toDate);
+               foreach($ts1 as $ts){ $this->view->tsd=$ts['productname'];}
+
+                //Fixed Account Credit and Debit
+                $this->view->fixedCredit = $transaction->totalFixedCredit(1,$fromDate,$toDate);
+                $this->view->fixedDebit = $transaction->totalFixedDebit(1,$fromDate,$toDate);
+
+                //Fixed Account Credit and Debit
+                $this->view->recurringCredit = $transaction->totalRecurringCredit(1,$fromDate,$toDate);
+                $this->view->recurringDebit = $transaction->totalRecurringDebit(1,$fromDate,$toDate);
+
+                //Laon Account Credit and Debit
+               $l=$this->view->laonCredit = $transaction->totalLoanCredit(1,$fromDate,$toDate);
+                    //foreach($l as $l1){}echo "&&&&&&&".$l1['loancredit']."************";
+                $this->view->loanDebit = $transaction->totalLoanDedit(1,$fromDate,$toDate);
+
+                // Transfer Saving Account Credit and Debit
+                $ass=$this->view->savingsCreditTransfer = $transaction->totalSavingsCredit(5,$fromDate,$toDate);
+                  foreach($ass as $ass1){ $this->view->se=$ass1['savingcredit']; }
+                $asd=$this->view->savingsDebitTransfer = $transaction->totalSavingsDebit(5,$fromDate,$toDate);
+                foreach($asd as $asd1){ $this->view->se1=$asd1['savingdebit']; }
+
+                //Transfer Fixed Account Credit and Debit
+                $fss=$this->view->fixedCreditTransfer = $transaction->totalFixedCredit(5,$fromDate,$toDate);
+                    foreach($fss as $fss1){ $this->view->fe=$fss1['fixedcredit'];}
+                $fsd=$this->view->fixedDebitTransfer = $transaction->totalFixedDebit(5,$fromDate,$toDate);
+                    foreach($fsd as $fsd1){ $this->view->fe1=$fsd1['fixeddebit'];}
+
+                //Transfer Fixed Account Credit and Debit
+                $rss=$this->view->recurringCreditTransfer = $transaction->totalRecurringCredit(5,$fromDate,$toDate);
+                    foreach($rss as $rss1){ $this->view->re=$rss1['recurringcredit'];}
+                $rsd=$this->view->recurringDebitTransfer = $transaction->totalRecurringDebit(5,$fromDate,$toDate);
+                     foreach($rsd as $rsd1){ $this->view->re1=$rsd1['recurringdebit'];}
+
+                // Transfer Laon Account Credit and Debit
+                $tlct=$this->view->laonCreditTransfer = $transaction->totalLoanCredit(5,$fromDate,$toDate);
+                foreach($tlct as $tlct1){ $this->view->productname=$tlct1['productname'];}
+                                          //  echo $tlct1['loancredit'];
+//
+//                echo "<pre>";print_r($tlct1);echo "</pre>";
+                $tldt=$this->view->loanDebitTransfer = $transaction->totalLoanDedit(5,$fromDate,$toDate);
+                //foreach($tldt as $tldt1){}echo "<pre>";print_r($tldt1);echo "</pre>";
+
+
+ $obl=$transaction->openingBalance($fromDate);
+foreach($obl as $obl1){}
+ $this->view->openingBalance=$obl1['openingBalance'];
+$openBalance=$obl1['openingBalance'];
+//===================================
+
+//==========Closing Bal=============
+//  $clo=$transaction->closingBalance($fromDate,$toDate);
+// foreach($clo as $clo1){}
+//  $this->view->closingBalance=$clo1['closingBalance'];
+// $closeBalance=$clo1['closingBalance'];
+//echo "*************************".$closeBalance;
+                                //
+                // Opening Balance and Closing Balance
+                //
+                $sumOsc = 0; $sumOrc = 0; $sunOfc = 0; $sumOlc =0;
+                $osc = $transaction->openingSavingsCredit($fromDate);
+                foreach($osc as $osc1) {
+                $sumOsc = $sumOsc + $osc1->openingsavingcredit;
+                }
+
+                $orc = $transaction->openingRecurringCredit($fromDate);
+                foreach($orc as $orc1) {
+                $sumOrc = $sumOrc + $orc1->openingrecurringcredit;
+                }
+
+                $ofc = $transaction->openingFixedCredit($fromDate);
+                foreach($ofc as $ofc1) {
+                $sunOfc = $sunOfc + $ofc1->openingfixedcredit;
+                }
+
+                $olc = $transaction->openingLoanCredit($fromDate);
+                foreach($olc as $olc1) {
+                $sumOlc = $sumOlc + $olc1->openingloancredit;
+                }
+
+               // $this->view->openingBalance = $sumOsc + $sumOrc + $sunOfc + $sumOlc;
+
+//$this->view->openingBalance=$transaction->openingBalance($fromDate);
+
+                $this->view->fromdate=$fromDate;
+                $this->view->todate=$toDate;
+
+            }
+         }
+    }
+
+
+
+    function viewtransactionAction() {
+        $dateFrom = $this->_request->getParam('field3');
+        $dateTo = $this->_request->getParam('field4');
+        $accountNo = $this->_request->getParam('field2');
+        $transaction = new Reports_Model_Transactiondetails();
+        if($accountNo && !$dateTo || !$dateFrom) {
+        $accountDetails = $transaction->getAccountDetails($accountNo);
+        if (!$accountDetails) {
+            echo 'No Transactions yet Records';
+
+        } else {
+            $this->view->accountDetails = $accountDetails;
+        }
+        }
+
+             $transaction = $transaction->fetchTransactionDetails($accountNo,$dateFrom,$dateTo);
+            if (!$transaction) {
+                echo 'No Transactions yet Records';
+            } else { 
+                $this->view->transaction = $transaction;
+            }
+    }
+
+    function reportdisplayAction() {
+        $this->_helper->layout->disableLayout();
+        $file1 = $this->_request->getParam('file'); 
+
+$app = $this->view->baseUrl();
+$word=explode('/',$app);
+$projname = $word[1];
+
+
+        $this->view->filename = "/".$projname."/reports/".$file1;
+    }
+
+    function reportviewAction() {
+    }
+
+    function pdftransactionAction() { 
+
+
+    $pdf = new Zend_Pdf();
+//echo $this->view->pageTitle;
+    //create a new page
+
+    $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+    $pdf->pages[] = $page;
+    // Image
+    $baseUrl = $this->_request->getParam('baseurl'); 
+
+$app = $this->view->baseUrl();
+$word=explode('/',$app);
+$projname = $word[1];
+
+
+    $image_name = "/var/www/".$projname."/public/images/logo.jpg";
+    $image = Zend_Pdf_Image::imageWithPath($image_name);
+    //$page->drawImage($image, 25, 770, 570, 820);
+    $page->drawImage($image, 30, 770, 130, 820);
+    $page->setLineWidth(1)->drawLine(25, 25, 570, 25); //bottom horizontal
+    $page->setLineWidth(1)->drawLine(25, 25, 25, 820); //left vertical
+    $page->setLineWidth(1)->drawLine(570, 25, 570, 820); //right vertical
+    $page->setLineWidth(1)->drawLine(570, 820, 25, 820); //top horizontal
+    //set the font
+    $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 12);
+
+    $x1 = 55; 
+    $x2 = 150; 
+    $x3 = 160;
+    $x4 = 260;
+
+    $x5 = 320;
+    $x6 = 400;
+    $x7 = 440;
+    $x8 = 500;
+
+    $page->drawLine(50, 700, 550, 700);
+    $text = array("Day Book","Credit","GLCODE","Cash3","Transfer","Debit");
+    $page->drawText("Date : ".date('Y-m-d'), 470, 780);
+    $page->drawText($text[0], 300, 740);$page->drawText($text[0], 300, 740);$page->drawText($text[0], 300, 740);
+
+    $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 8);
+    // $page->drawText("2", 250, 720);
+    // $page->drawText("3", 226, 720);
+
+    $page->drawText($text[1], 60, 685);
+    $page->drawText($text[2], $x2, 685);
+    $page->drawText($text[3], 190, 685);
+    $page->drawText($text[4], $x4, 685);
+    $page->drawText($text[5], $x5, 685);
+    $page->drawText($text[2], $x6, 685);
+    $page->drawText($text[3], $x7, 685);
+    $page->drawText($text[4], $x8, 685);
+
+
+
+
+    $page->drawLine(50, 680, 550, 680);
+
+   
+ 
+
+$a1=55;
+$y1=660;
+$y2=660;
+//     $page->drawText($text[9],410, $y2);
+//     $page->drawText($text[10],410, 730);
+
+$fromDate = $this->_request->getParam('fromdate'); 
+            $toDate = $this->_request->getParam('todate');
+
+$this->view->savings = 10;
+
+//===============================
+
+          $cashCredit = "0";
+          $transferCredit = "0";
+          $cashDedit = "0";
+          $transferDedit = "0";
+
+$posvalue=240;// Set Value From where the CASH amount to be Right justified 
+$charspace=4;//4 for FONT SIZE 8 ... Varies according to ,i.e., font size 6 for FONT Size 12
+
+ //Before this for Credit Cash $pos=190
+ //Before this for Debit Cash $pos=440
+function cashPositionCredit($amt){
+             $len=strlen($amt);
+	     $pos=240-($len*4);
+             return $pos;
+ }
+function cashPositionDebit($amt){
+             $len=strlen($amt);
+	     $pos=480-($len*4);
+             return $pos;
+ }
+function cashPositionDebitTrans($amt){
+             $len=strlen($amt);
+	     $pos=540-($len*4);
+             return $pos;
+ }
+
+//==========================================================================================================
+                $transaction = new Reports_Model_Daybook();
+//==========================================================================================================
+//Saving Account Credit and Debit
+
+               $tsc=$this->view->savingsCredit = $transaction->totalSavingsCredit(1,$fromDate,$toDate);
+               $tsd=$this->view->savingsDebit = $transaction->totalSavingsDebit(1,$fromDate,$toDate);
+$scval=0;
+
+foreach($tsc as $tsc){
+		$page->drawText($tsc['productname'],$x1, $y1);
+		$page->drawText($tsc['glcode'],$x2, $y1);
+
+		$pos=cashPositionCredit(sprintf("%4.2f", $tsc['savingcredit']));
+    
+		$page->drawText(sprintf("%4.2f", $tsc['savingcredit']),$pos, $y1);
+
+		$cashCredit+=$tsc['savingcredit'];
+		$this->view->tsc=$tsc['productname'];
+		$scval=10;
+}
+$sdval=0;
+foreach($tsd as $tsd){
+		$page->drawText($tsd['productname'],$x5, $y2);
+		$page->drawText($tsd['glcode'],$x6, $y2);
+
+                $pos=cashPositionDebit(sprintf("%4.2f",$tsd['savingdebit']));
+                $page->drawText(sprintf("%4.2f",$tsd['savingdebit']),$pos, $y2);
+
+		$cashDedit+=$tsd['savingdebit'];
+		$this->view->tsd=$tsd['productname'];
+		$sdval=10;
+}
+
+
+// Transfer Saving Account Credit and Debit
+                $tsct=$this->view->savingsCreditTransfer = $transaction->totalSavingsCredit(5,$fromDate,$toDate);
+                foreach($tsct as $tsct1){ $this->view->se=$tsct1['savingcredit'];}
+                $tsdt=$this->view->savingsDebitTransfer = $transaction->totalSavingsDebit(5,$fromDate,$toDate);
+                foreach($tsdt as $tsdt1){ $this->view->se1=$tsdt1['savingdebit'];}
+
+$flagTSC=0;
+foreach($tsct as $tsct){
+	$flagTSC=1;
+		if($scval==0){
+			$page->drawText($tsct['productname'],$x1, $y1);
+			$page->drawText($tsct['glcode'],$x2, $y1);
+			    //$page->drawText($tsct['productname'],$x1, $y1);
+		}
+
+                $pos=cashPositionCredit(sprintf("%4.2f", $tsct['savingcredit']));
+                $page->drawText(sprintf("%4.2f",$tsct['savingcredit']),$x4, $y1);  $y1-=15;
+		$transferCredit+=$tsct['savingcredit'];
+		$this->view->se=$tsct['savingcredit'];
+}
+if($flagTSC==0){ $y1-=15;}
+
+$flagTSD=0;
+foreach($tsdt as $tsdt){
+		$flagTSD=1;
+		if($sdval==0){
+			$page->drawText($tsdt['productname'],$x5, $y2);
+			$page->drawText($tsdt['glcode'],$x6, $y2);
+		}
+                 $pos=cashPositionDebitTrans(sprintf("%4.2f",$tsdt['savingdebit']));
+			$page->drawText(sprintf("%4.2f",$tsdt['savingdebit']),$pos, $y2);  $y2-=15;
+			$transferDedit+=$tsdt['savingdebit'];
+}
+if($flagTSD==0){ $y2-=15;}
+//=====================================================================================================================
+                //Fixed Account Credit and Debit
+$fcval=0;
+               $tfc= $this->view->fixedCredit = $transaction->totalFixedCredit(1,$fromDate,$toDate);
+foreach($tfc as $tfc1){ $this->view->fe=$tfc1['fixedcredit'];}
+               $tfd= $this->view->fixedDebit = $transaction->totalFixedDebit(1,$fromDate,$toDate);
+foreach($tfd as $tfd1){ $this->view->fe1=$tfd1['fixeddebit'];}
+
+
+foreach($tfc as $tfc){
+
+ $page->drawText($tfc['productname'],$x1, $y1);
+          $page->drawText($tfc['glcode'],$x2, $y1);
+
+
+
+		 $pos=cashPositionCredit(sprintf("%4.2f", $tfc['fixedcredit']));
+                 $page->drawText(sprintf("%4.2f", $tfc['fixedcredit']),$pos, $y1);
+
+             //$page->drawText($tfc['fixedcredit'],190, $y1);
+$cashCredit = $cashCredit + $tfc['fixedcredit']; 
+$this->view->fe=$tfc['fixedcredit'];
+$fcval=10;
+}
+
+$fdval=0;
+foreach($tfd as $tfd){
+
+ $page->drawText($tfd['productname'],$x5, $y2);
+          $page->drawText($tfd['glcode'],$x6, $y2);
+
+            $pos=cashPositionDebit(sprintf("%4.2f",$tfd['fixeddebit']));
+            $page->drawText(sprintf("%4.2f",$tfd['fixeddebit']),$pos, $y2);
+$cashDedit = $cashDedit + $tfd['fixeddebit'];
+$fdval=10;
+}
+//Transfer Fixed Account Credit and Debit
+               $tfct= $this->view->fixedCreditTransfer = $transaction->totalFixedCredit(5,$fromDate,$toDate);
+               $tfdt= $this->view->fixedDebitTransfer = $transaction->totalFixedDebit(5,$fromDate,$toDate);
+$flagTFC=0;
+foreach($tfct as $tfct){
+$flagTFC=1;
+if($fcval==0){
+            $page->drawText($tfct['productname'],$x1, $y1);  
+            $page->drawText($tfct['glcode'],$x2, $y1);  
+}
+
+
+
+
+         $page->drawText($tfct['fixedcredit'],$x4, $y1);  $y1-=15;
+$transferCredit = $transferCredit + $tfct['fixedcredit'];
+}
+if($flagTFC==0){ $y1-=15; }
+
+$flagTFD=0;
+foreach($tfdt as $tfdt){
+$flagTFD=1;
+if($fdval==0){
+	    $page->drawText($tfdt['productname'],$x5, $y2);
+	    $page->drawText($tfdt['glcode'],$x6, $y2);
+}
+         $page->drawText($tfdt['fixeddebit'],$x8, $y2);  $y2-=15;
+$transferDedit = $transferDedit + $tfdt['fixeddebit'];
+}
+
+if($flagTFD==0){ $y2-=15;}
+//=====================================================================================================================
+
+ //recurring Account Credit and Debit
+$rcval=0;
+              $trc=  $this->view->recurringCredit = $transaction->totalRecurringCredit(1,$fromDate,$toDate);
+foreach($trc as $trc1){ $this->view->re=$trc1['recurringcredit'];}
+              $trd=  $this->view->recurringDebit = $transaction->totalRecurringDebit(1,$fromDate,$toDate);
+foreach($trd as $trd1){ $this->view->re1=$trd1['recurringdebit'];}
+
+
+foreach($trc as $trc){
+             $page->drawText($trc['productname'],$x1, $y1);
+             $page->drawText($trc['glcode'],$x2, $y1);
+
+
+
+
+             $pos=cashPositionCredit(sprintf("%4.2f",$trc['recurringcredit']));
+             $page->drawText(sprintf("%4.2f",$trc['recurringcredit']),$pos, $y1);
+
+             //$page->drawText($trc['recurringcredit'],190, $y1);
+$cashCredit = $cashCredit + $trc['recurringcredit'];
+$this->view->re=$trc['recurringcredit'];
+$rcval=10;
+}
+
+$rdval=0;
+foreach($trd as $trd){
+
+	    $page->drawText($trd['productname'],$x5, $y2);
+	    $page->drawText($trd['glcode'],$x6, $y2);
+
+
+
+
+if($trd['recurringdebit']){
+            $pos=cashPositionDebit(sprintf("%4.2f",$trd['recurringdebit']));
+	    $page->drawText(sprintf("%4.2f",$trd['recurringdebit']),$pos, $y2);
+}
+$cashDedit = $cashDedit + $trd['recurringdebit'];
+$rdval=10;
+}
+
+  //Transfer recurrings Account Credit and Debit
+                $trct=$this->view->recurringCreditTransfer = $transaction->totalRecurringCredit(5,$fromDate,$toDate);
+                $trdt=$this->view->recurringDebitTransfer = $transaction->totalRecurringDebit(5,$fromDate,$toDate);
+$flagTRC=0;
+foreach($trct as $trct){
+$flagTRC=1;
+if($rcval==0){
+        $page->drawText($trct['productname'],$x4, $y1);
+        $page->drawText($trct['glcode'],$x4, $y1);
+}
+        $page->drawText($trct['recurringcredit'],$x4, $y1);  $y1-=15;
+$transferCredit = $transferCredit + $trct['recurringcredit'];
+}
+if($flagTRC==0){$y1-=15;}
+
+$flagTRD=0;
+foreach($trdt as $trdt){
+$flagTRD=1;
+if($rdval==0){
+        $page->drawText($trdt['productname'],$x5, $y2);
+        $page->drawText($trdt['glcode'],$x6, $y2);
+}
+        $page->drawText($trdt['recurringdebit'],$x8, $y2);  $y2-=15;
+	$transferDedit = $transferDedit + $trdt['recurringdebit'];
+}
+if($flagTRD==0){$y2-=15;}
+//=====================================================================================================================
+
+   //Laon Account Credit and Debit
+               $tlc= $this->view->laonCredit = $transaction->totalLoanCredit(1,$fromDate,$toDate);
+               $tld= $this->view->loanDebit = $transaction->totalLoanDedit(1,$fromDate,$toDate);
+$lcval=0;
+foreach($tlc as $tlc){
+	          $page->drawText($tlc['productname'],$x1, $y1);
+	          $page->drawText($tlc['glsubcode_id'],$x2, $y1);
+
+         $pos=cashPositionCredit(sprintf("%4.2f",$tlc['loancredit']));
+	          $page->drawText($tlc['loancredit'],$pos, $y1);$y1-=15;
+$cashCredit = $cashCredit + $tlc['loancredit'];
+$lval=10;
+}
+$ldval=0;
+foreach($tld as $tld){
+
+         $page->drawText($tld['productname'],$x5, $y2);
+         $page->drawText($tld['glsubcode_id'],$x6, $y2);
+
+         $pos=cashPositionDebit(sprintf("%4.2f", $tld['loandebit']));
+         $page->drawText(sprintf("%4.2f", $tld['loandebit']),$pos, $y2);
+$cashDedit = $cashDedit + $tld['loandebit'];
+$ldval=10;
+}
+
+                // Transfer Laon Account Credit and Debit
+               $tlct= $this->view->laonCreditTransfer = $transaction->totalLoanCredit(5,$fromDate,$toDate);
+          //      foreach($tlct as $tlct){}$this->view->productname=$tlct['productname'];
+               $tldt= $this->view->loanDebitTransfer = $transaction->totalLoanDedit(5,$fromDate,$toDate);
+
+foreach($tlct as $tlct1){
+         if($lcval==0){
+          $page->drawText($tlct1['productname'],$x1, $y1);
+          $page->drawText($tlct1['glsubcode_id'],$x2, $y1);
+            }
+
+          //$pos=cashPositionCredit($trd['recurringdebit']);
+
+          $page->drawText(sprintf("%4.2f", $tlct1['loancredit']),$x4, $y1);  $y1-=15;
+
+
+$transferCredit = $transferCredit + $tlct1['loancredit'];
+$this->view->productname=$tlct1['productname'];
+}
+
+foreach($tldt as $tldt){
+         if($ldval==0){
+		    $page->drawText($tldt['productname'],$x5, $y2);
+		    $page->drawText($tldt['glsubcode_id'],$x6, $y2);
+                    }
+        $pos=cashPositionDebitTrans(sprintf("%4.2f", $tldt['loandebit']));
+        $page->drawText(sprintf("%4.2f",$tldt['loandebit']),$pos, $y2);  $y2-=15;
+$transferDedit = $transferDedit + $tldt['loandebit'];
+}
+
+//======================================================================================================================
+
+                // Opening Balance and Closing Balance
+
+                $sumOsc = 0; $sumOrc = 0; $sunOfc = 0; $sumOlc =0;
+                $osc = $transaction->openingSavingsCredit($fromDate);
+                foreach($osc as $osc1) {
+                $sumOsc = $sumOsc + $osc1->openingsavingcredit;
+                }
+
+                $orc = $transaction->openingRecurringCredit($fromDate);
+                foreach($orc as $orc1) {
+                $sumOrc = $sumOrc + $orc1->openingrecurringcredit;
+                }
+
+                $ofc = $transaction->openingFixedCredit($fromDate);
+                foreach($ofc as $ofc1) {
+                $sunOfc = $sunOfc + $ofc1->openingfixedcredit;
+                }
+
+                $olc = $transaction->openingLoanCredit($fromDate);
+                foreach($olc as $olc1) {
+                $sumOlc = $sumOlc + $olc1->openingloancredit;
+                }
+
+//                $this->view->openingBalance = $sumOsc + $sumOrc + $sunOfc + $sumOlc;
+//==========Opening Bal=============
+ $obl=$transaction->openingBalance($fromDate);
+foreach($obl as $obl1){}
+ $this->view->openingBalance=$obl1['openingBalance'];
+$openBalance=$obl1['openingBalance'];
+//===================================
+
+//==========Closing Bal=============
+//  $clo=$transaction->closingBalance($fromDate,$toDate);
+// foreach($clo as $clo1){}
+//  $this->view->closingBalance=$clo1['closingBalance'];
+// $closeBalance=$clo1['closingBalance'];
+
+//===================================
+$ob=$sumOsc + $sumOrc + $sunOfc + $sumOlc;
+//   $page->drawText($tsc['productname'],300,200);
+                  $this->view->fromdate=$fromDate;
+                $this->view->todate=$toDate;
+$obspace=0;
+if($y1>$y2){ $obspace=$y1-10; }else { $obspace=$y2-10; }
+
+$page->drawLine(50, $obspace, 550, $obspace);
+$obspace-=15;
+//=====================================Credit
+//==============**============
+$page->drawText("Total",$x1, $obspace);$page->drawText("Total",$x1, $obspace);$page->drawText("Total",$x1, $obspace);
+if($cashCredit != "0" || $transferCredit != "0")
+{
+	if($cashCredit != "0") {
+	    $cc=sprintf("%4.2f", $cashCredit);
+
+                $pos=cashPositionCredit($cc);
+                $page->drawText($cc,$pos, $obspace);$page->drawText($cc,$pos, $obspace);$page->drawText($cc,$pos, $obspace);
+
+
+
+	  //  $page->drawText($cc,190, $obspace);$page->drawText($cc,190, $obspace);$page->drawText($cc,190, $obspace);
+	}
+        else
+	{
+	    $page->drawText("***",190, $obspace);
+	}
+		
+	if($transferCredit != "0") {
+	    $tc=sprintf("%4.2f", $transferCredit);
+	    $page->drawText($tc,$x4, $obspace);$page->drawText($tc,$x4, $obspace);$page->drawText($tc,$x4, $obspace);
+	}
+        else
+	{
+	   $page->drawText("***",$x4, $obspace);
+	}
+
+}
+
+else
+{
+    $page->drawText("***",190, $obspace);
+}
+//=====================================Debit
+$page->drawText("Total",$x5, $obspace);$page->drawText("Total",$x5, $obspace);$page->drawText("Total",$x5, $obspace);
+if($cashCredit != "0" || $transferCredit != "0"){
+	if($cashDedit != "0") {
+	    $cd=sprintf("%4.2f", $cashDedit);
+
+            $pos=cashPositionDebit($cd);
+
+	    $page->drawText($cd,$pos, $obspace);$page->drawText($cd,$pos, $obspace);$page->drawText($cd,$pos, $obspace);
+           
+
+        }
+       else
+	{
+	    $page->drawText("***",$x7, $obspace);
+	}
+
+	if($transferDedit != "0") {
+	    $td=sprintf("%4.2f", $transferDedit);
+	    $page->drawText($td,$x8, $obspace);$page->drawText($td,$x8, $obspace);$page->drawText($td,$x8, $obspace);
+	}
+	
+	}
+	else
+	{
+	   $page->drawText("***",$x7, $obspace);
+	}
+//===============***======================
+
+$obspace-=10;
+
+$page->drawLine(50, $obspace, 550, $obspace);
+$obspace-=15;
+
+$page->drawText("Opening Cash",$x1, $obspace);
+if($openBalance){
+
+                $pos=cashPositionCredit($openBalance);
+                $page->drawText($openBalance,$pos, $obspace);
+
+//         $page->drawText($openBalance,190, $obspace); } //$obspace-=15;
+}
+else{
+$page->drawText("***",190, $obspace); 
+}//$obspace-=15;
+$cd=0;
+$cb=($cashCredit+$ob) - $transferDedit;
+
+$closeBalance=($cashCredit+$openBalance) - $cd;
+
+$page->drawText("Closing Cash",$x5, $obspace);
+if($closeBalance!=0){
+
+
+ $closeBalance=sprintf("%4.2f", $closeBalance);
+$pos=cashPositionDebit($closeBalance);
+$page->drawText($closeBalance,$pos, $obspace);}
+
+else{   $page->drawText("***",$x7, $obspace);   } 
+
+$obspace-=10;
+
+$page->drawLine(50, $obspace, 550, $obspace);
+$obspace-=15;
+
+
+
+//======================Again Total
+//====================CREDIT
+$page->drawText("Total",$x1, $obspace);$page->drawText("Total",$x1, $obspace);$page->drawText("Total",$x1, $obspace);
+if($cashCredit != "0") {
+	$cc=sprintf("%4.2f", $cashCredit);
+
+
+                  
+                $totalCredit=sprintf("%4.2f", $cc+$openBalance);
+                $pos=cashPositionCredit($totalCredit);
+                 $page->drawText($totalCredit,$pos, $obspace);$page->drawText($totalCredit,$pos, $obspace);$page->drawText($totalCredit,$pos, $obspace);
+
+
+// 	$page->drawText($cc+$openBalance,190, $obspace);
+//         $page->drawText($cc+$openBalance,190, $obspace);
+//         $page->drawText($cc+$openBalance,190, $obspace);
+}
+else{
+                $pos=cashPositionCredit($openBalance);
+                 $page->drawText($openBalance,$pos, $obspace);
+        
+    //    $page->drawText($openBalance,190, $obspace);
+    }
+
+if($transferCredit != "0") {
+	$tc=sprintf("%4.2f", $transferCredit);
+	$page->drawText($tc,$x4, $obspace);$page->drawText($tc,$x4, $obspace);$page->drawText($tc,$x4, $obspace);
+}
+   
+//=============DEBIT
+$page->drawText("Total",$x5, $obspace);$page->drawText("Total",$x5, $obspace);$page->drawText("Total",$x5, $obspace);
+// if($cashDedit != "0") {
+// $cd=sprintf("%4.2f", $cashDedit);
+$totalDebit=sprintf("%4.2f", $cc+$openBalance);
+$pos=cashPositionDebit($totalDebit);
+$page->drawText($totalDebit,$pos, $obspace);$page->drawText($totalDebit,$pos, $obspace);$page->drawText($totalDebit,$pos, $obspace);
+// }
+
+if($transferDedit != "0") {
+$td=sprintf("%4.2f", $transferDedit);
+$page->drawText($td,$x8, $obspace);$page->drawText($td,$x8, $obspace);$page->drawText($td,$x8, $obspace);
+}
+
+
+    $page->drawLine(50, $obspace-5, 550, $obspace-5);//Bottom Table Line
+    $page->drawLine(50, $obspace-5, 50, 700);//Left Vertical Table Line
+    $page->drawLine(310, $obspace-5, 310, 700);//Center Vertical Line
+    $page->drawLine(550, $obspace-5, 550, 700);//Right Vertical Line
+
+    $pdfData = $pdf->render();
+
+   
+    $pdf->save('/var/www/'.$projname.'/reports/daybook3.pdf');
+    $path = '/var/www/'.$projname.'/reports/daybook3.pdf';
+    chmod($path,0777);
+
+    }
+}

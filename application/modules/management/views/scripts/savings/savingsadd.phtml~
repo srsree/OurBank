@@ -1,0 +1,35 @@
+<fieldset>
+<legend>New savings</legend>
+	<form action="<?php echo $this->baseUrl();?>/management/savings/savingsadd" method="POST"  name= "myform">
+		<div class="register">
+			<div class="profile_tab">
+				<table style="float:left">
+				    <TR >
+						<TD>Product type<span class="reqMark">*</span></TD>
+						<TD><?php echo $this->form->productType;?></TD>
+						<TD><?php echo $this->form->begindate33;?></TD>
+						<TD></TD>
+					</TR>
+				</table>
+			</div>
+		</div>
+		<div id="savingdiv">
+			<?php if($this->producttype=='ps') {
+				echo $this->render('/savings/persnolsavings.phtml');
+			}
+			if($this->producttype=='fd') {
+				echo $this->render('/savings/fixedsavings.phtml');
+			}
+			if($this->producttype=='rd') {
+				echo $this->render('/savings/recurringsavings.phtml');
+			} ?>
+		</div>
+			<table width="100%">
+				<tr>
+					<td><?php echo $this->form->Submit;?><td>
+					<td><a href="<?php echo $this->baseUrl(); ?>/management/savings/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+				</tr>
+			</table>
+</fieldset>
+</form>

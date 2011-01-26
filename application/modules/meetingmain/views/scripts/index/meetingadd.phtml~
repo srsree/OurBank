@@ -1,0 +1,92 @@
+<script>
+	function getXMLHTTP() {
+		var xmlhttp=false;	
+		try{
+			xmlhttp=new XMLHttpRequest();
+		}
+		catch(e)	{		
+			try{			
+				xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e){
+				try{
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e1){
+					xmlhttp=false;
+				}
+			}
+		}
+		return xmlhttp;
+	}
+
+	function getGroups(bank_id,path) {	
+		var strURL=path+"/meeting/index/fetchgroups?bank_id="+bank_id;
+		
+		var req = getXMLHTTP();
+		
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {
+						document.getElementById('groupDiv').innerHTML=req.responseText;
+					}
+					 else {
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					}
+				}				
+			}			
+			req.open("GET", strURL, true);
+			req.send(null);
+		
+// 		alert(strURL);
+		}
+		
+</script>
+
+
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Meeting ADD</legend>
+	<form action="<?php echo $this->baseUrl();?>/meeting/index/meetingadd" method="POST">
+		<table class="fieldsets">
+			
+			<TR >
+				<TD >Meeting Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->meeting_name;?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD >Office Type<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->institute_bank_id;?><SPAN style="color:red"></SPAN></TD>
+			</TR>
+			<TR >
+				<TD >Group Name<span class="reqMark">*</span></TD>
+				<TD ><div id="groupDiv"><?php echo $this->meetingForm->group_name;?></div><SPAN style="color:red"><?php echo $this->startMsg;?></SPAN></TD>
+			</TR>
+			<TR >
+				<TD >Group Head<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->group_head;?><SPAN style="color:red"><?php echo $this->endMsg;?></SPAN></TD>
+			</TR>
+			<TR >
+				
+				<TD >Meeting Place<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->meeting_place;?></TD>
+			</TR>
+			<TR >
+				
+				<TD >Meeting Time<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->meeting_time;?></TD>
+			</TR>
+			<TR >
+				
+				<TD >Meeting Day<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->meetingForm->meeting_day;?></TD>
+			</TR>
+			<TR >
+				<TD ><?php echo $this->meetingForm->Submit;?></TD>
+				<TD ><a href="<?php echo $this->baseUrl();?>/meetingindex"><?php echo $this->meetingForm->Back;?></a><SPAN style="color:red"></SPAN></TD>
+			</TR>
+		</table>
+	</form>
+</fieldset>

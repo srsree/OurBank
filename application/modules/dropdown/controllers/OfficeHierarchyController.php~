@@ -1,0 +1,25 @@
+<?php
+class Management_OfficeHierarchyController extends Zend_Controller_Action{
+
+    public function init() {
+    }
+
+    public function indexAction() {
+
+    }
+
+    public function officehierarchyviewAction() {
+
+    }
+
+    public function officehierarchyaddAction() {
+
+    }
+
+    public function officehierarchyeditAction() {
+
+    }
+
+    public function officehierarchydeleteAction() {
+
+    }

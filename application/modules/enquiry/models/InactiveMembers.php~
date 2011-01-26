@@ -1,0 +1,21 @@
+<?php
+class Enquiry_Model_InactiveMembers extends Zend_Db_Table_Abstract {
+protected $_name = 'ourbank_memberaddress'; 
+
+ public function InactiveMembers() {
+              $select = $this->select()
+                       ->setIntegrityCheck(false)  
+                       ->join(array('a' => 'ourbank_membername'),array('a.memberfirstname'))
+                       ->where('a.recordstatus_id = 1')
+                       ->join(array('b'=>'ourbank_memberaddress'),'b.member_id = a.member_id')
+                       ->where('b.recordstatus_id = 1')
+                       ->join(array('c'=>'ourbank_members'),'c.member_id = a.member_id')
+                       ->join(array('d'=>'ourbank_officenames'),'d.office_id = c.memberbranch_id')
+                       ->where('d.recordstatus_id = 3')
+                       ->join(array('e'=>'ourbank_userloginupdates'),'e.user_id = a.membercreatedby')
+                       ->where('e.recordstatus_id = 3');
+         //die($select->__toString());
+       $result = $this->fetchAll($select);
+       return $result->toArray();
+    }
+}

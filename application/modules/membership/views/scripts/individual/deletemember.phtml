@@ -1,0 +1,89 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+     <div id="fragment-2">
+    <input type="hidden" name="six" value="six"  id="target5" size="18" readonly="true" class="txt_put">
+
+ <fieldset>
+	           <legend>Member Assets</legend>
+		      <div class="register">
+	                   <div class="profile_tab">
+                             <?php if (!$this->confirmation) { ?>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                        </tr>
+			</table>
+                                <fieldset>
+	       			     <legend>Assets</legend>
+                                        <div>
+                                            <fieldset>
+	       			             <legend>Immovable Assets</legend>
+                                             <?php foreach($this->immovable as $immovleAssetsdetail){ $td1='itext'.$immovleAssetsdetail['asset_id']; ?>
+				             <table id="hor-minimalist-b">
+                                                <tr>
+                                                    <td><?php  echo $immovleAssetsdetail['asset_name']; ?></td>
+                                                   <td><?php $a2='itext'.$immovleAssetsdetail['asset_id'];echo $this->form->$a2; echo $immovleAssetsdetail['units']; ?></td>
+                                                   
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+			                 </fieldset>
+                                        </div>
+                                        <div style="width:378px;float:left">
+                                        <fieldset>
+	       			             <legend>Non Living Assets</legend>
+                                             <?php foreach($this->nonlivingdetails as $nonlivingAssetsdetail){ $td2='ntext'.$nonlivingAssetsdetail['asset_id']; ?>
+				             <table id="hor-minimalist-b">
+                                                <tr>
+                                                    <td><?php echo $nonlivingAssetsdetail['asset_name']; ?></td>
+                                                   <td><?php $a='ntext'.$nonlivingAssetsdetail['asset_id'];echo $this->form->$a; echo $nonlivingAssetsdetail['units']; ?></td>
+                                                   
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+			                 </fieldset>
+                                        </div>
+                                        <div style="width:378px;float:left">
+                                        <fieldset>
+	       			             <legend>Living Assets</legend>
+                                             <?php foreach($this->living as $livingAssetsdetail){ $td3='ltext'.$livingAssetsdetail['asset_id'];?>
+				                <table id="hor-minimalist-b">
+                                                <tr>
+                                                   <div> <td><?php echo $livingAssetsdetail['asset_name']; ?></td></div>
+                                                   <div> <td><?php $a1='ltext'.$livingAssetsdetail['asset_id']; echo $this->form->$a1; echo $livingAssetsdetail['units']; ?></td> </div>
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+			                </fieldset>
+                                        </div>
+                <?php } ?>
+				       
+	                   </div>
+                             <table>
+				            <TR>
+				                <TD width="50%"></TD><TD width="50%">
+				                <TD width="50%"><a href="#fragment-1"><input name="submit" type="button" class="officebutton" value="Back"></a></TD>
+                                                <TD width="20%"><a href="#fragment-3"><input name="submit" type="button" class="officesubmit1" value="Next"></a></TD>
+				            </TR>
+				        </table>
+                          
+                    </div>
+        </fieldset>
+    </div>

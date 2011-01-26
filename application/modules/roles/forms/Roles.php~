@@ -1,0 +1,18 @@
+<?php 
+class Roles_Form_Roles extends Zend_Form
+    {
+       public function __construct() 
+	{
+            //$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+            $formfield = new App_Form_Field ();
+            $grantname = $formfield->field('Text','grantname','','','mand','Grant name',true,'',4,15,'','','','');
+//             $grantname = new Zend_Form_Element_Text('grantname');
+//             $grantname->setRequired(true)
+//                       ->addValidators(array(
+//                       array('NotEmpty')));
+// 	    $grantname->addValidator('StringLength', false, array(4, 15));
+
+	   
+            $this->addElements(array($grantname));
+        }
+    }

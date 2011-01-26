@@ -1,0 +1,28 @@
+<?php
+class Fundercommonview_Model_fundercommon extends Zend_Db_Table {
+    protected $_name = 'ob_member';
+
+    public function getfunder($id)
+    {
+        $select=$this->select()
+        ->setIntegrityCheck(false)
+        ->join(array('a'=>'ob_funder'),array('a.id'))
+        ->join(array('b'=>'ob_funder_types'),('b.id = a.type'))
+        ->where('a.id=?',$id);
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+        //die ($select->__toString($select));
+    }
+
+    public function getmodule($modulename)
+    {
+        $select=$this->select()
+            ->setIntegrityCheck(false)
+            ->join(array('ob_modules'),array('module_id'))
+            ->where('module_description=?',$modulename);
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+        //die ($select->__toString($select));
+    }
+
+}

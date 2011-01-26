@@ -1,0 +1,22 @@
+<?php
+class Loandetails_Model_loandetails extends Zend_Db_Table {
+	protected $_name = 'ob_accounts';
+
+	public function loanInstalments($accountId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('A' => 'ob_installmentdetails'),array('Installmentserial_id'))
+			->where('A.account_id = ?',$accountId)
+			->where('A.recordstatus_id = 3 OR A.recordstatus_id =1')
+			->join(array('B' => 'ob_installmentstatus'),'A.installment_status=B.installmentstatus_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+    public function totalinstallmentamount($accountId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $sql="SELECT SUM(accountinstallment_amount) totalamount FROM ob_installmentdetails where account_id=$accountId";
+        $result = $this->db->fetchAll($sql,array($accountId));
+        return $result;
+    }
+}

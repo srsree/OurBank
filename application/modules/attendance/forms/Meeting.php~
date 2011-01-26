@@ -1,0 +1,139 @@
+<?php
+class Management_Form_Meeting extends Zend_Form{
+
+ public function init() {
+        Zend_Dojo::enableForm($this);
+    }
+        public function __construct($path) {
+        Zend_Dojo::enableForm($this);
+        parent::__construct($options);
+
+        $meetingupdates_id = new Zend_Form_Element_Hidden('meetingupdates_id');
+
+        $meeting_id  = new Zend_Form_Element_Hidden('meeting_id ');
+        $meeting_id ->setAttrib('class', 'txt_put');
+
+        $meeting_name = new Zend_Form_Element_Text('office_name');
+        $meeting_name->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $meeting_name->setAttrib('class', 'txt_put');
+        $meeting_name->addValidator(new Zend_Validate_Db_NoRecordExists('ourbank_officenames', 'meeting_name'));
+
+        $officeaddress1=new Zend_Form_Element_Text('officeaddress1');
+        $officeaddress1->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $officeaddress1->setAttrib('class', 'txt_put');
+
+        $officeaddress2=new Zend_Form_Element_Text('officeaddress2');
+        $officeaddress2->setAttrib('class', 'txt_put');
+
+        $officeaddress3=new Zend_Form_Element_Text('officeaddress3');
+        $officeaddress3->setAttrib('class', 'txt_put');
+
+        $officecity=new Zend_Form_Element_Text('officecity');
+        $officecity->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $officecity->setAttrib('class', 'txt_put');
+
+        $officestate=new Zend_Form_Element_Text('officestate');
+        $officestate->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $officestate->setAttrib('class', 'txt_put');
+
+        $officecountry=new Zend_Form_Element_Text('officecountry');
+        $officecountry->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $officecountry->setAttrib('class', 'txt_put');
+
+        $officepincode=new Zend_Form_Element_Text('officepincode');
+        $officepincode->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $officepincode->setAttrib('class', 'txt_put');
+
+
+        $officephone=new Zend_Form_Element_Text('officephone');
+        $officephone->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $officephone->setAttrib('class', 'txt_put');
+
+        $office_fax=new Zend_Form_Element_Text('office_fax');
+        $office_fax->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $office_fax->setAttrib('class', 'txt_put');
+
+
+        $office_email_Id=new Zend_Form_Element_Text('office_email_Id');
+        $office_email_Id->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $office_email_Id->setAttrib('class', 'txt_put');
+
+
+        $contactperson=new Zend_Form_Element_Text('contactperson');
+        $contactperson->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $contactperson->setAttrib('class', 'txt_put');
+
+
+
+        $contactperson_phone1=new Zend_Form_Element_Text('contactperson_phone1');
+        $contactperson_phone1->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $contactperson_phone1->setAttrib('class', 'txt_put');
+
+        $contactperson_phone2=new Zend_Form_Element_Text('contactperson_phone2');
+        $contactperson_phone2->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $contactperson_phone2->setAttrib('class', 'txt_put');
+
+
+        $contactperson_email=new Zend_Form_Element_Text('contactperson_email');
+        $contactperson_email->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $contactperson_email->setAttrib('class', 'txt_put');
+
+        $officedescription=new Zend_Form_Element_Text('officedescription');
+        $officedescription->setRequired(true)
+                          ->addValidators(array(array('NotEmpty')));
+        $officedescription->setAttrib('class', 'txt_put');
+
+
+       
+
+        $officetype_id = new Zend_Form_Element_Select('officetype_id');
+        $officetype_id->setRequired(true);
+        $officetype_id->addMultiOption('','select'.'...');
+        $officetype_id->setAttrib('class','selectbutton');
+        $officetype_id->setAttrib('onchange', 'getInterests(this.value,"'.$path.'")');
+
+
+//         $parentoffice_id=new Zend_Form_Element_Text('parentoffice_id');
+//         $parentoffice_id->setRequired(true)
+//                           ->addValidators(array(array('NotEmpty')));
+//         $parentoffice_id->setAttrib('class', 'txt_put');
+
+
+        $parentoffice_id = new Zend_Form_Element_Select('parentoffice_id');
+	$parentoffice_id->addMultiOption('','firstSelectOfficeType'.'...');
+	$parentoffice_id->setAttrib('class','selectbutton');
+        
+
+
+         $submit = new Zend_Form_Element_Submit('Submit');
+         $submit->setAttrib('class', 'officesubmit');
+	 $submit->setLabel('Submit');
+
+
+         $this->addElements(array($officeupdates_id,$office_name,
+                                 $officeshort_name,$officeaddress1,
+                                 $officeaddress2,$officeaddress3,
+                                 $officecity,$officestate,
+                                 $officecountry,$officepincode,
+                                 $officephone,$office_fax,$office_email_Id,
+                                 $contactperson,$contactperson_phone1,
+                                 $contactperson_phone2,$contactperson_email,
+                                 $submit,$office_id,$officedescription,$officetype_id,$parentoffice_id));
+	}
+}
+
+
+/**class end*/

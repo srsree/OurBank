@@ -1,0 +1,111 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$(".accordion h3:first").addClass("active");
+	$(".accordion table:not(:first)").hide();
+
+	$(".accordion h3").click(function(){
+		$(this).next("table").slideToggle("fast")
+		.siblings("table:visible").slideUp("fast");
+		$(this).toggleClass("active");
+		$(this).siblings("h3").removeClass("active");
+	});
+
+});
+</script>
+
+
+
+<style type="text/css">
+.accordion {
+	width: 800px;
+	border-bottom: solid 1px #c4c4c4;
+}
+.accordion h3 {
+	background: #e9e7e7 url(images/arrow-square.gif) no-repeat right -51px;
+	padding: 7px 15px;
+	margin: 0;
+	font: bold 120%/100% Arial, Helvetica, sans-serif;
+	border: solid 1px #c4c4c4;
+	border-bottom: none;
+	cursor: pointer;
+}
+.accordion h3:hover {
+	background-color: #e3e2e2;
+}
+.accordion h3.active {
+	background-position: right 5px;
+}
+.accordion table {
+	
+	margin: 0;
+	padding: 10px 15px 20px;
+	border-left: solid 1px #c4c4c4;
+	border-right: solid 1px #c4c4c4;
+}
+</style>
+
+<div class="accordion">
+	<h3>Individual Setting</h3>
+
+	<table><tr><th><h5>Click below to change the Individual Setting</h5></th></tr></table>
+	<h3>Search type</h3>
+	<table>
+	<tr>
+	<th>Search</th><th></th><th></th><th>Status</th>
+	</tr>
+	<tr>
+	<td>Member Code</td><td></td><td></td><td><a href="http://www.webdesignerwall.com" title="Go to homepage">Enable</a></td>
+	</tr>
+	<tr>
+	<td>First Name</td><td></td><td></td><td>Enable<td>
+	</tr>
+	<tr>
+	<td>Branch Name</td><td></td><td></td><td>Enable<td>
+	</tr>
+	<tr>
+	<td>Last Name</td><td></td><td></td><td>Enable<td>
+	</tr>
+	</table>
+	
+	<h3>Add Individual membership</h3>
+	<table>
+	<tr>
+	<th>Plug-Ins</th><th></th><th></th><th>Status</th>
+	</tr>
+         <?php foreach($this->plugin_details as $view) { ?>
+        <tr>
+	<td><?php echo $view['plugin_name']; ?></td>
+        <td></td><td></td>
+        <td><a href="<?php echo $this->baseUrl();?>/plugin/Membershipplugin/updateplugin/rootid/<?php echo $view['plugin_id'];?>/status/<?php if(($view['staus']) == '1') { echo '0'; } else if (($view['staus'])=='0'){ echo '1'; } else {  echo '0'; } ?>" >
+        <?php if($view['staus']=='1') { echo 'Disable'; } else if($view['staus']=='0'){ echo 'Enable'; } else { echo 'Disable'; } ?>
+        </a>
+        </td>
+	</tr> 
+        <?php } ?>
+	</table>
+</div>
+
+
+

@@ -1,0 +1,106 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php 
+if ($this->account) {
+foreach ($this->account as $account) {
+?>
+<div style="float:left;width:380px"> 
+    <table id="hor-minimalist-s" summary="Employee Pay Sheet">
+        <TR>
+            <TH>Member details</TH>
+            <TH></TH>
+        </TR>
+        <TR>
+            <td>Member code:</td>
+            <TD><? echo $account->code; ?></TD>
+        </TR>
+        <TR>
+            <td>Name:</td>
+            <TD><?php echo $account->name;?></TD>
+        </TR>
+        <TR>
+            <td>Branch:</td>
+            <td><?php echo $account->officename ;?></TD>
+        </TR>
+        <TR>
+            <TH>Product details</TH>
+            <TH></TH>
+        </TR>          
+
+        <TR>
+            <td>Product name:</td>
+            <TD><?php echo $account->productname;?></TD>
+        </TR>
+        <TR>
+            <td>Min balance:</b></td>
+            <TD><?php echo $account->minbalance;?></TD>
+        </TR>
+
+        <TR>
+            <td>Min balance for interest</td>
+            <TD><?php echo $account->mininterest; ?></TD>
+        </TR>
+        <TR>
+            <TH>Interest per annum</TH>
+            <TH></TH>
+        </TR>
+        <TR>
+            <TD><B>Periods in months</B></TD>
+            <TD><B>Interest</B></TD>
+        </TR>
+        <?php if ($this->interestRates) {
+              foreach ($this->interestRates as $interestRates) { ?>
+              <TR>
+                <td><?php echo $interestRates->period_ofrange_description; ?></td>
+                <TD><?php echo $interestRates->Interest; ?></TD>
+             </TR>
+       <?php } } ?>
+    </table>
+<?php } } ?>
+</div>
+<div style="float:left;width:350px"> 
+    <fieldset>
+        <legend>New Savings</legend>
+            <form name="form1" action="<?php echo $this->baseUrl();?>/savingaccount/index/createaccount" method="POST">
+            <table class="fieldsets">
+                    <TR>
+                        <TD><label for="fld1" class="mand">Date of account</TD>
+                        <TD><?php echo $this->savingsForm->date;?></TD>
+                    </TR>
+                    <TR>
+                        <TD><label for="fld1" class="mand">Initail deposit</TD>
+                        <TD><?php echo $this->savingsForm->amount;?></TD>
+                    </TR>
+					<?php if ($this->savingsForm->group) { ?>
+                    <TR>
+                        <TD><label for="fld1" class="mand">Group Member</TD>
+                        <td><?php echo $this->savingsForm->group; ?></td>
+                    </TR>
+					<?php } ?>
+                    <TR>
+                        <TD><?php echo $this->savingsForm->Submit; ?></TD>
+                        <td><?php echo $this->savingsForm->Back; ?></td>
+                    </TR>
+
+                    <?php echo '<font color=RED>'.$this->maxdate.'</font>'; ?>
+                </table>
+                <?php echo $this->savingsForm->Id; ?> <?php echo $this->savingsForm->code; ?> 
+            </form>
+</div>

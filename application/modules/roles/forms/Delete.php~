@@ -1,0 +1,18 @@
+<?php 
+class Roles_Form_Delete extends Zend_Form {
+	public function init() {
+		$remarks = new Zend_Form_Element_Textarea('remarks');
+		$remarks->setAttrib('class', 'textfield');
+		$remarks->setAttrib('id', 'remarks');
+		$remarks->setAttrib('rows','2');
+		$remarks->setAttrib('cols','20')
+					->setRequired(true)
+					->addValidators(array(array('NotEmpty')));
+
+		$submit_yes = new Zend_Form_Element_Submit('Yes');
+		$submit_yes->setAttrib('id', 'Yes');
+		$back = new Zend_Form_Element_Submit('Back');
+
+		$this->addElements(array($remarks,$submit_yes,$back));
+	}
+}

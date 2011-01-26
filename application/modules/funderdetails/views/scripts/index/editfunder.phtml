@@ -1,0 +1,43 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+ *  edit funder view 
+--> 
+<form action="<?php echo $this->baseUrl();?>/funderdetails/index/editfunder/id/<?php echo $this->id; ?>" method="POST">
+<fieldset>
+	<!--to change language -->
+<legend><?php echo $this->translate("Funder details"); ?></legend>
+<div class="btnhouse">
+	<div class="rtbtns">
+		<td><a href="<?php echo $this->baseUrl();?>/funderdetails/index/delete/id/<?php echo $this->id; ?>/sub_id/<?php echo $this->sub_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+</div>	</div>
+		<table class="fieldsets">
+		<?php echo $this->form; ?>	
+		</table>
+		<div class="btnhouse">
+                <div class="ltbtns">
+                    <input type="submit" name="update" id="update" value="<?php echo $this->translate('Update'); ?>">
+                 </div>
+                <div class="rtbtns">
+                   <a href="<?php echo $this->baseUrl();?>/funder"><input type="submit" name="back" id="back" value="<?php echo $this->translate('Back'); ?>"></a>
+                </div>
+            </div>
+</fieldset>
+</form>

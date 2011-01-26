@@ -1,0 +1,155 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<form action="<?php echo $this->baseUrl();?>/reports/loandue/index" method="POST">  
+	<fieldset>
+		<legend>Due Search</legend>
+
+			<TABLE width="100%">
+			
+
+				<tr>
+                                        <td class="label">From Date:</td>
+                                        <td><?php  echo $this->form->field1;
+                                                   echo $this->fromerr; 
+                                            ?></td>
+                                        <td class="label">To Date:</td>
+					<td><?php  echo $this->form->field2;
+                                                   echo $this->toerr;
+                                            ?></td>
+				</tr>
+				<tr>
+					  <Td class="label">Branch :</td>
+                                        <td><?php  echo $this->form->field3;?></td>
+                                  <!--     
+					<td class="label">Loan Officer :</td>
+					<td><?php  echo $this->form->field5;?></td>-->
+				</tr>
+                                <tr>
+					<td colspan="4" align="center"><? echo $this->form->Search;?></td>
+
+				</tr>
+                                <tr><div><?php 
+                                               echo $this->dateerr;
+                                         ?></div></tr>
+			</form>
+   			</TABLE>
+		
+ 	</fieldset> 
+</form>
+
+<?php
+if($this->loanView){
+        ?>
+<fieldset>
+    <legend>Loans</legend>
+
+            <TABLE id="hor-minimalist-b" >
+                <tr>
+	            <th>Account Number.</th>
+                    <th>Due Date</th>
+                    <th>OverDue Amount</th>
+	            <th>CurrentDue Amount</th>
+	        </tr>
+<?php
+ foreach($this->loanView as $loandue) { 
+
+if($loandue['installment_status']==5)
+{
+$overduetotal += $loandue['accountinstallment_amount'];
+}
+if($loandue['installment_status']==4)
+{
+$currentduetotal += $loandue['accountinstallment_amount'];
+}
+?>
+		<tr>
+	            <td><?php echo $loandue['account_number']; ?></td>
+                     <td><?php echo $loandue['accountinstallment_date']; ?></td>
+                    <td>
+                    <?php if($loandue['installment_status'] == 5) {
+                                
+                                echo $loandue['accountinstallment_amount'];
+                                 //  $this->amountPaid = $this->amountPaid + $loandue['accountinstallment_amount'];
+                     } ?>
+                    </td> 
+                      <td>
+                       <?php if($loandue['installment_status']==4)
+                         echo $loandue['accountinstallment_amount']; 
+                        ?>
+                    </td> 
+                </tr>
+<?php } 
+?>
+                <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td><?php echo $overduetotal; ?></td>
+                    <td><?php echo $currentduetotal; ?></td>
+                </tr>
+                <tr>
+                    <td>Outstanding Balance</td>
+                    <td></td>
+                    <td></td>
+                    <td><?php 
+                        $outstanding_amount=$overduetotal+$currentduetotal;
+                        echo $outstanding_amount; ?></td>
+                </tr>
+</TABLE>
+</fieldset>
+<form action="<?php echo $this->baseUrl(); ?>/reports/loandue/pdftransaction" method="POST" onClick="window.open('<?php echo $this->baseUrl(); ?>/reports/loandue/reportdisplay/file/loandue.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+<!-- <form action="<?php echo $this->baseUrl(); ?>/reports/loandue/pdftransaction" method="POST"> -->
+           <TABLE>     <tr>
+                    <td><?php echo $this->form->PDF; ?>
+                    <input type="hidden" name="field1" value="<?php echo $this->field1; ?>">
+                    <input type="hidden" name="field2" value="<?php echo $this->field2;?>">
+                    <input type="hidden" name="field3" value="<?php echo $this->field3;?>">
+                    
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr></TABLE>
+
+</form>
+	    
+
+<?php }
+ ?>
+
+
+

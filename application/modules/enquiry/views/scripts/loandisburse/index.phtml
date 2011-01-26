@@ -1,0 +1,92 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if(!$this->loanView) { ?>   
+<form action="<?php echo $this->baseUrl();?>/enquiry/loandisburse/index" method="POST"> 
+	<fieldset>
+		<legend>loanSearch</legend>
+		<div style="margin-left:20px;">
+		<TABLE width="100%" id = "hor-minimalist-b">
+				<form action="<?php echo $this->baseUrl();?>/enquiry/loandisburse/index" method="POST">
+				
+				<tr>
+					<Td class="label">Branch:</td>
+					<td><?php  echo $this->form->field1;?>
+                                        
+                                        <Td class="label">UserName:</td>
+					<td><?php  echo $this->form->field7;?>
+                
+                                        
+                                       	<td class="label"></td>
+					<td><?php  echo $this->form->Search;?></td>
+				</tr>
+
+			</form>
+   			</TABLE>
+		</div>
+ 	</fieldset> 
+</form>
+<?php } ?>
+<?php if($this->loanView) { ?>  
+
+<fieldset>
+    <legend>Loans</legend>
+	<div class="cont-rgt-data">
+            <TABLE id="hor-minimalist-b" summary="">
+                <tr>
+	            <th>Product</th>
+	            <th>SubProducts</th>
+	            <th>No. of Loans</th>
+	            <th>amountDisbursed</th>
+                    
+                </tr>
+<?php foreach($this->loanView as $arrayloan):?>
+
+		<tr>
+	            <td><?php echo $arrayloan->productname; ?></td>
+	            <td><?php echo $arrayloan->offerproductname;?></td>
+	            <td><?php echo $arrayloan->offerproductname;?></td>
+	            <td><?php echo $arrayloan->amount_disbursed;?></td>
+                    
+                </tr>
+                <?php endforeach; ?>
+
+	    </TABLE>
+	</div>
+</fieldset>
+<?}?>
+

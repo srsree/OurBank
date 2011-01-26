@@ -1,0 +1,69 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<div id="container-1">
+	<div class="register">
+		<div class="profile_tab">
+			<table id="hor-minimalist-b">
+				<?php if(($this->feedetails)!=NULL) {
+					foreach($this->feedetails as $edit_id) { ?>
+					<tr>
+						<th class = "firsttd">Fee Details</th>
+						<th class = "secondtd"></th>
+						<th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/fee/index/editfeedetail/id/<?php echo $edit_id['id'];?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20">
+                         	<?php }} else { ?>
+						<TD class="label" align="right">Click to Add :</TD>
+						<TD><a href="<?php echo $this->baseUrl();?>/user/index/editmembername/id/<?php echo $this->memberid; ?>">ADD</a></TD>
+                         	<?php } ?></a></th>
+					</tr>
+					<?php foreach($this->feedetails as $member_view){?>
+					<tr>
+						<td class = "firsttd">Fee Name:</td>
+						<td><?php echo $member_view['name'];?></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Fee description:</td>
+						<td><?php echo $member_view['feedescription'];?></td>
+						<td></td>
+					</tr>
+					<tr>	
+						<td>Fee value:</td>
+						<td><?php echo $member_view['value'];?></td>
+						<td></td>
+					</tr>
+					<tr>				
+						<td>member type:</td>
+						<td><?php echo $member_view['type'];?></td>
+						<td></td>
+					</tr>
+<tr>				
+						<td>Fee for:</td>
+						<td><?php echo $member_view['header'];?></td>
+						<td></td>
+					</tr>
+				<?php } ?>
+
+			</table>
+		</div>
+	</div>
+</div>
+
+ 

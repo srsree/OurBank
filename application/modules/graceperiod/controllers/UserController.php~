@@ -1,0 +1,285 @@
+<?php
+class Management_UserController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='User';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+    }
+
+    public function indexAction() {
+        $this->view->title = "User";
+
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $user = new Management_Model_User();
+        $result = $user->getUserDetails();
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+    
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($searchForm->isValid($formData)) {
+                    $office = new Management_Model_User();
+                    $result = $office->SearchUsers($searchForm->getValues());
+
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+                }
+            }
+        }
+    }
+
+    public function userviewAction() {
+        
+        $this->view->title = "View User";
+
+        $user_id = (int)$this->_getParam('id');
+
+        $user = new Management_Model_User();
+        $result = $user->viewuser($user_id);
+        $this->view->user = $result;
+
+        $userAddress = new Management_Model_User();
+        $result = $userAddress->fetchUserAddress($user_id);
+        $this->view->userAddress = $result;
+        foreach($result as $result) {
+           $this->view->maritalstatus = $result['membermaritalstatusdescription'];
+
+        }
+        $userGrant = new Management_Model_User();
+        $result = $userGrant->fetchUserloginDetails($user_id);
+        $this->view->userGrant = $result;
+
+        $result = $userGrant->getLoginName($user_id);
+        $this->view->loginName = $result;
+
+        $userRoles = new Management_Model_User();
+        $noOfroles= $userRoles->noGrants();
+
+        $userCheck = new Management_Model_User();
+        $checkbox = $userCheck->fetchAllGrant($user_id);
+        $this->view->checkbox=$checkbox;
+        }
+
+    public function useraddAction() {
+	$this->view->title = "Add User";
+	
+	$UserForm = new Management_Form_User();
+        $this->view->form = $UserForm;
+	$office = new Management_Model_User();
+        $office = $office->getOffice();
+        foreach($office as $office) {
+		$UserForm->officetype_id->addMultiOption($office['office_id'],$office['office_name']);
+		}
+
+        $roles = new Management_Model_User();
+        $noOfroles= $roles->noGrants();
+        foreach($noOfroles as $noOfroles1) {
+             $UserForm->grant_id->addMultiOption($noOfroles1['grant_id'],$noOfroles1['grantname']);
+		}
+
+	$individual = new Membership_Model_Individual();
+	$maritalStatus = $individual->getMaritalStatus();
+        foreach($maritalStatus as $maritalStatus) {
+		$UserForm->membermaritalstatus_id->addMultiOption($maritalStatus->membermaritalstatus_id,$maritalStatus->membermaritalstatusdescription);
+            }
+	
+        $individual = new Membership_Model_Individual();
+	$salutation = $individual->getSalutation();
+        foreach($salutation as $salutation) {
+		$UserForm->membertitle->addMultiOption($salutation->salutation_id,$salutation->salutation);
+        }
+	
+        $gender = $individual->getGender();
+        foreach($gender as $gender) {
+		$UserForm->gender_id->addMultiOption($gender->gender_id,$gender->sex);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+		$formData = $this->_request->getPost();
+		if ($this->_request->isPost()) {
+		$formData = $this->_request->getPost();
+		if ($UserForm->isValid($formData)) {
+		$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+		$data['user_id']='';
+		$dbAdapter->insert('ourbank_users',$data);
+		$user_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_users','user_id');
+
+               $officeId=str_pad($office_id,3,"0",'STR_PAD_LEFT'); 
+               $users=str_pad($user_id,7,"0",'STR_PAD_RIGHT');
+               $userIdNumber=$officeId.$users;
+
+               $user = new Management_Model_UseraddressUpdates();
+               $data = array('useridnumber' =>$userIdNumber);
+               $user->userIdUpdate($user_id,$data);//Updating to ourbank_users table
+		
+
+		$user = new Management_Model_UsernameUpdates();
+		$result = $user->adduserdetails($UserForm->getValues(),$user_id);
+
+                $user = new Management_Model_UseraddressUpdates();
+		$result = $user->addaddressdetails($UserForm->getValues(),$user_id);
+
+                $user = new Management_Model_UserloginUpdates();
+		$result = $user->userLoginInsert($UserForm->getValues(),$user_id);
+
+                $grant_id = $this->_request->getParam('grant_id');
+                $user = new Management_Model_UserGrants();
+		$result = $user->grantsInsert($grant_id,$user_id);
+                $this->_redirect('management/user');
+
+		}
+            }
+         }
+    }
+
+    public function usereditAction() {
+	$this->view->title = "Edit User";
+	$user_id = $this->_getParam('id');
+        $this->view->user_id = $user_id;
+
+	$UserForm = new Management_Form_User();
+	$this->view->form = $UserForm;
+
+ 	$office = new Management_Model_User();
+ 	$office = $office->getOffice();
+ 	foreach($office as $office) {
+ 	$UserForm->officetype_id->addMultiOption($office['officetype_id'],$office['office_name']);
+ 	}
+ 	   
+        $roles = new Management_Model_User();
+        $noOfroles= $roles->noGrants();
+        foreach($noOfroles as $noOfroles1) {
+        $UserForm->grant_id->addMultiOption($noOfroles1['grant_id'],$noOfroles1['grantname']);
+	}
+
+        $individual = new Membership_Model_Individual();
+	$maritalStatus = $individual->getMaritalStatus();
+        foreach($maritalStatus as $maritalStatus) {
+		$UserForm->membermaritalstatus_id->addMultiOption($maritalStatus->membermaritalstatus_id,$maritalStatus->membermaritalstatusdescription);
+            }
+
+        $individual = new Membership_Model_Individual();
+	$salutation = $individual->getSalutation();
+        foreach($salutation as $salutation) {
+		$UserForm->membertitle->addMultiOption($salutation->salutation_id,$salutation->salutation);
+        }
+
+        $gender = $individual->getGender();
+        foreach($gender as $gender) {
+		$UserForm->gender_id->addMultiOption($gender->gender_id,$gender->sex);
+        }
+
+        $user = new Management_Model_UsernameUpdates();
+        $result = $user->Edituser($user_id);
+        foreach($result as $user) {
+                $this->view->form->membertitle->setValue($user['title']);
+                $this->view->form->user_id->setValue($user['user_id']);
+                $this->view->form->first_name->setValue($user['firstname']);
+                $this->view->form->middle_name->setValue($user['middlename']);
+                $this->view->form->userlast_name->setValue($user['lastname']);
+                $this->view->form->gender_id->setValue($user['gender']);
+                $this->view->form->officetype_id->setValue($user['office_id']);
+                $this->view->form->grant_id->setValue($user['grant_id']);
+                $this->view->form->dateofbirth->setValue($user['dateofbirth']);
+                $this->view->form->dateofjoin->setValue($user['dateofjoin']);
+                $this->view->form->designation->setValue($user['designation']);
+                $this->view->form->line1->setValue($user['addressline1']);
+                $this->view->form->line2->setValue($user['addressline2']);
+                $this->view->form->line3->setValue($user['addressline2']);
+                $this->view->form->pincode->setValue($user['postal_code']);
+                $this->view->form->Email->setValue($user['emailid']);
+                $this->view->form->city->setValue($user['city']);
+                $this->view->form->state->setValue($user['state']);
+                $this->view->form->country->setValue($user['country']);
+                $this->view->form->telephonenumber->setValue($user['telephone']); 
+                $this->view->form->membermaritalstatus_id->setValue($user['marital_status']);
+                $this->view->form->personnelid->setValue($user['personnel_idcardnumber']);
+                $this->view->form->password->setValue($user['password']);
+                $this->view->form->confirmpassword->setValue($user['confirmpassword']);
+                $this->view->form->loginname->setValue($user['login_name']);
+                $this->view->form->password->renderPassword = true;
+                $this->view->form->confirmpassword->renderPassword = true;
+                }
+
+                 $UserForm->loginname->removeValidator('Db_NoRecordExists');
+
+                 if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+                      $formData = $this->_request->getPost();
+                          if ($this->_request->isPost()) {
+                              $formData = $this->_request->getPost();
+                                  if ($UserForm->isValid($formData)) {
+
+  
+                          $user_id  = $formData['user_id'];
+                          $createby = $this->view->createdby;
+
+  
+                          $users = new Management_Model_User();
+                          $users->UpdateUsers($user_id);
+
+                          $result = $users->editUsers($UserForm->getValues(),$user_id);
+
+                          $user = new Management_Model_UseraddressUpdates();
+                          $result = $user->edituseraddressdetails($UserForm->getValues(),$createby,$user_id);
+ 
+                          $user = new Management_Model_UserloginUpdates();
+                          $result = $user->EdituserLogin($UserForm->getValues(),$createby,$user_id);
+ 
+                          $this->_redirect('management/user');
+                }
+           }
+       }
+  }
+
+    public function userdeleteAction() {
+        $this->view->title = "Delete Users";
+        $user_id = (int)$this->_getParam('id');
+        $this->view->user_id = $user_id;
+
+        $user = new Management_Model_User();
+        $result = $user->viewuser($user_id);
+        $this->view->user = $result;
+
+        $userAddress = new Management_Model_User();
+        $result = $userAddress->fetchUserAddress($user_id);
+        $this->view->userAddress = $result;
+
+        $userGrant = new Management_Model_User();
+        $result = $userGrant->fetchUserloginDetails($user_id);
+        $this->view->userGrant = $result;
+
+        $userRoles = new Management_Model_User();
+        $noOfroles= $userRoles->noGrants();
+
+        $userCheck = new Management_Model_User();
+        $checkbox = $userCheck->fetchAllGrant($user_id);
+        $this->view->checkbox=$checkbox;
+ 
+        $deleteform = new Management_Form_Delete();
+        $this->view->deleteform = $deleteform;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+            $formData = $this->_request->getPost();
+            if ($deleteform->isValid($formData)) {
+
+                $remarks = $deleteform->getvalue('remarks');
+                $user_id = $this->_getParam('id');
+                $office = new Management_Model_User();
+                $office->deleteUser($user_id,$remarks);
+                $this->_redirect('management/user');
+            }
+       }
+    }
+}

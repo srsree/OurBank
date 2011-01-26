@@ -1,0 +1,73 @@
+<?php
+    class Institution_Form_Institution extends Zend_Form {
+	public function init() 
+	{
+	    Zend_Dojo::enableForm($this);
+	}
+
+	public function __construct($options = null) 
+	{
+	    Zend_Dojo::enableForm($this);
+	    parent::__construct($options);
+	    
+            $Institute_bank_name = new Zend_Form_Element_Text('Institute_bank_name');
+	    $Institute_bank_name->setLabel('Institution Name');
+	    $Institute_bank_name->setRequired(true)
+				->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','class' => 'mand')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+	    $Institute_bank_status = new Zend_Form_Element_Checkbox('Institute_bank_status');
+	    $Institute_bank_status->setLabel('Active');
+            $Institute_bank_status->setRequired(true)
+						->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+
+
+	    $module_id = new Zend_Form_Element_Hidden('module_id');
+            $module_id->setValue('1');
+	    $module_id->removeDecorator('DtDdWrapper'); 
+            $module_id->removeDecorator('HtmlTag');
+            $module_id->removeDecorator('label');
+
+	    $submodule_id = new Zend_Form_Element_Hidden('submodule_id');
+            $submodule_id->setValue('1');
+            $submodule_id->removeDecorator('DtDdWrapper'); 
+            $submodule_id->removeDecorator('HtmlTag');
+            $submodule_id->removeDecorator('label');
+
+            $Institute_bank_id = new Zend_Form_Element_Hidden('Institute_bank_id');
+            $Institute_bank_id->setValue('1');
+            $Institute_bank_id->removeDecorator('DtDdWrapper'); 
+            $Institute_bank_id->removeDecorator('HtmlTag');
+            $Institute_bank_id->removeDecorator('label');
+            
+            $created_by = new Zend_Form_Element_Hidden('created_by');
+            $created_by->setValue('1');
+            $created_by->removeDecorator('DtDdWrapper'); 
+            $created_by->removeDecorator('label');
+            $created_by->removeDecorator('HtmlTag');
+
+
+            $created_date = new Zend_Form_Element_Hidden('created_date');
+            $created_date->setValue(date("y/m/d H:i:s"));
+            $created_date->removeDecorator('DtDdWrapper'); 
+            $created_date->removeDecorator('label');
+            $created_date->removeDecorator('HtmlTag');
+            
+            $recordstatus_id = new Zend_Form_Element_Hidden('recordstatus_id');
+            $recordstatus_id->setValue('3');
+            $recordstatus_id->removeDecorator('DtDdWrapper'); 
+            $recordstatus_id->removeDecorator('HtmlTag');
+            $recordstatus_id->removeDecorator('label');
+					
+            $this->addElements(array($Institute_bank_name,$Institute_bank_status,
+                                     $module_id,$submodule_id,$Institute_bank_id,$created_by,$created_date,$recordstatus_id));
+        }
+    }

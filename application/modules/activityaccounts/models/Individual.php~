@@ -1,0 +1,29 @@
+<?php
+class Individual_Model_Individual extends Zend_Db_Table {
+    protected $_name = 'ob_member';
+
+    public function getMemberDetails() {
+	$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_member'),array('a.member_id'))
+			->join(array('b' => 'ob_member_details'),'a.member_id = b.member_id')
+                        ->where('b.recordstatus_id = 3')
+			->order(array('a.member_id DESC'));   
+	//die($select->__toString());		
+	return $this->fetchAll($select);
+    }
+
+    public function searchDetails($post = array()) {
+	$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_member'),array('a.member_id'))
+			->join(array('b' => 'ob_member_details'),'a.member_id = b.member_id')
+                        ->where('b.recordstatus_id = 3')
+			->where('a.member_code like "%" ? "%"',$post['field3'])
+			->where('b.member_name like "%" ? "%"',$post['field2'])
+			->order(array('a.member_id DESC'));   
+	//die($select->__toString());		
+	return $this->fetchAll($select);
+    }
+
+ }

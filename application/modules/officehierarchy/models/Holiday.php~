@@ -1,0 +1,68 @@
+<?php
+class Management_Model_Holiday extends Zend_Db_Table {
+     protected $_name = 'ourbank_holidayupdates';
+        public function getHoliday() {
+                    $select = $this->select()
+                               ->setIntegrityCheck(false)  
+                               ->join(array('h' => 'ourbank_holidayupdates'),array('office_id'))
+                               ->where('h.recordstatus_id = 3')
+                               ->join(array('o'=>'ourbank_officenames'),'h.office_id = o.office_id')
+                               ->where('o.recordstatus_id = 3');
+            $result = $this->fetchAll($select);
+            return $result->toArray();
+			}
+			
+        public function viewholiday($holidayupdate_id) {
+            $holidayupdate_id = (int)$holidayupdate_id;
+            $result = $this->fetchAll('holidayupdate_id = '.$holidayupdate_id);
+            return $result->toArray();
+        }
+
+        public function insertHoliday($post,$createdby) {
+            $data = array('holidayupdate_id'=> '',
+                          'holiday_id'=> '',
+                          'recordstatus_id'=>'3',
+                          'holidayname'=>$post['holidayname'],
+                          'office_id'=>$post['office_id'],
+                          'holidayfrom'=>$post['holidayfrom'],
+                          'holidayupto'=>$post['holidayupto'],
+                          'repayment_date'=>$post['repayment_date'],
+			  'createdby'=> $createdby,
+			  'createddate'=>date('Y-m-d'));
+            $this->insert($data);
+        }
+
+        public function deleteHoliday($holidayupdate_id,$remarks) {
+		$data = array('recordstatus_id'=> 1,'remarks' => $remarks);
+            $where = 'holidayupdate_id = '.$holidayupdate_id;
+            $this->update($data , $where );
+			}
+			
+	public function UpdateHoliday($holidayupdate_id) {
+		$data = array('recordstatus_id'=> 2);
+		$where = 'holidayupdate_id = '.$holidayupdate_id;
+		$this->update($data , $where );
+		}
+		
+		public function SearchHoliday($post = array()) {
+            $select = $this->select()
+		            ->setIntegrityCheck(false)  
+					->join(array('a' => 'ourbank_holidayupdates'),array('holidayupdate_id'))
+		            ->where('a.recordstatus_id = 3')
+					->where('a.holidayname like "%" ? "%"',$post['field3'])
+					->where('a.holidayfrom like "%" ? "%"',$post['field2'])
+					->where('a.holidayupto like "%" ? "%"',$post['field4'])
+					->join(array('b'=>'ourbank_officenames'),'a.office_id = b.office_id')
+					->where('b.office_id like "%" ? "%"',$post['field1']);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+		}
+		      Public function fetchAllOffice() {
+					   $select = $this->select()
+					   ->setIntegrityCheck(false)  
+					   ->join(array('a' => 'ourbank_officenames'),array('office_id'))
+					   ->where('a.recordstatus_id =3 OR a.recordstatus_id = 1');
+					   $result = $this->fetchAll($select);
+					   return $result->toArray();
+					   }
+}

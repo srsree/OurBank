@@ -1,0 +1,864 @@
+<?php
+class Management_SavingsController extends Zend_Controller_Action{
+
+	public function init() {
+		$this->view->pageTitle='Savings';
+		$storage = new Zend_Auth_Storage_Session();
+		$data111 = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$this->view->Action= $this->getRequest()->getActionName();
+		if($this->_request->getParam('savingtypeId')) {
+			$this->view->producttype= $this->_request->getParam('savingtypeId');
+		} else {
+			$this->view->producttype= $this->_request->getParam('productType');
+		}
+	}
+
+	public function indexAction() {
+		$this->view->title = "Savings";
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$searchForm = new Management_Form_Search();
+		$this->view->form = $searchForm;
+		$offerproduct = new Management_Model_Savings();
+		$this->view->changelog=$offerproduct->getUpdatesinformation();
+		$result = $offerproduct->fetchAllofferProductDetails();
+		$page = $this->_getParam('page',1);
+		$paginator = Zend_Paginator::factory($result);
+		$paginator->setItemCountPerPage(5);
+		$paginator->setCurrentPageNumber($page);
+		$this->view->paginator = $paginator;
+		if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+			$formData = $this->_request->getPost();
+			if ($this->_request->isPost()) {
+				$formData = $this->_request->getPost();
+				if ($searchForm->isValid($formData)) {
+					$result = $offerproduct->SearchofferProduct($searchForm->getValues());
+					$page = $this->_getParam('page',1);
+					$paginator = Zend_Paginator::factory($result);
+					$paginator->setItemCountPerPage(5);
+					$paginator->setCurrentPageNumber($page);
+					$this->view->paginator = $paginator;
+				}
+			}
+		}
+	}
+
+	public function savingsaddAction() {
+		$this->view->title = "Add Savings";
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$savingsForm = new Management_Form_Savings();
+		$this->view->form = $savingsForm;
+
+		$offerproduct = new Management_Model_Savings();
+		$productDetails = $offerproduct->getProductDetails();
+		foreach($productDetails as $product) {
+			$savingsForm->productType->addMultiOption($product['productshortname'],$product['productname']);
+		}
+
+		$this->view->producttype= $this->_request->getParam('productType');
+		if($this->view->producttype=='ps') {
+			$this->persnolsavingsAction();
+		}
+
+		if($this->view->producttype=='fd') {
+			$this->fixedsavingsAction();
+		}
+
+		if($this->view->producttype=='rd') {
+			$this->recurringsavingsAction();
+		}
+	}
+
+	public function persnolsavingsAction() {
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$savingsForm = new Management_Form_Savings();
+		$this->view->form = $savingsForm;
+
+		$savings = new Management_Model_Savings();
+		$interestperiods = new Management_Model_Interestperiods();
+
+		$systemDate = date('Y-m-d');
+		$this->view->form->currentdates->setValue($systemDate);
+		$this->view->form->begindate->setValue($systemDate);
+
+
+		$date = new Zend_Date();
+		$currentdate=$date->toString('YYYY-MM-dd');
+		$this->view->currentdate=$currentdate;
+		$this->view->form->currentdates->setValue($currentdate);
+
+
+		$select = $savings->fetchAllProductName();
+		foreach($select as $productname) {
+			$savingsForm->productType->addMultiOption($productname['productshortname'],$productname['productname']);
+        }
+
+		$select = $savings->fetchAllTimeFrequencyType();
+		foreach($select as $timefrequencytype) {
+			$savingsForm->frequencyofdeposit->addMultiOption($timefrequencytype['timefrequncy_id'],$timefrequencytype['timefrequencytype']);
+		}
+
+		$select = $savings->fetchAllTimeFrequencyType();
+		foreach($select as $timefrequencytype) {
+			$savingsForm->Int_timefrequency_id->addMultiOption($timefrequencytype['timefrequncy_id'],$timefrequencytype['timefrequencytype']);
+		}
+
+		$applicableto = $savings->fetchAllMemberType();
+		foreach($applicableto as $applicableto) {
+			$savingsForm->applicableto->addMultiOption($applicableto['membertype_id'],$applicableto['membertype']);
+		}
+
+		if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+			$formData = $this->_request->getPost();
+			if ($this->_request->isPost()) {
+				$formData = $this->_request->getPost();
+				$savingsForm->closedate->setRequired(false);
+				$savingsForm->minimum_deposit_amount->setRequired(false);
+				$savingsForm->maximum_deposit_amount->setRequired(false);
+				$savingsForm->frequency_of_deposit->setRequired(false);
+				$savingsForm->penal_Interest->setRequired(false);
+				if ($savingsForm->isValid($formData)) {
+					$sessionName = new Zend_Session_Namespace('ourbank');
+					$user_id = $sessionName->primaryuserid;
+					$closeddate = $this->_request->getParam('closedate'); 
+					$productType = $this->_request->getParam('productType');
+					$interestfrom = $this->_request->getParam('interestfrom'); 
+					$interestto = $this->_request->getParam('interestto');
+					$interestrate = $this->_request->getParam('interestrate');
+					$currentdate = $this->_request->getParam('currentdates');
+					$begindate = $this->_request->getParam('begindate');
+					$month='months';
+					$period_ofrange_description1 = $interestfrom.-$interestto.$month;
+					$memberCount = $this->_request->getParam('memberCount');
+
+					$product_id = $savings->product_id($productType);
+					$this->view->product_id = $product_id;
+					foreach($this->view->product_id as $product_id) {
+						$product_id=$this->view->product_id=$product_id['product_id'];
+					}
+
+					$product = new Management_Model_Product();
+					$product->productstatus($product_id);
+					$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+					$data['offerproduct_id']='';
+					$dbAdapter->insert('ourbank_productsoffering', $data);
+					$offerproduct_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsoffering','offerproduct_id');
+					$result = $savings->addofferproduct($savingsForm->getValues(),$offerproduct_id,$product_id,$closeddate);
+					$offerproductupdate_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsofferdetails ','offerproductupdate_id');
+					$result = $savings->addofferproductsavings($savingsForm->getValues(),$offerproductupdate_id);
+
+					$interestperiod1 = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+															'period_id' =>1,
+															'period_ofrange_monthfrom' => $interestfrom,
+															'period_ofrange_monthto'=> $interestto,
+															'period_ofrange_description'=> $period_ofrange_description1,
+															'offerproduct_id' => $offerproduct_id,
+															'Interest' => $interestrate,
+															'intereststatus_id'=>3));
+
+					for ($i = 1;$i<=$memberCount; $i++) {
+						$From = $this->_request->getParam('memberName'.$i); 
+						$To = $this->_request->getParam('To'.$i); 
+						$Rate = $this->_request->getParam('Rate'.$i); 
+						$month='months';
+						$period_ofrange_description = $From.-$To.$month;
+						if($From) {
+							$interestperiod = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+																				'period_id' =>$i+1,
+																				'period_ofrange_monthfrom' => $From,
+																				'period_ofrange_monthto'=> $To,
+																				'period_ofrange_description'=> $period_ofrange_description,
+																				'offerproduct_id' => $offerproduct_id,
+																				'Interest' => $Rate,
+																				'intereststatus_id'=>3));
+						}
+					}
+					$this->_redirect('management/savings');
+				}
+			}
+		}
+	}
+
+	public function fixedsavingsAction() {
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$savingsForm = new Management_Form_Savings();
+		$this->view->form = $savingsForm;
+
+		$savings = new Management_Model_Savings();
+		$interestperiods = new Management_Model_Interestperiods();
+
+		$systemDate = date('Y-m-d');
+		$this->view->form->currentdates->setValue($systemDate);
+		$this->view->form->begindate->setValue($systemDate);
+
+
+		$date = new Zend_Date();
+		$currentdate=$date->toString('YYYY-MM-dd');
+		$this->view->currentdate=$currentdate;
+		$this->view->form->currentdates->setValue($currentdate);
+
+
+		$select = $savings->fetchAllProductName();
+		foreach($select as $productname) {
+			$savingsForm->productType->addMultiOption($productname['productshortname'],$productname['productname']);
+        }
+
+		$applicableto = $savings->fetchAllMemberType();
+		foreach($applicableto as $applicableto) {
+			$savingsForm->applicableto->addMultiOption($applicableto['membertype_id'],$applicableto['membertype']);
+		}
+
+		$freequencyofdeposit = $savings->fetchAllTimeFrequencyType();
+		foreach($freequencyofdeposit as $freequency) {
+			$savingsForm->frequency_of_deposit->addMultiOption($freequency['timefrequncy_id'],$freequency['timefrequencytype']);
+		}
+
+		if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+			$formData = $this->_request->getPost();
+			if ($this->_request->isPost()) {
+				$formData = $this->_request->getPost();
+				$savingsForm->minmumdeposit->setRequired(false);
+				$savingsForm->frequencyofdeposit->setRequired(false);
+				$savingsForm->Int_timefrequency_id->setRequired(false);
+				$savingsForm->frequencyofinterestupdating->setRequired(false);
+				$savingsForm->minimumbalanceforinterest->setRequired(false);
+				if ($savingsForm->isValid($formData)) {
+					$closeddate = $this->_request->getParam('closedate'); 
+					$sessionName = new Zend_Session_Namespace('ourbank');
+					$user_id = $sessionName->primaryuserid;
+					$productType = $this->_request->getParam('productType');
+					$interestfrom = $this->_request->getParam('interestfrom'); 
+					$interestto = $this->_request->getParam('interestto');
+					$interestrate = $this->_request->getParam('interestrate');
+					$currentdate = $this->_request->getParam('currentdates');
+					$begindate = $this->_request->getParam('begindate');
+					$minimumamount = $this->_request->getParam('minimum_deposit_amount');
+					$maximumamount = $this->_request->getParam('maximum_deposit_amount');
+					$month='months';
+					$period_ofrange_description1 = $interestfrom.-$interestto.$month;
+					$memberCount = $this->_request->getParam('memberCount');
+
+					$product_id = $savings->product_id($productType);
+					$this->view->product_id = $product_id;
+					foreach($this->view->product_id as $product_id) {
+						$product_id=$this->view->product_id=$product_id['product_id'];
+					}
+
+					if($closeddate <= $begindate) {
+						$this->view->closedate= "<B style='color:red'>'closed date must be grater than begin date'.'$begindate'</b>";
+					} elseif($minimumamount >= $maximumamount) {
+						$this->view->maximumamount= "<B style='color:red'>'maximum amount must be grater than minimum'.'$minimumamount'</b>";
+					} else {
+						$product = new Management_Model_Product();
+						$product->productstatus($product_id);
+						$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+						$data['offerproduct_id']='';
+						$dbAdapter->insert('ourbank_productsoffering', $data);
+						$offerproduct_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsoffering','offerproduct_id');
+						$result = $savings->addofferproduct($savingsForm->getValues(),$offerproduct_id,$product_id,$closeddate);
+						$offerproductupdate_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsofferdetails ','offerproductupdate_id');
+						$result = $savings->addofferproductfixedrecurring($savingsForm->getValues(),$offerproductupdate_id);
+
+						$interestperiod1 = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+															'period_id' =>1,
+															'period_ofrange_monthfrom' => $interestfrom,
+															'period_ofrange_monthto'=> $interestto,
+															'period_ofrange_description'=> $period_ofrange_description1,
+															'offerproduct_id' => $offerproduct_id,
+															'Interest' => $interestrate,
+															'intereststatus_id'=>3));
+
+						for ($i = 1;$i<=$memberCount; $i++) {
+							$From = $this->_request->getParam('memberName'.$i); 
+							$To = $this->_request->getParam('To'.$i); 
+							$Rate = $this->_request->getParam('Rate'.$i); 
+							$month='months';
+							$period_ofrange_description = $From.-$To.$month;
+							if($From) {
+								$interestperiod = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+																'period_id' =>$i+1,
+																'period_ofrange_monthfrom' => $From,
+																'period_ofrange_monthto'=> $To,
+																'period_ofrange_description'=> $period_ofrange_description,
+																'offerproduct_id' => $offerproduct_id,
+																'Interest' => $Rate,
+																'intereststatus_id'=>3));
+							}
+						}
+						$this->_redirect('management/savings');
+					}
+				}
+			}
+		}
+	}
+
+	public function recurringsavingsAction() {
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$savingsForm = new Management_Form_Savings();
+		$this->view->form = $savingsForm;
+
+		$savings = new Management_Model_Savings();
+		$interestperiods = new Management_Model_Interestperiods();
+
+		$systemDate = date('Y-m-d');
+		$this->view->form->currentdates->setValue($systemDate);
+		$this->view->form->begindate->setValue($systemDate);
+
+
+		$date = new Zend_Date();
+		$currentdate=$date->toString('YYYY-MM-dd');
+		$this->view->currentdate=$currentdate;
+		$this->view->form->currentdates->setValue($currentdate);
+
+
+		$select = $savings->fetchAllProductName();
+		foreach($select as $productname) {
+			$savingsForm->productType->addMultiOption($productname['productshortname'],$productname['productname']);
+        }
+
+		$applicableto = $savings->fetchAllMemberType();
+		foreach($applicableto as $applicableto) {
+			$savingsForm->applicableto->addMultiOption($applicableto['membertype_id'],$applicableto['membertype']);
+		}
+
+		$freequencyofdeposit = $savings->fetchAllTimeFrequencyType();
+		foreach($freequencyofdeposit as $freequency) {
+			$savingsForm->frequency_of_deposit->addMultiOption($freequency['timefrequncy_id'],$freequency['timefrequencytype']);
+		}
+
+		if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+			$formData = $this->_request->getPost();
+			if ($this->_request->isPost()) {
+				$formData = $this->_request->getPost();
+				$savingsForm->minmumdeposit->setRequired(false);
+				$savingsForm->frequencyofdeposit->setRequired(false);
+				$savingsForm->Int_timefrequency_id->setRequired(false);
+				$savingsForm->frequencyofinterestupdating->setRequired(false);
+				$savingsForm->minimumbalanceforinterest->setRequired(false);
+				if ($savingsForm->isValid($formData)) {
+					$closeddate = $this->_request->getParam('closedate'); 
+					$sessionName = new Zend_Session_Namespace('ourbank');
+					$user_id = $sessionName->primaryuserid;
+					$productType = $this->_request->getParam('productType');
+					$interestfrom = $this->_request->getParam('interestfrom'); 
+					$interestto = $this->_request->getParam('interestto');
+					$interestrate = $this->_request->getParam('interestrate');
+					$currentdate = $this->_request->getParam('currentdates');
+					$begindate = $this->_request->getParam('begindate');
+					$minimumamount = $this->_request->getParam('minimum_deposit_amount');
+					$maximumamount = $this->_request->getParam('maximum_deposit_amount');
+					$month='months';
+					$period_ofrange_description1 = $interestfrom.-$interestto.$month;
+					$memberCount = $this->_request->getParam('memberCount');
+
+					$product_id = $savings->product_id($productType);
+					$this->view->product_id = $product_id;
+					foreach($this->view->product_id as $product_id) {
+						$product_id=$this->view->product_id=$product_id['product_id'];
+					}
+
+					if($closeddate <= $begindate) {
+						$this->view->closedate= "<B style='color:red'>'closed date must be grater than begin date'.'$begindate'</b>";
+					} elseif($minimumamount >= $maximumamount) {
+						$this->view->maximumamount= "<B style='color:red'>'maximum amount must be grater than minimum'.'$minimumamount'</b>";
+					} else {
+						$product = new Management_Model_Product();
+						$product->productstatus($product_id);
+						$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+						$data['offerproduct_id']='';
+						$dbAdapter->insert('ourbank_productsoffering', $data);
+						$offerproduct_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsoffering','offerproduct_id');
+						$result = $savings->addofferproduct($savingsForm->getValues(),$offerproduct_id,$product_id,$closeddate);
+						$offerproductupdate_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsofferdetails ','offerproductupdate_id');
+						$result = $savings->addofferproductfixedrecurring($savingsForm->getValues(),$offerproductupdate_id);
+
+						$interestperiod1 = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+															'period_id' =>1,
+															'period_ofrange_monthfrom' => $interestfrom,
+															'period_ofrange_monthto'=> $interestto,
+															'period_ofrange_description'=> $period_ofrange_description1,
+															'offerproduct_id' => $offerproduct_id,
+															'Interest' => $interestrate,
+															'intereststatus_id'=>3));
+
+						for ($i = 1;$i<=$memberCount; $i++) {
+							$From = $this->_request->getParam('memberName'.$i); 
+							$To = $this->_request->getParam('To'.$i); 
+							$Rate = $this->_request->getParam('Rate'.$i); 
+							$month='months';
+							$period_ofrange_description = $From.-$To.$month;
+							if($From) {
+								$interestperiod = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+																'period_id' =>$i+1,
+																'period_ofrange_monthfrom' => $From,
+																'period_ofrange_monthto'=> $To,
+																'period_ofrange_description'=> $period_ofrange_description,
+																'offerproduct_id' => $offerproduct_id,
+																'Interest' => $Rate,
+																'intereststatus_id'=>3));
+							}
+						}
+						$this->_redirect('management/savings');
+					}
+				}
+			}
+		}
+	}
+
+	public function savingsviewAction() {
+		$this->view->title = "view Savings";
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$offerproduct_id =$this->_getParam('offerproduct_id');
+		$offerproduct = new Management_Model_Savings();
+		$this->view->changelog=$offerproduct->getUpdatesinformation();
+		$offerProductshortname = $offerproduct->offerProductshortname($offerproduct_id);
+		$this->view->offerProductshortname = $offerProductshortname;
+		foreach($this->view->offerProductshortname as $shortname) {
+			$offerproductshortname=$shortname['productshortname'];
+		}
+		$result = $offerproduct->viewofferProduct($offerproduct_id,$offerproductshortname);
+		$this->view->offerproduct = $result;
+		$interestperiods = $offerproduct->viewinterest($offerproduct_id);
+		$this->view->viewinterest = $interestperiods;
+	}
+
+	public function savingseditAction() {
+		$this->view->title = "Edit Savings";
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$offerproduct_id =$this->_getParam('offerproduct_id');
+
+		$systemDate = date('Y-m-d');
+		$savingsForm = new Management_Form_Savings();
+		$this->view->form = $savingsForm;
+		$offerproduct = new Management_Model_Savings();
+		$this->view->form->offerproduct_id->setValue($offerproduct_id);
+		$this->view->form->currentdates->setValue($systemDate);
+		$this->view->form->Submit->setName('Update');
+
+
+		$offerProductshortname = $offerproduct->offerProductshortname($offerproduct_id);
+		$this->view->offerProductshortname = $offerProductshortname;
+		foreach($this->view->offerProductshortname as $shortname) {
+			$offerproductshortname=$this->view->productshortname=$shortname['productshortname'];
+			$this->view->form->productshortname->setValue($offerproductshortname);
+		}
+
+		$applicableto = $offerproduct->getMemberType();
+		foreach($applicableto as $applicableto) {
+			$savingsForm->applicableto->addMultiOption($applicableto['membertype_id'],$applicableto['membertype']);
+		}
+
+		$freequencyofdeposit = $offerproduct->getfrequencyofdeposit();
+		foreach($freequencyofdeposit as $freequency) {
+			$savingsForm->frequencyofdeposit->addMultiOption($freequency['timefrequncy_id'],$freequency['timefrequencytype']);
+		}
+
+		$Int_timefrequency_id = $offerproduct->getfrequencyofdeposit();
+		foreach($Int_timefrequency_id as $Inttimefrequencyid) {
+			$savingsForm->Int_timefrequency_id->addMultiOption($Inttimefrequencyid['timefrequncy_id'],$Inttimefrequencyid['timefrequencytype']);
+		}
+
+		$frequency_of_deposit = $offerproduct->getfrequencyofdeposit();
+		foreach($frequency_of_deposit as $frequencyofdeposit) {
+			$savingsForm->frequency_of_deposit->addMultiOption($frequencyofdeposit['timefrequncy_id'],$frequencyofdeposit['timefrequencytype']);
+		}
+		$result = $offerproduct->viewofferProduct($offerproduct_id,$offerproductshortname);
+		$this->view->offerproduct = $result;
+		foreach($this->view->offerproduct as $saving) {
+			$this->view->form->savingproductname->setValue($saving['productname']);
+			$this->view->form->offerproductname->setValue($saving['offerproductname']);
+			$this->view->form->offerproductshortname->setValue($saving['offerproductshortname']);
+			$this->view->form->offerproduct_description->setValue($saving['offerproduct_description']);
+			$this->view->form->begindate->setValue($saving['begindate']);
+			$this->view->form->closedate->setValue($saving['closedate']);
+			$this->view->form->applicableto->setValue($saving['applicableto']);
+			$this->view->form->minmumdeposit->setValue($saving['minmumdeposit']);
+			$this->view->form->frequencyofdeposit->setValue($saving['frequencyofdeposit']);
+			$this->view->form->Int_timefrequency_id->setValue($saving['Int_timefrequency_id']);
+			$this->view->form->frequencyofinterestupdating->setValue($saving['frequencyofinterestupdating']);
+			$this->view->form->minimumbalanceforinterest->setValue($saving['minimumbalanceforinterest']);
+			$this->view->form->minimum_deposit_amount->setValue($saving['minimum_deposit_amount']);
+			$this->view->form->maximum_deposit_amount->setValue($saving['maximum_deposit_amount']);
+			$this->view->form->frequency_of_deposit->setValue($saving['frequency_of_deposit']);
+			$this->view->form->penal_Interest->setValue($saving['penal_Interest']);
+		}
+
+		$interestperiods = $offerproduct->viewinterest($offerproduct_id);
+		$this->view->viewinterest = $interestperiods;
+
+		if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+			$formData = $this->_request->getPost();
+			if ($this->_request->isPost()) {
+				$formData = $this->_request->getPost();
+				$productshortname = $this->_request->getParam('productshortname'); 
+				if($productshortname == 'ps') {
+					$savingsForm->closedate->setRequired(false);
+					$savingsForm->minimum_deposit_amount->setRequired(false);
+					$savingsForm->maximum_deposit_amount->setRequired(false);
+					$savingsForm->frequency_of_deposit->setRequired(false);
+					$savingsForm->penal_Interest->setRequired(false);
+				} else {
+					$savingsForm->minmumdeposit->setRequired(false);
+					$savingsForm->frequencyofdeposit->setRequired(false);
+					$savingsForm->Int_timefrequency_id->setRequired(false);
+					$savingsForm->frequencyofinterestupdating->setRequired(false);
+					$savingsForm->minimumbalanceforinterest->setRequired(false);
+				}
+				if ($savingsForm->isValid($formData)) {
+					$product = new Management_Model_Product();
+					$interestperiods = new Management_Model_Interestperiods();
+					$offerproduct_id = $this->_getParam('offerproduct_id');
+					$offerproductname = $this->_getParam('offerproductname');
+					$productshortname = $this->_getParam('productshortname');
+					$offerproductshortername = $this->_getParam('offerproductshortname');
+					$offerproduct_description = $this->_getParam('offerproduct_description');
+					$begindate = $this->_request->getParam('begindate');
+					$closeddate = $this->_request->getParam('closedate');
+					$currentdate = $this->_request->getParam('currentdates');
+					$minimumamount = $this->_request->getParam('minimum_deposit_amount');
+					$maximumamount = $this->_request->getParam('maximum_deposit_amount');
+					$penal_Interest = $this->_request->getParam('penal_Interest');
+					$offerproduct = new Management_Model_Savings();
+					$product_id = $offerproduct->getproduct_id($offerproduct_id);
+					foreach ($product_id as $productid) {
+						$productId=$productid['product_id'];
+						$offerproductupdate_id=$productid['offerproductupdate_id'];
+					}
+					$sessionName = new Zend_Session_Namespace('ourbank');
+					$createdby = $sessionName->primaryuserid;
+
+					if($productshortname == 'ps') {
+						$applicableto2 = $this->_request->getParam('applicableto');
+						$applicable=$offerproduct->getapplicableto($applicableto2);
+						foreach($applicable as $applicable) {
+							$appliesto=$applicable['membertype'];
+						}
+
+						$minmumdeposit = $this->_request->getParam('minmumdeposit');
+
+						$frequencyofdeposit2 = $this->_request->getParam('frequencyofdeposit');
+						$frequencyofdepo=$offerproduct->getfrequencyofdepo($frequencyofdeposit2);
+						foreach($frequencyofdepo as $frequencyofdepo) {
+							$frequencyofdeposit=$frequencyofdepo['timefrequencytype'];
+						}
+
+						$Int_timefrequency_id2 = $this->_request->getParam('Int_timefrequency_id');
+						$Int_timefrequency=$offerproduct->getfrequencyofdepo($Int_timefrequency_id2);
+						foreach($Int_timefrequency as $Int_timefrequency) {
+							$Int_timefrequency_id=$Int_timefrequency['timefrequencytype'];
+						}
+ 
+						$frequencyofinterestupdating = $this->_request->getParam('frequencyofinterestupdating');
+						$minimumbalanceforinterest = $this->_request->getParam('minimumbalanceforinterest');
+
+						$result = $offerproduct->viewofferProduct($offerproduct_id,$offerproductshortname);
+						$this->view->offerproduct = $result;
+						foreach($result as $savingproductsdetails) {
+							$offerproductname1=$savingproductsdetails['offerproductname'];
+							$offerproductshortname1=$savingproductsdetails['offerproductshortname'];
+							$offerproduct_description1=$savingproductsdetails['offerproduct_description'];
+							$begindat1=$savingproductsdetails['begindate'];
+							$closedate1=$savingproductsdetails['closedate'];
+							$applicableto1=$savingproductsdetails['membertype'];
+							$minmumdeposit1=$savingproductsdetails['minmumdeposit'];
+							$frequencyofdeposit1=$savingproductsdetails['timefrequencytype'];
+							$Int_timefrequencyID=$savingproductsdetails['Int_timefrequency_id'];
+							$Int_timefrequencyIDs=$offerproduct->getfrequencyofdepo($Int_timefrequencyID);
+							foreach($Int_timefrequencyIDs as $Int_timefrequencyIDs) {
+								$Int_timefrequency_id1=$Int_timefrequencyIDs['timefrequencytype'];
+							}
+							$frequencyofinterestupdating1=$savingproductsdetails['frequencyofinterestupdating'];
+							$minimumbalanceforinterest1=$savingproductsdetails['minimumbalanceforinterest'];
+						}
+
+						$updateOlddata = array('offerproductname' => $offerproductname1,
+									'offerproductshortname' => $offerproductshortname1,
+									'offerproduct_description' => $offerproduct_description1,
+									'begindate' => $begindat1,
+									'applicableto' => $applicableto1,
+									'frequencyofdeposit' => $frequencyofdeposit1,
+									'minmumdeposit' => $minmumdeposit1,
+									'minimumbalanceforinterest' => $minimumbalanceforinterest1,
+									'frequencyofinterestupdating ' => $frequencyofinterestupdating1,
+									'Int_timefrequency_id ' => $Int_timefrequency_id1);
+
+						$updateNewdata = array('offerproductname' => $offerproductname,
+									'offerproductshortname' => $offerproductshortername,
+									'offerproduct_description' => $offerproduct_description,
+									'begindate' => $begindate,
+									'applicableto' => $appliesto,
+									'frequencyofdeposit' => $frequencyofdeposit,
+									'minmumdeposit' => $minmumdeposit,
+									'minimumbalanceforinterest' => $minimumbalanceforinterest,
+									'frequencyofinterestupdating ' => $frequencyofinterestupdating,
+									'Int_timefrequency_id ' => $Int_timefrequency_id);
+
+						$match = array();
+						foreach ($updateOlddata as $key=>$val) {
+    						if ($val != $updateNewdata[$key]) {
+        						$match[] = $key;
+    						}
+						}
+
+						if(count($match) <= 0) {
+							/**if value are not changes mas wil display*/
+							echo "<B style='color:red'>Values are not changed in form</b>";
+						} else {
+							$offerproduct->savingsUpdate($updateOlddata,$updateNewdata,$createdby,$offerproduct_id);
+							$interestperiods->UpDateinterestperiods($offerproduct_id);
+							$result = $offerproduct->editsavings($savingsForm->getValues(),$offerproduct_id,$closeddate);
+							$productsavings = new Management_Model_productsavings();
+							$productssaving = $productsavings->editproductssaving($savingsForm->getValues(),$offerproductupdate_id);
+	
+							$count=$this->_request->getParam('count'); 
+							for ($i = 1;$i<=$count; $i++) {
+								$iFrom = $this->_request->getParam('ifrom'.$i); 
+								$iTo = $this->_request->getParam('iTo'.$i); 
+								$iRate = $this->_request->getParam('iRate'.$i); 
+								$imonth='months';
+								$iperiod_ofrange_description = $iFrom.-$iTo.$imonth;
+								$iinterestperiod = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+																		'period_id' =>$i,
+																		'period_ofrange_monthfrom' => $iFrom,
+																		'period_ofrange_monthto'=> $iTo,
+																		'period_ofrange_description'=> $iperiod_ofrange_description,
+																		'offerproduct_id' => $offerproduct_id,
+																		'Interest' => $iRate,
+																		'intereststatus_id'=>3));
+							}
+							$memberCount = $this->_request->getParam('memberCount');
+							for ($i = 1;$i<=$memberCount; $i++) {
+								$maximum = $max1+$i;
+								$From = $this->_request->getParam('memberName'.$i); 
+								$To = $this->_request->getParam('To'.$i); 
+								$Rate = $this->_request->getParam('Rate'.$i); 
+								$month='months';
+								$period_ofrange_description = $From.-$To.$month;
+								if($From) {
+									$interestperiods = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+																	'period_id' =>$maximum,
+																	'period_ofrange_monthfrom' => $From,
+																	'period_ofrange_monthto'=> $To,
+																	'period_ofrange_description'=> $period_ofrange_description,
+																	'offerproduct_id' => $offerproduct_id,
+																	'Interest' => $Rate,
+																	'intereststatus_id'=>3));
+								}
+							}
+							$this->_redirect('management/savings/index');
+						}
+					} else {
+						if($closeddate <= $begindate) {
+							$this->view->closedate= "<B style='color:red'>'closed date must be grater than begin date'.'$begindate'</b>";
+						} elseif($minimumamount >= $maximumamount) {
+							$this->view->maximumamount= "<B style='color:red'>'maximum amount must be grater than minimum'.'$minimumamount'</b>";
+						} else {
+
+							$applicableto2 = $this->_request->getParam('applicableto');
+							$applicable=$offerproduct->getapplicableto($applicableto2);
+							foreach($applicable as $applicable) {
+								$appliesto=$applicable['membertype'];
+							}
+
+							$frequency_of_deposit2 = $this->_request->getParam('frequency_of_deposit');
+							$frequency_of_deposits=$offerproduct->getfrequencyofdepo($frequency_of_deposit2);
+							foreach($frequency_of_deposits as $frequency_of_deposits11) {
+								$frequency_of_deposit=$frequency_of_deposits11['timefrequencytype'];
+							}
+
+
+							$result = $offerproduct->viewofferProduct($offerproduct_id,$offerproductshortname);
+							$this->view->offerproduct = $result;
+							foreach($result as $savingproductsdetails) {
+								$offerproductname1=$savingproductsdetails['offerproductname'];
+								$offerproductshortname1=$savingproductsdetails['offerproductshortname'];
+								$offerproduct_description1=$savingproductsdetails['offerproduct_description'];
+								$begindat1=$savingproductsdetails['begindate'];
+								$closedate1=$savingproductsdetails['closedate'];
+								$applicableto1=$savingproductsdetails['membertype'];
+								$minimum_deposit_amount1=$savingproductsdetails['minimum_deposit_amount'];
+								$maximum_deposit_amount1=$savingproductsdetails['maximum_deposit_amount'];
+								$frequency_of_depositID=$savingproductsdetails['frequency_of_deposit'];
+								$Int_timefrequencyIDs=$offerproduct->getfrequencyofdepo($frequency_of_depositID);
+								foreach($Int_timefrequencyIDs as $Int_timefrequencyIDs) {
+									$frequency_of_deposit1=$Int_timefrequencyIDs['timefrequencytype'];
+								}
+								$penal_Interest1=$savingproductsdetails['penal_Interest'];
+							}
+
+
+							$updateOlddata = array('offerproductname' => $offerproductname1,
+										'offerproductshortname' => $offerproductshortname1,
+										'offerproduct_description' => $offerproduct_description1,
+										'begindate' => $begindat1,
+										'closedate' => $closedate1,
+										'applicableto' => $applicableto1,
+										'minimum_deposit_amount' => $minimum_deposit_amount1,
+										'maximum_deposit_amount' => $maximum_deposit_amount1,
+										'frequency_of_deposit' => $frequency_of_deposit1,
+										'penal_Interest' => $penal_Interest1);
+	
+							$updateNewdata = array('offerproductname' => $offerproductname,
+										'offerproductshortname' => $offerproductshortername,
+										'offerproduct_description' => $offerproduct_description,
+										'begindate' => $begindate,
+										'closedate' => $closeddate,
+										'applicableto' => $appliesto,
+										'minimum_deposit_amount' => $minimumamount,
+										'maximum_deposit_amount' => $maximumamount,
+										'frequency_of_deposit' => $frequency_of_deposit,
+										'penal_Interest' => $penal_Interest);
+
+							$match = array();
+							foreach ($updateOlddata as $key=>$val) {
+								if ($val != $updateNewdata[$key]) {
+									$match[] = $key;
+								}
+							}
+	
+							if(count($match) <= 0) {
+								/**if value are not changes mas wil display*/
+								echo "<B style='color:red'>Values are not changed in form</b>";
+							} else {
+								$offerproduct->savingsUpdate($updateOlddata,$updateNewdata,$createdby,$offerproduct_id);
+								$result = $offerproduct->editsavings($savingsForm->getValues(),$offerproduct_id,$closeddate);
+								$interestperiods->UpDateinterestperiods($offerproduct_id);
+								$productfixedrecurring = new Management_Model_productfixedrecurring();
+								$product_fixedrecurring = $productfixedrecurring->editproductfixedrecurring($savingsForm->getValues(),$offerproductupdate_id);
+	
+								$count=$this->_request->getParam('count'); 
+								for ($i = 1;$i<=$count; $i++) {
+									$iFrom = $this->_request->getParam('ifrom'.$i); 
+									$iTo = $this->_request->getParam('iTo'.$i); 
+									$iRate = $this->_request->getParam('iRate'.$i); 
+									$imonth='months';
+									$iperiod_ofrange_description = $iFrom.-$iTo.$imonth;
+									$iinterestperiod = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+																		'period_id' =>$i,
+																		'period_ofrange_monthfrom' => $iFrom,
+																		'period_ofrange_monthto'=> $iTo,
+																		'period_ofrange_description'=> $iperiod_ofrange_description,
+																		'offerproduct_id' => $offerproduct_id,
+																		'Interest' => $iRate,
+																		'intereststatus_id'=>3));
+								}
+								$memberCount = $this->_request->getParam('memberCount');
+								for ($i = 1;$i<=$memberCount; $i++) {
+									$maximum = $max1+$i;
+									$From = $this->_request->getParam('memberName'.$i); 
+									$To = $this->_request->getParam('To'.$i); 
+									$Rate = $this->_request->getParam('Rate'.$i); 
+									$month='months';
+									$period_ofrange_description = $From.-$To.$month;
+									if($From) {
+										$interestperiods = $interestperiods->insertinterestperiods(array('Interestperiod_id' => '',
+																	'period_id' =>$maximum,
+																	'period_ofrange_monthfrom' => $From,
+																	'period_ofrange_monthto'=> $To,
+																	'period_ofrange_description'=> $period_ofrange_description,
+																	'offerproduct_id' => $offerproduct_id,
+																	'Interest' => $Rate,
+																	'intereststatus_id'=>3));
+									}
+								}
+								$this->_redirect('management/savings/index');
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	public function savingsdeleteAction() {
+		$this->view->title = "Delete Savings";
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+
+		$offerproduct_id =$this->_getParam('offerproduct_id');
+		$this->view->offerproduct_id=$offerproduct_id;
+		$offerproduct = new Management_Model_Savings();
+
+		$offerProductshortname = $offerproduct->offerProductshortname($offerproduct_id);
+		$this->view->offerProductshortname = $offerProductshortname;
+		foreach($this->view->offerProductshortname as $offerproducts) {
+			$offerproductshortname=$offerproducts['productshortname'];
+			$this->view->offerproductstatus=$offerproducts['recordstatus_id'];
+		}
+		$result = $offerproduct->viewofferProduct($offerproduct_id,$offerproductshortname);
+		$this->view->offerproduct = $result;
+		$interestperiods = $offerproduct->viewinterest($offerproduct_id);
+		$this->view->viewinterest = $interestperiods;
+
+		$deleteform = new Management_Form_Delete();
+		$this->view->deleteform = $deleteform;
+
+		if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+			$formData = $this->_request->getPost();
+			if ($deleteform->isValid($formData)) {
+				$remarks = $deleteform->getvalue('remarks');
+				$offerproduct = new Management_Model_Savings();
+				$offerproduct->deleteofferproduct($offerproduct_id,$remarks);
+				$interestperiods = new Management_Model_Interestperiods();
+				$interestperiods->deleteinterestperiods($offerproduct_id);
+				$this->_redirect('management/savings/index');
+			}
+		}
+	}
+
+	function savingtypeAction()
+	{
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$this->_helper->layout->disableLayout();
+		if($this->view->producttype=='ps') {
+			$this->persnolsavingsAction();
+			echo $this->view->render('/savings/persnolsavings.phtml');
+		}
+		if($this->view->producttype=='fd') {
+			$this->fixedsavingsAction();
+			echo $this->view->render('/savings/fixedsavings.phtml');
+		}
+		if($this->view->producttype=='rd') {
+			$this->recurringsavingsAction();
+			echo $this->view->render('/savings/recurringsavings.phtml');
+		}
+	}
+}

@@ -1,0 +1,69 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+
+
+
+
+          
+<strong><script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+ <link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#dateofbirth").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#dateofjoin").datepicker({"dateFormat":"yy-mm-dd"});
+});</strong>
+</script>
+
+
+
+
+<form action="<?php echo $this->baseUrl();?>/personalinfo/index/edit/id/<?php echo $this->id; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>/path/<?php echo $this->path1; ?>/index/<?php echo $this->path2; ?>" method="POST"> 
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend> User personal information </legend>
+		<table class="fieldsets">
+						                    	<?php echo $this->form;?>
+
+                        				<?php echo $this->form->user_id;?><SPAN style="color:red"></SPAN>
+
+                      
+					</table>
+
+
+				<div class="btnhouse">
+			<div class="ltbtns">
+			<input type="submit" name="Update" id="Submit" value="Update">			
+			</div>
+			<div class="rtbtns">
+				<a href="<?php echo $this->baseUrl();?>/usercommonview/index/commonview/id/<?php echo $this->id; ?>"><input type="submit" name="Submit" id="Submit" value="Back"></a>
+			</div>
+		</div>
+			
+</fieldset>
+
+</div>
+</div>
+
+</form>

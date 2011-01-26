@@ -1,0 +1,195 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div>
+	<fieldset>
+		<legend>Loan Details</legend>
+		<div style="float:left;width:390px">
+			<fieldset>
+				<legend>loan disbursement details</legend>
+				<div class="cont-rgt-data">
+					<table id="hor-minimalist-b" summary="Employee Pay Sheet" >
+						<tr>
+							<td width="30%">Interest Rates:</td><TD width="50%"><?php echo $this->loan_interest.'%';?></TD>
+						</tr>
+						<tr>
+							<td width="30%">sanctionedDate:</td><TD width="50%"><?php echo $this->loansanctioned_date;?><B style='color:red'>(yyyy-mm-dd)</B></TD>
+						</tr>
+						<tr>
+							<td width="30%">Installments:</td><TD width="50%"><?php echo $this->loan_installments;?></TD>
+						</tr>
+						<tr>
+							<td width="30%">Sancioned loan amount R$ :</td><TD width="50%">R$. <?php echo $this->loan_amount;?></TD>
+						</tr>
+						<tr>
+							<td width="30%">loanAmount remaining R$:</td><TD width="50%">R$. <?php echo $this->loanamounttobesancioned;?></TD>
+						</tr>
+					</table>
+				</div>
+			</fieldset>
+		</div>
+		<div style="float:left;width:350px">
+			<fieldset>
+				<legend>Disbursment details</legend>
+				<div class="cont-rgt-data">
+					<table id="hor-minimalist-b" summary="Employee Pay Sheet" border="1">
+						<tr>
+							<th width="20%">Disbursement number</th>
+							<th width="40%">Disbursement date</th>
+							<th width="40%">AmountR$</th>
+						<tr>
+						<?php if($this->fetchLoanAccountDetails)  { 
+						$i=1; foreach($this->fetchLoanAccountDetails as $arrayroles2) {	?>
+						<tr>
+							<td width="20%"><?php echo $i++;?></td>
+							<TD width="40%"><?php echo $arrayroles2['loandisbursement_date'];?></TD>
+							<TD width="40%">R$. <?php  echo $arrayroles2['amount_disbursed'];?></TD>
+						</tr>
+						<?php }?>
+						<?php }?>
+					</table>
+				</div>
+			</fieldset>	
+		</div>
+	</fieldset>
+</div>
+
+<?php If($this->type==3) { ?>
+<a href="#" id="open">Group Members</a>
+<div class="box">
+<div id="content1">
+	<fieldset>
+		<legend> <?php echo $this->memberListtitle;?> </legend>
+		<div class="cont-rgt-data">
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr class="tdbrownheading">
+				<td width="30%">Name</td>
+				<td width="50%">code</td>
+			</tr>
+			<?php foreach($this->groupMembersDetails as $arrayroles1)  {?>
+			<tr class="tdbrown">
+				<TD width="30%"><?php echo $arrayroles1['memberfirstname'];?></TD>
+				<TD width="50%"><?php echo $arrayroles1['membercode'];?></TD>
+			</tr>
+			<?php }?>
+		</table>
+</div></fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>
+</div>
+<?php }?>
+
+<?php if(!$this->Submit) { ?>
+<?php if($this->block=='loanDisbursement') { ?>
+	<?php if($this->loanamounttobesancioned!=0) {?>
+		<div id="loanRepayment" style="float:left;width:100%">
+			<fieldset>
+				<legend>New disbursement</legend>
+				<div class="cont-rgt-data">
+					<form action="<?php  echo $this->baseUrl();?>/transaction/loan/view/block/loanDisbursement" method="POST" name="joe" id="signupForm" class="cmxform">
+						<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+							<tr class="tdbrown1">
+								<td >Date <span class="reqMark">*</span>&nbsp;&nbsp;<B style='color:red'>yyyy-mm-dd *</b> </td>
+								<TD><?php echo $this->form2->Date1; ?>
+								<?php echo $this->form2->accountcode; ?>
+								<?php echo $this->form2->membercode; ?>
+								<?php echo $this->form2->categoryId; ?> 
+								<?php echo $this->form2->transactionType_id; ?></TD>
+							</tr>
+							<tr class="tdbrown1">
+								<td width="30%">Amount R$ <span class="reqMark">*</span><B style='color:red'>*</b> </td>
+								<TD><?php echo $this->form2->Amount; ?></TD>
+							</TR>	
+							<tr class="tdbrown1">
+								<td >Description <B style='color:red'>*</b> </td>
+								<TD><?php echo $this->form2->description;?></TD>
+							</TR>
+							<tr>
+								<TD colspan="4"><?php echo $this->form2->Submit;?></TD>
+							</TR>
+						</table>
+						<table>
+							<tr>
+								<TD ><SPAN style="color:red"><? echo $this->errorlogin_name;?><?php echo $this->currentdate; ?></SPAN></TD>
+							</tr>
+						</table> 
+					</form>
+				</div>
+			</fielset>
+		</div>
+	<?php } else { ?>
+		<div class="cont-rgt-data">
+			<CENTER><SPAN style="color:red"><? echo $this->disbursed;?></SPAN></CENTER>
+		</div>
+	<? }?>
+<?php } ?>
+<?php } ?>
+
+<?php if($this->Submit) { ?>
+<?php if($this->block=='loanDisbursement') { ?>
+	<?php if($this->loanamounttobesancioned!=0) {?>
+		<div id="loanRepayment" style="float:left;width:100%">
+			<fieldset>
+				<legend>New disbursement</legend>
+				<div class="cont-rgt-data">
+					<form action="<?php  echo $this->baseUrl();?>/transaction/loan/view/block/loanDisbursement" method="POST" name="joe" id="signupForm" class="cmxform">
+						<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+							<tr class="tdbrown1">
+								<td >Date &nbsp;&nbsp;<B style='color:red'>yyyy-mm-dd *</b> </td>
+								<TD><?php echo $this->disburseddate; ?>
+								<?php echo $this->form2->accountcode; ?>
+								<?php echo $this->form2->membercode; ?>
+								<?php echo $this->form2->categoryId; ?> 
+								<?php echo $this->form2->transactionType_id; ?>
+								<?php echo $this->form2->disburseddate; ?>
+								<?php echo $this->form2->description1; ?>
+								<?php echo $this->form2->Amount1; ?></TD>
+							</tr>
+							<tr class="tdbrown1">
+								<td width="30%">Amount R$ <B style='color:red'>*</b> </td>
+								<TD><?php echo $this->disburasedamount; ?></TD>
+							</TR>	
+							<tr class="tdbrown1">
+								<td >Description <B style='color:red'>*</b> </td>
+								<TD><?php echo $this->description;?></TD>
+							</TR>
+							<tr class="tdbrown1">
+								<td width="20%"><?php echo $this->form2->Save; ?></td>
+								<td><a href="<?php echo $this->baseUrl(); ?>/transaction/loan/view/accountcode/
+								<?php echo base64_encode($this->accountCode);?>/code/
+								<?php echo base64_encode($this->code);?>/categoryType/
+								<?php echo $this->categoryType;?>/block/loanDisbursement"><input name="submit" type="submit" class="officebutton" value="back"></a></TD>
+							</TR>
+						</table>
+						<table>
+							<tr>
+								<TD ><SPAN style="color:red"><? echo $this->errorlogin_name;?><?php echo $this->currentdate; ?></SPAN></TD>
+							</tr>
+						</table> 
+					</form>
+				</div>
+			</fielset>
+		</div>
+	<?php } else { ?>
+		<div class="cont-rgt-data">
+			<CENTER><SPAN style="color:red"><? echo $this->disbursed;?></SPAN></CENTER>
+		</div>
+	<? }?>
+<?php } ?>
+<?php } ?>

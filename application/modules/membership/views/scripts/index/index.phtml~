@@ -1,0 +1,4 @@
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/membership/individual/individualadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Member"></a></td>
+    </tr>

@@ -1,0 +1,91 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/member/addmember.js"></script>
+
+<body onclick="limiter()">
+<form action="<?php echo $this->baseUrl();?>/membership/individual/individualedit" method="POST" name= "myform">
+
+            <fieldset>
+	           <legend>Edit Personal Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+
+                        <table id="hor-minimalist-b">
+                            <tr>
+				<td  class="label"><label for="Office_Name">First Name</label></TD>
+                                <td ><?php echo $this->form->membertitle;?><?php echo $this->form->memberfirstname;?></TD>
+                            </tr>
+                             <tr >  
+                                <TD  class = "label">Father/Husband's Name</TD>
+                                <TD ><?php echo $this->form->familymembername;?></TD>
+                            </tr>
+                            <tr>
+                                <td  class="label"><label for="Office_Short_Name">Address Line 1</label></TD>
+                                <td ><?php echo $this->form->memberaddressline1; ?></TD>
+                            </tr>
+                            <tr>
+
+                                <td  class="label"><label for="Office_Short_Name">Address Line 2</label></td>
+                                <td ><?php echo $this->form->memberaddressline2; ?></TD>
+                            </tr>
+                            <tr>
+
+                                <td  class="label"><label for="Office_State">Address Line 3</label></td>
+                                <td ><?php echo $this->form->memberaddressline3; ?></td>
+                            </tr>
+                            <tr>
+
+                                <td  class="label"><label for="Office_Country">City /Village</label></td>
+                                <td ><?php echo $this->form->membercity; ?></td>
+                            </tr>
+
+                                        <TR>
+						<TD><?php echo $this->form->Submit;?>
+				
+                                                        <a href="<?php echo $this->baseUrl();?>/membership/individualclone">
+                                                        <input name="submit" type="button" class="officebutton" value="Back" onclick="membernameEdit()"></a></TD>
+					</TR>
+                                    </table>
+                              </div>
+	                </div>
+              </fieldset>
+        </div>
+              </fieldset>
+
+
+</form>

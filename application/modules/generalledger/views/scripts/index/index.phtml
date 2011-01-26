@@ -1,0 +1,191 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php
+if($this->search == 0) { ?>   
+<form action="<?php echo $this->baseUrl();?>/generalledger/index" method="POST">  
+
+<fieldset>
+    <legend>Search</legend>
+
+        <TABLE width="100%">
+			
+
+            <tr>
+                <td class="label">Begin Date</td>
+                <td allign = "right"><?php  echo $this->form->datefrom;?></td>
+                <td class="label">Close Date</td>
+                <td allign = "right"><?php  echo $this->form->dateto;?></td>
+				
+            </tr>
+            <tr>
+		<Td class="label">Product name</td>
+                <td allign = "right"><?php  echo $this->form->prodname;?></td>
+                <Td class="label">Gl Subcode</td>
+                <td allign = "right"><?php  echo $this->form->glcode;?></td>			
+
+            </tr>
+            <tr>
+                <TD colspan="4" align="left"><input type="submit" name="Search" value="Search"/></TD>
+
+            </tr>
+        </table>
+</fieldset>
+</form>
+<?php } ?>
+<?php if (count($this->ledegerList)) { ?>
+	<h3 align="right">From <?php echo "<font color='#039'>".$this->field1."</font>"; ?> </h3>
+	<h3 align="right"> To <?php echo "<font color='#039'>".$this->field2."</font>"; ?></h3> 
+	<?php foreach($this->ledegerList as $ledegerList) { $type = $ledegerList["subheader"]; }?>
+	<h3 align="right"> Ledger <?php echo "<font color='#039'>".$type."</font>"; ?></h3> <br>
+
+	<h3 style="text-align:right">* Amount in <font color="red">Rs</font></h3>
+
+<div style="float:left;width:800px">
+
+<fieldset>
+    <legend>Liabilities</legend>
+    <TABLE id="hor-minimalist-b" width="80%">
+     <tr>
+        <TH allign = "right">Particular</TH>
+        <TH allign = "right">Dr</TH>
+        <TH allign = "right">Cr</TH>
+        <TH allign = "right">Balance</TH>
+     </tr>
+
+     <?php foreach($this->ledegerList as $ledegerList) { 
+     $liabilityCash = 0.00; ?>
+     
+             <tr>
+            <TD allign = "right">Opening Balance</TD>
+            <TD allign = "right"></TD>
+            <TD allign = "right"></TD>
+          <?php  if(count($this->openingCash)) {
+            foreach($this->openingCash as $openingCash) {
+        if ($openingCash["glsubcode_id"] == $ledegerList["glsubcode_id"]) {
+           $liabilityCash = $openingCash["openingCash"];
+             }
+           } 
+           }  ?>
+
+            <TD align = "rgiht"><?php echo $liabilityCash;?></TD>
+        </tr>
+
+     <TR>
+        <TD allign = "right"><?php echo $ledegerList["glsubcode"];?> - <?php echo $ledegerList["subheader"];?></TD>
+        <?php if ($ledegerList["credit"]) { ?>
+        <TD allign = "right"></TD>
+        <TD allign = "right"><?php echo $ledegerList["credit"];?></TD>
+        <TD align = "rgiht"><?php echo sprintf("%4.2f",  $liabilityCash + $ledegerList["credit"]);?></TD>
+        <?php } ?>
+
+     </tr>
+     <TR>
+        <TD allign = "right"></TD>
+        <?php if ($ledegerList["debit"]) { ?>
+        <TD allign = "right"><?php echo $ledegerList["debit"];?></TD>
+        <TD allign = "right"></TD>
+        <TD align = "rgiht"><?php echo sprintf("%4.2f", $ledegerList["credit"] + $liabilityCash - $ledegerList["debit"]); ?></TD>
+        <?php } ?>
+     </tr>
+     <tr>
+            <TH allign = "right">Closing Balance</TH>
+            <TH allign = "right"></TH>
+            <TH allign = "right"></TH>
+            <TH align = "rgiht"><?php echo sprintf("%4.2f", $ledegerList["credit"] + $liabilityCash - $ledegerList["debit"]);?></TH>
+     </tr>
+
+        
+     <?php }  ?>
+    </TABLE>
+
+</div></fieldset>
+
+
+<?php } ?>
+<div style="float:left;width:800px">
+<?php if (count($this->ledegerListAssets)) { ?>
+	<h3 align="right">From <?php echo "<font color='#039'>".$this->field1."</font>"; ?> </h3>
+	<h3 align="right"> To <?php echo "<font color='#039'>".$this->field2."</font>"; ?></h3> 
+	<?php foreach($this->ledegerListAssets as $ledegerListAssets) { $type = $ledegerListAssets["subheader"]; }?>
+	<h3 align="right"> Ledger <?php echo "<font color='#039'>".$type."</font>"; ?></h3> <br>
+
+	<h3 style="text-align:right">* Amount in <font color="red">Rs</font></h3>
+<fieldset>
+    <legend>Assets</legend>
+    <TABLE id="hor-minimalist-b" width="80%">
+     <tr>
+        <TH allign = "right">Particular</TH>
+        <TH allign = "right">Dr</TH>
+        <TH allign = "right">Cr</TH>
+        <TH allign = "right">Balance</TH>
+     </tr>
+
+     <?php foreach($this->ledegerListAssets as $ledegerListAssets) {
+         $assetsCash = 0.00; ?>
+       <tr>
+            <TD allign = "right">Opening Balance</TD>
+            <TD allign = "right"></TD>
+            <TD allign = "right"></TD>
+          <?php   if (count($this->openingCashAssets)) { 
+            foreach($this->openingCashAssets as $openingCashAssets) {
+        if ($openingCashAssets["glsubcode_id"] == $ledegerListAssets["glsubcode_id"]) { 
+
+           $assetsCash = $openingCashAssets["openingCash"];?>
+
+
+     <?php } } } ?>
+                 <TD align = "rgiht"><?php echo $assetsCash ;?></TD>
+
+             </tr>
+     <TR>
+        <TD allign = "right"><?php echo $ledegerListAssets["glsubcode"];?> - <?php echo $ledegerListAssets["subheader"];?></TD>
+        <?php if ($ledegerListAssets["credit"]) { ?>
+        <TD allign = "right"></TD>
+        <TD allign = "right"><?php echo $ledegerListAssets["credit"];?></TD>
+        <TD align = "rgiht"><?php echo sprintf("%4.2f",  $assetsCash + $ledegerListAssets["credit"]);?></TD>
+
+        <?php } ?>
+
+     </tr>
+     <TR>
+        <TD allign = "right"></TD>
+        <?php if ($ledegerListAssets["debit"]) { ?>
+        <TD allign = "right"><?php echo $ledegerListAssets["debit"];?></TD>
+        <TD allign = "right"></TD>
+        <TD align = "rgiht"><?php echo sprintf("%4.2f", $ledegerListAssets["credit"] + $assetsCash - $ledegerListAssets["debit"]); ?></TD>
+        <?php } ?>
+     </tr>
+     <tr>
+            <TH allign = "right">Closing Balance</TH>
+            <TH allign = "right"></TH>
+            <TH allign = "right"></TH>
+            <TH align = "rgiht"><?php echo sprintf("%4.2f", $ledegerListAssets["credit"] + $assetsCash - $ledegerListAssets["debit"]);?></TH>
+     </tr>
+
+       
+      <?php  } } ?>
+    </TABLE>
+
+</fieldset>
+
+
+
+
+</div>

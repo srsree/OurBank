@@ -1,0 +1,34 @@
+<?php
+class Loandisbursment_Form_loandisbursement extends Zend_Form
+	{
+	public function __construct($options = null)
+	{
+		parent::__construct($options);
+
+			$date = new ZendX_JQuery_Form_Element_DatePicker('Date1');
+			$date->setAttrib('class', '');
+			$date->setJQueryParam('dateFormat', 'yy-mm-dd');
+			$date->setRequired(true)
+				->addValidator(new Zend_Validate_Date('YYYY-MM-DD'),true,
+				array('messages' =>array(Zend_Validate_Date::FALSEFORMAT => 'Enter the valid date')));
+
+
+			$Amount = new Zend_Form_Element_Text('Amount');
+			$Amount->setRequired(true)
+					->addValidators(array(array('NotEmpty'),array('Digits'),array('GreaterThan',false,array('0'))));
+			$Amount->setAttrib('class', 'textfield');
+			$Amount->setAttrib('id', 'Amount');
+
+			$description = new Zend_Form_Element_Textarea('description');
+			$description->setAttrib('rows', '2');
+			$description->setAttrib('cols', '20');
+			$description->setRequired(true);
+
+
+			$submit = new Zend_Form_Element_Submit('Submit');
+			$submit->setAttrib('class', 'officesubmit');
+
+
+			$this->addElements( array($date,$Amount,$description,$submit));
+		}
+	}

@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ourbank\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: mahiti <ourbank@mahiti.org>\n"
+"Language-Team: 8 <ourbank@mahiti.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hindi\n"
+"X-Poedit-Country: INDIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+# this is in hindi
+msgid "good"
+msgstr "आच्छा"
+

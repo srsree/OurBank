@@ -1,0 +1,43 @@
+<?php
+class Management_RolesController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Roles';
+    }
+
+    public function indexAction() {
+        $this->view->title='Roles';
+        $this->view->title = "New Office";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $roles = new Management_Model_Roles();
+        $result = $category->getRoleDetails();
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+
+
+
+    }
+
+    public function rolesviewAction() {
+
+    }
+
+    public function rolesaddAction() {
+
+    }
+
+    public function roleseditAction() {
+
+    }
+
+    public function rolesdeleteAction() {
+
+    }
+
+}

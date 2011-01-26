@@ -1,0 +1,41 @@
+<fieldset>
+	<legend>viewAttendance</legend>
+	<div class="cont-rgt-data">
+	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<?php foreach($this->meeting as $meeting) ?>
+ 			<tr>
+				<TD><label>Meeting Name</label></TD>
+				<TD><?php echo $meeting['meeting_name'];?></TD><td></td><td></td>
+	 		</TR>
+                        <tr>
+				<td class="txt_rgt">Office Name</td>
+				<td><?php echo $meeting['office_name'];?></td>
+				<td></td><td></td>
+			</tr>
+                        <tr>
+              		<Th colspan="4">address</Th>
+			</tr> 
+		        <tr>
+				<TD><label>Group Name</label></TD>
+				<TD><?php echo $meeting['groupname'];?></td>
+				<TD><label>Meeting Name</label></TD>
+				<TD><?php echo $meeting['meeting_name'];?></td>
+			</tr>			
+                        <tr>
+				<TD><label>Meeting Place</label></TD>
+				<TD><?php echo $meeting['meeting_place'];?></td>
+				<TD><label>Time</label></TD>
+				<TD><?php echo $meeting['timeg']?><?php foreach($this->meridam as $meeting) ?> <?php echo $meeting['hourclock']?></td>
+			</tr>
+                        <tr>
+				<TD><label>Group Head</label></TD>
+				<TD><?php echo $meeting['group_head'];?></td><td></td><td></td>
+				
+			</tr>
+                        <tr>
+				<TD colspan="4"><input name="submit" type="submit" onclick="history.go(-1)" 
+					class="officebutton" value="back"></TD>
+			</tr>
+		</table>
+	</div>
+</fieldset>

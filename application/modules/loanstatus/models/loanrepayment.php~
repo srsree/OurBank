@@ -1,0 +1,157 @@
+<?php
+class Loanrepayment_Model_loanrepayment extends Zend_Db_Table {
+	protected $_name = 'ob_accounts';
+
+	public function fetchLoanDisbursementDetails($account_id) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_loan_disbursement'),array('transaction_id'))
+			->where('a.account_id = ?',$account_id)
+			->where('a.recordstatus_id = 3 or a.recordstatus_id = 1');;
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function noOfInstalmentPaied($accountId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_installmentdetails'),array('Installmentserial_id'))
+			->where('a.account_id = ?',$accountId)
+			->where('a.installment_status = 2');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function loanstilltopay($accountId) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$sql = "SELECT SUM(accountinstallment_amount) stilltopayamount FROM ob_installmentdetails where account_id=$accountId AND (installment_status = 4 or installment_status=3 or installment_status=5 or installment_status=6) AND recordstatus_id=3";
+		$result = $this->db->fetchAll($sql);
+		return $result;
+	}
+
+	public function fetchAll_paymenttype_idforloans() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_paymenttypes'),array('paymenttype_id'))
+			->where('a.paymenttype_id != 5');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function updatemainaccountstatus($account_id,$input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where[] = "account_id = '".$account_id."'";
+		$result = $this->db->update('ob_accounts',$input,$where);
+	}
+
+	public function updateloanaccountstatus($account_id,$input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where[] = "account_id = '".$account_id."'";
+		$result = $this->db->update('ob_loan_accounts',$input,$where);
+	}
+
+	public function loanInstalmentDetailsOfInstalmentNo($accountId,$InstalmentNumber) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_installmentdetails'),array('Installmentserial_id'))
+			->where('a.account_id = ?',$accountId)
+			->where('a.accountinstallment_id = ?',$InstalmentNumber);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function loanInstalmentPaid($accountId,$InstalmentNumber) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_loan_repayment'),array('loanrepayment_id'))
+			->where('a.account_id = ?',$accountId)
+			->where('a.loaninstallment_number = ?',$InstalmentNumber);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function loanInstalmentDetails($accountId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('A' => 'ob_installmentdetails'),array('Installmentserial_id'))
+			->where('A.account_id = ?',$accountId)
+			->where('A.installment_status = 4 or A.installment_status=3 or A.installment_status=5 or A.installment_status=2')
+			->join(array('B' => 'ob_loan_accounts'),'A.account_id=B.account_id')
+			->join(array('D' => 'ob_loan_disbursement'),'B.account_id=D.account_id')
+			->join(array('S' => 'ob_installmentstatus'),'A.installment_status=S.installmentstatus_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+	}
+
+	public function instalmentStatus($accountId,$InstalmentNumber,$status) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where1[] = "account_id = '".$accountId."'";
+		$where1[] = "accountinstallment_id = '".$InstalmentNumber."'";
+		$where1[] = "installment_status != 2";
+		$input3=  array('installment_status' =>$status);
+		$result1 = $this->db->update('ob_installmentdetails',$input3,$where1);
+		return $result1;
+	}
+
+	public function overDueInstalment($accountId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_installmentdetails'),array('Installmentserial_id'))
+			->where('a.account_id = ?',$accountId)
+			->where('a.installment_status = 5')
+			->where('a.recordstatus_id = 3 OR a.recordstatus_id = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+
+	public function loanNextInstalmentDetails($accountId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('A' => 'ob_installmentdetails'),array('Installmentserial_id'))
+			->where('A.account_id = ?',$accountId)
+			->where('A.installment_status = 4')
+			->join(array('B' => 'ob_loan_accounts'),'A.account_id=B.account_id')
+			->join(array('D' => 'ob_loan_disbursement'),'B.account_id=D.account_id')
+			->join(array('S' => 'ob_installmentstatus'),'A.installment_status=S.installmentstatus_id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+	}
+
+	public function transactionInsert($input = array())
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$result = $this->db->insert('ob_transaction',$input);
+		return $this->db->lastInsertId('ob_transaction');
+        }
+
+	public function loanRepaymentInsert($input = array(),$installmentstatus) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$result = $this->db->insert('ob_loan_repayment',$input);
+		$result=$this->db->lastInsertId('ob_loan_repayment');
+
+		$where[] = "account_id = '".$input['account_id']."'";
+		$where[] = "recordstatus_id = '3' AND installment_status = '".$installmentstatus."'";
+		$input2=  array('installment_status' => '2');
+		$result1 = $this->db->update('ob_installmentdetails',$input2,$where);
+		return $result;
+	}
+
+	public function nextdue($accountid) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$sql = "SELECT * FROM ob_installmentdetails where (account_id=$accountid AND (recordstatus_id=3 or recordstatus_id=1) AND installment_status != 2) LIMIT 1";
+		$result = $this->db->fetchAll($sql);
+		return $result;
+	}
+
+	public function nextdueinsert($account_id,$Installmentserial_id) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where1[] = "account_id = '".$account_id."'";
+		$where1[] = "Installmentserial_id  = '".$Installmentserial_id."' AND (recordstatus_id = '3' OR recordstatus_id = '1')";
+		$input3=  array('installment_status' => '4');
+		$result1 = $this->db->update('ob_installmentdetails',$input3,$where1);
+		return $result1;
+	}
+}

@@ -1,0 +1,41 @@
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<!-- add form action !-->
+<form action="<?php echo $this->baseUrl();?>/user/index/add/id/<?php echo $this->user_id; ?>/modId/<?php echo $this->mod_id; ?>/subId/<?php echo $this->sub_id; ?>" method="POST">
+		<?php echo $this->form->fee_id;?>
+			<fieldset>
+			<table class="fieldsets">	
+			<div class="profile_tab"> 
+				<?php echo $this->form;?>
+			</table>
+
+                	<div class="btnhouse">
+                	<div class="ltbtns">
+<!-- submit button !-->
+			<input type="submit" name="Submit" id="Submit" value="Submit">			
+                 	</div>
+                	<div class="rtbtns">
+<!-- back button !-->
+
+                  	 <a href="<?php echo $this->baseUrl();?>/user"><?php echo $this->form->Back;?></a>
+               		 </div>
+            		</div>
+		</fieldset>
+</form>

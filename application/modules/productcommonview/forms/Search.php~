@@ -1,0 +1,27 @@
+<?php class Category_Form_Search extends Zend_Form {
+
+
+		
+	
+
+	public function init() 
+	{
+
+		$vtype=array('Alpha','StringLength');
+		$formfield = new App_Form_Field ();
+
+// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+
+		
+	
+        	$categoryname = $formfield->field('Text','name','','','mand','category name',false,'','','','','',0,0);
+        	$categorydescription = $formfield->field('Text','description','','','mand','description',false,'','','','','',0,0);
+        	
+
+        // Hidden Feilds 
+        	$id = $formfield->field('Hidden','id','','','','',false,'','','','','',0,0);
+
+					
+		$this->addElements(array($categoryname,$categorydescription,$id));
+    }
+}

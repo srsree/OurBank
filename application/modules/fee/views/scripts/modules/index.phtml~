@@ -1,0 +1,15 @@
+<form id="form1" method="post" action="#" method="post" name="userinfoform" style="padding-top:0px">
+<fieldset class="login">
+<legend>Tools</legend>
+<div style="float: left; width: 500px;padding:2px;">
+<?php foreach($this->displaymodule as $view) { ?>
+                <div class="edit">
+			
+		</div>
+<?php } ?>
+</div>
+
+</fieldset>
+
+</form>
+

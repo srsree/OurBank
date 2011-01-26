@@ -1,0 +1,72 @@
+
+            <div id="container-1">
+             <fieldset>
+	           <legend>Add Individual Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+                       <table id="hor-minimalist-b">
+                           <tr><th>Member Information</th><th></th><th></th></tr>
+                       
+                          <? foreach($this->groupname as $groups){}?>
+                        <tr>
+				<td>Group Name:</td>
+				<td><?php echo $groups['group_name']; ?></td> 
+			</tr>
+			<tr>
+				<td>Branch Name:</td>
+				<td><?php echo $groups['Institute_bank_name']; ?></td>
+			</tr>
+			<tr>
+				<td>Created Date:</td>
+				<td><?php echo $groups['created_date']; ?></td>
+			</tr>
+			<tr><Th>Group Members :</Th><th></th><th></th></tr>
+                   <? foreach($this->groupmembers as $groupmem){ ?>
+
+			<tr><td></td><td><?php echo $groupmem['member_name'];  ?></td><td></td></tr>
+		 <?php } ?>
+                       
+            
+                       
+                          <?php if(($this->groupname)!=NULL) { ?> 
+			<r><td></td>
+
+
+
+			 <TD><a href="<?php echo $this->baseUrl();?>/groupdefault/index/editgroup/id/<?php echo $this->groupid; ?>">Edit<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></TD>
+			<TD><a href="<?php echo $this->baseUrl();?>/groupdefault/index/deletegroup/id/<?php echo $this->groupid; ?>">Delete<img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
+                        </tr>
+			<? } ?>
+
+
+			<tr><th>Address Information</th><th></th><th></th></tr>
+                       <?php foreach($this->address as $address_view){
+                         ?>
+                       <tr><td>Address Line1:</td><td><?php echo $address_view['address1']; ?></td><td></td></tr>
+                       <tr><td>Address Line2:</td><td><?php echo $address_view['address2']; ?></td><td></td></tr>
+                       <tr><td>Address Line3:</td><td><?php echo $address_view['address3']; ?></td><td></td></tr>
+                       <tr><td>City:</td><td><?php echo $address_view['city']; ?></td><td></td></tr>
+                       <tr><td>State:</td><td><?php echo $address_view['state']; ?></td><td></td></tr>
+                        <tr><td>Country:</td><td><?php echo $address_view['country']; ?></td><td></td></tr>
+                        <tr><td>Pin Code:</td><td><?php echo $address_view['zipcode']; ?></td><td></td></tr>
+                       <?php } ?>
+                     <tr><td></td>
+                      <?php if(($this->address)!=NULL) {
+                           foreach($this->address as $edit_id) { ?>
+                        <TD class="label" align="right">Click to Edit :</TD>
+                               <TD><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->groupid; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>">Edit<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></TD>
+                        <?php }} else { ?>
+                              
+                               <td></td><TD align="right"><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->groupid; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>">Address Add<img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"></a></td>
+                        <?php } ?>
+                       </tr>
+
+
+                        <tr><td><a href="<?php echo $this->baseUrl(); ?>/group"><input type="button" name="back" value="back"></a></td></tr>
+                         </table>
+                   </div>
+	         </div>
+            </fieldset>
+        </div>
+
+ 

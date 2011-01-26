@@ -1,0 +1,20 @@
+<?php 
+class Feecommon_Model_Feecommon extends Zend_Db_Table { 
+ protected $_name = 'ourbank_feedetails';
+
+
+ public function getfee($id)
+    {
+        $select=$this->select()
+                ->setIntegrityCheck(false)
+                ->join(array('a'=>'ourbank_feedetails'),array('feedetails_id'))
+                ->where('feedetails_id=?',$id)
+                ->where('recordstatus_id=3');
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+       //die ($select->__toString($select));
+    }
+
+
+
+}

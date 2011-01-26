@@ -1,0 +1,57 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<table  id="hor-minimalist-b">
+	<TR>
+		<TH class = "firsttd"><?php echo $this->translate("Meeting Information"); ?></TH>
+		<TH class = "secondtd"></TH>
+		<TH class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/attendance/index/attendanceedit/attendance_id/<?php echo $this->attendance_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></TH>
+		
+	</TR>
+	<?php   $convertdate = new Creditline_Model_dateConvertor();
+	foreach($this->fetchattendance as $fetchattendance){ ?>
+		<TR >
+			<TD class = "firsttd"><?php echo $this->translate("Meeting name"); ?></TD>
+			<TD class = "secondtd"><?php echo $fetchattendance['name'];?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR>
+		<TR >
+			<TD class = "firsttd"><?php echo $this->translate("Meeting date"); ?></TD>
+			<TD class = "secondtd"><?php echo $convertdate->phpnormalformat($fetchattendance['meeting_date']);?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR>
+		
+	<?php   } ?>
+		<TR >
+			<TD class = "firsttd"><?php echo $this->translate("Absentees name"); ?></TD>
+			<TD class = "secondtd"><? foreach($this->fetchMembers as $fetchMembers){  echo $fetchMembers['member_name']."<br>"; } ?></TD>
+			<TD class = "thirdtd"></TD>
+		</TR>
+</table>
+
+		<div class="btnhouse">
+			<div class="ltbtns">
+			
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/attendanceindex"><input type="button" value="<?php echo $this->translate('Back'); ?>"></a>
+			</div>
+		</div>
+

@@ -1,0 +1,23 @@
+<?php
+class Enquiry_Model_Loans extends Zend_Db_Table_Abstract {
+protected $_name = 'ourbank_loan_disbursement'; 
+
+  public function InactiveMembers() {
+              $select = $this->select()
+                       ->setIntegrityCheck(false)  
+                       ->join(array('a' => 'ourbank_accounts'),array('a.account_number'))
+                       ->where('a.accountstatus_id = 3')
+                       ->join(array('b'=>'ourbank_productsofferdetails'),'b.offerproduct_id = a.product_id')
+                       ->where('b.recordstatus_id = 3')
+                       ->join(array('c'=>'ourbank_members'),'c.member_id = a.member_id')
+                       ->join(array('d'=>'ourbank_membername'),'d.member_id = c.member_id')
+                       ->where('d.recordstatus_id = 3')
+                       ->join(array('e'=>'ourbank_userloginupdates'),'e.user_id = a.accountcreated_by')
+                       ->where('e.recordstatus_id = 3')
+                       ->join(array('f'=>'ourbank_productdetails'),'f.product_id = b.product_id')
+                       ->where('f.recordstatus_id = 3 AND f.category_id = 2');
+         //die($select->__toString());
+       $result = $this->fetchAll($select);
+       return $result->toArray();
+    }
+}

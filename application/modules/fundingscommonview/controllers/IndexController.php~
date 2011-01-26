@@ -1,0 +1,37 @@
+<?php
+class fundingscommonview_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Fundings';
+        $globalsession = new App_Model_Users();
+        $this->view->globalvalue = $globalsession->getSession();
+
+		$this->view->username = $this->view->globalvalue[0]['username'];
+//         if (($this->view->globalvalue[0]['id'] == 0)) {
+//              $this->_redirect('index/logout');
+//         }
+		$this->view->adm = new App_Model_Adm();
+    }
+
+    public function indexAction() 
+    {
+    }
+
+    public function commonviewAction()
+    {   
+		//Acl
+/*        $access = new App_Model_Access();
+        $checkaccess = $access->accessRights('Fundings',$this->view->globalvalue[0]['name'],'viewfundingsAction');
+       	if (($checkaccess != NULL)) {*/ 
+            $id=$this->_request->getParam("id");
+            $this->view->id = $id;
+    
+            $fundings = new Fundings_Model_Fundings();
+            $this->view->fundings = $fundings->viewfundings($id);
+			$this->view->address = $this->view->adm->getSubmodule("ob_address",$id,"Management","Fundings");
+			$this->view->contact = $this->view->adm->getSubmodule("ob_contact",$id,"Management","Fundings");
+//         } else {
+// 			$this->_redirect('index/error');
+//         }
+    }
+}

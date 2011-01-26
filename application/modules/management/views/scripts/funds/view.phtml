@@ -1,0 +1,44 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php Zend_Dojo_View_Helper_Dojo::setUseDeclarative();
+$this->dojo()->setLocalPath('/ourbank/public/js/dojo/dojo/dojo.js')
+            ->addStyleSheetModule('dijit.themes.soria')
+            ->addStylesheet('/ourbank/public/js/dojo/dojox/grid/_grid/soria.css');
+echo $this->dojo();
+?>
+<script type="text/javascript">
+    dojo.require("dojox.data.QueryReadStore");
+    dojo.require("dojox.grid.Grid");
+    dojo.require("dojo.parser");
+</script>
+<body class="tundra">
+    <div dojoType="dojox.data.QueryReadStore" jsId="activeStore"  url="./management/index/records"></div>
+    <div dojoType="dojox.grid.data.DojoData" jsId="model" rowsPerPage="20" store="activeStore"></div>
+    <table id="activePastes" dojoType="dojox.grid.Grid" model="model" style="height:300px; width:700px;">
+        <thead>
+            <tr>
+                <th field="id">Id</th>
+                <th field="title">Title</th>
+                <th field="description">Description</th>
+                <th field="posted_date">Posted</th>
+            </tr>
+        </thead>
+    </table>
+</body>

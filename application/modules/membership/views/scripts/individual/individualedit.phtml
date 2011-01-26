@@ -1,0 +1,571 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/member/editmember.js"></script>
+
+<body onclick="limiter()">
+<form action="<?php echo $this->baseUrl();?>/membership/individual/individualedit" method="POST" name= "myform">
+
+    <div id="container-1">
+        <ul>
+            <li><a href="#fragment-1"><span>Personal</span></a></li>
+            <li><a href="#fragment-2"><span>Member Status</span></a></li>
+            <li><a href="#fragment-3"><span>Family Information</span></a></li>
+            <li><a href="#fragment-4"><span>Health</span></a></li>
+            <li><a href="#fragment-5"><span>Economic Status</span></a></li>
+            <li><a href="#fragment-6"><span>Education</span></a></li>
+       </ul>
+       <div id="fragment-1">
+            <fieldset>
+	           <legend>Edit Personal Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+        		<table id="hor-minimalist-b">
+                            <tr>
+				<?php echo $this->form->memberId; ?>
+                                <TH width="50%" align="center"><B>Client Information</B></TD>
+                                <TH width="50%" align="center"><B>Communicational details</B></TH>
+                            </tr>
+                       </table>
+                        <table id="hor-minimalist-b">
+                            <tr>
+				<td  class="txt_rgt"><label for="Office_Name">First Name</label></TD>
+                                <td width="35%"><?php echo $this->form->membertitle;?><?php echo $this->form->memberfirstname;?></TD>
+                                <td  class="txt_rgt"><label for="Office_Short_Name">Address Line 1</label></TD>
+                                <td width="35%"><?php echo $this->form->memberaddressline1; ?></TD>
+                            </tr>
+                            <tr>
+                                <td  class="txt_rgt"><label for="Office_Name">Middle Name</label></td>
+                                <td ><?php echo $this->form->membermiddlename ; ?></TD>
+                                <td  class="txt_rgt"><label for="Office_Short_Name">Address Line 2</label></td>
+                                <td ><?php echo $this->form->memberaddressline2; ?></TD>
+                            </tr>
+                            <tr>
+                                <td  class="txt_rgt"><label for="Office_Address1">Last Name</label></td>
+                                <td ><?php echo $this->form->memberlastname; ?></td>
+                                <td  class="txt_rgt"><label for="Office_State">Address Line 3</label></td>
+                                <td ><?php echo $this->form->memberaddressline3; ?></td>
+                            </tr>
+                            <tr>
+                                <td  class="txt_rgt"><label for="Office_Address2">Personal Id</label></TD>
+                                <td ><?php echo $this->form->memberpersonalid; ?></td>
+                                <td  class="txt_rgt"><label for="Office_Country">City</label></td>
+                                <td ><?php echo $this->form->membercity; ?></td>
+                            </tr>
+                            <tr>
+                                <td  class="txt_rgt"><label for="Office_Address3">Date Of Birth</label></TD>
+                                <td ><?php echo $this->form->memberdateofbirth; ?></td>
+                                <td  class="txt_rgt"><label for="Office_Pincode">State</label></td>
+                                <td ><?php echo $this->form->memberstate; ?></td>
+                            </tr>
+                            <tr>
+                                <td  class="txt_rgt"><label for="Office_City">Gender</label></td>
+                                <td ><?php echo $this->form->gender_id;?></td>
+                                <td  class="txt_rgt"><label for="Office_Pone">Country</label></TD>
+                                <td ><?php echo $this->form->membercountry; ?></td>
+                            </tr>
+                            <tr>
+                                <td  class="txt_rgt"><label for="Office_Description">Marital Status</label></td>
+                                <td ><?php  echo $this->form->membermaritalstatus_id;?></td>
+                                <td  class="txt_rgt"><label for="Office_Fax">Pincode</label></TD>
+                                <td ><?php  echo $this->form->memberpincode;?></td>
+                            </tr>
+                            <tr>
+                                <td  class="txt_rgt"><label for="Office_Email">Physical Status</label></TD>
+                                <td ><?php  echo $this->form->physicalstatus_id;?></td>
+                                <td  class="txt_rgt"><label for="Office_contactperson_email">Telephone</label></TD>
+                                <td ><?php  echo $this->form->memberphone;?></td></td>
+                            </tr>
+                            <tr >
+                                <td  class="txt_rgt"><label for="Office_Short_Name">Member Picture</label></td>
+                                <td ><img src="/upload/<?php  echo $this->picture;?>" height="100" width="100"/></TD>
+                                <td ></TD>
+                                <td ></td>
+                            </tr>
+                            <tr >
+                                <td  class="txt_rgt"><label for="Attach Photo">Change Picture</label></td>
+                                <td ><input type="file" name="photo" size="10"></td>
+                                <td ></td>
+                                <td ></td>
+                            </tr>
+                    </table>
+                     <table><TR><TD width="80%" ></TD>
+                     <td width="20%" align="right" ><a href="#fragment-2">
+                        <input name="submit" type="button" class="officesubmit" value="Next" 
+                            onClick="copyTA(this.form,'source1','target1','source1','target2',
+                                'source1','target3','source1','target4','source1','target5');"></a></td>
+			</TR></table>
+
+                    </div>
+	       </div>
+            </fieldset>
+        </div>
+         <div id="fragment-2">
+    <input type="hidden" name="six" value="six"  id="target5" size="18" readonly="true" class="txt_put">
+
+ <fieldset>
+	           <legend>Member Assets</legend>
+		      <div class="register">
+	                   <div class="profile_tab">
+                             <?php if (!$this->confirmation) { ?>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                        </tr>
+			</table>
+                                <fieldset>
+	       			     <legend>Assets</legend>
+                                        <div>
+                                            <fieldset>
+	       			             <legend>Immovable Assets</legend>
+                                             <?php foreach($this->immovable as $immovleAssetsdetail){ $td1='itext'.$immovleAssetsdetail['asset_id']; ?>
+				             <table id="hor-minimalist-b">
+                                                <tr>
+                                                    <td><?php  echo $immovleAssetsdetail['asset_name']; ?></td>
+                                                   <td><?php $a2='itext'.$immovleAssetsdetail['asset_id'];echo $this->form->$a2; echo $immovleAssetsdetail['units']; ?></td>
+                                                   
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+			                 </fieldset>
+                                        </div>
+                                        <div style="width:378px;float:left">
+                                        <fieldset>
+	       			             <legend>Non Living Assets</legend>
+                                             <?php foreach($this->nonlivingdetails as $nonlivingAssetsdetail){ $td2='ntext'.$nonlivingAssetsdetail['asset_id']; ?>
+				             <table id="hor-minimalist-b">
+                                                <tr>
+                                                    <td><?php echo $nonlivingAssetsdetail['asset_name']; ?></td>
+                                                   <td><?php $a='ntext'.$nonlivingAssetsdetail['asset_id'];echo $this->form->$a; echo $nonlivingAssetsdetail['units']; ?></td>
+                                                   
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+			                 </fieldset>
+                                        </div>
+                                        <div style="width:378px;float:left">
+                                        <fieldset>
+	       			             <legend>Living Assets</legend>
+                                             <?php foreach($this->living as $livingAssetsdetail){ $td3='ltext'.$livingAssetsdetail['asset_id'];?>
+				                <table id="hor-minimalist-b">
+                                                <tr>
+                                                   <div> <td><?php echo $livingAssetsdetail['asset_name']; ?></td></div>
+                                                   <div> <td><?php $a1='ltext'.$livingAssetsdetail['asset_id']; echo $this->form->$a1; echo $livingAssetsdetail['units']; ?></td> </div>
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+			                </fieldset>
+                                        </div>
+                <?php } ?>
+				       
+	                   </div>
+                             <table>
+				            <TR>
+				                <TD width="50%"></TD><TD width="50%">
+				                <TD width="50%"><a href="#fragment-1"><input name="submit" type="button" class="officebutton" value="Back"></a></TD>
+                                                <TD width="20%"><a href="#fragment-3"><input name="submit" type="button" class="officesubmit1" value="Next"></a></TD>
+				            </TR>
+				        </table>
+                          
+                    </div>
+        </fieldset>
+    </div>
+ <div id="fragment-3">
+            <input type="hidden" name="two" value="two" size="8" id="target1" readonly="true">
+            <fieldset>
+                <legend>Edit Family Information</legend>
+                <div class="register">
+	           <div class="profile_tab">
+  			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                        </tr>
+			</table>
+			 <input type="hidden" id="id" value="1">
+			 <input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" />	
+			<TABLE  id="myTable1" WIDTH = "50%">
+                            <tr> 
+                                <th width="35%">&nbsp;&nbsp;&nbsp;Member Name</th>
+                                <th width="12%">&nbsp;&nbsp;&nbsp;Gender</th>
+                                <th width="10%">&nbsp;&nbsp;&nbsp;Age</th>
+                                <th width="17%">&nbsp;&nbsp;&nbsp;Relation</th>
+                                <th width="17%" align="left">&nbsp;&nbsp;&nbsp;Physical Status</th>
+                                <th width="17%" align="left">&nbsp;&nbsp;&nbsp;Marital Status</th>
+				
+                            </tr>
+                         <?php $count = 0;?>
+                         <?php foreach($this->familymembers as $memberFamilyDetails) { $count++; ?>
+                         <tr>
+                            <input type = "hidden" name = "count" value= "<?php echo $count;?>">
+			    <input name = "ffamilymemberdetails_id<?php echo $count;?>" type="hidden" value="<?php echo $memberFamilyDetails->familymemberdetails_id;?>" size="15" class="txt_put">
+                            <td>
+			    <input name = "fmember<?php echo $count;?>" id = "fmember<?php echo $count;?>" type="text" value="<?php echo $memberFamilyDetails->familymember;?>" size="15" class="txt_put"></td>  
+			    <input type = "hidden" value="<?php echo $memberFamilyDetails->familymember_ID;?>" name="fmember_ID<?php echo $count ?>">	
+                            <td>
+				
+				<select name="fgender<?php echo $count; ?>" class="txt_put">
+					
+					
+					<OPTION value="<?php echo $memberFamilyDetails->gender_id; ?>">
+					<?php echo $memberFamilyDetails->sex; ?>
+					</OPTION>
+					<?php foreach($this->familygender  as $g) { ?>
+					<? if($memberFamilyDetails->gender_id != $g->gender_id ) {?>
+					<OPTION value="<?php echo $g->gender_id; ?>">
+					<?php echo $g->sex; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+				</select>
+			   </td>
+				
+                            <td><input name = "fmemberage<?php echo $count ?>" type="text" value="<?php echo $memberFamilyDetails->Age;?>" size="3" class="txt_put"></td>
+                             <td>
+				
+				<select name="frelationship<?php echo $count; ?>" class="txt_put">
+					familyMemberUpdate
+					
+					<OPTION value="<?php echo $memberFamilyDetails->relationship_ID; ?>">
+					<?php echo $memberFamilyDetails->relationship; ?>
+					</OPTION>
+					<?php foreach($this->familyrelationship  as $g) { ?>
+					<? if($memberFamilyDetails->relationship_ID != $g->relationship_ID ) {?>
+					<OPTION value="<?php echo $g->relationship_ID; ?>">
+					<?php echo $g->relationship; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+				</select>
+			   </td>				
+                            <td>
+				<select name="fphysicalstatus_id<?php echo $count; ?>" class="txt_put">
+					
+					
+					<OPTION value="<?php echo $memberFamilyDetails->memberphysicalstatus_id; ?>">
+					<?php echo $memberFamilyDetails->memberphysicalstatusdescription; ?>
+					</OPTION>
+					<?php foreach($this->familyphysicalstatus_id  as $g) { ?>
+					<? if($memberFamilyDetails->memberphysicalstatus_id != $g->memberphysicalstatus_id ) {?>
+					<OPTION value="<?php echo $g->memberphysicalstatus_id; ?>">
+					<?php echo $g->memberphysicalstatusdescription; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+				</select>
+			    </td>			
+                            <td>
+				<select name="fmembermaritalstatus_id<?php echo $count; ?>" class="txt_put">
+					
+					
+					<OPTION value="<?php echo $memberFamilyDetails->membermaritalstatus_id; ?>">
+					<?php echo $memberFamilyDetails->membermaritalstatusdescription; ?>
+					</OPTION>
+					<?php foreach($this->familymembermaritalstatus_id  as $g) { ?>
+					<? if($memberFamilyDetails->membermaritalstatus_id != $g->membermaritalstatus_id ) {?>
+					<OPTION value="<?php echo $g->membermaritalstatus_id; ?>">
+					<?php echo $g->membermaritalstatusdescription; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+				</select>
+			    </td>
+			<!--    <td><a href='#' onClick="deleteRow(this.parentNode.parentNode.rowIndex)"><img src='/ourbank/management/images/delete.gif'  border=0 width='16' height='16'></a></td>-->
+			    <td><a href="<?php echo $this->baseUrl();?>/membership/individual/deletemember/familymember_ID/<?php echo $memberFamilyDetails->familymemberdetails_id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+                        </tr>
+			
+                        <?php } ?>
+                    </table><br>
+                        <div id="FamilyInformation"></div><br>
+                        <table>
+				<TR>
+				      <TD width="50%"><input type="button" onClick="editFormField(); return false;" value="Add Family Member"></TD><TD width="50%">
+				      <TD width="50%"></TD>
+				      <TD width="50%"><a href="#fragment-2"><input name="submit" type="button" class="officebutton" value="Back " onclick="membernameEdit()"></a></TD>
+                                      <TD width="20%"><a href="#fragment-4"><input name="submit" type="button" class="officesubmit1" value="Next" onclick="membernameEdit()"></a></TD>
+				</TR>
+			</table>
+                 </div>
+	       </div>
+            </fieldset>
+        </div>
+        <div id="fragment-4">
+            <input type="hidden" name="three" value="three" id="target2" size="8" readonly="true">
+            <fieldset>
+	       <legend>Health Information</legend>
+                    <div class="register">
+	                   <div class="profile_tab">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                        </tr>
+			</table>
+			<TABLE  id="myTable2">
+                        <tr>
+			    <th width="35%">&nbsp;&nbsp;&nbsp;Member Name</th>
+                            <th width="25%">&nbsp;&nbsp;&nbsp;Health Problem</Th>
+                            <th width="25%">&nbsp;&nbsp;&nbsp;Under Treatment</Th>
+                            <th width="35%">&nbsp;&nbsp;&nbsp;Clinic Accessibility</th>
+                        </tr>
+			 <?php $countH = 0 ;?>
+                        <?php foreach($this->familyhealth as $memberFamilyDetails) { $countH ++;
+                        ?>
+                        <input type="hidden" name="familyhealth_ID<?php echo $countH; ?>" value="<?php echo $memberFamilyDetails->familyhealth_ID;?>">
+                        <tr class = "tdbrown">
+				
+				<td><input name = "fmemberNameH<?php echo $countH; ?>" id = "fmemberNameH<?php echo $countH; ?>" type="text" value="<?php echo $memberFamilyDetails->familymember; ?>"  size="15" class="txt_put" readonly="true"></td>
+
+				 
+                                <td>
+					<select name="fhealth_problem<?php echo $countH; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->healthproblem_id; ?>">
+					<?php echo $memberFamilyDetails->health_problem; ?>
+					</OPTION>
+					<?php foreach($this->familyhealth_problem  as $g) { ?>
+					<? if($memberFamilyDetails->healthproblem_id != $g->healthproblem_id ) {?>
+					<OPTION value="<?php echo $g->healthproblem_id; ?>">
+					<?php echo $g->health_problem; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+				</td>				
+                                <td>
+					<select name="fhealthundertreatment<?php echo $countH; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->under_treatment; ?>">
+					<?php echo $memberFamilyDetails->under_treatmentstatus; ?>
+					</OPTION>
+					<?php foreach($this->healthundertreatment  as $g) { ?>
+					<? if($memberFamilyDetails->under_treatment != $g->under_treatment ) {?>
+					<OPTION value="<?php echo $g->under_treatment; ?>">
+					<?php echo $g->under_treatmentstatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+				</td>
+				 <td>
+					<select name="fclinicalaccessability<?php echo $countH; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->clinical_accessability; ?>">
+					<?php echo $memberFamilyDetails->clinical_accessabilitystatus; ?>
+					</OPTION>
+					<?php foreach($this->clinicalaccessability  as $g) { ?>
+					<? if($memberFamilyDetails->clinical_accessability != $g->clinical_accessability ) {?>
+					<OPTION value="<?php echo $g->clinical_accessability; ?>">
+					<?php echo $g->clinical_accessabilitystatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+				</td>
+                               	
+                       </tr>
+                       <?php } ?>
+                    </table><br>
+                                <div id="Health"></div><br>
+                               
+                                <a href="#fragment-3"><input name="submit" type="button" class="officebutton" value="Back" onclick="membernameEdit()"></a>
+ 				<a href="#fragment-5"><input name="submit" type="button" class="officebutton" value="Next" onclick="membernameEdit()"></a>
+                            </div>
+                    </div>
+            </fieldset>
+        </div>
+         <div id="fragment-5">
+            <input type="hidden" name="four" value="four" size="8"  id="target3" readonly="true">
+            <fieldset>
+	           <legend>Economical Information</legend>
+                        <div class="register">
+	                       <div class="profile_tab">
+           <div class="profile_tab">
+                   <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                        </tr>
+			</table>
+			<TABLE  id="myTable3">
+                        <tr>
+			    <th width="35%">&nbsp;&nbsp;&nbsp;Member Name</th>
+                            <th width="26%">&nbsp;&nbsp;&nbsp;Earnings</th>
+                            <th width="25%">&nbsp;&nbsp;&nbsp;Occupation</th>
+                            <th width="25%">&nbsp;&nbsp;&nbsp;Benefits</th>
+                        </tr>
+                        <?php $countE = 0; 
+			foreach($this->familyeconomical as $memberFamilyDetails) { $countE ++;
+                        /*print_r($memberFamilyDetails);*/?>
+                        <tr>
+				<input type = "hidden" value="<?php echo $memberFamilyDetails['familyeconomical_ID']; ?>" name="familyeconomical_ID<?php echo $countE ?>">	
+			      <td><input name = "fmemberNameES<?php echo $countE ?>" id="fmemberNameES<?php echo $countE ?>" value="<?php echo $memberFamilyDetails->familymember;?>" type="text" size="15" class="txt_put" readonly="true"></td>
+				    <td>
+					<select name="familyearning<?php echo $countE; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->earnings; ?>">
+					<?php echo $memberFamilyDetails->earningsstatus; ?>
+					</OPTION>
+					<?php foreach($this->familyearning  as $g) { ?>
+					<? if($memberFamilyDetails->earnings != $g->earnings ) {?>
+					<OPTION value="<?php echo $g->earnings; ?>">
+					<?php echo $g->earningsstatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+				</td>
+                                <td>
+					<select name="fprofession<?php echo $countE; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->profession_ID; ?>">
+					<?php echo $memberFamilyDetails->profession; ?>
+					</OPTION>
+					<?php foreach($this->profession  as $g) { ?>
+					<? if($memberFamilyDetails->profession_ID!= $g->profession_ID) {?>
+					<OPTION value="<?php echo $g->profession_ID; ?>">
+					<?php echo $g->profession; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+				</td>
+                                <td>
+					<select name="fmfibenefits<?php echo $countE; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->mfi_benefits; ?>">
+					<?php echo $memberFamilyDetails->mfi_benefitsstatus; ?>
+					</OPTION>
+					<?php foreach($this->fmfibenefits  as $g) { ?>
+					<? if($memberFamilyDetails->mfi_benefits != $g->mfi_benefits ) {?>
+					<OPTION value="<?php echo $g->mfi_benefits; ?>">
+					<?php echo $g->mfi_benefitsstatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+				</td>
+			     </td>	
+			    
+                        </tr>
+                        <?php } ?>
+                  </table><br>
+                                    <div id="EconomicStatus"></div><br>
+                                   
+                                    <a href="#fragment-4"><input name="submit" type="button" class="officebutton" value="Back"></a>
+ 				    <a href="#fragment-6"><input name="submit" type="button" class="officebutton" value="Next"></a>
+                                </div>
+	                </div>
+            </fieldset>
+        </div>
+ <div id="fragment-6">
+             <input type="hidden" name="five" value="five" size="8"  id="target4" readonly="true">
+             <fieldset>
+	           <legend>Educational Information</legend>
+                        <div class="register">
+	                       <div class="profile_tab">
+                   <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                        </tr>
+			</table>
+			<TABLE  id="myTable4">
+                        <tr>
+			    <th width="35%">&nbsp;&nbsp;&nbsp;memberName</th>
+                            <th width="25%">&nbsp;&nbsp;&nbsp;Qualification</Th>
+                            <th width="25%">&nbsp;&nbsp;&nbsp;schoolLocation</Th>
+                            <th width="25%">&nbsp;&nbsp;&nbsp;Transportation</th>
+                        </tr>
+                        <?php $countEd = 0; foreach($this->familyeducation as $memberFamilyDetails) { $countEd++; ?>
+                        <tr>
+				<input type = "hidden" value="<?php echo $memberFamilyDetails->familyeducation_ID;?>" name="familyeducation_ID<?php echo $countEd ?>">
+			    <td><input name = "fmemberNameE<?php echo $countEd ?>" id="fmemberNameE<?php echo $countEd ?>" value="<?php echo $memberFamilyDetails->familymember;?>" type="text"  size="15" class="txt_put" readonly="true"></td>
+                            <td>
+				<select name="fqualificationdetails<?php echo $countEd; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->qualification; ?>">
+					<?php echo $memberFamilyDetails->qualificationdetails; ?>
+					</OPTION>
+					<?php foreach($this->qualificationdetails  as $g) { ?>
+					<? if($memberFamilyDetails->qualification != $g->qualification ) {?>
+					<OPTION value="<?php echo $g->qualification; ?>">
+					<?php echo $g->qualificationdetails; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+			    </td>
+                            <td>
+				<select name="fschool_locationstatus<?php echo $countEd; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->school_location; ?>">
+					<?php echo $memberFamilyDetails->school_locationstatus; ?>
+					</OPTION>
+					<?php foreach($this->schoollocation  as $g) { ?>
+					<? if($memberFamilyDetails->school_location != $g->school_location ) {?>
+					<OPTION value="<?php echo $g->school_location; ?>">
+					<?php echo $g->school_locationstatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+			    </td>
+                            <td>
+				<select name="ftransporation_for_schoolstatus<?php echo $countEd; ?>" class="txt_put">
+					<OPTION value="<?php echo $memberFamilyDetails->transporation_for_school; ?>">
+					<?php echo $memberFamilyDetails->transporation_for_schoolstatus; ?>
+					</OPTION>
+					<?php foreach($this->transporationforschool  as $g) { ?>
+					<? if($memberFamilyDetails->transporation_for_school!= $g->transporation_for_school) {?>
+					<OPTION value="<?php echo $g->transporation_for_school; ?>">
+					<?php echo $g->transporation_for_schoolstatus; ?>
+					</OPTION>
+					<?php }?>
+					<?php } ?>	
+					</select>
+                            </td>
+			    
+                        </tr>
+                        <?php } ?>
+                   </table><br>
+                                    <div id="Education"></div>
+                                    <table>
+                                        <TR>
+						<TD><?php echo $this->form->Submit;?>
+						      <a href="<?php echo $this->baseUrl(array('controller'=>'index',
+						        'action'=>'index')); ?>"></a>
+                                                        <a href="#fragment-5">
+                                                        <input name="submit" type="button" class="officebutton" value="Back" onclick="membernameEdit()"></a></TD>
+					</TR>
+                                    </table>
+                              </div>
+	                </div>
+              </fieldset>
+        </div>
+              </fieldset>
+        </div>
+
+</form>

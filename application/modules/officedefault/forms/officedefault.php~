@@ -1,0 +1,49 @@
+<?php
+class Officedefault_Form_officedefault extends Zend_Form{
+
+ public function init() {
+       // Zend_Dojo::enableForm($this);
+    }
+        public function __construct($path,$createdid) {
+        //Zend_Dojo::enableForm($this);
+        //parent::__construct($options);
+        //$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+        $formfield = new App_Form_Field ();
+
+        $office_name = new Zend_Form_Element_Text('name');
+        $office_name->setRequired(true)
+                    ->addValidators(array(array('NotEmpty')));
+        $office_name->setAttrib('class', 'txt_put');
+        $office_name->addValidator(new Zend_Validate_Db_NoRecordExists('ourbank_officenames', 'office_name'));
+
+        $officeshort_name = new Zend_Form_Element_Text('short_name');
+        $officeshort_name->setAttrib('class', 'txt_put');
+	$officeshort_name->setRequired(true)
+		 	->addValidators(array(array('NotEmpty'),array('stringLength', false, array(3,3))));
+
+        $officedescription=new Zend_Form_Element_Text('officedescription');
+        $officedescription->setAttrib('class', 'txt_put');
+
+        $officetype_id = new Zend_Form_Element_Select('officetype_id');
+        $officetype_id->setRequired(true);
+        $officetype_id->addMultiOption('','select'.'...');
+        $officetype_id->setAttrib('class','selectbutton');
+        $officetype_id->setAttrib('onchange', 'getInterests(this.value,"'.$path.'")');
+
+        $parentoffice_id = new Zend_Form_Element_Select('parentoffice_id');
+	$parentoffice_id->addMultiOption('','firstSelectOfficeType'.'...');
+	$parentoffice_id->setAttrib('class','selectbutton');
+
+
+//         $officetype_id = $formfield->field('Select','officetype_id','','','','Office type',true,'','','','','',1,0);
+// 
+//         $officetype_id->setAttrib('onchange', 'getInterests(this.value,"'.$path.'")');
+//         $parentoffice_id = $formfield->field('Select','parentoffice_id','','','','','','','','','','',1,0);
+//         $office_name = $formfield->field('Text','name','','','','Office name',true,'','','','','',1,0);
+//         $officeshort_name = $formfield->field('Text','short_name','','','','Short name',true,'','','','','',1,0);
+        $created_by = $formfield->field('Hidden','createdby','','','','','','','','','','',0,$createdid);
+        $created_date = $formfield->field('Hidden','createddate','','','','','','','','','','',0,date("y/m/d H:i:s"));
+         $this->addElements(array($office_name,$officeshort_name,$officetype_id,$parentoffice_id,$created_by,$created_date));
+	}
+}
+/**class end*/

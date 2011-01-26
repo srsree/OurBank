@@ -1,0 +1,116 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+    <legend>Funders view</legend>
+        <div class="cont-rgt-data">
+<?php foreach( $this->funders as $funders) { ?>
+            <table id="hor-minimalist-b">
+                <TR>
+                    <TD>Funders Name</TD>
+                    <TD width="20"><?php echo $funders->fundername;?></TD>
+                </TR>
+                <TR class="tdbrown">
+                    <TD width="20%">Short Name</TD>
+                    <TD width="20"><?php echo $funders->fundershortname;?></TD>
+                </TR>
+                <tr>
+                    <th colspan="4">address Details</th>
+                </tr>
+                <TR class="tdbrown">
+                    <TD width="20%">line 1</TD>
+                    <TD width="20"><?php echo $funders->funderaddress1;?></TD>
+                </TR>
+                <TR class="tdbrown">
+                    <TD width="20%">line 2</TD>
+                    <TD width="20%"><?php echo $funders->funderaddress2;?></TD>
+               </TR>
+              <TR class="tdbrown">
+                    <TD width="20">line 3</TD>
+                    <TD width="20"><?php echo $funders->funderaddress3;?></TD>
+              </TR>
+              <TR class="tdbrown">
+                    <TD width="20">City</TD>
+                    <TD width="20"><?php echo $funders->fundercity; ?>
+             </TR>
+             <TR class="tdbrown">
+                <TD width="20">state</TD>
+                <TD width="20"><?php echo $funders->funderstate;?></TD>
+            </TR>
+            <TR class="tdbrown">
+                <TD width="20">country</TD>
+                <TD width="20"><?php echo $funders->fundercountry;?></TD>
+            </TR>
+            <TR class="tdbrown">
+                <TD width="20">pincode</TD>
+                <TD width="20"><?php echo $funders->funderpincode;?></TD>
+            </TR>
+            <TR class="tdbrown">
+                <TD width="20">email</TD>
+                <TD width="20"><?php echo $funders->emailaddress;?></TD>
+            </TR>
+            <TR class="tdbrown">
+                <TD width="20">telephonenumber</TD>
+                <TD width="20"><?php echo $funders->funderphone;?></TD>
+            </TR>
+            <TR>
+            <TD width="20"></TD>
+            <td><a href="<?php echo $this->baseUrl();?>/management/funders"><input name="submit" type="submit" class="officebutton" value="back"></a></td>
+            </TR>
+        </table>
+<?php } ?>
+</div>
+</fieldset>
+
+<?php if($this->recordstatus_id == 1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<?php foreach($this->funders as $funders) {  ?>
+    <tr>
+        <Th align="center"><p><B style="color:red">No you cannot delete since the product exists for </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $funders['fundername'];?>' Funds</b></Th>
+    </tr>
+<?php } ?>
+</table>
+<?php } else { ?>
+<?php foreach($this->funders as $funders) {  ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+    <tr>
+        <th><B style="color:red">Are you sure you want to delete funder</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $funders['fundername'];?>" ?*</b></th>
+    <tr>
+</table>
+<?php } ?>
+<fieldset>
+    <legend>Delete Funders</legend>
+        <div class="cont-rgt-data">
+            <form action="<?php echo $this->baseUrl();?>/management/funders/fundersdelete/funderaddress_id/<?php echo $this->funderaddress_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <TR>
+                        <TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+                        <TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+                    </TR>
+                    <TR>
+                        <TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+                        <TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/funders">
+                        <input name="submit" type="submit"  value="No" ></a></TD>
+                    </TR>
+                </table>
+            </form>
+        </div>
+</div>
+</fieldset>
+<?php } ?>

@@ -1,0 +1,388 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php if($this->savings) { ?>
+<fieldset>
+    <legend>List</legend>
+    <?php $cashCredit = "0";
+          $transferCredit = "0";
+          $cashDedit = "0";
+          $transferDedit = "0";
+    ?>
+            <table id="hor-minimalist-b">
+                <form action="<?php echo $this->baseUrl();?>/reports/daybook/index" method="POST">
+                    <TR>
+                            <TH >Credit</TH>
+                            <TH>Gl No.</TH>
+                            <TH class = "label">Cash</TH>
+                            <TH class = "label">Transfer</TH>
+                            <TH >Debit</TD>
+                            <TH>Gl No.</TH>
+                            <TH class = "label">Cash</TH>
+                            <TH class = "label">Transfer</TH>
+                    </TR>
+                   
+                    <TR>    
+                            <?php $savval=0; 
+                    foreach($this->savingsCredit as $savingsCredit) 
+                            { ?>
+                            <TD ><?php echo $savingsCredit->productname ?></TD>
+                            <TD ><?php echo $savingsCredit->glcode ?></TD>
+                            <TD align = "right"><?php  echo sprintf("%4.2f", $savingsCredit->savingcredit); $cashCredit+= $savingsCredit->savingcredit;?></TD>
+                                                        
+                            <?php $savval++; 
+                            } 
+                        if($this->se)
+                            {
+                              foreach($this->savingsCreditTransfer as $savingsCreditTransfer) { 
+                                       if($savval==0){ 
+                                                      echo "<td>".$savingsCreditTransfer->productname."</td>";echo   "<td>".$savingsCreditTransfer->glcode."</td>";echo "<td></td>"; 
+                                                     }
+                             ?>
+                            <TD align = "right"><?php  echo sprintf("%4.2f", $savingsCreditTransfer->savingcredit);
+                                        $transferCredit += $savingsCreditTransfer->savingcredit; ?></TD>
+                            <?php }
+                            }
+    
+                       else { echo "<td></td>";}
+
+
+
+
+
+                            $savDval=0;
+                    foreach($this->savingsDebit as $savingsDebit) 
+                            { ?>
+                            <TD ><?php echo $savingsDebit->productname ?>a</TD>
+                            <TD ><?php echo $savingsDebit->glcode ?>a</TD>
+                            <TD align = "right" >a<?php  echo sprintf("%4.2f", $savingsDebit->savingdebit);
+                                                                          $cashDedit += $savingsDebit->savingdebit; ?></TD>
+                            <?php $savDval++;
+                            }
+
+		    foreach($this->savingsDebitTransfer as $savingsDebitTransfer) { 
+			if($savDval==0){ 
+					echo "<td>".$savingsDebitTransfer->productname."</td>";
+					echo   "<td>".$savingsDebitTransfer->glcode."</td>";
+					echo "<td></td>";
+					}
+		    ?>
+		    <TD align = "right" ><?php  echo sprintf("%4.2f", $savingsDebitTransfer['savingdebit']);$transferDedit += $savingsDebitTransfer['savingdebit']; ?></TD>
+		    <?php }
+                     ?>
+                    </TR>
+                    
+                    <TR>
+                            <?php $fixval=0; foreach($this->fixedCredit as $fixedCredit) { ?>
+                            <TD ><?php echo $fixedCredit->productname ?></TD>
+                            <TD ><?php echo $fixedCredit->glcode ?></TD>
+                            <TD align = "right" ><?php   echo sprintf("%4.2f", $fixedCredit->fixedcredit);
+                            $cashCredit = $cashCredit + $fixedCredit->fixedcredit; ?></TD>
+                            <?php $fixval++; }
+                                if($this->fe){
+
+
+                             foreach($this->fixedCreditTransfer as $fixedCreditTransfer) { 
+                                if($fixval==0){ echo "<td>".$fixedCreditTransfer->productname."</td>";echo   "<td>".$fixedCreditTransfer->glcode."</td>";echo "<td></td>";  }
+                                ?>
+                            <TD align = "right"><?php echo $fixedCreditTransfer->fixedcredit;
+                            $transferCredit = $transferCredit + $fixedCreditTransfer->fixedcredit;?></TD>
+                            <?php } }
+    
+                            else { echo "<td></td>";}
+
+
+                            $fixDval=0;
+                            foreach($this->fixedDebit as $fixedDebit) { ?>
+                            <TD ><?php echo $fixedDebit->productname ?></TD>
+                            <TD ><?php echo $fixedDebit->glcode ?></TD>
+                            <TD align = "right" ><?php echo sprintf("%4.2f", $fixedDebit->fixeddebit);
+                            $cashDedit = $cashDedit + $fixedDebit->fixeddebit;?></TD>
+                            <?php $fixDval++; } 
+
+                             if($this->fe1){
+                            foreach($this->fixedDebitTransfer as $fixedDebitTransfer) { 
+                            if($fixDval==0){ echo "<td>".$fixedDebitTransfer->productname."</td>";echo   "<td>".$fixedDebitTransfer->glcode."</td>";echo "<td></td>";  }
+
+                            ?>
+                            <TD align = "right" ><?php echo $fixedDebitTransfer->fixeddebit;
+                            $transferDedit = $transferDedit + $fixedDebitTransfer->fixeddebit; ?></TD>
+                            <?php }}
+                             else { echo "<td></td>";}
+
+                                ?>
+                    </TR>
+                    <TR>
+                            <?php $recval=0; foreach($this->recurringCredit as $recurringCredit) { ?>
+                            <TD ><?php echo $recurringCredit->productname ?></TD>
+                            <TD ><?php echo $recurringCredit->glcode ?></TD>
+                            <TD align = "right" ><?php  echo sprintf("%4.2f", $recurringCredit->recurringcredit); 
+                            $cashCredit = $cashCredit + $recurringCredit->recurringcredit; ?></TD>
+                            <?php $recval++;}
+                                    if($this->re){
+
+                             foreach($this->recurringCreditTransfer as $recurringCreditTransfer) { 
+                                    if($recval==0){ echo "<td>".$recurringCreditTransfer->productname."</td>";echo   "<td>".$recurringCreditTransfer->glcode."</td>";echo "<td></td>";  }
+
+
+                             ?>
+                            <TD align = "right"><?php echo $recurringCreditTransfer->recurringcredit;
+                            $transferCredit = $transferCredit + $recurringCreditTransfer->recurringcredit;?></TD>
+                            <?php }}
+    
+                            else { echo "<td></td>";}
+
+
+                            $recDval=0;
+                             foreach($this->recurringDebit as $recurringDebit) { ?>
+                            <TD ><?php echo $recurringDebit->productname ?></TD>
+                            <TD ><?php echo $recurringDebit->glcode ?></TD>
+                            <TD align = "right" ><?php echo $recurringDebit->recurringdebit;
+                            $cashDedit = $cashDedit + $recurringDebit->recurringdebit;?></TD>
+                            <?php $recDval++; } 
+
+                            if($this->re1){
+                            foreach($this->recurringDebitTransfer as $recurringDebitTransfer) { 
+                            if($recDval==0){ echo "<td>".$recurringDebitTransfer->productname."</td>";echo   "<td>".$recurringDebitTransfer->glcode."</td>";echo "<td></td>";  }
+
+                            ?>
+                            <TD align = "right" ><?php echo $recurringDebitTransfer->recurringdebit; 
+                            $transferDedit = $transferDedit + $recurringDebitTransfer->recurringdebit; ?></TD>
+                            <?php }}
+
+
+                                 else { echo "<td></td>";}
+                            ?>
+                    </TR>
+                    <!-- <TR>
+                           <TD >Loan</TD>
+                           <TD>4</TD>
+
+                           <?php /*foreach($this->laonCredit as $laonCredit) { ?>
+                           <?php if($laonCredit->loancredit) { ?>
+
+                           <TD align = "right" ><?php echo $laonCredit->loancredit;
+                           $cashCredit = $cashCredit + $laonCredit->loancredit; ?></TD>
+                           <?php } else { ?>
+                                           <TD align = "right" ></TD>
+                                   <?php } ?>
+
+                           <?php } foreach($this->laonCreditTransfer as $laonCreditTransfer) { ?>
+
+                           <TD align = "right"><?php echo $laonCreditTransfer->loancredit;
+                           $transferCredit = $transferCredit + $laonCreditTransfer->loancredit;?></TD>
+                           <?php } ?>
+
+                           <TD></TD>
+                           <?php foreach($this->loanDebit as $loanDebit) { ?>
+
+                           <TD ><?php echo $loanDebit->productname ?></TD>
+                           <TD ><?php echo $loanDebit->product_id ?></TD>
+                           <TD align = "right"><?php echo $loanDebit->loandebit;
+                           $cashDedit = $cashDedit + $loanDebit->loandebit;?></TD>
+                           <?php } foreach($this->loanDebitTransfer as $loanDebitTransfer) { ?>
+                           <TD align = "right" ><?php echo $loanDebitTransfer->loandebit;
+                           $transferDedit = $transferDedit + $loanDebitTransfer->loandebit; ?></TD>
+                           <?php }*/?>
+                   </TR>-->
+
+
+
+
+
+<TR>
+                           
+                            <?php $lcval=0; foreach($this->laonCredit as $laonCredit) { ?>
+
+						<TD ><?php echo $laonCredit->productname;?></TD>
+						<TD><?php echo $laonCredit->glsubcode_id;?></TD>
+						<TD align = "right" ><?php echo $laonCredit['loancredit']; 
+						$cashCredit = $cashCredit + $laonCredit['loancredit']; ?></TD>
+				    <?php $lcval++;
+                                                echo "<td></td>";
+                            }
+			    if($this->productname==''){
+				    foreach($this->laonCreditTransfer as $laonCreditTransfer) {
+						if($lcval==0){	?>
+                                                
+								    <TD ><?php  echo $laonCreditTransfer->productname;?></TD>
+								    <TD><?php echo $laonCreditTransfer->glsubcode_id;?></TD>
+								    <TD align = "right" ></TD><?php } ?>
+					    <TD align = "right"><?php   echo sprintf("%4.2f", $laonCreditTransfer['loancredit']);
+					    $transferCredit = $transferCredit + $laonCreditTransfer['loancredit'];?></TD>
+			    <?php        } }
+			    
+			    else { ?> <TD></TD> <TD></TD> <TD></TD> <TD></TD> <?php } ?>
+
+                      
+                            <?php $ldval=0;
+                             foreach($this->loanDebit as $loanDebit) { ?>
+
+				    <TD ><?php echo $loanDebit->productname?></TD>
+				    <TD ><?php echo $loanDebit->glsubcode_id ?></TD>
+				    
+				    <TD align = "right"><?php echo sprintf("%4.2f", $loanDebit['loandebit'])."-ld";
+				    $cashDedit = $cashDedit + $loanDebit['loandebit']; ?></TD>
+
+                            <?php  $ldval++; }  ?>
+
+					<?php foreach($this->loanDebitTransfer as $loanDebitTransfer) {
+                                                if($lcval==0){ echo "<TD></TD> <TD></TD> <TD></TD> <TD></TD>"; }
+                                                        if($ldval==0){
+                                                                 echo "<TD >".$loanDebitTransfer->productname."</TD>";
+								 echo "<TD >".$loanDebitTransfer->glsubcode_id."</TD>";
+								 echo "<TD align = right ></TD>";
+                                                                    }   
+                            ?>
+				  <TD align = "right" >  <?php echo sprintf("%4.2f", $loanDebitTransfer['loandebit']); 
+								    $transferDedit = $transferDedit + $loanDebitTransfer->loandebit;  } ?></TD>
+                          
+                    </TR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <TR>
+                            <TD ><b>Total</b></TD>
+                            <TD></TD>
+                            <?php if($cashCredit != "0") { ?>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $cashCredit); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                            <?php if($transferCredit != "0") { ?>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $transferCredit); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                            <TD ><b>Total</b></TD>
+                            <TD></TD>
+                            <?php if($cashDedit != "0") { ?>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $cashDedit); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                            <?php if($transferDedit != "0") { ?>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $transferDedit); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                    </TR>
+                    <TR>
+                            <TD ><b>Opening Cash</b></TD>
+                            <TD></TD>
+                            <?php if($this->openingBalance != "0") { ?>
+                            <TD align = "right" ><B><?php $ob = 0; echo $ob =  sprintf("%4.2f", $this->openingBalance); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                            <TD></TD>
+                            <TD ><b>Closing Cash</b></TD>
+                            <TD></TD>
+                            <?php if($this->closingBalance != "0") { ?>
+                            <TD align = "right" ><B><?php $cb = 0;  $cb = ($cashCredit+$ob) - $cashDedit ; $cb=sprintf("%4.2f", $cb); echo $cb;  ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                            <TD></TD>
+                    </TR>
+
+                    <TR>
+                            <TD ><b>Total</b></TD>
+                            <TD></TD>
+                            <?php if($cashCredit+$ob != "0") { ?>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $cashCredit+$ob); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                            <?php if($transferCredit != "0") { ?>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $transferCredit); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                            <TD ><b>Total</b></TD>
+                            <TD></TD>
+                            <?php if($cb != "0") { ?>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $cashCredit+$ob); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                            <?php if($transferDedit != "0") { ?>
+                            <TD align = "right" ><B><?php echo sprintf("%4.2f", $transferDedit); ?></B></TD>
+                            <?php } else { ?>
+                            <TD align = "right" ><B>----</B></TD>
+                            <?php } ?>
+                    </TR>
+
+                </form>
+            </table>
+</fieldset>
+
+
+<form action="<?php echo $this->baseUrl();?>/reports/daybook/pdftransaction/fromdate/<?php echo $this->fromdate;?>/todate/<?php echo $this->todate;?>" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/reports/daybook/reportdisplay/file/daybook3.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+                <input type="hidden" value="<?php echo $this->baseUrl();?>" name="baseurl">
+           <BR> <input type="submit" value="PDF" id="submit">
+
+
+</form>
+
+
+
+<?php } else {?>
+
+<fieldset>
+    <legend> search </legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+                <form action="<?php echo $this->baseUrl();?>/reports/daybook/index" method="POST">
+                    <TR>
+                            <TD >Date From</TD>
+                            <TD ><?php echo $this->form->field1;?></TD>
+                            <TD >Date To</TD>
+                            <TD ><?php echo $this->form->field2;?></TD>
+                    </TR>
+                    <TR>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ><?php echo $this->form->Search;?></TD>
+                    </TR>
+
+                </form>
+            </table>
+        </div>
+</fieldset>
+
+
+<?php } ?>
+
+
+
+

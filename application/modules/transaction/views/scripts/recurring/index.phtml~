@@ -1,0 +1,68 @@
+<?php if (!$this->recurringAccountsSearch )  { ?>
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="cont-rgt-data">
+                <form action="<?php echo $this->baseUrl();?>/index" method="POST">
+                    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <tr>
+                            <td>Account Number/Membercode</td>
+                            <td><?php echo $this->form->member_id;?></td>
+                        </tr>
+                        <tr>
+                            <TD colspan = "2"><?php echo $this->form->Search;?></TD>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+    </fieldset>
+	</div>
+	<?}?>
+<?php if ($this->membertype_ID==3) { ?>
+    <fieldset>
+        <legend> <?php echo $this->ZendTranslate->_("memberDetails"); ?> </legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <TR class="tdbrown">
+                        <TD width="20%"><?php echo $this->ZendTranslate->_("Name"); ?></TD>
+                        <TD width="20"><?php echo $this->groupname;?></TD>
+                    </TR>
+                    <TR class="tdbrown">
+                        <TD width="20%"><?php echo $this->ZendTranslate->_("code"); ?></TD>
+                        <TD width="20"><?php echo $this->membercode;?></TD>
+                    </TR>
+                </table>
+            </div>
+</fieldset>
+<? }?>
+<?php if ($this->membertype_ID==4 ) { ?>
+    <fieldset>
+        <legend> <?php echo $this->ZendTranslate->_("memberDetails"); ?> </legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <TR class="tdbrown">
+                            <TD width="20%"><?php echo $this->ZendTranslate->_("Name"); ?></TD>
+                            <TD width="20"><?php echo $this->memberfirstname;?></TD>
+                        <TR class="tdbrown">
+                            <TD width="20%"><?php echo $this->ZendTranslate->_("code"); ?></TD>
+                            <TD width="20"><?php echo $this->membercode;?></TD>
+                        </TR>
+               </table>
+            </div>
+        </fieldset>
+<? } ?>
+<?php if ($this->membertype_ID==3 || $this->membertype_ID==4 ) { ?>
+<fieldset>
+    <legend> <?php echo $this->ZendTranslate->_("recurringAccounts"); ?> </legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                <TR>
+                    <td><span class="reqMark"><?php echo $this->ZendTranslate->_("Account"); ?></span></td><td><span class="reqMark"><?php echo $this->ZendTranslate->_("Productname"); ?></span></td></TR>
+                    <?php foreach($this->accountIDFetch as $arrayroles2)  { ?>
+<TR><TD><a href="<?php echo $this->baseUrl();?>/index/recurring/accountId/<?php echo base64_encode($arrayroles2->account_id);?>/productId/<?php echo base64_encode($arrayroles2->product_id);?>"><?php echo $arrayroles2->account_number;?></a></TD>
+                <TD><?php echo $this->offerproductname;?></TD></TR>
+                <? } ?>
+        </table>
+    </div>
+</fieldset>
+<? } ?>

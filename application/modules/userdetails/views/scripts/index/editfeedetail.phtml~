@@ -1,0 +1,37 @@
+ <div id="container-1">
+<form action="<?php echo $this->baseUrl();?>/feedetails/index/editfeedetail/id/<?php echo $this->fee_id; ?>" method="POST">
+
+             <fieldset>
+				<legend>edit Fee Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+                       <div id="hor-minimalist-b">
+<fieldset>
+		<table style="float:left">
+	<?php echo $this->form->fee_id;?>
+		<TR >	
+				<td class="label" align="right" width="40%">Fee Name:<span class="reqMark">*</span></td><TD><?php echo $this->form->feename;?></TD>
+			</TR>
+
+		
+
+		<TR >
+				<TD class="label" align="right" width="40%">Fee description<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->form->feedescription;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+
+                <TR >
+				<TD class="label" align="right" width="40%">Amount<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->form->feeamount;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+ <TR >
+				<TD class="label" align="right" width="40%">member type<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->form->feeamount;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+ 
+
+				<TD ><?php echo $this->form->Update;?></TD>
+
+</table>
+</fieldset>
+</div>

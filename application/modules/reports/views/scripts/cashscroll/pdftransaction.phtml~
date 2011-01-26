@@ -1,0 +1,173 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if($this->savings) { ?>
+
+<div style="float:left;width:380px">
+<fieldset>
+    <legend>Receipt List</legend>
+            <?php $amountCredit = "0";
+              $amountDebit = "0";
+            ?>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH >V No.</TH>
+            <TH >Receipt</TH>
+            <TH class = "label">Amount</TH>
+        </TR>
+        <?php foreach($this->savingsCredit as $savingsCredit) { ?>
+        <TR>
+            <TD ><?php echo $savingsCredit->transaction_id ?></TD>
+            <TD ><?php echo $savingsCredit->account_number ?></TD>
+            <TD align = "right"><?php echo $amountCredit = $savingsCredit->transaction_amount?></TD>
+        </TR>
+        <?php } ?>
+
+        <?php foreach($this->fixedCredit as $fixedCredit) { ?>
+        <TR>
+            <TD ><?php echo $fixedCredit->transaction_id ?></TD>
+            <TD ><?php echo $fixedCredit->account_number ?></TD>
+            <TD align = "right" ><?php echo $fixedCredit->transaction_amount;
+            $amountCredit = $amountCredit + $fixedCredit->transaction_amount; ?></TD>
+        </TR>
+        <?php } ?>
+        <?php foreach($this->recurringCredit as $recurringCredit) { ?>
+        <TR>
+             <TD ><?php echo $recurringCredit->transaction_id ?></TD>
+             <TD ><?php echo $recurringCredit->account_number ?></TD>
+             <TD align = "right" ><?php echo $recurringCredit->transaction_amount;
+             $amountCredit = $amountCredit + $recurringCredit->transaction_amount; ?></TD>
+        </TR>
+        <?php } ?>
+        <?php foreach($this->laonCredit as $laonCredit) { ?>
+        <TR>
+            <TD ><?php echo $laonCredit->transaction_id ?></TD>
+            <TD ><?php echo $laonCredit->account_number ?></TD>
+            <TD align = "right" ><?php echo $laonCredit->transaction_amount;
+            $amountCredit = $amountCredit + $laonCredit->transaction_amount; ?></TD>
+        </TR>
+        <?php } ?>
+        <TR>
+            <TD ><B>Opening Balance</B></TD>
+            <TD></TD>
+            <TD align = "right"><?php $total =0;
+            echo $total = sprintf("%4.2f", $this->openingBalance)?></TD>
+            ?></TD>
+        </TR>
+        <TR>
+             <TD >Total</TD></TD>
+             <TD></TD>
+             <?php if($amountCredit+$total != "0") { ?>
+             <TD align = "right" ><B><?php echo sprintf("%4.2f", $amountCredit+$total); ?></B></TD>
+             <?php } else { ?>
+             <TD align = "right" ><B>----</B></TD>
+             <?php } ?>
+        </TR>
+    </table>
+
+</fieldset>
+</div>
+<div style="float:left;width:380px">
+<fieldset>
+    <legend>Payments List</legend>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH >V No.</TH>
+            <TH >Payments</TH>
+            <TH class = "label">Amount</TH>
+        </TR>
+        <?php foreach($this->savingsDebit as $savingsDebit) { ?>
+        <TR>
+            <TD ><?php echo $savingsDebit->transaction_id; ?></TD>
+            <TD ><?php echo $savingsDebit->account_number; ?></TD>
+            <TD align = "right" ><?php echo $amountDebit = $savingsDebit->transaction_amount; ?></TD>
+        </TR>
+        <?php } ?>
+
+        <?php  foreach($this->fixedDebit as $fixedDebit) { ?>
+        <TR>
+            <TD ><?php echo $fixedDebit->transaction_id; ?></TD>
+            <TD ><?php echo $fixedDebit->account_number; ?></TD>
+            <TD align = "right" ><?php echo $fixedDebit->transaction_amount; 
+            $amountDebit = $amountDebit + $fixedDebit->transaction_amount; ?></TD>
+        </TR>
+        <?php } ?>
+         <?php foreach($this->recurringDebit as $recurringDebit) { ?>
+        <TR>
+            <TD ><?php echo $recurringDebit->transaction_id ?></TD>
+            <TD ><?php echo $recurringDebit->account_number ?></TD>
+            <TD align = "right" ><?php echo $recurringDebit->transaction_amount;
+            $amountDebit = $amountDebit + $recurringDebit->transaction_amount; ?></TD>
+                            
+        </TR>
+        <?php } ?>
+         <?php  foreach($this->loanDebit as $loanDebit) { ?>
+         <TR>
+            <TD ><?php echo $loanDebit->transaction_id ?></TD>
+            <TD ><?php echo $loanDebit->account_number ?></TD>
+            <TD align = "right"><?php echo $loanDebit->transaction_amount;
+            $amountDebit = $amountDebit + $loanDebit->transaction_amount; ?></TD>
+         </TR>
+         <?php } ?>
+        <TR>
+            <TD ><B>Closing Balance</B></TD>
+            <TD></TD>
+            <TD align = "right"><?php $closingtotal =0; 
+            echo $closingtotal = ($amountCredit+$total) - $amountDebit ?></TD>
+        </TR>
+        <TR>
+             <TD ><b>Total</b></TD>
+             <TD></TD>
+             <?php if($amountDebit+$closingtotal != "0") { ?>
+             <TD align = "right" ><B><?php echo sprintf("%4.2f", $amountDebit+$closingtotal); ?></B></TD>
+             <?php } else { ?>
+             <TD align = "right" ><B>----</B></TD>
+             <?php } ?>
+        </TR>
+    </table>
+</div>
+</fieldset>
+<?php } else {?>
+
+<fieldset>
+    <legend> search </legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+                <form action="<?php echo $this->baseUrl();?>/reports/cashscroll" method="POST">
+                    <TR>
+                            <TD >Date From</TD>
+                            <TD ><?php echo $this->form->field1;?></TD>
+                            <TD >Date To</TD>
+                            <TD ><?php echo $this->form->field2;?></TD>
+                    </TR>
+                    <TR>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ><?php echo $this->form->Search;?></TD>
+                    </TR>
+
+                </form>
+            </table>
+        </div>
+</fieldset>
+
+
+<?php } ?>
+
+

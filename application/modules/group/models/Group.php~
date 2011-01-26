@@ -1,0 +1,25 @@
+<?php
+class Group_Model_Group extends Zend_Db_Table {
+    protected $_name = 'ob_member';
+
+    public function getGroupDetails() {
+	$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_group'),array('id'),array('id as groupid','groupcode','group_name'))
+			->join(array('b' => 'ob_bank'),'a.bank_id = b.id')
+			->order(array('a.id DESC'));   
+	//die($select->__toString());		
+	return $this->fetchAll($select);
+    }
+
+    public function searchDetails($post) { 
+	$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('b' => 'ob_group'),array('id'),array('id as groupid','groupcode','group_name'))
+			->where('b.groupcode like "%" ? "%"',$post['groupcode'])
+			->where('b.group_name like "%" ? "%"',$post['groupname']);   
+ 	die($select->__toString());		
+// 	return $this->fetchAll($select);
+    }
+
+ }

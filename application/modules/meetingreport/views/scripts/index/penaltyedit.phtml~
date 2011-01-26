@@ -1,0 +1,45 @@
+
+
+
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Penalty EDIT</legend>
+	<form action="<?php echo $this->baseUrl();?>/penalty/index/penaltyedit/penalty_id/<?php echo $this->penalty_id;?>/creditline_id/<?php echo $this->creditline_id;?>" method="POST">
+		<table style="float:left">
+			<tr>
+				<td colspan="5" class="td_border">Penalty</td>
+			</tr>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->penaltyname;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Per Month<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->penalty_per_month;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			
+				<TD class="label" align="right" width="40%">Unit / Month<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->unit_per_month;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Per Day<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->penalty_per_day;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			
+				<TD class="label" align="right" width="40%">Unit / Day<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->unit_per_day;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%">Credit Line Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->creditlinename;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%">Active<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->status;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%"></TD>
+				<TD ><?php echo $this->penaltyform->Submit;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+		</table>
+	</form>
+</fieldset>

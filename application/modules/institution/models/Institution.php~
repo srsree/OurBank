@@ -1,0 +1,15 @@
+<?php
+class Institution_Model_Institution extends Zend_Db_Table 
+{
+    protected $_name = 'ob_institution';
+        
+    public function search($name)
+    {
+		$select = $this->select()
+					->setIntegrityCheck(false)  
+					->join(array('a' => 'ob_institution'),array('id '))
+                	->where('a.name like "%" ? "%"',$name)
+					->order('id DESC');
+		return $this->fetchAll($select);
+    }
+}

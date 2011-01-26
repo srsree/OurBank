@@ -1,0 +1,22 @@
+
+<?php class Overduelist_Form_Search extends Zend_Form 
+{
+
+	public function init() 
+	{
+
+		$vtype=array('Alpha','StringLength');
+		$formfield = new App_Form_Field ();
+
+// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+
+		
+	
+        $officebranch = $formfield->field('Select','bank_id','','','mand','',true,'','','','','',1,0);
+        $loanofficer = $formfield->field('Select','loanofficer','','','mand','',true,'','','','','',1,0);
+        $date = $formfield->field('Text','dater','','','mand','',true,'','','','','',1,0);
+
+					
+	$this->addElements(array($loanofficer,$officebranch,$date));
+    }
+}

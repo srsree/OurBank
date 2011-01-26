@@ -1,0 +1,1002 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Superfish - Suckerfish on 'roids</title>
+<meta name="description" content="A demonstration of Superfish, a jQuery plugin by Joel Birch that creates Suckerfish-style dropdown menus with added features." />
+<link rel="stylesheet" type="text/css" media="screen" href="../assets/css/jq.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../assets/css/tabs.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/superfish.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/superfish-vertical.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/superfish-navbar.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.tabs.pack.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.history.pack.js"></script>
+
+<script type="text/javascript" src="../assets/js/chili-1.7.pack.js"></script>
+<script type="text/javascript" src="../assets/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="js/superfish.js"></script>
+<script type="text/javascript" src="../supersubs/js/supersubs.js"></script>
+
+<script type="text/javascript">
+
+$(function() {
+	if ($.browser.mozilla && parseFloat($.browser.version) < 1.9 && navigator.appVersion.indexOf('Mac') !== -1) $('body').css('-moz-opacity',.999);
+	
+	// alter default so arrow mark-up is not generated for this demo.
+	// so many menu items (total of all examples) could slow initialisation performance
+	// so arrow mark-up will be generated manually. Could go without arrows altogether
+	// but that would risk people not finding the examples that show arrow support.
+	$.fn.superfish.defaults.autoArrows = false;
+
+	// initialise supersubs before it gets hidden by tabs or superfish. Need to measure widths while visible.
+	$('#sample-menu-5').supersubs({
+		minWidth:    12,
+		maxWidth:    27,
+		extraWidth:  1
+	}).superfish();	
+	
+    // initialise the tabs
+    var main = $('#main').tabs(1);
+    $('#samples').tabs( { selectedClass: 'sample-tab-selected', bookmarkable: true });
+
+	// initialise examples
+	$('#sample-menu-1').superfish({
+		autoArrows : true // emulate default behaviour for this example
+	});
+
+	$('#sample-menu-2')
+	.superfish().find("ul").bgIframe({opacity:false}); // add this bit for bgIframe support only
+
+	$('#sample-menu-3').superfish({
+		animation: {height:'show'},
+		delay: 1200
+	});
+	
+	$('#sample-menu-4').superfish({
+		pathClass: 'current'
+	});	
+
+	/*$('.sf-menu a').addClass('sf-with-ul');*/
+});
+
+</script>
+</head>
+<body>
+<h1 id="banner">Superfish v1.4.8 <small>&#8211; jQuery menu plugin by Joel Birch</small></h1>
+
+<div id="main">
+    <ul id="nav" class="anchors">
+	    <li><a href="#getting-started">Getting Started</a></li>
+	    <li><a href="#options">Options</a></li>
+	    <li><a href="#examples">Examples</a></li>
+	    <li><a href="#faq">FAQ</a></li>
+	    <li><a href="#download">Download &amp; Support</a></li>
+
+		<li id="donate">
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="hosted_button_id" value="2006952">
+			<input type="image" src="https://www.paypal.com/en_AU/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="Donate">
+			</form>
+		</li>
+    </ul>
+    <div id="getting-started" class="tabContent">
+
+        <h1>Overview</h1>
+        <p>Superfish is an enhanced Suckerfish-style menu jQuery plugin that takes an existing pure CSS drop-down menu (so it degrades gracefully without JavaScript) and adds the following much-sought-after enhancements:</p>
+        <ul>
+			<li><a class="external" href="http://alistapart.com/articles/dropdowns">Suckerfish</a>-style <strong>hover support for IE6</strong>. The class added is &#8220;sfHover&#8221; by default but can be changed via the options object,</li>
+
+			<li><strong>Timed delay on mouseout</strong> to be more forgiving of mouse-piloting errors. Default is 800 milliseconds but can be changed via the options object</li>
+			<li><strong>Animation</strong> of sub-menu reveal. uses a fade-in by default but can be given a custom object to be used in the first argument of the animate function. The animation speed is also customisable but is set to &#8220;normal&#8221; by default</li>
+			<li><strong>Keyboard accessibility</strong>. Tab through the links and the relevant sub-menus are revealed and hidden as needed</li>
+
+			<li>Supports the <strong>hoverIntent plugin</strong>. Superfish automatically detects the presence of Brian Cherne&#8217;s <a class="external" href="http://cherne.net/brian/resources/jquery.hoverIntent.html" title="visit the home of hoverIntent">hoverIntent plugin</a> and uses its advanced hover behaviour for the mouseovers (mouseout delays are handled by Superfish regardless of the presence of hoverIntent). Using this is only an option, but a nice one. The examples on this page <em>are</em> using hoverIntent. If for some reason you want to use hoverIntent on your page for other plugins but do not want Superfish to use it you can set the option <code>disableHI</code> to <code>true</code>.</li>
+
+			<li><strong>Indicates the presence of sub-menus</strong> by automatically adding arrow images to relevant anchors. Arrows are fully customisable via CSS. You can turn off auto-generation of the arrow mark-up via the &#8220;autoArrows&#8221; option if required.</li>
+			<li><strong>drop shadows</strong> for capable browsers &#8211; degrades gracefully for Internet Explorer 6. Can disable shadows completely via options object.</li>
+			<li>Can <strong>show the path to your current page</strong> while the menu is idle. The easiest way to understand this is to view the nav-bar example.</li>
+
+			<li>Optional <strong>callback functions</strong>. The 'this' keyword within the handlers you attach will refer to the animated ul sub-menu. From version 1.4 there are now three other optional callbacks allowing for further enhancements and functionality to be added without needing to alter the core Superfish code.</li>
+		</ul>
+        <h1>Quick Start Guide</h1>
+		<ol class="steps">
+	        <li class="step-one">
+	        	Begin with a working pure CSS dropdown menu just like you would if creating a Suckerfish menu - ie. for each li:hover selector, add an equivalent li.sfHover selector. To make this step easy, there are cross-browser CSS files for a variety of menu types available in the download section of this site.
+	        </li>
+
+	        <li class="step-two">
+	        	Link to the superfish.js file using a script tag in the head of your document.
+                <pre><code class="mix">&lt;script type="text/javascript" src="superfish.js"&gt;&lt;/script&gt;</code></pre>
+	        </li>
+	        <li class="step-three">
+				Call superfish() on the containing <acronym title="unordered list">ul</acronym> element.
+				<pre><code class="mix">&lt;script type="text/javascript"&gt;
+
+	$(document).ready(function() {
+		$('ul.sf-menu').superfish();
+	});
+
+&lt;/script&gt;</code></pre>
+			There are many options available to customise your menu. You can find out about them in the Options tab of this site.
+			</li>
+        </ol>
+    </div>
+
+    <div id="options" class="tabContent">
+        <h1>Options</h1>
+
+        <p>Superfish&#8217;s default options:</p>
+        <pre><code class="mix">$.fn.superfish.defaults = {
+	hoverClass:    'sfHover',          // the class applied to hovered list items
+	pathClass:     'overideThisToUse', // the class you have applied to list items that lead to the current page
+	pathLevels:    1,                  // the number of levels of submenus that remain open or are restored using pathClass
+	delay:         800,                // the delay in milliseconds that the mouse can remain outside a submenu without it closing
+	animation:     {opacity:'show'},   // an object equivalent to first parameter of jQuery&#8217;s .animate() method
+	speed:         'normal',           // speed of the animation. Equivalent to second parameter of jQuery&#8217;s .animate() method
+	autoArrows:    true,               // if true, arrow mark-up generated automatically = cleaner source code at expense of initialisation performance
+	dropShadows:   true,               // completely disable drop shadows by setting this to false
+	disableHI:     false,              // set to true to disable hoverIntent detection
+	onInit:        function(){},       // callback function fires once Superfish is initialised &#8211; 'this' is the containing ul
+	onBeforeShow:  function(){},       // callback function fires just before reveal animation begins &#8211; 'this' is the ul about to open
+	onShow:        function(){},       // callback function fires once reveal animation completed &#8211; 'this' is the opened ul
+	onHide:        function(){}        // callback function fires after a sub-menu has closed &#8211; 'this' is the ul that just closed
+};</code></pre>
+
+		<p>You can override any of these options by passing an object into the Superfish method upon initialisation. For example:</p>
+		<pre><code class="mix">//link to the CSS files for this menu type
+&lt;link rel="stylesheet" type="text/css" media="screen" href="superfish.css" /&gt;
+
+// link to the JavaScript files (hoverIntent is optional)
+&lt;script type="text/javascript" src="hoverIntent.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="superfish.js"&gt;&lt;/script&gt;
+
+// initialise Superfish
+
+&lt;script type="text/javascript"&gt;
+
+	$(document).ready(function() {
+		$('ul.sf-menu').superfish({
+			delay:       1000,                            // one second delay on mouseout
+			animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation
+			speed:       'fast',                          // faster animation speed
+			autoArrows:  false,                           // disable generation of arrow mark-up
+			dropShadows: false                            // disable drop shadows
+		});
+	});
+
+&lt;/script&gt;</code></pre>
+    </div>
+
+    <div id="examples" class="tabContent">
+        <h1>Examples</h1>
+
+        <div id="samples">
+
+            <ul class="sampleAnchors">
+                <li><a href="#sample1">basic style</a></li>
+                <li><a href="#sample2">with BgIframe</a></li>
+                <li><a href="#sample3">vertical style</a></li>
+                <li><a href="#sample4">nav-bar style</a></li>
+                <li><a href="#sample5">with Supersubs</a></li>
+
+            </ul>
+     
+
+       		<div id="sample1" class="sampleTabContent">
+				<h2>The result:</h2>
+				<ul id="sample-menu-1" class="sf-menu">
+					<li class="current">
+						<a href="#a">menu item</a>
+						<ul>
+							<li>
+
+								<a href="#aa">menu item</a>
+							</li>
+							<li class="current">
+								<a href="#ab">menu item</a>
+								<ul>
+									<li class="current"><a href="#">menu item</a></li>
+									<li><a href="#aba">menu item</a></li>
+
+									<li><a href="#abb">menu item</a></li>
+									<li><a href="#abc">menu item</a></li>
+									<li><a href="#abd">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#">menu item</a>
+
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+								</ul>
+							</li>
+							<li>
+								<a href="#">menu item</a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+
+					<li>
+						<a href="#">menu item</a>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+						<ul>
+							<li>
+								<a href="#">menu item</a>
+
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+								</ul>
+							</li>
+							<li>
+								<a href="#">menu item</a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#">menu item</a>
+
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+								</ul>
+							</li>
+							<li>
+								<a href="#">menu item</a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#">menu item</a>
+
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+					</li>	
+				</ul>
+				<h2>The code:</h2>
+
+				<p>The simplest use, and a good starting point for new users:</p>
+				<pre><code class="mix">//link to the CSS files for this menu type
+&lt;link rel="stylesheet" type="text/css" media="screen" href="superfish.css" /&gt;
+
+// link to the JavaScript files (hoverIntent is optional)
+&lt;script type="text/javascript" src="hoverIntent.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="superfish.js"&gt;&lt;/script&gt;
+
+// initialise Superfish
+
+&lt;script type="text/javascript"&gt;
+
+	$(document).ready(function(){
+		$("ul.sf-menu").superfish();
+	});
+
+&lt;/script&gt;</code></pre>	
+            </div>
+
+
+            <div id="sample2" class="sampleTabContent">
+				<h2>The result:</h2>
+				<ul id="sample-menu-2" class="sf-menu">
+
+					<li class="current">
+						<a class="sf-with-ul" href="#a">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li>
+								<a href="#aa">menu item</a>
+							</li>
+							<li class="current">
+
+								<a class="sf-with-ul" href="#ab">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li class="current"><a href="#">menu item</a></li>
+									<li><a href="#aba">menu item</a></li>
+									<li><a href="#abb">menu item</a></li>
+									<li><a href="#abc">menu item</a></li>
+
+									<li><a href="#abd">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+					</li>
+
+					<li>
+						<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+						</ul>
+
+					</li>
+					<li>
+						<a href="#">menu item</a>
+					</li>	
+				</ul>
+				<p>Viewing this example in Internet Explorer will show that the sub-menus appear above the <code>&lt;select&gt;</code> elements, as they should.</p>
+				<form action="#" method="post">
+
+					<p>
+						<select>
+							<option>a test select box</option>
+							<option>a test select box</option>
+						</select>
+						<select>
+							<option>a test select box</option>
+
+							<option>a test select box</option>
+						</select>
+						<select>
+							<option>a test select box</option>
+							<option>a test select box</option>
+						</select>
+						<select>
+
+							<option>a test select box</option>
+							<option>a test select box</option>
+						</select>
+					</p>
+				</form>
+				<h2>The code:</h2>
+				<p>If your layout makes it likely that the sub-menus will be required to overlap <code>&lt;select&gt;</code> form elements you will run into a bug in Internet Explorer 6 whereby the select elements appear above the sub-menus. You can fix this by applying Brandon Aaron&#8217;s <a href="http://brandonaaron.net/jquery/plugins/bgiframe/docs/">bgIframe plugin</a> like this:</p>
+
+				<pre><code class="mix">//link to the CSS files for this menu type
+&lt;link rel="stylesheet" type="text/css" media="screen" href="superfish.css" /&gt;
+
+// link to the JavaScript files (hoverIntent is optional)
+&lt;script type="text/javascript" src="hoverIntent.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="jquery.bgiframe.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="superfish.js"&gt;&lt;/script&gt;
+
+// initialise Superfish
+
+&lt;script type="text/javascript"&gt;
+
+	$(document).ready(function(){
+		$("ul.sf-menu").superfish().find('ul').bgIframe({opacity:false});
+	});
+
+&lt;/script&gt;</code></pre>	
+            </div>
+
+
+            <div id="sample3" class="sampleTabContent">
+				<h2>The result:</h2>
+				<ul id="sample-menu-3" class="sf-menu sf-vertical">
+
+					<li class="current">
+						<a class="sf-with-ul" href="#a">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li>
+								<a href="#aa">menu item</a>
+							</li>
+							<li class="current">
+
+								<a class="sf-with-ul" href="#ab">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li class="current"><a href="#">menu item</a></li>
+									<li><a href="#aba">menu item</a></li>
+									<li><a href="#abb">menu item</a></li>
+									<li><a href="#abc">menu item</a></li>
+
+									<li><a href="#abd">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+					</li>
+
+					<li>
+						<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+						</ul>
+
+					</li>
+					<li>
+						<a href="#">menu item</a>
+					</li>	
+				</ul>
+				<h2>The code:</h2>
+				<p>To create an all-vertical menu, simply add the class <code>sf-vertical</code> to the parent ul along with the usual <code>sf-menu</code> class (space-separated, eg. class="sf-menu sf-vertical"), and initialise as normal. For this example I will also demonstrate altering some of the options in order to create a slide-down animation and a longer delay on mouseout:</p>
+
+				<pre><code class="mix">//link to the CSS files for this menu type
+&lt;link rel="stylesheet" type="text/css" media="screen" href="superfish.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" media="screen" href="superfish-vertical.css" /&gt;
+
+// link to the JavaScript files (hoverIntent is optional)
+&lt;script type="text/javascript" src="hoverIntent.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="superfish.js"&gt;&lt;/script&gt;
+
+// initialise Superfish
+
+&lt;script type="text/javascript"&gt;
+
+	$(document).ready(function(){
+		$("ul.sf-menu").superfish({
+			animation: {height:'show'},   // slide-down effect without fade-in
+			delay:     1200               // 1.2 second delay on mouseout
+		});
+	});
+
+&lt;/script&gt;</code></pre>	
+            </div>
+
+
+            <div id="sample4" class="sampleTabContent">
+				<h2>The result:</h2>
+				<ul id="sample-menu-4" class="sf-menu sf-navbar">
+
+					<li>
+						<a class="sf-with-ul" href="#">long menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li><a href="#">subitem 1a</a></li>
+							<li><a href="#">subitem 1b</a></li>
+							<li><a href="#">subitem 1c</a></li>
+
+							<li><a href="#">subitem 1d</a></li>
+						</ul>
+					</li>
+					<li class="current">
+						<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li>
+
+								<a class="sf-with-ul" href="#">subitem 2a<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#aba">menu item</a></li>
+									<li><a href="#abb">menu item</a></li>
+									<li><a href="#abc">menu item</a></li>
+
+									<li><a href="#abd">menu item</a></li>
+								</ul>
+							</li>
+							<li class="current">
+								<a class="sf-with-ul" href="#">path to current<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#aba">menu item</a></li>
+									<li><a href="#abb">menu item</a></li>
+									<li class="current"><a href="#abc">current page</a></li>
+									<li><a href="#abd">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+
+								<a class="sf-with-ul" href="#">subitem 2c<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#aba">menu item</a></li>
+									<li><a href="#abb">menu item</a></li>
+									<li><a href="#abc">menu item</a></li>
+
+									<li><a href="#abd">menu item</a></li>
+								</ul>
+							</li>
+							<li><a href="#">subitem 2d</a></li>
+						</ul>
+					</li>
+					<li>
+						<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+
+						<ul>
+							<li><a href="#">if no subitems, duplicate parent item href and use this as descriptive label</a></li>
+						</ul>
+					</li>
+					<li>
+						<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+
+							<li><a href="#">subitem 4a</a></li>
+							<li><a href="#">subitem 4b</a></li>
+							<li><a href="#">subitem 4c</a></li>
+							<li><a href="#">subitem 4d</a></li>
+						</ul>
+					</li>
+					<li>
+
+						<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li><a href="#">subitem 5a</a></li>
+							<li><a href="#">subitem 5b</a></li>
+							<li><a href="#">subitem 5c</a></li>
+							<li><a href="#">subitem 5d</a></li>
+
+						</ul>
+					</li>
+				</ul>
+				<p>Notice that if you disable JavaScript this menu degrades very nicely &#8211; as do all the other examples.</p>
+				<h2>The code:</h2>
+				<p>To create a horizontal nav-bar with a horizontal second tier and optional vertical third tier, simply include the superfish-navbar.css file after the main superfish.css file and add the class <code>sf-navbar</code> to the parent ul along with the usual <code>sf-menu</code> class (space-separated, eg. class="sf-menu sf-navbar"), and initialise as normal.</p>
+
+				<p>A nice option to add to this types of menu is restoring the relevant sub-menu when the user is not exploring other sub-menus. This can be done by telling Superfish the name of the class you are adding to the relevant <code>&lt;li&gt;</code> elements to indicate the path to the current page. I often have the server add the class name 'current' for this purpose, so I would initialise this menu thusly:</p>
+				<pre><code class="mix">//link to the CSS files for this menu type
+&lt;link rel="stylesheet" type="text/css" media="screen" href="superfish.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" media="screen" href="superfish-navbar.css" /&gt;
+
+// link to the JavaScript files (hoverIntent is optional)
+&lt;script type="text/javascript" src="hoverIntent.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="superfish.js"&gt;&lt;/script&gt;
+
+// initialise Superfish
+&lt;script type="text/javascript"&gt;
+
+	$(document).ready(function(){
+		$("ul.sf-menu").superfish({
+			pathClass:  'current'
+		});
+	});
+
+&lt;/script&gt;</code></pre>	
+            </div>
+
+
+            <div id="sample5" class="sampleTabContent">
+
+				<h2>The result:</h2>
+				<ul id="sample-menu-5" class="sf-menu">
+					<li class="current">
+						<a class="sf-with-ul" href="#a">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li>
+								<a href="#aa">menu item that is quite long</a>
+
+							</li>
+							<li class="current">
+								<a class="sf-with-ul" href="#ab">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li class="current"><a href="#">menu item that is even longer still!</a></li>
+									<li><a href="#aba">menu item</a></li>
+									<li><a href="#abb">menu item</a></li>
+
+									<li><a href="#abc">menu item</a></li>
+									<li><a href="#abd">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+
+					</li>
+					<li>
+						<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+						<ul>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+
+									<li><a href="#">short</a></li>
+									<li><a href="#">short</a></li>
+									<li><a href="#">short</a></li>
+									<li><a href="#">short</a></li>
+									<li><a href="#">short</a></li>
+								</ul>
+
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="sf-with-ul" href="#">menu item<span class="sf-sub-indicator"> &#187;</span></a>
+								<ul>
+
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+									<li><a href="#">menu item</a></li>
+								</ul>
+
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+					</li>	
+				</ul>
+				<h2>The code:</h2>
+
+				<p>This menu uses the optional Supersubs plugin (currently beta) to make the sub-menu widths variable. The fixed width set in the CSS is overridden and all menu items within a sub-menu are altered to match the width of their widest sibling. This is most commonly used to make all menu items fit on one line so that they are all of equal height.</p>
+				<p>Note that Supersubs needs to be called before Superfish in the initialisation chain, as shown below:</p>
+				<pre><code class="mix">//link to the CSS files for this menu type
+&lt;link rel="stylesheet" type="text/css" media="screen" href="superfish.css" /&gt;
+
+// link to the JavaScript files (hoverIntent is optional)
+&lt;script type="text/javascript" src="hoverIntent.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="superfish.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="supersubs.js"&gt;&lt;/script&gt;
+
+// initialise Superfish
+&lt;script type="text/javascript"&gt;
+
+	$(document).ready(function(){
+		$("ul.sf-menu").supersubs({
+			minWidth:    12,   // minimum width of sub-menus in em units
+			maxWidth:    27,   // maximum width of sub-menus in em units
+			extraWidth:  1     // extra width can ensure lines don't sometimes turn over
+                               // due to slight rounding differences and font-family
+		}).superfish();  // call supersubs first, then superfish, so that subs are
+                         // not display:none when measuring. Call before initialising
+                         // containing tabs for same reason.
+	});
+
+&lt;/script&gt;</code></pre>	
+            </div>
+
+		</div>
+	</div>
+
+    <div id="faq" class="tabContent">
+        <h1>Frequently Asked Questions</h1>
+        <dl>
+	        <dt>Which versions of jQuery is the Superfish plugin compatible with?</dt>
+	        <dd>The Superfish plugin is compatible with jQuery v1.2 and later.</dd>
+	
+	        <dt>Does the Superfish plugin have any dependencies on other plugins?</dt>
+
+	        <dd>Nope.</dd>	
+
+	        <dt>Does the Superfish plugin work with any other plugins?</dt>
+			<dd>Yes &#8211; here are a few useful plugins that you may wish to add to your menu:
+				<ol>
+	        		<li><strong>HoverIntent</strong>. The nicest thing you can do for your menu is include Brian Cherne&#8217;s <a class="external" href="http://cherne.net/brian/resources/jquery.hoverIntent.html">hoverIntent plugin</a> in your page and Superfish will automatically use it to make the user interaction more pleasing.</li>
+
+					<li><strong>$.event.special.hover</strong>. A new and improved special event implementation Brian Cherne&#8217;s "hoverIntent" plugin. <a class="external" href="http://plugins.jquery.com/project/hover">$.event.special.hover</a> simply overrides jQuery&#8217;s regular hover() function, so just link to this plugin and Superfish will use it automatically.</li>
+					<li><strong>Supersubs</strong>. If you want the submenu widths to change to suit their contents, you can add the Supersubs plugin as shown in the example of the same name on this site.</li>
+	        		<li><strong>BgIframe</strong>. Another plugin you may need is Brandon Aaron&#8217;s <a class="external" href="http://brandonaaron.net/jquery/plugins/bgiframe/docs/">bgIframe plugin</a>. This will solve the Internet Explorer bug described in the &#8216;bgIframe&#8217; example on this site. 90% of people will not need this (yes I made up that statistic).</li>
+
+				</ol>
+			</dd>
+			
+			<dt>How can I make the menu look better?</dt>
+			<dd>The demo style is very basic by design &#8211; you should use it as a base to build upon and skin it to suit your project. I strongly recommend testing in Internet Explorer 6 in addition to modern browsers at every step of the way so that when IE6 bugs occur you can tell which CSS rules trigger them and work around them before moving on.</dd>
+
+			<dt>What if something goes wrong?</dt>
+			<dd>The cause of 99.9% of all Superfish problems are basic CSS issues. Disable JavaScript and concentrate on getting the menu working in pure CSS. If you are not a CSS expert then I advise that you follow the method described in the previous question&#8217;s answer, ie. begin with the demo CSS file and make small incremental changes, checking in a variety of browsers at every step.</dd>
+
+			
+			<dt>In Internet Explorer the submenus appear underneath main content div. Why? How do I solve it?</dt>
+			<dd>This very common issue is thanks to the IE Z-index Bug and the solution does not involve adjusting any of the Superfish code, but rather, you need to apply certain CSS to some of your main site structure elements (usually the header div and the main content div). Please follow this link to an article that clearly explains the <a class="external" href="http://webdemar.com/webdesign/superfish-jquery-menu-ie-z-index-bug/">IE z-index bug fix for Superfish</a>.</dd>
+			
+			<dt>What if I still need help?</dt>
+			<dd>If you need help with the jQuery/JavaScript aspect of the plugin, post a message to the General jQuery Google Group with the word &#8220;Superfish&#8221; somewhere in the subject line and I will try to help you as soon as possible. There are many other Superfish users on the list who may be able to help you also.</dd>
+
+			<dd>If your issues are related to styling and CSS, then you will need to post your questions to a purely CSS related group instead. CSS for Superfish is mainly just regular Suckerfish-style dropdown menu code so there are plenty of resources out there to learn from.</dd>
+			
+			<dt>Can I count on Superfish being supported into the future?</dt>
+			<dd>Yes, it&#8217;s here for the long haul &#8211; or at least as long as it&#8217;s relevant. I will also be adding further features in the form of modular optional add-on plugins.</dd>
+
+        </dl>
+    </div>
+
+    <div id="download" class="tabContent">
+        <h1>Download</h1>
+        <p>A zip archive for Superfish is available here: <a href="superfish-1.4.8.zip">Superfish-1.4.8.zip</a>.</p>
+		<p>The zip archive contains the following files:</p>
+		<ul>
+			<li><a href="example.html">example.html</a></li>
+
+			<li><a href="css/superfish.css">superfish.css</a></li>
+			<li><a href="css/superfish-vertical.css">superfish-vertical.css</a></li>
+			<li><a href="css/superfish-navbar.css">superfish-navbar.css</a></li>
+			<li><a href="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js">jquery-1.4.x.min.js</a></li>
+			<li><a href="js/superfish.js">superfish.js</a></li>
+			<li><a href="../supersubs/js/supersubs.js">supersubs.js</a></li>
+
+			<li><a href="images/arrows-ffffff.png">arrows-ffffff.png</a> &#8211; alpha transparent 8-bit png arrow image blends with your colour scheme &#8211; degrades to solid for IE6</li>
+			<li><a href="images/shadow.png">shadow.png</a> &#8211; alpha transparent 32-bit png shadow image</li>
+			<li><a href="changelog.txt">changelog.txt</a></li>
+
+		</ul>
+		<p>Downloads for other plugins that can enhance a Superfish menu are available off-site:</p>
+		<ul>
+			<li><a class="external" href="http://cherne.net/brian/resources/jquery.hoverIntent.html">hoverIntent plugin</a> by Brian Cherne</li>
+			<li><a class="external" href="http://brandonaaron.net/jquery/plugins/bgiframe/docs/">bgIframe plugin</a> by Brandon Aaron</li>
+
+		</ul>
+
+        <h1>Support</h1>
+		<p>Support for the JavaScript component of the Superfish plugin is available through the <a class="external" href="http://forum.jquery.com/">jQuery Forum</a>. Post a message to it with the word &#8220;Superfish&#8221; somewhere in the subject line. There are many other Superfish users on the list who may be able to help you. This is a very active mailing list to which many jQuery developers and users subscribe.</p>
+		<p>Most people&#8217;s issues relate to the actual CSS of the menu, which are best discussed elsewhere on a dedicated CSS forum.</p>
+
+    </div>
+
+</div> <!-- main -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+	if ( 'function' === typeof urchinTracker  ){
+		_uacct = "UA-1058715-8";
+		urchinTracker();
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	background:url(../images/bg_tile.gif) repeat-y center top #ffffff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#484848;
+}
+.hidden {
+	display:none;
+}
+a{
+       text-decoration:none;
+       color: #008000;
+}
+p {
+	line-height:1.4em;
+	padding-bottom:20px;
+}
+#container {
+	width:960px;
+	margin:auto;
+}
+#header {
+	height:163px;
+	background:url(../images/head_bg.gif) no-repeat;
+	margin-bottom:30px;
+}
+#footer { 
+	height:30px; background:url(../images/foot_bg.gif) no-repeat;
+	color:#5b5b5b;
+	font-size:11px;
+	clear:both;
+}
+#copytxt {
+	padding:10px 0 0 10px;
+}
+#copytxt a {
+	color:#5b5b5b;
+}
+#ourbanklogo {
+	padding:13px 0 0 16px;
+	float:left;
+}
+#ourbanklogo a {
+	background:url(../images/ourbank_logo.gif) no-repeat;
+	display:block;
+	width:117px;
+	height:60px;
+	text-indent:-1000em;
+}
+#welcomebar {
+	background:url(../images/welcome_bg.gif) no-repeat left top;
+	float:right;
+	font-size:11px;
+	padding:8px 16px;
+	color:#707070;
+}
+#welcomebar .welcomusr, #welcomebar .longdate, #welcomebar .longtime {
+	padding-right:15px;
+}
+#welcomebar .welcomusr a {
+	color:#000000;
+}
+#welcomebar .signout a {
+	color:#a67a44;
+}
+#navigation {
+	clear:both;
+	margin-top:27px;
+	float:left;
+	padding:0px 20px;
+}
+#mainmenu {
+	height:28px;
+	clear:both;
+}
+#mainmenu ul li {
+	float:left;
+	font-size:14px;
+	padding-right:6px;
+}
+#mainmenu ul li a {
+	background:url(../images/top_link_bg.gif) no-repeat left bottom;
+	color:#FFFFFF;
+	text-decoration:none;
+	padding:8px 0px 4px 7px;
+}
+#mainmenu ul li a span {
+	background:url(../images/top_link_bg.gif) no-repeat right bottom;
+	padding:8px 7px 4px 3px
+}
+#mainmenu ul li a:hover {
+	color:#b1b1b1;
+}
+#mainmenu ul li.selected a {
+	background:url(../images/top_link_bg.gif) no-repeat left top;
+	color:#0d0d0d;
+	text-decoration:none;
+	padding:8px 0px 4px 7px;
+}
+#mainmenu ul li.selected a:hover {
+	color:#898989;
+}
+#mainmenu ul li.selected a span {
+	background:url(../images/top_link_bg.gif) no-repeat right top;
+	padding:8px 7px 4px 3px
+}
+#submenu {
+	height:28px;
+	clear:both;
+	padding-top:8px;
+}
+#submenu ul li {
+	float:left;
+	font-size:13px;
+	padding-right:6px;
+}
+#submenu ul li a {
+	background:url(../images/rt_aro.gif) no-repeat left center;
+	color:#393939;
+	text-decoration:none;
+	padding:4px 8px;
+}
+#submenu ul li a:hover {
+	background:none;
+	color:#a67a44;
+	border-bottom:2px solid #a67a44;
+}
+#submenu ul li.selected a {
+	background:none;
+	border-bottom:2px solid #a67a44;
+}
+#pagetitle {
+	padding-bottom:20px;
+	float:right;
+	width:770px;
+}
+#pagetitle h2 {
+	color:#999999;
+	font-size:28px;
+}
+#leftnavig {
+	float:left;
+	width:160px;
+	color:#444444;
+	font-weight:bold;
+	font-size:11px;
+	padding-left:6px;
+}
+#leftnavig a {
+	text-decoration:none;
+	color:#444444;
+	margin-bottom:1px;
+	display:block;
+	font-weight:bold;
+}
+#leftnavig a:hover {
+	color:#787878;
+}
+#leftnavig h4 a {
+	background:#bfbfbf;
+	padding:7px 10px;
+}
+#leftnavig ul li a {
+	background:#eaeaea;
+	padding:7px 10px 7px 20px;
+}
+#pagecontent {
+	float:right;
+	width:740px;
+	padding:0px 40px 30px 0px;
+}
+#pagecontent h3 {
+	color:#666666;
+	font-weight:bold;
+	font-size:16px;
+	padding-bottom:12px;
+}
+fieldset {
+	border:1px solid #cbcbcb;
+	padding:10px;
+	margin-bottom:10px;
+}
+legend {
+	display:block;
+	width:100%;
+	background:#ebebeb;
+	padding:8px;
+	border:1px solid #cbcbcb;
+	font-weight:bold;
+	font-size:13px;
+	color:#999999;
+}
+.usefulinfo {
+	padding-bottom:10px;
+}
+.fieldsets {
+	width:100%;
+}
+.fieldsets label {
+	display:block;
+	padding:5px 0px 5px 12px;
+}
+.fieldsets label.mand {
+	background:url(../images/mand_flds.gif) no-repeat left center;
+}
+.fieldsets input, .fieldsets select {
+	border:1px solid #c0c0c0;
+	color:#666666;
+	padding:2px;
+	margin-right:5px;
+}
+fieldset a {
+	color:#484848;
+}
+.btnhouse {
+	padding:5px 0px;
+	color:#484848;
+}
+.btnhouse .ltbtns {
+	float:left;
+}
+.btnhouse .rtbtns {
+	float:right;
+}
+/*
+By Ourbank team
+*/
+
+#hor-minimalist-b
+
+{
+
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+
+	font-size: 11px;
+
+	background: #BFBF;
+
+	width:760px;
+
+	border-collapse: collapse;
+
+	text-align: left;
+
+        border:1px solid #CBCBCB;
+
+
+
+}
+
+#hor-minimalist-bjinu
+
+{
+
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+
+	font-size: 11px;
+
+	background: #BFBF;
+
+	width:300px;
+
+	border-collapse: collapse;
+
+	text-align: left;
+
+        border:1px solid #CBCBCB;
+
+
+
+}
+
+#hor-minimalist-bjinu th
+
+{
+padding:10px 8px 15px 8px;
+ line-height:normal;
+	font-size: 12px;
+	background:#BFBFBF;
+/* 	font-weight: normal; */
+
+	color: #787878;
+
+	padding: 4px 8px;
+
+	border-bottom: 2px solid #BFBFBF;
+
+}
+
+#hor-minimalist-bjinu td
+
+{
+
+	border-bottom: 1px solid #ccc;
+/*	font-weight: bold;*/
+	color: #000000;
+
+	padding: 5px;
+
+}
+
+#hor-minimalist-bjinu tbody tr:hover td
+
+{
+
+	color: #BFBFBF;
+
+}
+
+
+
+#hor-minimalist-b th
+
+{
+padding:10px 8px 15px 8px;
+ line-height:normal;
+	font-size: 12px;
+	background:#BFBFBF;
+/* 	font-weight: normal; */
+
+	color: #787878;
+
+	padding: 4px 8px;
+
+	border-bottom: 2px solid #BFBFBF;
+
+}
+
+#hor-minimalist-b td
+
+{
+
+	border-bottom: 1px solid #ccc;
+/*	font-weight: bold;*/
+	color: #000000;
+
+	padding: 5px;
+
+}
+
+#hor-minimalist-b tbody tr:hover td
+
+{
+
+	color: #BFBFBF;
+
+}
+
+
+
+/* small tables */
+
+
+#hor-minimalist-s
+
+{
+
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+
+	font-size: 11px;
+
+	background: #BFBF;
+
+	width:366px;
+
+	border-collapse: collapse;
+
+	text-align: left;
+
+        border:1px solid #CBCBCB;
+
+
+
+}
+
+
+#hor-minimalist-s th
+
+{
+padding:10px 8px 15px 8px;
+ line-height:normal;
+	font-size: 12px;
+	background:#BFBFBF;
+/* 	font-weight: normal; */
+
+	color: #787878;
+
+	padding: 4px 8px;
+
+	border-bottom: 2px solid #BFBFBF;
+
+}
+
+#hor-minimalist-s td
+
+{
+
+	border-bottom: 1px solid #ccc;
+/*	font-weight: bold;*/
+	color: #000000;
+
+	padding: 5px;
+
+}
+
+#hor-minimalist-s tbody tr:hover td
+
+{
+
+	color: #BFBFBF;
+
+}
+
+.firsttd {
+width:40%;
+}
+
+.secondtd{
+width:50%;
+}
+
+.thirdtd{
+width:10%;
+}
+.firstth
+{
+width:40%;
+}
+
+.secondth{
+width:50%;
+}
+
+.thirdth{
+width:10%;
+}

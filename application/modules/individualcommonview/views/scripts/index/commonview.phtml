@@ -1,0 +1,194 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<table id="hor-minimalist-b">
+    <tr>
+        <th class="firsttd"><?php echo $this->translate("Member information"); ?></th>
+        <th class = "secondtd"></th>
+        <th class="thirdtd"><a href="<?php echo $this->baseUrl();?>/membername/index/editmembername/id/<?php echo $this->memberid; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th>
+    </tr>
+
+    <?php 
+    $convertdate = new Creditline_Model_dateConvertor();
+    foreach($this->membername as $member_view){ ?>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Bank:"); ?></td>
+        <td class = "secondtd"><?php echo $member_view['name']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Name:"); ?></td>
+        <td class = "secondtd"><?php echo $member_view['member_name']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Gender:"); ?></td>
+        <td class = "secondtd"><?php echo $member_view['sex']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Date of birth:"); ?></td>
+        <td class = "secondtd"><?php echo $startdate=$convertdate->phpnormalformat($member_view['member_dateofbirth']); ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Mobile:"); ?></td>
+        <td class = "secondtd"><?php echo $member_view['mobile']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+
+    <?php } ?>
+</table> 
+<br/>
+
+<table id="hor-minimalist-b">
+    <tr>
+        <th class="firsttd"><?php echo $this->translate("Address information"); ?></th>
+        <th class="secondtd"></th>
+        <?php if(count($this->address)!=0) {
+        foreach($this->address as $edit_id) { ?>	
+        <th><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->memberid; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th>
+        <?php }} else { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->memberid; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id;  ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"></a></th>
+        <?php } ?>
+    </tr>
+
+    <?php foreach($this->address as $address_view){ ?>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Address line1:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['address1']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Address line2:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['address2']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Address line3:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['address3']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("City:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['city']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("State:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['state']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Country:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['country']; ?></td >
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Pin code:"); ?></td>
+        <td class = "secondtd"><?php echo $address_view['zipcode']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <?php } ?>
+</table>
+<br/>
+
+<table id="hor-minimalist-b">
+
+    <tr>
+        <th class="firsttd"><?php echo $this->translate("Family information"); ?></th>
+        <th class = "secondtd"></th>
+        <?php if(($this->family)!=NULL) {
+        foreach($this->family as $edit_id) { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/familyinfo/index/edit/id/<?php echo $this->memberid; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th>
+        <?php }} else { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/familyinfo/index/add/id/<?php echo $this->memberid; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"></a></th>
+        <?php } ?>
+    </tr>
+
+    <?php foreach($this->family as $family_view){ ?>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Father:"); ?></td>
+        <td class = "secondtd"><?php echo $family_view['father']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Mother:"); ?></td>
+        <td class = "secondtd" ><?php echo $family_view['mother']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Spouse:"); ?></td>
+        <td class = "secondtd"><?php echo $family_view['spouse']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Children:"); ?></td>
+        <td class = "secondtd"><?php echo $family_view['children']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Other information"); ?></td>
+        <td class = "secondtd"><?php echo $family_view['otherinfo']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <?php } ?>
+</table>
+<br/>		
+
+<table id="hor-minimalist-b">
+    <tr>
+        <th class="firsttd"><?php echo $this->translate("Contact information"); ?></th>
+        <th class = "secondtd"></th>
+        <?php if((count($this->contact))!=0) {
+        foreach($this->contact as $edit_id) { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/contactdetails/index/editcontact/id/<?php echo $this->memberid; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id;  ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php }} else { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/contactdetails/index/addcontact/id/<?php echo $this->memberid; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id;  ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></th>
+        <?php } ?>
+    </tr>
+
+    <?php foreach($this->contact as $contact){ ?>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Contact person:"); ?></td>
+        <td class = "secondtd"><?php echo $contact['contact_person']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Telephone number:"); ?></td>
+        <td class = "secondtd"><?php echo $contact['telephone']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Mobile number"); ?></td>
+        <td class = "secondtd"><?php echo $contact['mobile']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd"><?php echo $this->translate("Email ID:"); ?></td>
+        <td class = "secondtd"><?php echo $contact['email']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <?php } ?>
+</table> 
+ <div class="btnhouse">
+    <div class="rtbtns">
+        <a href="<?php echo $this->baseUrl(); ?>/individual"><input type="button" name="back" value="<?php echo $this->translate("Back"); ?>"></a>
+    </div>
+ </div>

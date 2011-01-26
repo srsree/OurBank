@@ -1,0 +1,12 @@
+<select name='group'  id="subOffice2" class="selectbutton" onchange=getGroupHead();>
+<option value=''>Select</option>
+<?php foreach($this->selectedGroupname as $eacharraysent) { ?>
+<option value="<?php echo $eacharraysent->groupname;?>"><?php echo $eacharraysent->groupname;?><?php echo $eacharraysent->officetype;?></option>
+<td><input type = "text" value = "<?php  echo $eacharraysent->meeting_days;?>" readonly="true"></td>
+<td><input type = "text" value = "<?php  echo $eacharraysent->group_head;?>" readonly="true" ></td>
+<td><input type = "text" value = "<?php  echo $eacharraysent->timeg;?>" readonly="true"></td>
+<td><input type = "checkbox" value= "<?php  echo $eacharraysent->memberfirstname;?>" readonly="true"></td>
+<option value="<?php echo $eacharraysent->memberfirstname;?>"><?php echo $eacharraysent->memberfirstname;?><?php echo $eacharraysent->officetype;?></option>
+<? } ?>
+</select>
+

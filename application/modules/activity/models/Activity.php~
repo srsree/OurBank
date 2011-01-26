@@ -1,0 +1,39 @@
+<?php
+class Activity_Model_Activity extends Zend_Db_Table 
+{
+    protected $_name = 'ob_activity';
+
+        public function SearchActivity($post) 
+	{
+
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_activity'),array('id'))
+			->where('a.name  like "%" ? "%"',$post['activity'])
+    			->where('a.sector_id  like "%" ? "%"',$post['sector'])
+                        ->join(array('b'=>'ob_sector'),'b.id=a.sector_id',array('name as sectorname'));;
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+        public function IndexActivity()
+	{
+        $select = $this->select()
+                  ->setIntegrityCheck(false)  
+                  ->join(array('a' => 'ob_activity'),array('id','name','sector_id'))
+		  ->join(array('b'=>'ob_sector'),'b.id=a.sector_id',array('name as sectorname'));
+        $result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+	public function editActivity($id)
+	{
+        $select = $this->select()
+                  ->setIntegrityCheck(false)  
+                  ->join(array('a' => 'ob_activity'),array('id','name'))
+				  ->join(array('b'=>'ob_sector'),'b.id=a.sector_id')
+			      ->where('a.id = ?',$id);
+        $result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+}

@@ -1,0 +1,174 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<script>
+	function getXMLHTTP() {
+		var xmlhttp=false;	
+		try{
+			xmlhttp=new XMLHttpRequest();
+		}
+		catch(e)	{		
+			try{			
+				xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e){
+				try{
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e1){
+					xmlhttp=false;
+				}
+			}
+		}
+		return xmlhttp;
+	}
+
+	function getGroups(bank_id,path) {	
+		getMeetings('',path);//While selecting Bank Meeting Should be None ,
+					//After selecting Bank Only It shoul load
+		var strURL=path+"/attendancereport/index/fetchgroups?bank_id="+bank_id;
+		var req = getXMLHTTP();
+		
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {
+						document.getElementById('groupDiv').innerHTML=req.responseText;
+					}
+					 else {
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					}
+				}				
+			}			
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+
+	function getMeetings(group_id,path) {	
+		var strURL=path+"/attendancereport/index/fetchmeetings?group_id="+group_id;
+		var req = getXMLHTTP();
+		
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {
+						document.getElementById('meetingDiv').innerHTML=req.responseText;
+					}
+					 else {
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					}
+				}				
+			}			
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+		
+</script>
+ 
+
+
+<div id="searchDiv">
+    <fieldset>
+        <legend><?php echo $this->translate("Search"); ?></legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/attendancereport/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label"><?php echo $this->translate("Bank Name:"); ?></td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label"><?php echo $this->translate("Group Name:"); ?></td>
+                                    <td ><div id="groupDiv"><? echo $this->form->field2;?></div></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label"><?php echo $this->translate("Meeting Name:"); ?></td>
+                                    <td ><div id="meetingDiv"><? echo $this->form->field5;?></div></td>
+                                    <td class="label"><?php echo $this->translate("Meeting Date :"); ?></td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+
+
+
+
+
+
+
+<fieldset>
+        <legend><?php echo $this->translate("Attendance Details"); ?></legend>
+<table id="hor-minimalist-b">
+    
+        
+		<tr>
+        <th><?php echo $this->translate("Bank Name"); ?></th>
+	<th><?php echo $this->translate("Group Name"); ?></th>
+        <th><?php echo $this->translate("Meeting Name"); ?></th>
+	<th><?php echo $this->translate("Meeting Date"); ?></th>
+	<th><?php echo $this->translate("Meeting Time"); ?></th>
+	<th><?php echo $this->translate("Meeting Place"); ?></th>
+        <th><?php echo $this->translate("Absent Member Names"); ?></th>
+	<th><?php echo $this->translate("Group Member Names"); ?></th>
+	
+    </tr>
+<?php if (count($this->result)){ ?>
+        <?php  foreach ($this->result as $Attendancereport ) { ?>
+    <tr>
+	<td><?php foreach($this->bank_name as $office) {
+			if($Attendancereport['id']==$office['id']){ echo $office['name']; } } ?>
+	</td>
+	<td><?php echo $this->escape($Attendancereport['gname']);?></td> 
+	<td><?php echo $this->escape($Attendancereport['name']);?></td>
+	<td><?php echo $this->escape($Attendancereport['created_date']);?></td>
+	<td><?php echo $this->escape($Attendancereport['time']);?></td>
+	<td><?php echo $this->escape($Attendancereport['place']);?></td>
+	
+	<td><?php $flag=0; foreach ($this->member_name as $as){
+			if($as['id']==$Attendancereport['id']){ echo $as['member_name']."<br>"; $flag=1; }
+			}
+			if($flag==0) { echo "NIL"; }
+		?>
+	</td>
+	<td><?php foreach ($this->all_member_name as $as1){
+		if($as1['id']==$Attendancereport['id']){ echo $as1['member_name']."<br>";}
+			}
+		?>
+	</td>
+                <?php }?>
+	
+    </tr>
+   <?php } else { ?>
+    <tr>
+	<td colspan="8" align="center"><?php echo $this->translate("Result Not Found"); ?></td>
+    </tr>
+<?php } ?>
+</table>
+
+</fieldset>
+
+
+

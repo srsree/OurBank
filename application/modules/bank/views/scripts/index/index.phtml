@@ -1,0 +1,63 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div id="searchDiv">
+    <fieldset>
+    	<legend><?php echo $this->translate('Search'); ?></legend>
+    	<div class="search" style="margin-left:20px;">
+        	<form action="<?php echo $this->baseUrl();?>/bank/index/index" method="POST">
+            	<table width="100%" id = "fieldsets">
+                	<tr>
+                    	<td class="label"><?php echo $this->translate('Bank name:'); ?></td>
+                        <td ><? echo $this->form->field2;?></td>
+                        <td class="label"></td>
+                        <td ><? echo $this->form->Search;?></td>
+                    </tr>
+                </table>
+            </form>	
+        </div>
+    </fieldset> 
+</div> 
+<?php if (count($this->paginator)): ?>
+	<table id="hor-minimalist-b" summary="">
+    	<tr class="tdbrownheading">
+			<th><?php echo $this->translate('Bank name'); ?></th>
+			<th><?php echo $this->translate('Active'); ?></td>
+		</tr>
+		<?php foreach ($this->paginator as $bank ): ?>
+    		<tr>
+        		<td><a href="<?php echo $this->baseUrl()."/bankcommonview/index/commonview/id/".$bank['id']; ?>"><?php echo $this->escape($bank['name']);?></a></td>
+		        <td><?php if($bank['status'] == 1) echo "Yes"; else echo "No"?></td>
+    		</tr>
+		<?php endforeach; ?>
+		<tr>
+			<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?></div></td>
+		</tr>
+	</table>
+<?php endif; ?>
+
+
+
+
+
+
+
+
+

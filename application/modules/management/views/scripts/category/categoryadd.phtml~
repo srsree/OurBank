@@ -1,0 +1,24 @@
+<div style="width:480px;float:left"> 
+<fieldset>
+    <legend>Add Category</legend> 
+            <table id="hor-minimalist-b"> 
+                <?php echo $this->form;?>
+            </table>
+
+</fieldset>
+</div>
+<div style="width:280px;float:left"> 
+<fieldset>
+    <legend>Existing Category</legend> 
+            <table id="hor-minimalist-b"> 
+			<TR class="tdbrownheading">
+				<Th width="100%">Category name</Th>
+			</TR>
+			<?php foreach($this->categoryname as $categoryName) { ?>
+			<TR class="tdbrown">
+				<td><?php echo $this->escape($categoryName['categoryname']);?></td>
+			</tr>
+			<?php } ?>
+            </table>
+</fieldset>
+</div>

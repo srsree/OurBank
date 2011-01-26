@@ -1,0 +1,58 @@
+<div>
+<div style="width:420px;float:left">
+<fieldset>
+<legend>Create New Fine</legend>
+<div class="cont-rgt-data">
+<form action="<?php echo $this->baseUrl();?>/index/addfine" method="POST">
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<tr>
+<TD>fineappliesto</TD>
+
+</tr>
+
+<tr>
+<TD>fineName</TD>
+<TD><?php echo $this->form->finename;?></TD>
+</tr>
+<tr  class="tdbrown">
+<TD>description</TD>
+<TD><?php echo $this->form->finedescription;?></TD>
+</tr>
+<tr> 
+<td>fineAmount</td>
+<TD><?php echo $this->form->finename;?></TD>
+</tr>
+
+ 	
+
+</table>
+</div>
+<table width="100%">
+<TR>
+<td colspan="2" class="txt_rgt" style="font-weight:bold; padding-left:225px;padding-top:25px;padding-bottom:10px;">
+<div style="float:left"><?echo $this->form1->Submit;?></div>
+<div style="float:left"><a href="<?php echo $this->baseUrl(array('controller'=>'index',
+'action'=>'index')); ?>"><input name="submit" type="submit" class="NormalBtn" 
+value="back"></a></div> </td>
+</TR>
+</table>
+<b style="color:red;"><?php echo $this->existedFeeName; ?></b>
+</form>
+</fieldset>
+</div>
+<div style="width:320px;float:right;">
+<fieldset>
+<legend>Existing Fine</legend>
+<div class="cont-rgt-data">
+<table id="hor-minimalist-b">
+<TR>
+<Th>fine Name</Th>
+<Th>Amount</Th>
+<Th>Applies</Th>
+</TR>
+  			
+</table>
+</div>
+</fieldset>
+</div>
+</div>

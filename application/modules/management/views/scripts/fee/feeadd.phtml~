@@ -1,0 +1,37 @@
+<div style="width:440px;float:left">
+    <fieldset>
+        <legend>New Fee</legend> 
+                <table id="hor-minimalist-b"> 
+				<?php echo $this->form;?>
+				<TD><a href="<?php echo $this->baseUrl(); ?>/management/fee">
+				<input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                </table>
+    </fieldset>
+</div>
+
+
+<div style="width:360px;float:right;">
+    <fieldset>
+        <legend>Existing Fee</legend>
+        <table id="hor-minimalist-b">
+            <TR>
+                    <TH>Name</TH>
+                    <TH>Amount</TH>  
+                    <TH>Member Type</TH>
+					<TH>Applies to</TH>
+					
+            </TR>
+    
+            <?php foreach($this->feeDetails as $feeDetails) { ?>
+            <TR>
+            <TD><?php echo $feeDetails["feename"];?></TD>
+            <TD ><?php echo $feeDetails["feevalue"];?></TD>
+            <TD><?php echo $feeDetails["membertype"];?></TD>
+			<TD><?php echo $feeDetails["feedescription"];?></TD>
+			
+            </TR> 
+            <?php }?>
+			
+        </table>
+    </fieldset>
+</div>

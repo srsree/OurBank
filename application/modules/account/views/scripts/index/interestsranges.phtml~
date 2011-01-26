@@ -1,0 +1,17 @@
+
+<table id="hor-minimalist-s">
+    <TR>
+        <th> Loan range R$</th>
+        <Th>Interest %</Th>
+        <Th>Billet R$</Th>
+        <Th>Fee %</Th>
+    </TR>
+    <?php foreach($this->interests as $interests) { ?>
+    <TR>
+        <td><?php echo $interests['loan_start_range']."  -  ".$interests['loan_end_range']; ?></td>
+        <TD><?php echo $interests['interest_rate'];?></TD>
+        <TD><?php echo $interests['billet_value'];?></TD>
+        <TD><?php echo $interests['fee_rate'];?></TD>
+    </TR>
+    <?php } ?>
+</table>

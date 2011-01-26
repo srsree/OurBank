@@ -1,0 +1,56 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class Personal_Form_personal extends Zend_Form
+{
+	public function init()
+	{
+        $dateofbirth = new Zend_Form_Element_Text('memberdateofbirth ');
+ 	$dateofbirth->setAttrib('tabindex', '8');
+        $dateofbirth->setLabel('Bank  Name');
+        $dateofbirth->setAttrib('class', 'txt_put');
+	$dateofbirth->setAttrib('size', '10');
+        $dateofbirth->setAttrib('id', 'memberdateofbirth');
+        $dateofbirth->setAttrib($value,'true');
+        $dateofbirth->setRequired(true)
+	->addValidator(new Zend_Validate_Date('YYYY-MM-DD'),true,
+	array('messages' =>array(Zend_Validate_Date::FALSEFORMAT => 'Enter the valid date')));
+
+
+        $gender_id  = new Zend_Form_Element_Select('gender_id');
+        $gender_id->addMultiOption('','Select');
+        $gender_id->setAttrib('class', 'txt_put');
+        $gender_id->setAttrib('id', 'gender_id');
+        $gender_id->setAttrib('tabindex', '9');
+        $gender_id->setAttrib($value,'true');
+
+        $physicalstatus_id = new Zend_Form_Element_Select('physicalstatus_id');
+        $physicalstatus_id->addMultiOption('','Select');
+        $physicalstatus_id->setAttrib('class', 'txt_put');
+        $physicalstatus_id->setAttrib('id', 'physicalstatus_id');
+        $physicalstatus_id->setAttrib('tabindex', '11');  
+        $physicalstatus_id->setAttrib($value,'true');
+
+        $maritalstatus_id = new Zend_Form_Element_Select('membermaritalstatus_id');
+        $maritalstatus_id->addMultiOption('','Select');
+        $maritalstatus_id->setAttrib('class', 'txt_put');
+        $maritalstatus_id->setAttrib('id', 'membermaritalstatus_id');
+        $maritalstatus_id->setAttrib('tabindex', '10');  
+        $maritalstatus_id->setAttrib($value,'true');
+
+        $memberpersonalid  = new Zend_Form_Element_Text('memberpersonalid ');
+        $memberpersonalid->setAttrib('class', 'txt_put');
+        $memberpersonalid->setAttrib('id', 'memberpersonalid');
+        $memberpersonalid->setAttrib('tabindex', '7');
+        $memberpersonalid->setAttrib($value,'true');
+
+         $submit = new Zend_Form_Element_Submit('Submit');
+
+
+         $this->addElements( array ($dateofbirth,$gender_id,$physicalstatus_id,$maritalstatus_id,$memberpersonalid,$submit));
+
+		
+	}
+}
+/** end of class */

@@ -1,0 +1,76 @@
+
+            <div id="container-1">
+             <fieldset>
+	           <legend>Add Individual Information</legend>
+                   <div class="register">
+	               <div class="profile_tab">
+                       <table id="hor-minimalist-b">
+                           <tr><th>Member Information</th><th></th><th></th></tr>
+                        <?php foreach($this->membername as $member_view){
+                          ?>
+                        <tr><td>Name:</td><td><?php echo $member_view['member_name']; ?></td><td></td></tr>
+                        <tr><td>Gender:</td><td><?php echo $member_view['sex']; ?></td><td></td></tr>
+                        <tr><td>Date of Birth:</td><td><?php echo $member_view['member_dateofbirth']; ?></td><td></td></tr>
+                        <?php } ?>
+            
+                       <tr><td></td>
+                          <?php if(($this->membername)!=NULL) {
+                            foreach($this->membername as $edit_id) { ?>
+                            <TD class="label" align="right">Click to Edit :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/membername/index/editmembername/id/<?php echo $this->memberid; ?>">EDIT &nbsp;&nbsp;</a><a href="<?php echo $this->baseUrl();?>/membername/index/delete/id/<?php echo $this->memberid; ?>">DELETE</a></TD>
+                          <?php }} else { ?>
+                         <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/membername/index/editmembername/id/<?php echo $this->memberid; ?>">ADD</a></TD>
+                         <?php } ?>
+                        </tr>
+
+
+                         <tr><th>Address Information</th><th></th><th></th></tr>
+                        <?php foreach($this->address as $address_view){
+                          ?>
+                        <tr><td>Address Line1:</td><td><?php echo $address_view['address1']; ?></td><td></td></tr>
+                        <tr><td>Address Line2:</td><td><?php echo $address_view['address2']; ?></td><td></td></tr>
+                        <tr><td>Address Line3:</td><td><?php echo $address_view['address3']; ?></td><td></td></tr>
+                        <tr><td>City:</td><td><?php echo $address_view['city']; ?></td><td></td></tr>
+                         <tr><td>Country:</td><td><?php echo $address_view['country']; ?></td><td></td></tr>
+                         <tr><td>Pin Code:</td><td><?php echo $address_view['zipcode']; ?></td><td></td></tr>
+                        <?php } ?>
+                        <tr><td></td>
+                       <?php if(($this->address)!=NULL) {
+                            foreach($this->address as $edit_id) { ?>
+                         <TD class="label" align="right">Click to Edit :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->memberid; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>">EDIT</a></TD>
+                         <?php }} else { ?>
+                                <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->memberid; ?>/sub_id/<?php echo $this->sub_id; ?>/mod_id/<?php echo $this->mod_id; ?>">ADD</a></TD>
+                         <?php } ?>
+                        </tr>
+
+			 <tr><th>Family Information</th><th></th><th></th></tr>
+                        <?php foreach($this->family as $family_view){
+                          ?>
+                        <tr><td>Father:</td><td><?php echo $family_view['member_father']; ?></td><td></td></tr>
+                        <tr><td>Mother:</td><td><?php echo $family_view['member_mother']; ?></td><td></td></tr>
+                        <tr><td>Spouse:</td><td><?php echo $family_view['member_spouse']; ?></td><td></td></tr>
+                        <tr><td>Children:</td><td><?php echo $family_view['member_children']; ?></td><td></td></tr>
+                        <tr><td>Other Information</td><td><?php echo $family_view['member_otherinfo']; ?></tr>
+                        <?php } ?>
+                        <tr><td></td>
+                       <?php if(($this->family)!=NULL) {
+                            foreach($this->family as $edit_id) { ?>
+                         <TD class="label" align="right">Click to Edit :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/familyinfo/index/edit/id/<?php echo $this->memberid; ?>">EDIT</a></TD>
+                         <?php }} else { ?>
+                                <TD class="label" align="right">Click to Add :</TD>
+				<TD><a href="<?php echo $this->baseUrl();?>/familyinfo/index/add/id/<?php echo $this->memberid; ?>">ADD</a></TD>
+                         <?php } ?>
+                        </tr>
+
+                        <tr><td><a href="<?php echo $this->baseUrl(); ?>/individual"><input type="button" name="back" value="back"></a></td></tr>
+                         </table>
+                   </div>
+	         </div>
+            </fieldset>
+        </div>
+
+ 

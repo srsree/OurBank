@@ -1,0 +1,32 @@
+<?php
+class Logindetails_Form_Logindetails extends Zend_Form {
+
+    public function init()
+    {    		$username = new Zend_Form_Element_Text('username');
+			$username->setAttrib('class', 'txt_put');
+			$username->setAttrib('id', 'office');
+			$username->setRequired(true);
+			
+			$password = new Zend_Form_Element_Text('password');
+			$password->setAttrib('class', 'txt_put');
+			$password->setAttrib('id', 'office');
+			
+			$email = new Zend_Form_Element_Text('email');
+			$email->setAttrib('class', 'txt_put');
+			$email->setAttrib('id', 'office');
+			
+
+			
+			
+			 $back= new Zend_Form_Element_Submit('Back');
+
+			$submit = new Zend_Form_Element_Submit('Submit');
+                        $update = new Zend_Form_Element_Submit('Update');
+
+		        $this->addElements(array($username,$password,$email,$back,$submit,$update));
+			
+			
+
+
+    }
+}

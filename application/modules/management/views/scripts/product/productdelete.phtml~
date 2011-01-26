@@ -1,0 +1,76 @@
+<fieldset>
+	<legend>View Sector</legend>
+	<div class="cont-rgt-data">
+		<?php foreach($this->productResult as $product) {  ?>
+			<TABLE id="hor-minimalist-b">
+				
+				<TR>
+					<TD>Sector Name</TD>
+					<TD><?php echo $product['productname'];?></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD>Short Name</TD>
+					<TD><?php echo $product['productshortname'];?></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD>Product Description</TD>
+					<TD><?php echo $product['product_description'];?></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD><a href="<?php echo $this->baseUrl(); ?>/management/product/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+		<?php } ?>
+	</div>
+</fieldset>  
+
+<?php if($this->productstatus==1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<?php foreach($this->productResult as $product) {  ?>
+	<tr>
+		<Th align="center"><p><B style="color:red">No you cannot delete since the offer product exists for </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $product['productname'];?>' product</b></Th>
+    </tr>
+<?php } ?>
+</table>
+<?php } else { ?>
+<?php foreach($this->productResult as $product) {  ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+		<th><B style="color:red">Are you sure you want to delete product</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $product['productname'];?>" ?*</b></th>
+	<tr>
+</table>
+<?php } ?>
+<fieldset>
+	<legend>Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/management/product/productdelete/product_id/<?php echo $this->product_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+					</TR>
+					<TR>
+						<TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+						<TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/product/">
+						<input name="submit" type="submit"  value="No" ></a></TD>
+					</TR>
+				</table>
+				</form>
+			</div>
+		</div>
+</fieldset>
+<?php } ?>

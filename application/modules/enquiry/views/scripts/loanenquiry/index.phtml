@@ -1,0 +1,53 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+    <legend>Details</legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+
+                    <TR class="tdbrown">
+			   
+                            <Th width="20%">Product</TD>
+			    <Th width="20%">subProducts</TD>
+			    <Th width="20%">accountNumber</TD>
+			    <Th width="20%">loanDisbursed</TD>
+                    </TR>
+		    <?php foreach($this->loanDetails as $loanDetails1) : ?>  
+                    <TR>
+			   
+			  
+
+                            	<TD width="20%"><?php echo $loanDetails1->productname;?></TD>
+			    
+ 			   
+			    	<TD  width="20%"><?php echo $loanDetails1->offerproductname;?></TD>
+			    
+			    	<TD  width="20%"><?php echo $loanDetails1->account_number;?></TD>
+			    
+ 			    		
+			    	<TD  width="20%"><?php echo $loanDetails1->amount_disbursed;?></TD>
+			    
+                    </TR>
+		    <?php endforeach; ?>
+            </table>
+        </div>
+</fieldset>
+
+

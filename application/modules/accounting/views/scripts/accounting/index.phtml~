@@ -1,0 +1,48 @@
+<fieldset>
+	<legend>Account For</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php echo $this->baseUrl();?>/accounting/accounting" method="POST">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<?php echo $this->form;?>
+			</table>
+		</form>
+	</div>
+</fieldset>
+
+<?php if($this->result) { ?>
+	<fieldset>
+		<legend>Search Results</legend>
+		<div style="margin-left:20px;">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+				<tr>
+					<Th>memberCode</Th>
+					<Th>Name/groupName</th>
+					<Th>Branch</th>
+					<Th>type</Th>
+					<th></th>
+				</tr>
+				<?php foreach($this->result as $member) : ?>
+					<tr>
+						<td><a href="<?php echo $this->baseUrl();?>/accounting/accounting/member/memberId/<?php echo $member->id;?>/Type/<?php echo $this->Type;?>"><?php echo $member->code;?></a></td>
+						<td><?php  echo $member->Name;?></td>
+						<td><?php  echo $member->Office;?></td>
+						<td align="center">
+							<?php if ($member->type==4) { 
+								 echo $member->membertype;;  
+							} else {
+								echo "-"; 
+							} ?>
+						</td>
+						<td align="center">
+							<?php if($member->type==3) { 
+								echo $member->membertype;
+							} else {
+								echo "-";
+							}?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
+		</div>
+	</fieldset> 
+<?php }?>

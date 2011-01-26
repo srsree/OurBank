@@ -1,0 +1,7 @@
+<?php
+class Management_Form_Roles extends ZendX_JQuery_Form {
+    public function __construct($options = null) {
+        $this->addPrefixPath('My_Form_', 'My/Form/');
+        parent::__construct($options);
+        }
+}

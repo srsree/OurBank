@@ -1,0 +1,35 @@
+<?php
+class settings_IndexController extends Zend_Controller_Action {
+public function init() {
+        $this->view->pageTitle='Settings';
+	$storage = new Zend_Auth_Storage_Session();
+	$data = $storage->read();
+	if(!$data){
+		$this->_redirect('index/login');
+	}
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $userid=$this->view->createdby = $sessionName->primaryuserid;
+        $login=new App_Model_Users();
+        $loginname=$login->username($userid);
+        foreach($loginname as $loginname) {
+           $this->view->username=$loginname['username'];
+        }
+    }
+
+    public function indexAction() {
+	
+	$settingsForm = new settings_Form_Settings();
+	$this->view->form = $settingsForm;
+	
+	   $settingModel=new settings_Model_Setting();
+	   $allLanguage=$settingModel->fetchAllLanguage();
+	   foreach($allLanguage as $eacharraysent) {
+	   $this->view->form->languages->addMultiOption($eacharraysent->language_id,$eacharraysent->langauge_name);
+	   }
+
+
+
+    }
+   
+}
+

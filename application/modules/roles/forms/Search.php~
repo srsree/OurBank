@@ -1,0 +1,16 @@
+<?php
+class Roles_Form_Search extends Zend_Form {
+
+    public function __construct() 
+	{
+		parent::__construct();
+		//$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$decorator,$value
+		$formfield = new App_Form_Field ();
+		$vtype=array('Alpha');
+		$grantname = $formfield->field('Text','grantname','','','','Grant name',false,'','','','','',1,'');
+		$grantedby = $formfield->field('Text','grantedby','','','','Granted by',false,'','','','','',1,'');
+		$this->addElements(array($grantname,$grantedby));
+	}
+
+    
+}

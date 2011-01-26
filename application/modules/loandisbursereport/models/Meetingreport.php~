@@ -1,0 +1,137 @@
+<?php
+class Meetingreport_Model_Meetingreport extends Zend_Db_Table {
+	protected $_name = 'ob_meeting';
+	
+
+	public function insertPenaltyID($penalty_id) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$this->db->insert('ob_penalty',$penalty_id);
+		$result = $this->db->lastInsertId('penalty_id');
+		return $result;
+	}
+
+	
+	public function getMeetings($post) {
+		
+			
+			if($post['field3']) {
+			$select = $this->select()
+				->setIntegrityCheck(false)  
+				->join(array('c'=>'ob_institute_bank_details'),'institute_bank_id')
+				->where('c.institute_bank_id like "%" ? "%"',$post['field1'])
+				->where('c.recordstatus_id = 3')
+				->join(array('a'=>'ob_meeting_details'),'a.institute_bank_id = c.institute_bank_id')
+				->where('a.group_id like "%" ? "%"',$post['field2'])
+				->where('a.recordstatus_id = 3')
+				
+				->join(array('d'=>'ob_group_details'),'d.group_id = a.group_id')
+				->where('d.recordstatus_id = 3')
+	
+				->join(array('b'=>'ob_attendance_details'),'a.meeting_id = b.meeting_id')
+				->where('b.recordstatus_id = 3')
+				->where('b.meeting_date BETWEEN "'.$post['field3'].'" AND "'.$post['field4'].'"')
+				->group('b.meeting_id');
+			}
+			else {
+			$select = $this->select()
+				->setIntegrityCheck(false)  
+				->join(array('c'=>'ob_institute_bank_details'),'institute_bank_id')
+				->where('c.institute_bank_id like "%" ? "%"',$post['field1'])
+				->where('c.recordstatus_id = 3')
+				->join(array('a'=>'ob_meeting_details'),'a.institute_bank_id = c.institute_bank_id')
+				->where('a.group_id like "%" ? "%"',$post['field2'])
+				->where('a.recordstatus_id = 3')
+				
+				->join(array('d'=>'ob_group_details'),'d.group_id = a.group_id')
+				->where('d.recordstatus_id = 3')
+	
+				->join(array('b'=>'ob_attendance_details'),'a.meeting_id = b.meeting_id')
+				->where('b.recordstatus_id = 3')
+				
+				->group('b.meeting_id');
+			}
+		
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+	public function getMeetingsall() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+
+			->join(array('c'=>'ob_institute_bank_details'),array('institute_bank_id'))
+			->where('c.recordstatus_id = 3')
+
+			->join(array('a'=>'ob_meeting_details'),'a.institute_bank_id = c.institute_bank_id')
+			->where('a.recordstatus_id = 3')
+			
+			->join(array('d'=>'ob_group_details'),'d.group_id = a.group_id')
+			->where('d.recordstatus_id = 3')
+
+			->join(array('b'=>'ob_attendance_details'),'b.meeting_id = a.meeting_id')
+			->where('b.recordstatus_id = 3')
+			->group('b.meeting_id');
+
+// 				die($select->__toString($select));
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+	
+	public function fetchAllpenaltydetails() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->from('ob_penalty_details')
+			->where('recordstatus_id = 3');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+	public function fetchpenaltydetailsforID($penalty_id) {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a'=>'ob_penalty_details'),array('a.penalty_id'))
+			->where('a.recordstatus_id = 3')
+			->where('a.penalty_id = '.$penalty_id)
+                        ->join(array('b'=>'ob_creditline_details'),'a.creditline_id = b.creditline_id')
+			->where('b.recordstatus_id = 3');
+
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function updatePenalty($penalty_id,$post) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where = 'penalty_id = '.$penalty_id;
+		$this->db->update('ob_penalty_details',$post , $where );
+	}
+	
+	public function deletepenaltyinfo($penalty_id) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$post = array('recordstatus_id' => 5);
+		$where = 'penalty_id = '.$penalty_id;
+		$this->db->update('ob_penalty_details',$post , $where );
+	}
+
+	public function Insert_Deleted_Info($post,$penalty_id) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$data = array('module_id'=> 1,
+					
+					'submodule_id'=> 8,
+					'id' => $penalty_id,
+					'remarks'=>$post['remarks'],
+					'deleted_by' => 'admin',
+					'deleted_date'=> date('Y-m-d'));
+		$this->db->insert('ob_deleted_details',$data);
+	}
+
+	public function SearchPenalty($post) {
+               $select = $this->select()
+			->setIntegrityCheck(false)  
+			->from('ob_penalty_details')
+			->where('recordstatus_id = 3')
+			->where('penalty_name like "%" ? "%"',$post['field2'])
+			->where('penalty_per_month >= ?',$post['field3'])
+			->where('penalty_per_day >= ?',$post['field4']);
+
+               $result = $this->fetchAll($select);
+               return $result->toArray();
+       }
+}

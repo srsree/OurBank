@@ -1,0 +1,82 @@
+<?php
+class Account_Form_Loan extends Zend_Form 
+{
+    public function init()
+    {
+        Zend_Dojo::enableForm($this);
+    }
+
+
+    public function __construct($app)
+    {
+       Zend_Dojo::enableForm($this);
+        parent::__construct($app);
+
+	// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+
+	$formfield = new App_Form_Field ();
+
+
+        $interest_category = $formfield->field('Select','interest_category','','','mand','Interest category',true,'','','','','',1,'');
+        $interest_category->setAttrib('onchange', 'getinterestcategory(this.value,"'.$app.'")');
+
+        $creditline_id = $formfield->field('Select','creditline_id','','','mand','Creditline',true,'','','','','',1,'');
+        $creditline_id->setRegisterInArrayValidator(false);
+        $creditline_id->setAttrib('onchange', 'getinterestranges(this.value,"'.$app.'"),getcreditline(this.value,"'.$app.'")');
+
+
+        $startdate = $formfield->field('Text','loanAccountdate','','','mand','Date',true,'','','','','',1,'');
+
+
+        $amount = $formfield->field('Text','amount','','','mand','Loan amount R$',true,'','','','','',1,'');
+        $amount->setAttrib('onchange','getinterest(this.value,"'.$app.'"),getballet(this.value,"'.$app.'"),getfeepercent(this.value,"'.$app.'")');
+
+
+        $interest = $formfield->field('Text','interest','','','mand','Interest %',true,'','','','','',1,'');
+	$graterthan=new Zend_Validate_GreaterThan(0);
+        $interest->setRequired(true)
+		 ->addValidators(array(array('NotEmpty'),array('Float'),array($graterthan,true)));
+        $interest->setAttrib('readonly', 'true');
+
+        $installments = $formfield->field('Select','installments','','','mand','Installments %',true,'','','','','',1,'');
+
+
+        $ballet = $formfield->field('Text','ballet','','','mand','Billet R$',true,'','','','','',1,'');
+	$graterthan=new Zend_Validate_GreaterThan(0);
+        $ballet->setRequired(true)
+		 ->addValidators(array(array('NotEmpty'),array('Float'),array($graterthan,true)));
+        $ballet->setAttrib('readonly', 'true');
+
+
+        $fee = $formfield->field('Text','fee','','','mand','Fee R$',true,'','','','','',1,'');
+	$graterthan=new Zend_Validate_GreaterThan(0);
+        $fee->setRequired(true)
+		 ->addValidators(array(array('NotEmpty'),array('Float'),array($graterthan,true)));
+        $fee->setAttrib('readonly', 'true');
+        $fee->setAttrib('onclick','getfee(this.value,"'.$app.'")');
+
+
+        $members = $formfield->field('MultiCheckbox','members','','','mand','Members',true,'','','','','',1,'');
+
+
+        $activityname = $formfield->field('Select','activity_id','','','mand','Activity name',true,'','','','','',1,'');
+
+        $cteditlineamount = $formfield->field('Text','cteditlineamount','','','mand','Creditline balance R$',true,'','','','','',1,'');
+	$graterthan=new Zend_Validate_GreaterThan(0);
+        $cteditlineamount->setRequired(true)
+		 ->addValidators(array(array('NotEmpty'),array('Float'),array($graterthan,true)));
+        $cteditlineamount->setAttrib('readonly', 'true');
+        $cteditlineamount->setRequired(true)
+		 ->addValidators(array(array('NotEmpty'),array('Float'),array($graterthan,true)));
+
+
+
+	$feepercent = $formfield->field('Hidden','feepercent','','','','',false,'','','','','',0,0);
+
+
+
+        $this->addElements( array($feepercent,$interest_category,$creditline_id,$cteditlineamount,$activityname,$startdate,$amount,$interest,$ballet,$fee,$installments,$members));
+
+        }
+    }
+

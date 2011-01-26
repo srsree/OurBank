@@ -1,0 +1,149 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+ <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <script type="text/javascript">
+     function drawVisualization() {
+  // Create and populate the data table.
+  var data = new google.visualization.DataTable();
+
+  var raw_data = [['Amount',
+		     <?php foreach($this->result as $savingsdetails){  
+                                 foreach($this->accountBalanc as $balance1){
+                              if($savingsdetails["offerproduct_id"] == $balance1["offerproduct_id"]) {
+                                     if($balance1["transaction_type"] == 1) {
+                                        $this->depositAmount = $this->depositAmount + $balance1["transaction_amount"];
+                                        $this->deposit = $this->deposit + $balance1["transaction_amount"];
+                                        } if($balance1["transaction_type"] == 2) {
+                                        $this->withdrawlAmount = $this->withdrawlAmount + $balance1["transaction_amount"];
+                                        $this->withdrawl = $this->withdrawl + $balance1["transaction_amount"];
+                                        }
+                                        $this->totalamount = $this->depositAmount - $this->withdrawlAmount;
+                                        $this->sum = $this->deposit - $this->withdrawl;
+                                    } 
+                                } if($this->totalamount) {
+		                echo $this->totalamount.","; 
+                                               $this->totalamount =0; 
+                                               $this->withdrawlAmount =0;  
+                                               $this->depositAmount =0; 
+                                 } else {
+                                 }
+                  } ?>]];
+
+      
+ var creditline = [<?php foreach($this->result as $savingsdetails){ ?>
+	      '<?php echo $savingsdetails['offerproductname']; ?>',
+		<?php } ?>];
+
+  data.addColumn('string', 'Activity');
+  for (var i = 0; i  < raw_data.length; ++i) {
+    data.addColumn('number', raw_data[i][0]);   
+  }
+  
+  data.addRows(creditline.length);
+
+
+  for (var j = 0; j < creditline.length; ++j) {    
+    data.setValue(j, 0, creditline[j].toString());    //print Creditline on X-axis
+  }
+  for (var i = 0; i  < raw_data.length; ++i) {
+    for (var j = 1; j  < raw_data[i].length; ++j) {
+      data.setValue(j-1, i+1, raw_data[i][j]);    
+    }
+  }
+  
+  // Create and draw the visualization.
+  new google.visualization.ColumnChart(document.getElementById('visualization')).
+      draw(data,
+           {title:"Deposit summary", 
+            width:600, height:400,
+            hAxis: {title: "Subproducts"},
+	    vAxis: {title: "Amount(Rs)"}
+		});
+}
+ google.setOnLoadCallback(drawVisualization);
+    </script>
+
+
+<div id="visualization" style="width: 600px; height: 400px;"></div>
+<fieldset>
+    <legend><?php echo $this->translate('Deposit Details'); ?></legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+
+                    <TR>
+                            <?php if ($this->officeName) { ?>
+                            <TD><B>Branch Name<?php echo $this->translate('Deposit Details'); ?></B></TD>
+                            <TD><B><?php echo $this->officeName; ?></B></TD>
+
+                            <?php } ?>
+                    </TR>
+            </table>
+           <table id="hor-minimalist-b">
+                    <TR >
+			    <TH><?php echo $this->translate('Type of savings'); ?></TH>
+			    <TH><?php echo $this->translate('Number of accounts'); ?></TH>
+			    <TH><?php echo $this->translate('Total Savings Amount'); ?></TH>
+                    </TR>
+                    <?php foreach($this->result as $savingsdetails){  ?>
+                     
+                    <TR>
+                                <TD><?php echo $savingsdetails['offerproductname'];?></TD>
+			    	<TD  align="center"><?php echo $savingsdetails['COUNT(offerproductname)'];?></TD>
+
+                                <?php  foreach($this->accountBalanc as $balance1){
+                                            
+                              if($savingsdetails["offerproduct_id"] == $balance1["offerproduct_id"]) {?>
+
+                                    <?php if($balance1["transaction_type"] == 1) {
+                                    
+                                    
+                                        $this->depositAmount = $this->depositAmount + $balance1["transaction_amount"];
+                                        $this->deposit = $this->deposit + $balance1["transaction_amount"];
+
+                                        } if($balance1["transaction_type"] == 2) {
+                                    
+                                        $this->withdrawlAmount = $this->withdrawlAmount + $balance1["transaction_amount"];
+                                        $this->withdrawl = $this->withdrawl + $balance1["transaction_amount"];
+                                        }
+        
+                                        $this->totalamount = $this->depositAmount - $this->withdrawlAmount;
+                                        
+                                        $this->sum = $this->deposit - $this->withdrawl;
+        
+                                    } 
+                                    
+                                } if($this->totalamount) { ?>
+                                
+		                <td align="right"><?php echo sprintf("%4.2f", $this->totalamount); 
+                                               $this->totalamount =0; 
+                                               $this->withdrawlAmount =0;  
+                                               $this->depositAmount =0; ?></td>
+                                <? } else {?>
+                                <td></td>
+                                <? }?>
+                    </TR>
+                 <?php } ?>
+	    </table>
+
+        </div>
+</fieldset>

@@ -1,0 +1,33 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<form action="<?php  echo $this->baseUrl();?>/officehierarchy/index/delete/officeTypeId/<? echo $this->deleteid ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+    <tr>
+    <Th ><p><B style="color:red">	<?php echo $this->translate("Are you sure you want to delete"); ?> </b>&nbsp;&nbsp;<B style="color:red">"<?php echo $this->escape($this->officeTypeName);?>" <?php echo $this->translate("Level"); ?></b></Th>
+    </tr>
+</table>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+
+        <TR>
+            <TD width="25"><?php echo $this->deleteform->officeTypeId;?><?php echo $this->deleteform->Yes;?></td>
+            <TD width="25"><?php echo $this->deleteform->No;?></TD>
+        <TD width="25"><TD width="25"> </TR>
+</table>
+</form>

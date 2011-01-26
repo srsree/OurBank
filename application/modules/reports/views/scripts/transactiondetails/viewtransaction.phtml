@@ -1,0 +1,121 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php if($this->accountDetails) { ?>
+<fieldset>
+    <legend>Account Details</legend>
+	<div class="cont-rgt-data">
+            <TABLE id="hor-minimalist-b" summary="">
+            <?php foreach($this->accountDetails as $accountDetails) : ?>
+            <TR>
+                <TD >Name</TD>
+                <TD ><?php echo $accountDetails["name"];?></TD>
+                <TD >A/C Name</TD>
+                <TD ><?php echo $accountDetails["offerproductname"];?></TD>
+
+            </TR>
+            <TR >
+                <TD >ID</TD>
+                <TD ><?php echo $accountDetails["membercode"];?></TD>
+                <TD >A/C Number</TD>
+                <TD ><?php echo $accountDetails["account_number"];?></TD>
+            </TR>
+            <input type="hidden" name="account_number" value="<?php echo $accountDetails["account_number"];?>">
+            <TR >
+                <TD >Branch Name</TD>
+                <TD ><?php echo $accountDetails["office_name"];?></TD>
+                <TD></TD>
+                <TD ></TD>
+            </TR>
+            <?php endforeach; ?>
+            </TABLE>
+    </div>
+</fieldset>
+<?php } ?>
+<br>
+<fieldset>
+    <legend>Transaction Details</legend>
+	<div class="cont-rgt-data">
+            <TABLE id="hor-minimalist-b" >
+                <tr class="tdbrownheading">
+                    <th>V.No</th>
+                    <?php if ($this->sample != 10) { ?>
+                    <th>Acc No</th>
+                    <?php } ?>
+                    <th>Tran Date</th>
+                    <th>Credit</th>
+                    <th>Debit</th>
+                    <th>Balance</th>
+                    <th >Description</th>
+
+               </tr>
+               <?php foreach($this->transaction as $transaction) : ?>
+               <tr >
+
+                   <td ><?php echo $transaction->transaction_id;?></td>
+                   <?php if ($this->sample != 10) { ?>
+                   <td ><?php echo $transaction->account_number;?></td>
+                   <?php } ?>
+                   <td ><?php echo substr($transaction->transaction_date,0,10);?></td>
+                   <?php $transaction_type = $transaction->transaction_type; ?>
+                   <?php if ($transaction_type == 1)  { ?>
+                   <td ><?php echo $transaction->transaction_amount;?></td>
+                   <td >----</td>
+                   <?php } ?>
+                   <?php if ($transaction_type == 2)  {?>
+                   <td >----</td></td>
+                   <td ><?php echo $transaction->transaction_amount;?></td>
+                   <?php } ?>
+                  <?php if ($transaction->balance) { ?>
+                  <td align = "rigth"><?php echo $transaction->balance;?></td>
+                   <?php } else { ?>
+                   <td >----</td>
+                   <?php } ?>
+                   <td ><?php echo $transaction->transaction_remarks;?></td>
+
+                </tr>
+                <?php endforeach; ?>
+                </TABLE>
+    </div>
+</fieldset>
+
+<form action="<?php echo $this->baseUrl();?>/reports/transactiondetails/pdftransaction/fromdate/<?php echo $this->fromdate;?>/todate/<?php echo $this->todate;?>/accno/<?php echo $this->accno;?>" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/reports/transactiondetails/reportdisplay/file/transactiondetails.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+
+<input type="hidden" value="<?php echo $this->baseUrl();?>" name="baseurl">
+           <BR> <input type="submit" value="PDF" id="submit">

@@ -1,0 +1,164 @@
+<?php 
+		class Cbtransaction_Model_Cbtransaction extends Zend_Db_Table { 
+ 			protected $_name = 'ob_accounts';
+
+ 
+public function getbankNames() 
+		{
+         		$select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->from('ourbank_institution')
+			->where('recordstatus_id=3');
+        		return $result = $this->fetchAll($select);
+      // die ($select->__toString($select));
+
+    		}
+ public function Searchbanktransaction($accountnumber,$date1,$date2,$bank) 
+		{
+
+
+        		$select = $this->select()
+        		->setIntegrityCheck(false)  
+        		->join(array('a' => 'ob_transaction'),array('account_id'))
+			->where('a.recordstatus_id=3')
+        		->where('a.transaction_date >= "'.$date1.'"  AND a.transaction_date <= "'.$date2.'"')
+			->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id')
+			->where('b.account_number="'.$accountnumber.'"')
+			->join(array('c'=>'ob_member'),'b.member_id=c.id AND c.bank_id="'.$bank.'"')
+			->join(array('d'=>'ob_institution'),'d.id=c.bank_id',array('name as bankname'))
+			->join(array('e'=>'ob_activity_details'),'e.id=b.activity_id',array('e.name as activityname'));
+			//die($select->__toString());
+       	 		$result = $this->fetchAll($select);
+        		return $result->toArray();
+    		}
+
+public function Searchnullaccounttransaction($bank,$date1,$date2) 
+		{
+
+
+        		$select = $this->select()
+        		->setIntegrityCheck(false)  
+        		->join(array('a' => 'ob_transaction'),array('account_id'))
+			->where('a.recordstatus_id=3')
+        		->where('a.transaction_date >= "'.$date1.'"  AND a.transaction_date <= "'.$date2.'"')
+			->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id')
+			->join(array('c'=>'ob_member'),'b.member_id=c.id AND c.bank_id="'.$bank.'"')
+			->join(array('d'=>'ob_institution'),'d.id=c.bank_id',array('name as bankname'))
+			->join(array('e'=>'ob_activity'),'e.id=b.activity_id',array('e.name as activityname'));
+
+			//die($select->__toString());
+       	 		$result = $this->fetchAll($select);
+        		return $result->toArray();
+    		}
+ public function Searchbankdatetransaction($date1,$date2) 
+		{
+
+
+        		$select = $this->select()
+        		->setIntegrityCheck(false)  
+        		->join(array('a' => 'ob_transaction'),array('account_id'))
+			->where('a.recordstatus_id=3')
+			->where('a.transaction_date >= "'.$date1.'"  AND a.transaction_date <= "'.$date2.'"')
+			->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id')
+			->join(array('c'=>'ob_member'),'b.member_id=c.id')
+			->join(array('d'=>'ob_institution'),'d.id=c.bank_id',array('name as bankname'))
+			->join(array('e'=>'ob_activity'),'e.id=b.activity_id',array('e.name as activityname'));
+
+			//die($select->__toString());
+       	 		$result = $this->fetchAll($select);
+        		return $result->toArray();
+    		}
+public function Searchbankwisetransaction($bank) 
+		{
+
+
+        		$select = $this->select()
+        		->setIntegrityCheck(false)  
+        		->join(array('a' => 'ob_transaction'),array('account_id'))
+			->where('a.recordstatus_id=3')
+			->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id')
+			->join(array('c'=>'ob_member'),'b.member_id=c.id AND c.bank_id="'.$bank.'"')
+			->join(array('d'=>'ob_institution'),'d.id=c.bank_id',array('name as bankname'))
+			->join(array('e'=>'ob_activity'),'e.id=b.activity_id',array('e.name as activityname'));
+
+			//die($select->__toString());
+       	 		$result = $this->fetchAll($select);
+        		return $result->toArray();
+    		}
+public function Searchaccounttransaction($accountnumber) 
+		{
+
+
+        		$select = $this->select()
+        		->setIntegrityCheck(false)  
+        		->join(array('a' => 'ob_transaction'),array('account_id'))
+			->where('a.recordstatus_id=3')
+			->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id')
+			->where('b.account_number="'.$accountnumber.'"')
+			->join(array('c'=>'ob_member'),'b.member_id=c.id')
+			->join(array('d'=>'ob_institution'),'d.id=c.bank_id',array('name as bankname'))
+			->join(array('e'=>'ob_activity'),'e.id=b.activity_id',array('e.name as activityname'));
+
+			//die($select->__toString());
+       	 		$result = $this->fetchAll($select);
+        		return $result->toArray();
+    		}
+
+public function Searchaccountdatetransaction($accountnumber,$date1,$date2) 
+		{
+
+
+			$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_transaction'),array('account_id'))
+			->where('a.recordstatus_id=3')
+			->where('a.transaction_date >= "'.$date1.'"  AND a.transaction_date <= "'.$date2.'"')
+			->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id')
+			->where('b.account_number="'.$accountnumber.'"')
+			->join(array('c'=>'ob_member'),'b.member_id=c.id')
+			->join(array('d'=>'ob_institution'),'d.id=c.bank_id',array('name as bankname'))
+			->join(array('e'=>'ob_activity'),'e.id=b.activity_id',array('e.name as activityname'));
+			//die($select->__toString());
+       	 		$result = $this->fetchAll($select);
+        		return $result->toArray();
+    		}
+public function Searchbankacctransaction($accountnumber,$bank) 
+		{
+
+
+			$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_transaction'),array('account_id'))
+			->where('a.recordstatus_id=3')
+			->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id ')
+			->where('b.account_number="'.$accountnumber.'"')
+			->join(array('c'=>'ob_member'),'b.member_id=c.id AND c.bank_id="'.$bank.'"')
+			->join(array('d'=>'ob_institution'),'d.id=c.bank_id',array('name as bankname'))
+			->join(array('e'=>'ob_activity'),'e.id=b.activity_id',array('e.name as activityname'));
+
+			
+			//die($select->__toString());
+       	 		$result = $this->fetchAll($select);
+        		return $result->toArray();
+    		}
+public function Searchemptybanktransaction() 
+		{
+	$select = $this->select()
+        		->setIntegrityCheck(false)  
+        		->join(array('a' => 'ob_transaction'),array('account_id'))
+			->where('a.recordstatus_id=3')
+
+			->join(array('b'=>'ob_accounts'),'a.account_id=b.account_id')
+			->join(array('c'=>'ob_member'),'b.member_id=c.id')
+			->join(array('d'=>'ob_institution'),'d.id=c.bank_id',array('name as bankname'))
+			->join(array('e'=>'ob_activity'),'e.id=b.activity_id',array('e.name as activityname'));
+
+			
+			//die($select->__toString());
+       	 		$result = $this->fetchAll($select);
+        		return $result->toArray();
+
+    		}
+
+
+}

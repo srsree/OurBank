@@ -1,0 +1,34 @@
+<fieldset>
+	<legend>Search member</legend>
+		<form action="<?php echo $this->baseUrl();?>/account" method="POST">
+			<table class="fieldsets">
+                            <TR>
+                                <TD><label for="fld3">Member code / Name</label></TD>
+                                <TD><? echo $this->form->membercode;?></TD>
+                            </TR>
+                        </table>
+                        <div class="btnhouse">
+                            <div class="ltbtns">
+                                <?php echo $this->form->Submit;?>
+                            </div>
+                        </div>
+		</form>
+
+</fieldset>
+
+<?php if($this->result) { ?>
+	<table id="hor-minimalist-b">
+		<tr>
+			<Th>Member code</Th>
+			<Th>Name/Group name</th>
+			<Th>Branch</th>
+		</tr>
+		<?php foreach($this->result as $member) : ?>
+		<tr>
+			<td><a href="<?php echo $this->baseUrl();?>/account/index/loans/memberId/<?php echo $member->id;?>/membercode/<?php echo $member->code;?>"><?php echo $member->code;?></a></td>
+			<td><?php  echo $member->Name;?></td>
+			<td><?php  echo $member->Office;?></td>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+<?php }?>

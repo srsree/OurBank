@@ -1,0 +1,33 @@
+<?php
+class Personalinfo_Model_Personalinfo  extends Zend_Db_Table {
+ protected $_name = 'ob_member';
+
+ public function add_info($data) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->insert('ob_personal_details',$data);
+        return;
+    }
+
+    public function edit_address($id,$mod_id,$sub_id,$data)
+    {
+        $where = array('id = '.$id,'module_id='.$mod_id,'submodule_id='.$sub_id);
+	$db = $this->getAdapter();
+        $db->update('ob_address_details', $data , $where);
+    }
+
+    public function getaddress($id,$mod_id,$sub_id)
+    {
+        $select=$this->select()
+                ->setIntegrityCheck(false)
+                ->join(array('a'=>'ob_address_details'),array('member_id'))
+                ->where('id=?',$id)
+		->where('module_id=?',$mod_id)
+		->where('submodule_id=?',$sub_id)
+                ->where('recordstatus_id=3');
+              
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+       //die ($select->__toString($select));
+    }
+
+}

@@ -1,0 +1,39 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class App_Form_Dates extends Zend_Form
+{
+	public function init()
+	{
+		
+		$begindate = new Zend_Form_Element_Text('begindate');
+		$begindate->setAttrib('class', 'txt_put');
+		$begindate->setAttrib('id', 'begindate');
+		$begindate->setRequired(true)
+	   					->addValidator(new Zend_Validate_Date('YYYY-MM-DD'),true,
+	   				array('messages' =>array(Zend_Validate_Date::FALSEFORMAT => 'Enter the valid date')));
+
+		$closedate = new Zend_Form_Element_Text('closedate');
+		$closedate->setAttrib('class', 'txt_put');
+		$closedate->setAttrib('id', 'closedate');
+		$closedate->setRequired(true)
+	   					->addValidator(new Zend_Validate_Date('YYYY-MM-DD'),true,
+	   				array('messages' =>array(Zend_Validate_Date::FALSEFORMAT => 'Enter the valid date')));
+
+		$applicableto = new Zend_Form_Element_Select('applicableto');
+		$applicableto->addMultiOption('','Select...');
+		$applicableto->setAttrib('class', 'txt_put');
+		$applicableto->setAttrib('id', 'applicableto');
+		$applicableto->setRequired(true);
+
+		
+
+		$submit = new Zend_Form_Element_Submit('Submit');
+		$submit->setAttrib('class', 'savings');
+		$submit->setAttrib('id', 'savings');
+
+		$this->addElements( array($begindate,$closedate,$applicableto,$submit));
+	}
+}
+/** end of class */

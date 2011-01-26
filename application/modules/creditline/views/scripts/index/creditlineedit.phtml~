@@ -1,0 +1,49 @@
+
+
+
+
+<div id = "searchDiv">
+<fieldset>
+<legend>Edit creditline</legend>
+	<form action="<?php echo $this->baseUrl();?>/creditline/index/creditlineedit/creditline_id/<?php echo $this->creditid;?>" method="POST">
+		<table class = "fieldsets">
+			<TR>
+			<TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/creditline/index/creditlinedelete/creditline_id/<?php echo $this->creditid; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
+			</TR>
+			<TR >
+				<TD><label for="fld1" class="mand">Name</TD>
+				<TD ><?php echo $this->creditlineform->creditlinename;?></TD>
+			</TR>
+			<TR >
+				<TD><label for="fld1" class="mand">Protfolio Value - R$</TD>
+				<TD ><?php echo $this->creditlineform->portfoliovalue;?></TD>
+			</TR>
+			<TR >
+				<TD ><label for="fld1" class="mand">Start Date</TD>
+				<TD ><?php echo $this->creditlineform->creditline_beginingdate;?><?php echo $this->startMsg;?></TD>
+			</TR>
+			<TR >
+				<TD><label for="fld1" class="mand">End Date</TD>
+				<TD ><?php echo $this->creditlineform->creditline_closingdate;?><?php echo $this->endMsg;?></TD>
+			</TR>
+			<TR >
+				
+				<TD><label for="fld1" class="mand">Active</TD>
+				<TD ><?php echo $this->creditlineform->status;?></TD>
+			</TR>
+			<!--<TR >
+				<TD><?php /*echo $this->creditlineform->Submit;?></TD>
+				<TD ><a href="<? echo $this->baseUrl();?>/creditlinecommonview/index/creditlinecommonviewview/creditline_id/<? echo $this->creditid; ?>"><?php echo $this->creditlineform->Back;*/?></a></TD>
+			</TR>-->
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<?php echo $this->creditlineform->Submit;?>
+			</div>
+			<div class="rtbtns">
+			<a href="<? echo $this->baseUrl();?>/creditlinecommonview/index/creditlinecommonviewview/creditline_id/<? echo $this->creditid; ?>"><?php echo $this->creditlineform->Back;?></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>

@@ -1,0 +1,37 @@
+<?php
+class Management_FeeController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Fee';
+    }
+
+    public function indexAction() {
+       $this->view->title = "Fee";
+        $this->view->title = "New Office";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+
+    }
+
+    public function feeviewAction() {
+       $this->view->title = "Fee View";
+
+    }
+
+    public function feeaddAction() {
+       $this->view->title = "New Fee";
+
+    }
+
+    public function feeeditAction() {
+       $this->view->title = "Edit Fee";
+
+    }
+
+    public function feedeleteAction() {
+       $this->view->title = "Delete Fee";
+
+    }
+
+}

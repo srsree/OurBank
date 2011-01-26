@@ -1,0 +1,88 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!--> 
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/rolesadd.js">
+
+</script>
+<div class="searchDiv">
+ <fieldset>
+  <?php $activity = new Roles_Model_Roles(); ?>
+     
+    <form action="<?php echo $this->baseUrl();?>/roles/index/rolesadd" method="POST" name="myform" class="cmxform"  id="signupForm">
+       <table id="hor-minimalist-b">
+        <tr>  
+            <th><label for="fld1" class="mand">Grant name</label>   </th>
+            <th><?php echo $this->form->grantname;?><?php echo $this->errorgrantname;?></th>
+            <th></th><th></th><th></th>
+        </tr>
+       </table>
+    
+    <table id="hor-minimalist-b">
+         <tr bgcolor="Gray">
+            <td>Modules</td>
+            <td>Sub Module</td>
+            <td>Add</td>
+            <td>Edit</td>
+            <td>View</td>
+            <td>Delete</td>
+        </tr>	
+    <?php $dbobj = new Roles_Model_Roles();
+        if($this->module) { 
+            $modules = $this->module;
+            foreach($modules as $moduleslist){
+                if($moduleslist['parent']=="0") { $moduleid = $moduleslist['module_id'];?>		
+                    <tr>
+                        <td colspan="6">
+                            <input type="checkbox" id="module_<?php echo $moduleslist['module_id']; ?>"  class="mainmoduleClass" name="mainModule_<?php echo $moduleslist['module_id']; ?>"  value="<?php echo $moduleslist['module_id']; ?>"><?php echo $moduleslist['module_description']; ?>
+                        </td>
+                    </tr>
+                        <?php $Submodule = $dbobj->getSubmodule($moduleid);
+                foreach($Submodule as $Submodulelist){ ?>
+                    <tr>
+                    <td></td>
+                    <td>
+                        <input type="checkbox" id="submodule_<?php echo $Submodulelist['module_id']; ?>"  class="submoduleClass" name="submodule_<?php echo $moduleid?>"  value="<?php echo $Submodulelist['module_id']; ?>"><?php echo $Submodulelist['module_description']; ?>
+                    </td>
+                    <td>
+                        <input type="checkbox" id="add_<?php echo $moduleid; ?>_<?php echo $Submodulelist['module_id']; ?>"  class="activityClass" name="add_<?php echo $moduleid; ?>_<?php echo $Submodulelist['module_id']; ?>"  value="1">
+                    </td> 
+                    <td>
+                        <input type="checkbox" id="edit_<?php echo $moduleid; ?>_<?php echo $Submodulelist['module_id']; ?>"  class="activityClass" name="edit_<?php echo $moduleid; ?>_<?php echo $Submodulelist['module_id']; ?>"  value="1">
+                    </td>
+                        <td>
+                        <input type="checkbox" id="view_<?php echo $moduleid; ?>_<?php echo $Submodulelist['module_id']; ?>"  class="activityClass" name="view_<?php echo $moduleid; ?>_<?php echo $Submodulelist['module_id']; ?>"  value="1">
+                    </td>
+                        <td>
+                        <input type="checkbox" id="delete_<?php echo $moduleid; ?>_<?php echo $Submodulelist['module_id']; ?>"  class="activityClass" name="delete_<?php echo $moduleid; ?>_<?php echo $Submodulelist['module_id']; ?>"  value="1">
+                    </td>
+                </tr>
+          <?php }  } } }  ?>
+    </table>	
+        <div class="btnhouse">
+            <div class="ltbtns">
+               <input type="submit" name="submit" value="Submit"/>
+            </div>
+            <div class="rtbtns">
+               <a href="<?php echo $this->baseUrl();?>/roles/index">
+               <?php echo $this->form->Back;?></a>
+            </div>
+        </div>
+    </form>
+ </fieldset>
+</div>
+

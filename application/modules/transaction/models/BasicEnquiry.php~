@@ -1,0 +1,23 @@
+<?php
+class Transaction_Model_BasicEnquiry extends Zend_Db_Table {
+     protected $_name = 'ob_transaction';
+
+
+    public function transactionByDate($date) {
+        $select = $this->select()
+                       ->setIntegrityCheck(false)  
+                       ->join(array('a' => 'ob_transaction'),array('transaction_id'))
+                       ->where('a.transaction_date = ?',$date)
+                       ->where('a.recordstatus_id = 3')
+                       ->join(array('b' => 'ob_accounts'),'a.account_id = b.account_id') 
+                       ->join(array('c' => 'ob_transactiontype'),'c.transactiontype_id = a.transaction_type')
+                       ->join(array('d' => 'ob_paymenttypes'),'d.paymenttype_id = a.paymenttype_mode')
+                       ->join(array('e' => 'ob_userloginupdates'),'e.user_id = a.created_by')
+                       ->join(array('f' => 'ob_record_status'),'f.recordstatus_id = a.recordstatus_id');
+                       //die($select->__toString());
+       $result = $this->fetchAll($select);
+       return $result->toArray();
+        }
+
+ 
+}

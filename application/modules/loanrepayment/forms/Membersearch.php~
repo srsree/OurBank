@@ -1,0 +1,19 @@
+<?php
+	class Loantransaction_Form_Membersearch extends Zend_Form {
+		public function init() {
+			Zend_Dojo::enableForm($this);
+		}
+
+		public function __construct($options = null) {
+			Zend_Dojo::enableForm($this);
+			parent::__construct($options);
+
+			$member_id = new Zend_Form_Element_Text('member_id');
+			$member_id->setAttrib('class', 'txt_put');
+
+			$submit = new Zend_Form_Element_Submit('Search');
+			$submit->setAttrib('id', 'save');
+
+			$this->addElements(array($member_id,$submit));
+		}
+	}

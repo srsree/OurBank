@@ -1,0 +1,7 @@
+<fieldset>
+    <legend>Edit Category</legend> 
+            <table id="hor-minimalist-b"> 
+                <?php echo $this->form;?>
+                <?php echo $this->Nomatch;?>
+            </table>
+</fieldset>

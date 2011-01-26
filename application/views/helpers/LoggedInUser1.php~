@@ -1,0 +1,34 @@
+<?php
+class Zend_View_Helper_LoggedInUser1
+{
+	protected $_view;
+	function setView($view)
+	{
+	$this->_view = $view;
+	}
+
+
+
+	function loggedInUser1()
+	{
+		$auth = Zend_Auth::getInstance();
+		if($auth->hasIdentity())
+		{
+			$logoutUrl = $this->_view->linkTo('index/logout');
+			 $user = $auth->getIdentity();
+                         foreach($user as $user) {
+			 $username = $this->_view->escape(ucfirst($user['login_name']));
+                         echo $password = $this->_view->escape(ucfirst($user['password']));
+                         }
+			$string = '' . $username . '<a href="' .
+			$logoutUrl . '"></a>';
+		} else {
+			$loginUrl = $this->_view->linkTo('index/login');
+			$string = '<a href="'. $loginUrl . '">Log in</a>';
+		}
+		return $string;
+	}
+
+
+
+}

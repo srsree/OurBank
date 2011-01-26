@@ -1,0 +1,35 @@
+<?php
+class Loanstatus_Model_loanstatus extends Zend_Db_Table {
+	protected $_name = 'ob_accounts';
+
+	public function fetchAllStatus($accountStatusId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_record_status'),array('recordstatus_id'))
+			->where('a.recordstatus_id = ?',$accountStatusId);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function fetchloanStatusDetails($accountStatusId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ob_record_status'),array('recordstatus_id'))
+			->where('a.recordstatus_id != ?',$accountStatusId)
+			->where('a.recordstatus_id != 3');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function updatemainaccountstatus($account,$input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where[] = "account_id = '".$account."'";
+		$result = $this->db->update('ob_accounts',$input,$where);
+	}
+
+	public function updateloanaccountstatus($account,$input = array()) {
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$where[] = "account_id = '".$account."'";
+		$result = $this->db->update('ourbank_loanaccounts',$input,$where);
+	}
+}

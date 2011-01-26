@@ -1,0 +1,234 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+
+class Reports_LoandueController extends Zend_Controller_Action
+{
+     function init()
+     { 
+         $this->view->pageTitle = "Loan Due Check list";
+         $this->view->tilte = "Reports";
+     }
+
+     function indexAction()
+     {
+
+	$searchForm = new Reports_Form_Search();
+        $this->view->form = $searchForm;
+
+        $individual = new Membership_Model_Individual();
+
+        $subBranch = $individual->getBranchOffice();
+        foreach($subBranch as $subBranch) 
+            {
+                $searchForm->field3->addMultiOption($subBranch->office_id,$subBranch->office_name);
+            }
+// 
+//         $user = new Management_Model_User();
+//         $users = $user->getUserDetails();
+// 
+//         foreach($users as $users) 
+//             {
+//                 $searchForm->field5->addMultiOption($users['user_id'],$users['firstname']);
+//             }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) 
+            {
+                 $this->view->val=10;
+                 $today=date('Y-m-d');
+                 $formData = $this->_request->getPost();
+                 $fromDate = $this->_request->getParam('field1');
+                 $this->view->field1 = $fromDate;
+                 $toDate = $this->_request->getParam('field2');
+                 $this->view->field2 = $toDate;
+                 $brancId = $this->_request->getParam('field3');
+                 $this->view->field3=$brancId;
+//                 $userName= $this->_request->getParam('field5');
+              
+	      if ($searchForm->isValid($formData))
+                {
+                    if($fromDate > $today)
+                    {
+                        $this->view->fromerr="<font color='red'>From Date is less than or equal to today date:<b>".$today."</b></font>";
+                    }
+                    else if($toDate > $today)
+                    {
+                        $this->view->toerr="<font color='red'>To date less is than or equal to today date:<b>".$today."</b></font>";
+                    }
+                    else if($fromDate>$toDate)
+                    {
+                        $this->view->dateerr="<font color='red'>From date is less than to today date</font>";
+                    }
+                    else
+                    {
+                    if($brancId)
+                    {   
+                        $loandue = new Reports_Model_Loandue();
+                        $arrayLoan=$loandue->loanSearhb($brancId,$fromDate,$toDate);
+                    }
+		    else
+                    { 
+                     $loandue = new Reports_Model_Loandue();
+                     $arrayLoan = $loandue->loanSearchh($fromDate,$toDate);
+                    }
+                    $this->view->loanView = $arrayLoan;
+                    //print_r($arrayLoan);
+
+                    if (!$arrayLoan)
+                    {
+                      echo "<font color='red'>Record is not found and Try again </font>";
+                    }
+                    }
+                 }
+            }
+        }
+
+     function reportdisplayAction() {
+        $app = $this->view->baseUrl();
+        $word=explode('/',$app);
+        $projname = $word[1];
+        $this->_helper->layout->disableLayout();
+        $file1 = $this->_request->getParam('file'); 
+        $this->view->filename = "/".$projname."/reports/".$file1;
+    }
+
+    function pdftransactionAction()
+    { 
+        $app = $this->view->baseUrl();
+        $word=explode('/',$app);
+        $projname = $word[1];
+        $fromDate = $this->_request->getParam('field1');
+        $toDate = $this->_request->getParam('field2');
+        $branch=$this->_request->getParam('field3');
+
+        $branchname=new Reports_Model_Loandue();
+        $result=$branchname->find_name($branch);
+        $this->view->val=10;
+        foreach($result as $name)
+        { 
+        $officename=$name['office_name'];
+        }
+        $pdf = new Zend_Pdf();
+        $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+        $pdf->pages[] = $page;
+        // Image
+        $image_name = "/var/www/'.$projname.'/public/images/logo.jpg";
+        $image = Zend_Pdf_Image::imageWithPath($image_name);
+        //$page->drawImage($image, 25, 770, 570, 820);
+    
+        $page->drawImage($image, 30, 770, 130, 820);
+        $page->setLineWidth(1)->drawLine(25, 25, 570, 25); //bottom horizontal
+        $page->setLineWidth(1)->drawLine(25, 25, 25, 820); //left vertical
+        $page->setLineWidth(1)->drawLine(570, 25, 570, 820); //right vertical
+        $page->setLineWidth(1)->drawLine(570, 820, 25, 820); //top horizontal
+        //set the font
+        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 8);
+
+        $text = array("Loan Due Check List",
+                    "Account Number",
+                    "Due Date",
+                    "OverDue Amount",
+                    "CurrentDue Amount",
+                    "Total",
+                    "Outstanding Balance","From Date:","To Date:","There is not Outstanding Balance in between two dates");
+ 
+        $x1 = 80; 
+        $x2=250;
+        $x3 = 220;
+        $x4 = 320;
+        $x6 = 450;
+        $y1= 700;
+
+        $page->drawLine(50, 740, 550, 740);
+        $page->drawLine(50, 720, 550, 720);
+
+        $page->drawText($text[0], $x2, 770);
+        $page->drawText($text[1], $x1, 725);
+        $page->drawText($text[2], $x3, 725);
+        $page->drawText($text[3], $x4, 725);
+        $page->drawText($text[7].$fromDate, $x1, 745);
+        $page->drawText($text[8].$toDate, $x6, 745);
+        $page->drawText($officename ,$x1, 760);
+        $page->drawText($text[4], $x6, 725);
+
+        if($brancId)
+                    {   
+                        $loandue = new Reports_Model_Loandue();
+                        $arrayLoan=$loandue->loanSearhb($brancId,$fromDate,$toDate);
+                    }
+		    else
+                    {
+                     $loandue = new Reports_Model_Loandue();
+                     $arrayLoan = $loandue->loanSearchh($fromDate,$toDate);
+                    }
+        $this->view->loanView = $arrayLoan;
+        foreach($arrayLoan as $loanduelist)
+        {
+            if($loanduelist['installment_status']==5)
+            {
+                $overduetotal += $loanduelist['accountinstallment_amount'];
+            }
+            if($loanduelist['installment_status']==4)
+            {
+                $currentduetotal += $loanduelist['accountinstallment_amount'];
+            }
+//              $overduetotal;
+//            //  echo $currentduetotal;   
+             $outstanding_amount=$overduetotal+$currentduetotal;
+//              $outstanding_amount;
+//             $i++;
+//          //   $page->drawText($i,$x1, $y1);
+            $page->drawText($loanduelist['account_number'],$x1, $y1);
+            $page->drawText($loanduelist['accountinstallment_date'],$x3, $y1);
+            if($loanduelist['installment_status'] == 5)
+            {
+            $page->drawText($loanduelist['accountinstallment_amount'],$x4, $y1);
+            }
+            if($loanduelist['installment_status'] == 4)
+            {
+            $page->drawText($loanduelist['accountinstallment_amount'],$x6, $y1);
+            }
+            $y1 -= 15;
+        }
+        $page->drawLine(50, $y1, 550, $y1);
+        $y2=$y1-10;
+        $page->drawText($text[5], $x1, $y2);
+        $page->drawText($overduetotal, $x4, $y2);
+        $page->drawText($currentduetotal, $x6, $y2);
+        $y3=$y2-5;
+        $page->drawLine(50, $y3, 550, $y3);
+        $y4=$y3-10;
+        $page->drawText($text[6], $x1, $y4);
+        $page->drawText($outstanding_amount, $x6, $y4);
+        $y5=$y4-5;
+        $page->drawLine(50, $y5, 550, $y5);
+
+
+        $pdfData = $pdf->render();
+        $pdf->save('/var/www/'.$projname.'/reports/loandue.pdf');
+        $path = '/var/www/'.$projname.'/reports/loandue.pdf';
+        chmod($path,0777);
+     //  $this->_redirect('/reports/loandue/reportdisplay/file/loandue1.pdf');
+
+    }
+
+
+}
+
+

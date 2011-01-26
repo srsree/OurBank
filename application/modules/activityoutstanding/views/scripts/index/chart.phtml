@@ -1,0 +1,101 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <script type="text/javascript">
+     function drawVisualization() {
+  // Create and populate the data table.
+  var data = new google.visualization.DataTable();
+
+  var raw_data = [['Disbursed',
+		    <?php foreach ($this->disbursed as $disbursedamount ){ echo $disbursedamount['disbursed'].","; }?>],
+		 ['Paid',
+		    <?php foreach ($this->disbursed as $disbursedamount ){$flag1=1; foreach($this->paid as $paidamount) { if($disbursedamount['name']==$paidamount['name']) { echo $paidamount['paid'].","; $flag1=0; }} if($flag1==1){ echo '0'.",";}} ?>],
+                ['Outstanding',
+		    <?php foreach ($this->disbursed as $disbursedamount ){$flag=1; foreach($this->outstanding as $outstandingamount) { if($disbursedamount['name']==$outstandingamount['name']) { echo $outstandingamount['outstanding'].","; $flag=0; }} if($flag==1){ echo '0'.",";}} ?>]];
+
+      
+ var creditline = [<?php foreach ($this->disbursed as $activityname ){?>
+	      '<?php echo $activityname['name']; ?>',
+		<?php } ?>
+];
+
+  data.addColumn('string', 'Activity');
+  for (var i = 0; i  < raw_data.length; ++i) {
+    data.addColumn('number', raw_data[i][0]);   
+  }
+  
+  data.addRows(creditline.length);
+
+
+  for (var j = 0; j < creditline.length; ++j) {    
+    data.setValue(j, 0, creditline[j].toString());    //print Creditline on X-axis
+  }
+  for (var i = 0; i  < raw_data.length; ++i) {
+    for (var j = 1; j  < raw_data[i].length; ++j) {
+      data.setValue(j-1, i+1, raw_data[i][j]);    
+    }
+  }
+  
+  // Create and draw the visualization.
+  new google.visualization.ColumnChart(document.getElementById('visualization')).
+      draw(data,
+           {title:"Activity wise outstanding", 
+            width:650, height:400,
+            hAxis: {title: "Activity"},
+	    vAxis: {title: "Amount(R$)"}
+		});
+}
+ google.setOnLoadCallback(drawVisualization);
+    </script>
+
+
+<div id="visualization" style="width: 650px; height: 400px;"></div>
+
+<?php if($this->outstanding or $this->disbursed or $this->paid){ ?>
+            <TABLE id="hor-minimalist-b" >
+                <tr>
+	            <td id="reportth"><?php echo $this->translate("Activity name"); ?></td>
+                    <td align="right" id="reportth"><?php echo $this->translate("Disbursed Amount"); ?></td>
+		    <td align="right" id="reportth"><?php echo $this->translate("Paid Amount"); ?></td>
+		    <td align="right" id="reportth"><?php echo $this->translate("Outstanding Amount"); ?></td>
+	        </tr>
+		<?php foreach($this->disbursed as $disbursed){?>
+		<td><? echo $disbursed['name']; ?></td>
+		<td align="right"><? echo $disbursed['disbursed']; ?></td>
+                <?php $flag1=1; foreach($this->paid as $paid) {
+                            if($disbursed['name']==$paid['name']) {?><td align="right"><?php echo $paid['paid']; ?></td><?php 
+                        $flag1=0; } 
+                } if($flag1==1) { echo "<td></td>";  }  ?>
+		<?php $flag=1; foreach($this->outstanding as $outstanding) {
+				 if($disbursed['name']==$outstanding['name']) {?><td align="right"><?php echo $outstanding['outstanding']; ?></td><?php 
+				$flag=0; } 
+			} if($flag==1) { echo "<td></td>";  }  ?>
+                </tr><?} ?>
+</TABLE>
+<?php } ?>
+
+
+
+
+
+

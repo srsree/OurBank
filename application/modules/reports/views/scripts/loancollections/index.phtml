@@ -1,0 +1,89 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>	
+
+		<TABLE id="hor-minimalist-b" >
+
+			<tr>
+
+				<th>Account number</th>
+				<th>principal</th>
+				<th>interest</th>
+				<th>principal</th>
+				<th>Interest</th>
+				<th>Paid</th>
+				<th>Total Balance</th>
+
+			</tr>
+				
+<?php $totalAmount=0 ?>
+				<?php $totalinterest=0 ?>
+				<?php $currentamount=0 ?>
+				<?php $currentinterest=0 ?>
+				<?php $totalprincipal=0 ?>
+				<?php $totalint=0 ?>
+
+
+		<?php  foreach($this->currentLoan as $fixedDebit) { ?>
+			<tr>	
+				<TD><?php echo $fixedDebit["account_number"];?></TD>
+				<TD><?php echo $fixedDebit["amount"];?></TD>
+				<TD><?php echo $fixedDebit["interest"];?></TD>
+				<TD><?php echo $fixedDebit["currentamount"];?></TD>
+				<TD><?php echo $fixedDebit["currentinterest"];?></TD>
+				<TD><?php echo $fixedDebit["amount"]+$fixedDebit["currentamount"];?></TD>
+				<TD><?php echo $fixedDebit["interest"]+$fixedDebit["currentinterest"];?></TD>
+
+				
+
+			</tr>
+<?php $totalAmount = $totalAmount + $fixedDebit["amount"]; ?>
+				<?php $totalinterest = $totalinterest + $fixedDebit["interest"]; ?>
+				<?php $currentamount = $currentamount + $fixedDebit["currentamount"]; ?>
+				<?php $currentinterest = $currentinterest + $fixedDebit["currentinterest"]; ?>
+				<?php $totalprincipal = $totalprincipal + $fixedDebit["amount"]+$fixedDebit["currentamount"]; ?>
+				<?php $totalint = $totalint + $fixedDebit["interest"]+$fixedDebit["currentinterest"]; ?>
+
+				<?php }?>	
+
+		<tr>
+				<th>TOTAL</th>
+				<th><?php echo $totalAmount; ?></th>
+				<th><?php echo $totalinterest; ?></th>
+				<th><?php echo $currentamount; ?></th>
+				<th><?php echo $currentinterest; ?></th>
+				<th><?php echo $totalprincipal; ?></th>
+				<th><?php echo $totalint; ?></th>
+
+			</tr>
+
+
+			<tr>
+				
+			</tr>
+	
+
+
+
+		</TABLE>
+
+
+	</fieldset>
+

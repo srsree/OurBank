@@ -1,0 +1,124 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--<a href="#" id="open"></B>Change Log</B></a>
+
+<div id="content1">
+<fieldset>
+<legend>Members in account</legend>
+
+<table id="hor-minimalist-b">
+<tr >
+<th >Feild Name</th>
+<th >Old Value</td>
+<th >New Value</td>
+<th >Changed By</td>
+<th >Change Date</th>
+</tr>
+
+<?php  //foreach ($this->changelog as $changelog): ?>
+<tr >
+<td ><?php //echo $this->escape($changelog['filedname']);?></td>
+<td ><?php //echo $this->escape($changelog['previous_data']);?></td>
+<td ><?php //echo $this->escape($changelog['current_data']);?></td>
+<td ><?php //echo $this->escape($changelog['login_name']);?></td>
+<td ><?php// echo $this->escape($changelog['modified_date']);?></td>
+</tr>
+<?php //endforeach; ?>
+</table>
+</fieldset>
+<p><a href="#" id="close">hide</a></p>
+</div>  
+
+<br/><br/> -->
+
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/management/creditline" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Institution name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Creditline name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Creditline From:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Creditline To:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+
+<fieldset>
+	<legend>Bank</legend>
+	<table id="hor-minimalist-b" summary="">
+    	<tr class="tdbrownheading">
+        <th>Institution Name</th>
+        <th>Credit line Name</td>
+        <th>Cl Short Name</td>
+        <th>Cl Amount</td>
+       <th>Cl From</th>
+       <th>Cl To</th>
+        <th>Edit</td>
+        <th>Delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $creditline ): ?>
+    <tr>
+     <td><?php echo $this->escape($creditline['institutionname']); ?></td>
+    <td><a href="<?php echo $this->baseUrl()."/management/creditline/creditlineview/creditline_id/".$creditline['creditline_id']; ?>"><?php echo $this->escape($creditline['creditlinename']);?></a></td>
+     <td><?php echo $this->escape($creditline['creditline_shortname']); ?></td>
+    <td><?php echo $this->escape($creditline['creditlineamount']);?></td>
+    <td><?php echo $this->escape($creditline['creditline_beginingdate']);?></td>
+    <td><?php echo $this->escape($creditline['creditline_closingdate']);?></div></td>
+    <td><a href="<?php echo $this->baseUrl()."/management/creditline/creditlineedit/creditline_id/".$creditline['creditline_id']; ?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl()."/management/creditline/creditlinedelete/creditline_id/".$creditline['creditline_id']; ?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+        <?php endforeach; ?>
+        <?php endif; ?>
+
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</tr>
+</table>
+<br>
+    <table>
+        <TR>        
+                   <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/creditline/creditlineadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Creditline"></a></td>
+        </TR>
+    </table>
+</fieldset>

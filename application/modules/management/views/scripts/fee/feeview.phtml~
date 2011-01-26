@@ -1,0 +1,52 @@
+<fieldset>
+    <legend>View Category</legend>
+	<div class="cont-rgt-data">
+            <?php foreach($this->fee as $fee) {  ?>
+                <TABLE id="hor-minimalist-b">
+                    <TR>
+                        <TD>Fee Name</TD>
+                        <TD><?php echo $fee['feename'];?></TD>
+                    </TR>
+    
+                    <TR>
+                        <TD>Fee Amount</TD>
+                        <TD><?php echo $fee['feevalue'];?></TD>
+    
+                    </TR>
+    
+                    <TR>
+                        <TD>Fee Description</TD>
+                        <TD><?php echo $fee['feedescription'];?></TD>
+    
+                    </TR>
+    
+                    <TR>
+                        <TD>Fee Applies To</TD>
+                        <TD><?php echo $fee['membertype'];?></TD>
+    
+                    </TR>
+    
+                    <TR>
+                        <TD>Duration</TD>
+                        <TD><?php echo $fee['activity_description'];?></TD>
+    
+                    </TR>
+    
+                    <TR>
+                        <TD>Default Fee</TD>
+                        <?php if($fee['defaultfee']) {?>
+                        <TD> Yes </TD>
+                        <?php } else {?>
+                        <TD> No </TD>
+                        <?php } ?>
+                    </TR>
+    
+                    <TR>
+                        <TD><a href="<?php echo $this->baseUrl(); ?>/management/fee">
+                                    <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+                        <TD></TD>
+                    </TR>
+            </TABLE>
+        <?php } ?>
+    </div>
+</fieldset>

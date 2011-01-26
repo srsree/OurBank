@@ -1,0 +1,160 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if($this->loan) { echo $this->baseUrl(); ?>
+
+<div style="float:left;width:380px">
+<fieldset>
+    <legend>Credit List</legend>
+        <?php $totalCredit = "0";
+              $totalTransferCredit = "0";
+              $totalDebit = "0";
+              $totalTransferDebit = "0";
+        ?>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH >LF No.</TH>
+            <TH >Credit</TH>
+            <TH>A/C No.</TH>
+            <TH class = "label">Cash</TH>
+            <TH class = "label">Transfer</TH>
+        </TR>
+
+
+        <?php foreach($this->loanCredit as $loanCredit) { 
+		if(($loanCredit->paymenttype_mode == 1) or ($loanCredit->paymenttype_mode == 5)) {
+	?>
+        <TR>
+            <TD ><?php echo $loanCredit->glsubcode ?></TD>
+            <TD ><?php echo $loanCredit->productname ?></TD>
+            <TD ><?php echo $loanCredit->account_id ?></TD>
+            <?php if($loanCredit->paymenttype_mode == 1) {?>
+            <TD align = "right"><?php echo $loanCredit->transaction_amount; 
+            $totalCredit = $totalCredit + $loanCredit->transaction_amount; ?></TD>
+            <TD></TD>
+            <?php } elseif($loanCredit->paymenttype_mode == 5) { ?>
+            <TD></TD>
+            <TD align = "right"><?php echo $loanCredit->transaction_amount; 
+            $totalTransferCredit = $totalTransferCredit + $loanCredit->transaction_amount; ?></TD>
+            <?php }}?>
+        </TR>
+        <?php } ?>
+        <TR>
+            <td><b>Total</b></td>
+            <td></td>
+            <td></td>
+            <?php if ($totalCredit != "0") { ?>
+            <td align="right"><b><?php echo sprintf("%4.2f", $totalCredit); ?></b></td>
+            <?php } else { ?>
+            <td align="right"><b>----</b></td>
+            <?php } ?>
+            <?php if ($totalCredit != "0") { ?>
+            <td align="right"><b><?php echo sprintf("%4.2f", $totalTransferCredit); ?></b></td>
+            <?php } else { ?>
+            <td align="right"><b>----</b></td>
+            <?php } ?>
+        </TR>
+
+    </table>
+<form action="<?php echo $this->baseUrl();?>/reports/loanscroll/pdftransaction" method="POST"
+onClick="window.open('/ourbanktesting/public/reports/loanscroll/reportdisplay/file/loanscroll.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+            <input type="hidden" name="field1" value="<?php echo $this->field1; ?>">
+            <input type="hidden" name="field2" value="<?php echo $this->field2;?>">
+            <input type="submit" value="PDF" id="submit">
+</form>
+</fieldset>
+</div>
+<div style="float:left;width:380px">
+<fieldset>
+    <legend>Debit List</legend>
+    <table id="hor-minimalist-b">
+        <TR>
+            <TH >LF No.</TH>
+            <TH >Debit</TH>
+            <TH>A/C No.</TH>
+            <TH class = "label">Cash</TH>
+            <TH class = "label">Transfer</TH>
+        </TR> 
+<?php foreach($this->loanDedit as $loanDebit) { 
+        
+if($loanDebit->paymenttype_mode == 1 or $loanDebit->paymenttype_mode == 5 ){
+?>
+        <TR>
+            <TD ><?php echo $loanDebit->glsubcode ?></TD>
+            <TD ><?php echo $loanDebit->productname ?></TD>
+            <TD ><?php echo $loanDebit->account_id ?></TD>
+            <?php if($loanDebit->paymenttype_mode == 1) {?>
+            <TD align = "right" ><?php echo $loanDebit->transaction_amount;
+            $totalDebit = $totalDebit + $loanDebit->transaction_amount; ?></TD>
+            <TD></TD>
+            <?php } elseif($loanDebit->paymenttype_mode == 5) { ?>
+            <TD></TD>
+            <TD align = "right"><?php echo $loanDebit->transaction_amount; 
+            $totalTransferDebit = $totalTransferDebit + $loanDebit->transaction_amount; ?></TD>
+            <?php } }?>
+        </TR>
+        <?php } ?>
+        
+        <TR>
+            <td><b>Total</b></td>
+            <td></td><br>
+            <td></td>
+            <?php if ($totalDebit != "0") { ?>
+            <td align="right"><b><?php echo sprintf("%4.2f", $totalDebit); ?></b></td>
+            <?php } else { ?>
+            <td align="right"><b>----</b></td>
+            <?php } ?>
+            <?php if ($totalTransferDebit != "0") { ?>
+            <td align="right"><b><?php echo sprintf("%4.2f", $totalTransferDebit); ?></b></td>
+            <?php } else { ?>
+            <td align="right"><b>----</b></td>
+            <?php } ?>
+        </TR>
+
+    </table>
+
+</div>
+</fieldset>
+<?php } else {?>
+
+<fieldset>
+    <legend> search </legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+                <form action="<?php echo $this->baseUrl();?>/reports/loanscroll/index" method="POST">
+                    <TR>
+                            <TD >Date From</TD>
+                            <TD ><?php echo $this->form->field1;?></TD>
+                            <TD >Date To</TD>
+                            <TD ><?php echo $this->form->field2;?></TD>
+                    </TR>
+                    <TR>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ></TD>
+                            <TD ><?php echo $this->form->Search;?></TD>
+                    </TR>
+
+                </form>
+            </table>
+        </div>
+</fieldset>
+
+
+<?php } ?>
+

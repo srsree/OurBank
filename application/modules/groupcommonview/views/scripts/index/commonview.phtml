@@ -1,0 +1,136 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<div id = "searchDiv">
+
+<table id="hor-minimalist-b">
+			<tr>
+				<th class = "firsttd">Group information</th>
+				<th class = "secondtd"></th>
+				<th class="thirdtd"><a href="<?php echo $this->baseUrl();?>/groupdefault/index/editgroup/id/<?php echo $this->groupid; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th> 
+			</tr>
+                       
+                          <? foreach($this->groupname as $groups){}?>
+
+
+	<tr>
+		<td class = "firsttd">Group name</td>
+		<td class = "secondtd"><?php echo $groups['group_name']; ?></td>
+		<td class = "thirdtd"></td>
+	</tr>
+
+	<tr>
+		<td class = "firsttd">Branch name</td>
+		<td class = "secondtd"><?php echo $groups['bankname']; ?></td>
+		<td class = "thirdtd"></td>
+	</tr>
+	<tr>
+		<td class = "firsttd">Created date</td>
+		<td class = "secondtd"><?php echo $groups['group_created_date']; ?></td>
+		<td class = "thirdtd"></td>
+	</tr>
+	<tr>
+		<th class = "firsttd">Member's list</th>
+		<th class = "secondtd"></th>
+		<th class = "secondtd"></th>
+	</tr>
+
+	
+
+    
+                   <? foreach($this->groupmembers as $groupmem){ ?>
+
+			<tr>
+				<td class = "firsttd"></td>
+				<td class = "secondtd"><?php echo $groupmem['member_name']; if($groupmem['member_id'] == $this->grouphead) { echo "  <font color='green'>(Head)</font>"; }  ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+		 <?php } ?>
+                         <?php if(count($this->address)!=0) { ?>
+                          <tr>
+				<th class = "firsttd">Address information</th>
+				<th class = "secondtd"></th>
+				<th class = "secondtd"><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->groupid; ?>/subId/<?php 
+				echo $this->sub_id;?>/modId/<?php echo $this->mod_id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a>   </th>
+			</tr><? } else { ?>
+                              
+                       <th class = "firsttd">Address information</th>
+                       <th class = "secondtd"></th>
+			<th><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->groupid; ?>/subId/<?php 
+			echo $this->sub_id;?>/modId/<?php echo $this->mod_id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"></a></th>
+                        <?php } ?>
+                       </tr>
+            
+                       
+                       
+
+			
+                       <?php if($this->address){
+				 foreach($this->address as $address_view){
+                         ?>
+
+			<tr>
+				<td class = "firsttd">Address line1</td>
+				<td class = "secondtd"><?php echo $address_view['address1']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Address line2</td>
+				<td class = "secondtd"><?php echo $address_view['address2']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Address line3</td>
+				<td class = "secondtd"><?php echo $address_view['address3']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">City</td>
+				<td class = "secondtd"><?php echo $address_view['city']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">State</td>
+				<td class = "secondtd"><?php echo $address_view['state']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Country</td>
+				<td class = "secondtd"><?php echo $address_view['country']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Pin code</td>
+				<td class = "secondtd"><?php echo $address_view['zipcode']; ?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+
+
+                       <?php } } ?>
+            
+                    
+
+
+                        <tr><td><a href="<?php echo $this->baseUrl(); ?>/group"><input type="button" name="back" value="Back"></a></TD></tr>
+                         </table>
+                     
+        </div>
+
+ 

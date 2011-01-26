@@ -1,0 +1,30 @@
+<div style="width:440px;float:left">
+<?php foreach($this->inst as $view_inst)
+{ ?>
+    <fieldset>
+        <legend>Institution Information</legend> 
+                <table id="hor-minimalist-b"> 
+                <tr><td>Institution Name</td><TD><?php echo $view_inst['institutionname']; ?></TD></tr>
+                <tr><td>Address1</td><TD><?php echo $view_inst['address1']; ?></TD></tr>
+                <tr><td>City</td><TD><?php echo $view_inst['city']; ?></TD></tr>
+                <tr><td>State</td><TD><?php echo $view_inst['state']; ?></TD></tr>
+                <tr><td>Country</td><TD><?php echo $view_inst['country']; ?></TD></tr>
+                <tr><td>Pincode</td><TD><?php echo $view_inst['pincode']; ?></TD></tr>
+                <tr><td>Email</td><TD><?php echo $view_inst['email_Id ']; ?></TD></tr>
+                <tr><td>Phone</td><TD><?php echo $view_inst['phone']; ?></TD></tr>
+                </table>
+    </fieldset>
+<?php } ?>
+</div>
+
+
+<div style="width:360px;float:right;">
+    <fieldset>
+        <legend>Existing Credit Lines</legend>
+<table id="hor-minimalist-b"> 
+                <tr><TD>fdfaf</TD></tr>
+                <tr><TD>dfaf</TD></tr>
+                <tr><TD>dfafaf</TD></tr>
+                </table>
+    </fieldset>
+</div>

@@ -1,0 +1,84 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<table id="hor-minimalist-b">
+    <tr>
+        <th class = "firsttd">Fundings information</th>
+        <th class = "secondtd"></th>
+        <th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/fundings/index/editfundings/id/<?php echo $this->id;?>">
+                            <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+
+    </tr>
+        <?php foreach($this->fundings as $fundings){ ?>
+        <tr>
+            <td class = "firsttd">Funder name</td>
+            <td class = "secondtd"><?php echo $fundings['fundername']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Institution name</td>
+            <td class = "secondtd"><?php echo $fundings['institutionname']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Funding name</td>
+            <td class = "secondtd"><?php echo $fundings['name']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Funding amount R$ </td>
+            <td class = "secondtd"><?php echo $fundings['amount']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Intrest % </td>
+            <td class = "secondtd"><?php echo $fundings['intrest']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Funding currency</td>
+            <td class = "secondtd"><?php echo $fundings['currency']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Funding exchange rate</td>
+            <td class = "secondtd"><?php echo $fundings['exchangerate']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+  <tr>
+            <td class = "firsttd">Gl subcode</td>
+            <td class = "secondtd"><?php echo $fundings['glname']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Funding period from</td>
+            <td class = "secondtd"><?php echo $fundings['beginingdate']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Funding period to</td>
+            <td class = "secondtd"><?php echo $fundings['closingdate']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+    
+        <?php } ?>
+
+    </table>
+
+

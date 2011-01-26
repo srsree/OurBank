@@ -1,0 +1,151 @@
+<?php
+class Management_Model_Category extends Zend_Db_Table {
+	protected $_name = 'ourbank_categorydetails';
+
+	public function getCategoryDetails() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_categorydetails'),array('a.category_id','a.categoryname','a.categorydescription','a.createddate','a.recordstatus_id'))
+			->where('a.recordstatus_id = 3 OR a.recordstatus_id = 1')
+			->join(array('b' => 'ourbank_userloginupdates'),'a.createdby = b.user_id',array('b.login_name'))
+			->where('b.recordstatus_id = 3');
+ 		$result = $this->fetchAll($select);
+		return $result->toArray();
+		die($select->__toString($select));
+	}
+
+        public function getCategoryDetails1() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_categorydetails'),array('a.category_id'),'a.category_id')
+			->where('a.recordstatus_id = 3 OR a.recordstatus_id = 1');
+ 		$result = $this->fetchAll($select);
+ 		return $result->toArray();
+		die($select->__toString($select));
+	}
+
+	public function getCategoryinformation() {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_categorydetails'),array('category_id'));
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+// 		die($select->__toString($select));
+	}
+
+	public function viewCategory($category_id) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_categorydetails'),array('category_id'))
+			->where('a.category_id = ?',$category_id)
+			->where('a.recordstatus_id = 3 or a.recordstatus_id = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function addCategory($post,$category_id) {
+		$sessionName = new Zend_Session_Namespace('ourbank');
+		$createdby = $sessionName->primaryuserid;
+		$data = array('categoryupdates_id'=> '',
+					'category_id'=> $category_id,
+					'categoryname'=>$post['categoryname'],
+					'categorydescription'=>$post['categorydescription'],
+					'recordstatus_id'=>'3',
+					'createdby'=>$createdby,
+					'createddate'=>date("Y-m-d"),
+					'editedby'=>$createdby,
+					'editeddate'=>date("Y-m-d"));
+		$this->insert($data);
+	}
+
+	public function editCategory($post,$category_id) {
+		$sessionName = new Zend_Session_Namespace('ourbank');
+		$createdby = $sessionName->primaryuserid;
+		$where = 'category_id = '.$category_id;
+		$data = array('categoryname'=>$post['categoryname'],
+					'categorydescription'=>$post['categorydescription'],
+					'createdby'=>$createdby,
+					'createddate'=>date("Y-m-d"),
+					'editedby'=>$createdby,
+					'editeddate'=>date("Y-m-d"));
+		$this->update($data,$where );
+	}
+
+	public function deleteCategory($category_id,$remarks) {
+		$data = array('recordstatus_id'=> 5,'remarks'=>$remarks);
+		$where = 'category_id = '.$category_id;
+		$this->update($data , $where );
+	}
+
+	public function SearchCategory($post = array()) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_categorydetails'),array('category_id'))
+			->where('a.recordstatus_id = 3 OR a.recordstatus_id = 1')
+			->where('a.categoryname like "%" ? "%"',$post['field3'])
+			->where('a.categorydescription like "%" ? "%"',$post['field2']);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function getUpdatesinformation($post = array()) {
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('a' => 'ourbank_categoryupdates'),array('categoryupdates_id'))
+			->join(array('b' => 'ourbank_userloginupdates'),'a.modified_by =b.user_id')
+			->where('b.recordstatus_id = 1 or b.recordstatus_id = 3');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+
+	public function categorystatus($category_id) {
+		$data = array('recordstatus_id'=> 1);
+		$where = 'category_id = '.$category_id;
+		$this->update($data,$where);
+	}
+
+	public function fetchCategoryDetails() {
+		$result = $this->fetchAll( "recordstatus_id = '3'"  );
+		return $result;
+	}
+
+	public function categoryUpdate($updateOldCategory= array(),$updateNewCategory= array(),$createdby,$category_id)
+	{
+		$this->db = Zend_Db_Table::getDefaultAdapter();
+		$match = array();
+		foreach ($updateOldCategory as $key=>$val) {
+			if ($val != $updateNewCategory[$key]) {                           /** if the values are changed */
+				$match[] = $key;
+    		}
+		}
+		if(count($match) <= 0){
+		} else {
+			foreach($match as $category) {
+				$tableName ='ourbank_categorydetails';
+				$categoryUpdates = array('categoryupdates_id'=>'',
+										'category_id' => $category_id,
+										'table_name'=>$tableName,
+										'filedname'=>$category,
+										'previous_data'=>$updateOldCategory[$category],
+										'current_data'=>$updateNewCategory[$category],
+										'modified_by'=>$createdby,
+										'modified_date'=>date("Y-m-d"));
+				$this->db->insert("ourbank_categoryupdates",$categoryUpdates);
+			}
+		}
+	}
+
+	public function addExtendedCategory($input) {
+		$db = $this->getAdapter();
+		$db->insert("ourbank_Category_extended",$input);
+		return ;
+	}
+
+	public function insertcategoryId($input = array())
+	{
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+		$this->db->insert("ourbank_category",$input);
+		$result = $this->db->lastInsertId('ourbank_category');
+		return $result;
+	}
+}

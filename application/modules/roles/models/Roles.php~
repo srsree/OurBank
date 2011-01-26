@@ -1,0 +1,272 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!--> 
+<?php
+class Roles_Model_Roles extends Zend_Db_Table {
+	protected $_name = 'ob_grantactivites';
+	
+	public function addGrantActivites($data) {
+	
+			$this->insert($data);
+	}	
+	public function getRoles() {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->from('ob_grant');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+	public function searchRoles($post) { 
+	$convertdate = new Creditline_Model_dateConvertor();
+	if($post['granteddate']){
+	$searchdate = $convertdate->mysqlformat($post['granteddate']);}
+	else{$searchdate=$post['granteddate'];}
+	
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->from('ob_grant') 
+			->where('name like "%" ? "%" ' ,$post['grantname'])
+			->where('createddate  like "%" ? "%" ',$searchdate);
+	$result = $this->fetchAll($select);
+	return $result->toArray();
+	}
+ 	public function getModule() {
+        $select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->from('ob_modules');
+        $result = $this->fetchAll($select);
+        return $result->toArray();
+    	}
+  
+	public function getSubmodule($moduleid) {
+	
+		$select = $this->select()
+				->setIntegrityCheck(false)  
+				->join(array('a' => 'ob_modules'),array('module_id'),array('module_id','module_description'))
+				->where('parent=?',$moduleid);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	// die($select->__toString($select));
+	}
+        public function updateRecord($table,$data,$modid){
+            $db = $this->getAdapter();
+            $where[] = "module_id = '".$modid."'";
+            $db->update($table,$data,$where);
+        }
+
+
+ public function viewModuleid($grantid) {
+            $select = $this->select()
+                ->setIntegrityCheck(false)  
+                ->join(array('a' => 'ob_grantactivity'),array('id'),array('module_id'))
+                ->where('grant_id =?',$grantid);
+            $result = $this->fetchAll($select);
+            return $result->toArray();
+    	}
+
+    
+	public function getActivity($moduleid,$grantid) {
+                $select = $this->select()
+                    ->setIntegrityCheck(false)  
+                    ->join(array('a' => 'ob_grantactivity'),array('id'),array('add','edit','view','delete'))
+                    ->where('grant_id ='.$grantid)
+                    ->where('module_id ='.$moduleid);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}   
+        public function editactivity($grantid) {
+                $select = $this->select()
+                    ->setIntegrityCheck(false)  
+                    ->join(array('a' => 'ob_grantactivity'),array('id'),array('id','module_id','add','edit','view','delete'))
+                    ->where('grant_id ='.$grantid);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	} 
+
+        public function editactivitydetails($table,$data){
+            $db = $this->getAdapter();
+            $db->insert($table,$data);
+        } 
+        
+        public function deleteactivity($table,$grantid){
+            $db = $this->getAdapter();
+            $where = 'grant_id = '.$grantid;
+            $db->delete($table,$where);
+        }
+        public function deletegrantname($table,$grantid){
+            $db = $this->getAdapter();
+            $where = 'id = '.$grantid;
+            $db->delete($table,$where);
+        }
+	 public function getGrantname($grantid) {
+            $db = $this->getAdapter();
+            $sql = "select name from ob_grant 
+                    where id = $grantid";
+                    $result = $db->fetchOne($sql);
+            return $result;
+	} 
+        public function getRolestatus($grantid) {
+            $db = $this->getAdapter();
+            $sql = "select * from ob_usergrants 
+                    where grant_id = $grantid";
+                    $result = $db->fetchAll($sql);
+            return $result;
+	}
+		
+// 	public function getgrantActivities($grant_id) {
+// 	
+// 		$select = $this->select()
+// 				->setIntegrityCheck(false)  
+// 				->from('ob_grantactivites')
+// 				->where('grant_id=?',$grant_id)
+// 				->where('recordstatus_id = 3');
+// 	// 			die($select->__toString($select));
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	}
+// 
+// 	public function familyMemberUpdate($feildname,$table,$pk,$data)
+// 	{
+// 		$pk = intval($pk);
+// 		$db = $this->getAdapter();
+// 		$where[] = "$feildname = '".$pk."'";
+// 	
+// 		$result = $db->update($table,$data,$where);
+// 		return $result;
+// 	}
+// 
+//    
+
+// 
+// 
+// 
+// 	public function getMainModule($grantId) {
+// 		$select = $this->select()
+// 				->setIntegrityCheck(false)  
+// 				->join(array('a' => 'ob_grantactivites'),array('grantactivites_id'))
+// 				->where('grant_id=?',$grantId)
+// 				->where('a.recordstatus_id = 3 OR a.recordstatus_id = 1')
+// 				->join(array('b' => 'ob_modules'),'a.module_id = b.module_id')
+// 				->where('b.recordstatus_id = 3')
+// 				->join(array('c' => 'ob_submodule'),'a.submodule_id = c.submodule_id')
+// 				->join(array('d' => 'ob_subactivity'),'a.activity_id = d.activity_id')
+// 				->group('a.submodule_id');
+// 				
+// 		$result = $this->fetchAll($select);
+// 		return $result->toArray();
+// 	// 	die($select->__toString($select));
+// 	}
+// 
+// 	public function editActivity($grantId) {
+// 	
+// 		$db = $this->getAdapter();
+// 		$sql = "SELECT
+// 			c.activity_id,
+// 			c.activity_name,
+// 			a.module_id,
+// 			b.submodule_id
+// 			FROM
+// 			ob_modules a,
+// 			ob_submodule b,
+// 			ob_subactivity c,
+// 			ob_grantactivites d
+// 			WHERE
+// 			a.module_id=b.module_id AND
+// 			b.submodule_id=c.submodule_id AND
+// 			c.activity_id=d.activity_id AND
+// 			d.recordstatus_id = 3 AND
+// 			grant_id= '$grantId'
+// 			group by(c.activity_id)";
+// 		
+// 		return $db->fetchAll($sql);
+// 	
+// 	}
+// 	
+// 	public function getMainModule1($grantId) {
+// 		$db = $this->getAdapter();
+// 		
+// 		$sql = "SELECT * FROM
+// 			ob_submodule a
+// 			WHERE a.submodule_id NOT
+// 			IN (
+// 			SELECT b.submodule_id
+// 			FROM ob_grantactivites b
+// 			WHERE b.grant_id = '".$grantId."' AND
+// 			b.recordstatus_id = 3 
+// 			)";
+// 		
+// 	return $db->fetchAll($sql);
+// 	}
+// 	
+// 	public function editActivity1($grantId) {
+// 		$db = $this->getAdapter();
+// 		$sql = "SELECT c.activity_id,
+// 			c.activity_name,
+// 			a.module_id,
+// 			b.submodule_id
+// 			from 
+// 			ob_modules a, 
+// 			ob_submodule b,
+// 			ob_subactivity c
+// 			where
+// 			c.activity_id
+// 			NOT IN (
+// 			SELECT d.activity_id 
+// 			FROM 
+// 			ob_grantactivites d 
+// 			WHERE (
+// 			d.grant_id = ".$grantId." AND
+// 			d.recordstatus_id = 3 AND
+// 			b.submodule_id = d.submodule_id))
+// 			group by c.activity_name 
+// 			order by c.activity_id";
+// 	
+// 	return $db->fetchAll($sql);
+// 	
+// 	
+// 	}
+// 	public function deleteGrants($grantId) {
+// 		$this->db = Zend_Db_Table::getDefaultAdapter();
+// 		$data = array('recordstatus_id'=> 5);
+// 		$where = 'grant_id = '.$grantId;
+// 		$this->db->update('ob_grant',$data , $where );
+// 	}
+// 	public function getModuleid($submodname) {
+// 		$this->db = Zend_Db_Table::getDefaultAdapter();
+// 		$select = $this->db->select()
+// 			->join(array('a' => 'ob_submodule'),array('submodule_id'))
+// 			->where('a.submodule_description = ?',$submodname);
+// 		$result = $this->db->fetchAll($select);
+// 		return $result;
+// 	}
+// 	
+// 	public function RolesRemark($post,$remarks,$actid) {   
+// 			$sessionName = new Zend_Session_Namespace('ourbank');
+// 			$createdby = $sessionName->primaryuserid;
+// 			
+// 			$this->db = Zend_Db_Table::getDefaultAdapter();
+// 			$data = array('module_id'=> $post['module_id'],
+// 						'submodule_id'=> $post['submodule_id'],
+// 						'id'=>$actid,
+// 						'remarks'=>$remarks,
+// 						'deleted_by'=>$createdby,
+// 						'deleted_date'=>date("Y-m-d"));
+// 				$this->db->insert('ob_deleted_details',$data);
+// 	
+// 		}
+}

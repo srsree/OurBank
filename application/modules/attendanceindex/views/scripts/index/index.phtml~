@@ -1,0 +1,60 @@
+
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+ <link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#search_meeting_date").datepicker({"dateFormat":"dd/mm/yy"});
+});
+</script>
+
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/attendanceindex/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Meeting name</td>
+                                    <td ><? echo $this->form->search_meeting_name_att;?></td>
+                                    <td class="label">Meeting date:</td>
+                                    <td ><? echo $this->form->search_meeting_date;?></td>
+                                </tr>
+
+                        </table>
+			<div class="btnhouse">
+				<div class="ltbtns">
+				<input type="Submit" name="Search" value="Search">
+				</div>
+			</div>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+<table id="hor-minimalist-b" summary="">
+	<tr class="tdbrownheading">
+		<th>Meeting name</th>
+		<th>Meeting date</th>
+	</tr>
+		<?php if (count($this->paginator)): 
+		$convertdate = new Creditline_Model_dateConvertor();?>
+		<?php foreach ($this->paginator as $attendance ): ?>
+	<tr>
+		
+		<td><a href="<?php echo $this->baseUrl()."/attendancecommonview/index/index/attendance_id/".$attendance['attid']; ?>"><?php echo $this->escape($attendance['name']);?></a></td>
+		<td><?php echo $this->escape($attendance['meeting_date']); ?></td>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		
+		<tr>
+			<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?></div></td>
+		</tr>
+	</tr>
+</table>
+

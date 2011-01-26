@@ -1,0 +1,51 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<fieldset>
+    <legend>New Sector</legend>
+        <div class="register">
+            <div class="profile_tab">
+                <form action="<?php echo $this->baseUrl();?>/sectors/index/sectorsadd" method="POST"  name= "myform">
+                    <table id="hor-minimalist-b">
+                   
+                        <TR>
+                            <TD>Sector <span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->form->sector;?></TD>
+                        </TR>
+                        <TR>
+                            <TD>Description<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->form->description;?></TD>
+                        </TR>
+			<TR>
+                            <TD>Status<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->form->category;?></TD>
+                        </TR>
+                        
+                       
+                        <tr>
+                            <TD><?php echo $this->form->Submit;?></TD>
+                           	 <td><a href="<?php echo $this->baseUrl(); ?>/sectors/index">
+                                            <input name="submit" type="submit" class="NormalBtn" value="Back"></a></td>
+		
+                        </TR>
+                </table>
+            </form>
+        </div>
+    </div>
+</fieldset>

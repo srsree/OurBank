@@ -1,0 +1,556 @@
+<?php
+class Membership_IndividualController extends Zend_Controller_Action
+{
+
+    public function init()
+    {
+        $this->view->pageTitle = "Individual Member";
+    }
+
+    public function indexAction()
+    {
+        $this->view->title = "Individual Member";
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $individual = new Membership_Model_Individual();
+
+        $result = $individual->getMemberDetails();
+
+	$page = $this->_getParam('page',1);
+	$paginator = Zend_Paginator::factory($result);
+	$paginator->setItemCountPerPage(5);
+	$paginator->setCurrentPageNumber($page);
+	$this->view->paginator = $paginator;
+
+        $subBranch = $individual->getBranchOffice();
+        foreach($subBranch as $subBranch) {
+                $searchForm->field1->addMultiOption($subBranch['bank_id'],$subBranch['bankname']);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+	   
+            if ($this->_request->isPost()) {
+
+		if ($searchForm->isValid($this->_request->getPost())) {
+		    $result = $individual->memberSearch($searchForm->getValues());
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+		} 
+                if (!$result) {
+		    echo "<font color='RED'>Records Not Found Try Again...</font>";
+		}
+	    }
+	}
+    }
+
+    public function individualaddAction()
+    {
+       
+
+    }
+
+    public function individualviewAction() {
+       	$this->view->title = "View Member";
+	$memberId = (int)$this->_getParam('id');
+	$individual = new Membership_Model_Individual();
+
+	$result = $individual->viewMember($memberId);
+	$this->view->member = $result;
+	$this->view->familyasset=$individual->memberassets($memberId);
+        $this->view->familymember=$individual->familymembersView($memberId);
+	$this->view->familyhealth=$individual->familyhealthView($memberId);
+	$this->view->familyeconomical=$individual->familyeconomicalView($memberId);
+ 	$this->view->familyeducation=$individual->familyeducationView($memberId);
+    }
+
+    public function individualeditAction() {
+        $app = $this->view->baseUrl();
+       	$this->view->title = "Edit Member";
+	$memberId = (int)$this->_getParam('id');
+
+        $individualForm = new Membership_Form_Individual($app,"enabled");
+        $this->view->form = $individualForm;
+
+	$individual = new Membership_Model_Individual();
+	
+        $mainBranch = $individual->getHeadOffice();
+        foreach($mainBranch as $mainBranch) {
+                $individualForm->officeType->addMultiOption($mainBranch['bank_id'],$mainBranch['bankname']);
+        }
+
+        $salutation = $individual->getSalutation();
+        foreach($salutation as $salutation) {
+                $individualForm->membertitle->addMultiOption($salutation->salutation_id,$salutation->salutation);
+        }
+
+        $gender = $individual->getGender();
+        foreach($gender as $gender) {
+                $individualForm->gender_id->addMultiOption($gender->gender_id,$gender->sex);
+        }
+
+        $maritalStatus = $individual->getMaritalStatus();
+        foreach($maritalStatus as $maritalStatus) {
+                $individualForm->membermaritalstatus_id->addMultiOption($maritalStatus->membermaritalstatus_id,$maritalStatus->membermaritalstatusdescription);
+        }
+
+        $physicalStatus = $individual->getPhysicalStatus();
+        foreach($physicalStatus as $physicalStatus) {
+               $individualForm->physicalstatus_id->addMultiOption($physicalStatus->memberphysicalstatus_id,$physicalStatus->memberphysicalstatusdescription);
+        }
+
+           $this->view->familyasset=$individual->memberassets($memberId);
+            $v=1;
+           foreach($this->view->familyasset as $familyasset)
+           {
+            $v=$familyasset['asset_id'];
+               $size[$v++]=$familyasset['assest_size'];
+              
+            }
+//  print_r($size);
+           $immovableassets=$individual->getimmovableassets(); 
+            $this->view->immovable=$immovableassets;
+           
+            foreach($this->view->immovable as $immovable)
+            {
+                    $b2='icheck'.$immovable['asset_id'];
+                    $imid=$immovable['asset_id'];
+                    $this->view->form->addElement(new Zend_Form_Element_Checkbox($b2));
+                    $this->view->form->$b2->setAttrib('onclick', 'immoveableasset("'.$imid.'")');
+                    $this->view->form->$b2->setAttrib('class','txt_put');
+                    $this->view->form->$b2->setRequired();
+                    
+
+                    $a2='itext'.$immovable['asset_id'];
+                    $this->view->form->addElement(new Zend_Form_Element_Text($a2));
+                    $this->view->form->$a2->setValue($size[$imid]);
+                    $this->view->form->$a2->addValidators(array(array('Float'))); 
+            }
+ 
+            $nonlivingAssets = $individual->getnonLivingassets();
+            $this->view->nonlivingdetails=$nonlivingAssets;
+
+             foreach($this->view->nonlivingdetails as $nonliving)  {
+                    $b='ncheck'.$nonliving['asset_id'];
+                    $nid=$nonliving['asset_id'];
+                    $this->view->form->addElement(new Zend_Form_Element_Checkbox($b));
+                    $this->view->form->$b->setAttrib('onclick', 'nonlivingassets("'.$nid.'")');
+                    $this->view->form->$b->setAttrib('class','txt_put');
+                    $this->view->form->$b->setRequired();
+
+                    $a='ntext'.$nonliving['asset_id'];
+                    $this->view->form->addElement(new Zend_Form_Element_Text($a));
+                    $this->view->form->$a->setValue($size[$nid]);
+                    $this->view->form->$a->addValidators(array(array('Float')));
+
+                }
+
+            $LivingAssets = $individual->getlivingassets();
+            $this->view->living=$LivingAssets;
+
+            foreach($this->view->living as $living)  {
+                    $b1='lcheck'.$living['asset_id'];
+                    $lid=$living['asset_id'];
+                    $this->view->form->addElement(new Zend_Form_Element_Checkbox($b1));
+                    $this->view->form->$b1->setAttrib('onclick', 'livingassets("'.$lid.'")');
+                    $this->view->form->$b1->setAttrib('class','txt_put');
+                    $this->view->form->$b1->setRequired();
+
+                    $a1='ltext'.$living['asset_id'];
+                    $this->view->form->addElement(new Zend_Form_Element_Text($a1));
+                     $this->view->form->$a1->setValue($size[$lid]);
+                    $this->view->form->$a1->addValidators(array(array('Float')));
+                }
+
+        $status = $individual->getStatus();
+        foreach($status as $status) {
+                $individualForm->memberstatus_id->addMultiOption($status->memberstatus_id,                                               $status->memberstatusdescription);
+        }
+        $this->view->familymembermaritalstatus_id = $individual->getStatus();
+
+
+         $oneMemberDetails = $individual->viewMember($memberId);
+        foreach($oneMemberDetails as $oneMemberDetails1) {
+		$this->view->form->memberId->setValue($memberId);
+                $this->view->form->membertitle->setValue($oneMemberDetails1->membertitle);
+                $this->view->form->memberfirstname->setValue($oneMemberDetails1->memberfirstname);
+                $this->view->form->memberfirstname1->setValue($oneMemberDetails1->memberfirstname);
+                $this->view->form->membermiddlename->setValue($oneMemberDetails1->membermiddlename);
+                $this->view->form->memberlastname->setValue($oneMemberDetails1->memberlastname);
+                $this->view->form->memberpersonalid->setValue($oneMemberDetails1->memberpersonalid);
+                $this->view->form->memberdateofbirth->setValue($oneMemberDetails1->memberdateofbirth );
+                $this->view->form->gender_id->setValue($oneMemberDetails1->membergender );
+                $this->view->form->memberaddressline1->setValue($oneMemberDetails1->memberaddressline1 );
+                $this->view->form->memberaddressline2->setValue($oneMemberDetails1->memberaddressline2 );
+                $this->view->form->memberaddressline3->setValue($oneMemberDetails1->memberaddressline3 );
+                $this->view->form->membercity->setValue($oneMemberDetails1->membercity );
+                $this->view->form->memberstate->setValue($oneMemberDetails1->memberstate );
+                $this->view->form->membercountry->setValue($oneMemberDetails1->membercountry );
+                $this->view->form->memberpincode->setValue($oneMemberDetails1->memberpincode );
+                $this->view->form->memberphone->setValue($oneMemberDetails1->memberphone );
+                $this->view->form->membermaritalstatus_id->setValue($oneMemberDetails1->membermaritalstatus_id );
+                $this->view->form->physicalstatus_id->setValue($oneMemberDetails1->memberphysicallychallenged_id );
+                $this->view->form->memberland->setValue($oneMemberDetails1->memberland); 
+                $this->view->form->memberlandsize->setValue($oneMemberDetails1->memberlandsize);
+                $this->view->form->memberhouse->setValue($oneMemberDetails1->memberhouse);
+                $this->view->form->memberhomesize->setValue($oneMemberDetails1->memberhomesize );
+                $this->view->form->memberstatus_id->setValue($oneMemberDetails1->memberstatus_id );
+
+                $this->view->familymembers = $individual->familymembersView($memberId);
+                $this->view->familyeconomical = $individual->familyeconomicalView($memberId);
+                $this->view->familyeducation = $individual->familyeducationView($memberId);
+                $this->view->familyhealth = $individual->familyhealthView($memberId);
+        }
+
+        $this->view->familygender = $individual->getGender();
+        $this->view->familyrelationship = $individual->getRelationship();
+        $this->view->familyphysicalstatus_id = $individual->getPhysicalstatus();
+        $this->view->familymembermaritalstatus_id = $individual->getMaritalstatus();
+        $this->view->familyhealth_problem = $individual->getHealthproblem();
+        $this->view->healthundertreatment = $individual->getUndertreatment();
+        $this->view->clinicalaccessability = $individual->getClinicalaccessability();
+        $this->view->familyearning = $individual->getEarning();
+        $this->view->profession = $individual->getProfession();
+        $this->view->fmfibenefits = $individual->getMfibenefits();
+        $this->view->qualificationdetails = $individual->getQualification();
+        $this->view->schoollocation = $individual->getSchoollocation();
+        $this->view->transporationforschool = $individual->getTransporation();
+
+        if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+                $formData = $this->_request->getPost();
+                    if ($individualForm->isValid($formData)) {
+	    $memberId = $this->_request->getParam('memberId');
+	    $membertitle=$this->_request->getParam('membertitle');
+            $memberfirstname=$this->_request->getParam('memberfirstname');
+            $membermiddlename=$this->_request->getParam('membermiddlename');
+            $memberlastname=$this->_request->getParam('memberlastname');
+            $membergender = $this->_request->getParam('gender_id');
+            $memberdateofbirth= $this->_request->getParam('memberdateofbirth');
+            $memberaddressline1 = $this->_request->getParam('memberaddressline1');
+            $memberaddressline2 = $this->_request->getParam('memberaddressline2');
+            $memberaddressline3 = $this->_request->getParam('memberaddressline3');
+            $membercity = $this->_request->getParam('membercity');
+            $memberstate = $this->_request->getParam('memberstate');
+            $membercountry = $this->_request->getParam('membercountry');
+            $memberpincode = $this->_request->getParam('memberpincode');
+            $memberphone = $this->_request->getParam('memberphone');
+            $memberpersonalid = $this->_request->getParam('memberpersonalid');
+            $membermaritalstatus_id = $this->_request->getParam('membermaritalstatus_id');
+            $physicalstatus_id = $this->_request->getParam('physicalstatus_id');
+            $membermaritalstatus_id = $this->_request->getParam('membermaritalstatus_id');
+            $memberlandsize = $this->_request->getParam('memberlandsize');
+            $memberhomesize = $this->_request->getParam('memberhomesize');
+          //  $memberstatus = $this->_request->getParam('memberstatus_id');
+				
+            $individual = new Membership_Model_Individual();
+
+            $result = $individual->getOfficeId($memberId);
+            foreach($result as $result) {
+                $memberoffice_id1 = $result->memberbranch_id;
+            }
+
+            $memberEdit = array('recordstatus_id' =>2);
+            $individual->memberEdit($memberId,$memberEdit);
+            $mInsert = $individual->addMembername(array('membername_id' => '',
+                                                        'memberoffice_id' => $memberoffice_id1,
+                                                        'member_id'=> $memberId,
+                                                        'membertitle' =>$membertitle,
+                                                        'memberfirstname'=>$memberfirstname,
+                                                        'membermiddlename'=>$membermiddlename,
+                                                        'memberlastname'=>$memberlastname,
+                                                        'membergender' => $membergender,
+                                                        'memberdateofbirth' => $memberdateofbirth,
+                                                        'recordstatus_id' => 3));
+
+            $mInsert1 = $individual->addMemberaddress(array('memberaddress_id' => '',
+                                                        'member_id' => $memberId,
+                                                        'memberaddressline1' => $memberaddressline1,
+                                                        'memberaddressline2' => $memberaddressline2,
+                                                        'memberaddressline3' => $memberaddressline3,
+                                                        'membercity' => $membercity,
+                                                        'memberstate' => $memberstate,
+                                                        'membercountry' => $membercountry,
+                                                        'memberpincode' => $memberpincode,
+                                                        'memberphone' => $memberphone,
+                                                        'memberpersonalid' => $memberpersonalid,
+                                                        'membermaritalstatus_id' => $membermaritalstatus_id,
+                                                        'memberphysicallychallenged_id' => $physicalstatus_id,
+                                                        'memberland' => 1,
+                                                        'memberhouse'=>1,
+                                                        'memberlandsize' => $memberlandsize,
+                                                        'memberhomesize' => $memberhomesize,
+                                                        'recordstatus_id' => 3));
+
+//             $memberStatus = array('member_status' =>$memberstatus);
+//             $individual->memberStatusUpdate($memberId,$memberStatus);
+        }
+           
+           $data = array('recordstatus_id' => 2);
+           $individual->assetUpdate($memberId,$data);
+
+            foreach($this->view->immovable as $immovable)
+                {
+                  $isize=0;
+                  $asset1=$immovable['asset_id'];
+                  $isize=$this->_request->getParam('itext'.$asset1);
+                    if($isize!=0)
+                    {
+                    $individual->addMemberassets(array('memberassest_id' => '',
+                                                'asset_id'=> $asset1,
+                                                'member_id' => $memberId,
+                                                'assest_size' => $isize,
+                                                'recordstatus_id' => 3));
+                    }
+                }
+             foreach($this->view->nonlivingdetails as $nonliving)  {
+                  $nsize=0;
+                  $asset2=$nonliving['asset_id'];
+                   $nsize=$this->_request->getParam('ntext'.$asset2);
+                    if($nsize!=0)
+                    {
+                    $individual->addMemberassets(array('memberassest_id' => '',
+                                                'asset_id'=> $asset2,
+                                                'member_id' => $memberId,
+                                                'assest_size' => $nsize,
+                                                'recordstatus_id' => 3));
+                    }
+                }
+
+             foreach($this->view->living as $living)  {
+                    $lsize=0;
+                    $asset3=$living['asset_id'];
+                     $lsize=$this->_request->getParam('ltext'.$asset3);
+                    if($lsize!=0)
+                    {
+                    $individual->addMemberassets(array('memberassest_id' => '',
+                                                'asset_id'=> $asset3,
+                                                'member_id' => $memberId,
+                                                'assest_size' => $lsize,
+                                                'recordstatus_id' => 3));
+                    }
+                }
+        
+
+        $count=$this->_request->getParam('count'); 
+        for($i = 1;$i<=$count; $i++) {
+                $familymember= $this->_request->getParam('fmember'.$i); 
+		$familymember_ID=$this->_request->getParam('fmember_ID'.$i); 
+		$fgender= $this->_request->getParam('fgender'.$i); 
+		$fmemberage=$this->_request->getParam('fmemberage'.$i);
+    		$frelationship=$this->_request->getParam('frelationship'.$i); 
+		$fphysicalstatus_id=$this->_request->getParam('fphysicalstatus_id'.$i);
+		$fmembermaritalstatus_id= $this->_request->getParam('fmembermaritalstatus_id'.$i); 
+		$ffamilymemberdetails_id= $this->_request->getParam('ffamilymemberdetails_id'.$i); 
+
+		$fhealth_problem=$this->_request->getParam('fhealth_problem'.$i); 
+		$fhealthundertreatment=$this->_request->getParam('fhealthundertreatment'.$i);
+		$fclinicalaccessability= $this->_request->getParam('fclinicalaccessability'.$i);  
+		$familyhealth_ID=$this->_request->getParam('familyhealth_ID'.$i);  
+
+                $familyearning=$this->_request->getParam('familyearning'.$i); 
+		$fprofession=$this->_request->getParam('fprofession'.$i);
+	        $fmfibenefits= $this->_request->getParam('fmfibenefits'.$i); 
+	        $familyeconomical_ID = $this->_request->getParam('familyeconomical_ID'.$i);
+ 
+	        $fqualificationdetails=$this->_request->getParam('fqualificationdetails'.$i); 
+	        $fschool_locationstatus=$this->_request->getParam('fschool_locationstatus'.$i);
+	        $ftransporation_for_schoolstatus=$this->_request->getParam('ftransporation_for_schoolstatus'.$i);
+	        $familyeducation_ID = $this->_request->getParam('familyeducation_ID'.$i);
+
+
+                $table = "ourbank_familymemberdetails";
+		$feildname = "familymemberdetails_id";
+		$table1 = "ourbank_familyhealth";
+	    	$feildname1 = "familyhealth_ID";
+		$table2 = "ourbank_familyeconomicstatus";
+	        $feildname2 = "familyeconomical_ID";
+		$table3 = "ourbank_familyeducation";
+	    	$feildname3 = "familyeducation_ID";
+
+                $fMember = $individual->addFamilymemberdetails(
+						array('familymemberdetails_id' => '',
+						'familymember_ID' => $familymember_ID,
+						'member_id' => $memberId,
+						'familymember' => $familymember,
+						'gender' => $fgender,
+						'Age' => $fmemberage,
+						'Relationship'=> $frelationship,
+						'memberphysicalstatus_id' => $fphysicalstatus_id,
+						'membermaritalstatus_id' => $fmembermaritalstatus_id,
+						'recordstatus_id' => 3));
+		  
+                $data = array('recordstatus_id' => 2);
+                $individual->familyMemberUpdate($feildname,$table,$ffamilymemberdetails_id,$data);
+	
+                $data = array('recordstatus_id' => 2);
+                $individual->familyMemberUpdate($feildname1,$table1,$familyhealth_ID,$data);
+
+                $fHealth = $individual->addFamilyHealth(array('familyhealth_ID' => '',
+                                                              'familymember_ID' => $familymember_ID,
+		                                              'member_id' => $memberId,
+                                                              'health_problem' => $fhealth_problem,
+                                                              'under_treatment' => $fhealthundertreatment,
+                                                              'clinical_accessability'=> $fclinicalaccessability,
+							      'recordstatus_id'=> 3));
+		  
+
+                $fHealth = $individual->addFamilyEconomicStatus(array('familyeconomical_ID' => '',
+									  'member_id' => $memberId,
+                                                                          'familymember_ID' => $familymember_ID,
+                                                                          'earnings' => $familyearning,
+                                                                          'profession' => $fprofession,
+                                                                          'mfi_benefits'=> $fmfibenefits,
+									  'recordstatus_id'=> 3));
+                $data = array('recordstatus_id' => 2);
+                $individual->familyMemberUpdate($feildname2,$table2,$familyeconomical_ID,$data);
+
+
+
+		    
+                    $fHealth = $individual->addFamilyEducation(array('familyeducation_ID' => '',
+                                                                     'familymember_ID' => $familymember_ID,
+                                                                     'member_id' =>$memberId,
+                                                                     'qualification' => $fqualificationdetails,
+                                                                     'school_location' => $fschool_locationstatus,
+                                                                     'transporation_for_school'=> $ftransporation_for_schoolstatus,
+								     'recordstatus_id'=> 3));
+		   
+               	   $data = array('recordstatus_id' => 2);
+                   $individual->familyMemberUpdate($feildname3,$table3,$familyeducation_ID,$data);
+
+	   }
+	   
+	   $max = $individual->findMax($memberId);
+	   foreach($max as $max2){
+	       $max1 = $max2[0];
+	   }
+
+           $memberCount = $this->_request->getParam('memberCount');		
+           for ($i = 1;$i<=$memberCount; $i++) {
+	       $maximum = $max1+$i;
+	       $memberName=$this->_request->getParam('memberName'.$i); 
+	       $gender=$this->_request->getParam('gender'.$i);
+               $age=$this->_request->getParam('age'.$i); 
+               $relationship=$this->_request->getParam('relationship'.$i); 
+               $mPhysicalStatus=$this->_request->getParam('mPhysicalStatus'.$i);
+               $mMaritalStatus=$this->_request->getParam('mMaritalStatus'.$i);
+
+	       if ($memberName) {
+
+		   $fMember = $individual->addFamily(
+                                        array('familymembers' => '',
+                                              'member_id' =>$memberId,
+                                              'familymember_ID' => $maximum,
+					      'recordstatus_id' => 3));
+
+                   $fMember = $individual->addFamilymemberdetails (
+                                        array('familymemberdetails_id' => '',
+					      'familymember_ID' => $maximum,
+                                              'member_id' =>$memberId,
+                                              'familymember' => $memberName,
+                                              'gender' => $gender,
+                                              'Age' => $age,
+                                              'Relationship'=> $relationship,
+                                              'memberphysicalstatus_id' => $mPhysicalStatus,
+                                              'membermaritalstatus_id' => $mMaritalStatus,
+					      'recordstatus_id'=> 3));
+
+                   $healthprob=$this->_request->getParam('healthprob'.$i); 
+                   $undertreatment=$this->_request->getParam('undertreatment'.$i); 
+                   $Clinicaccessability=$this->_request->getParam('Clinicaccessability'.$i); 
+
+                   $fHealth = $individual->addFamilyHealth(array('familyhealth_ID' => '',
+                                                                'familymember_ID' => $maximum,
+                				                'member_id' => $memberId,
+                                                                'health_problem' => $healthprob,
+                                                                'under_treatment' => $undertreatment,
+                                                                'clinical_accessability'=> $Clinicaccessability,
+								'recordstatus_id'=> 3));
+
+                    $earning=$this->_request->getParam('earning'.$i); 
+                    $occupation=$this->_request->getParam('occupation'.$i); 
+                    $benefits=$this->_request->getParam('benefits'.$i);
+                    $fHealth = $individual->addFamilyEconomicStatus(array('familyeconomical_ID' => '',
+                                                                            'familymember_ID' => $maximum,
+                                                                            'member_id' => $memberId,
+                                                                            'earnings' => $earning,
+                                                                            'profession' => $occupation,
+                                                                            'mfi_benefits'=> $benefits,
+                                                                            'recordstatus_id'=> 3));
+
+                   $qualification=$this->_request->getParam('qualification'.$i); 
+                   $schoolLoc=$this->_request->getParam('schoolLoc'.$i); 
+                   $transportation=$this->_request->getParam('transportation'.$i);
+
+                    $fHealth = $individual->addFamilyEducation(array('familyeducation_ID' => '',
+                                                                     'familymember_ID' => $maximum,
+                                                                     'member_id' =>$memberId,
+                                                                     'qualification' => $qualification,
+                                                                     'school_location' => $schoolLoc,
+                                                                     'transporation_for_school'=> $transportation,
+								     'recordstatus_id'=> 3));
+		}
+
+            } 
+           $this->_redirect('membership/individual');
+ 		
+	}
+
+        $this->view->form->Submit->setName('Update');
+    }
+
+    public function individualdeleteAction() {
+    
+        $this->view->title = "Delete Individual";
+
+        $memberId = (int)$this->_getParam('id');
+
+        $deleteForm = new Management_Form_Delete();
+        $this->view->form = $deleteForm;
+
+        $individual = new Membership_Model_Individual();
+	$result = $individual->viewMember($memberId);
+
+	foreach($result as $result) {
+           $this->view->memberfirstname = $result["memberfirstname"];
+           $this->view->recordstatus_id = $result["recordstatus_id"];
+           $this->view->member_id = $result["member_id"];
+        }
+        
+        if ($this->_request->isPost()) {
+	    $action_yes = $this->_request->getPost('Yes');
+            $action_no = $this->_request->getPost('No');
+            if ($action_yes=="Yes") {
+                $remarks = $this->_getParam('remarks');
+                
+		$memberDelete = array('member_status' =>5,
+                                      'remarks' => $remarks);
+					
+		$individual->memberDelete($memberId,$memberDelete);
+                $this->_redirect('membership/individual');
+	   }
+	}
+    }
+
+    public function deletememberAction() 
+    {
+     $id=$this->_request->getParam(familymember_ID);
+     $individual = new Membership_Model_Individual();
+     $input=array('recordstatus_id'=>5);
+     $individual->deletemember($id,$input);
+     
+    }
+
+    public function getbranchAction() 
+    {
+        $this->_helper->layout->disableLayout();
+        $office_id = $this->_request->getParam('office_id');
+
+        $individual = new Membership_Model_Individual();
+        $this->view->branchs = $individual->getBranchEdit($office_id);
+
+    }
+}

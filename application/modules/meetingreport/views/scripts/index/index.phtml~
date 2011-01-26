@@ -1,0 +1,123 @@
+
+
+
+<script>
+	function getXMLHTTP() {
+		var xmlhttp=false;	
+		try{
+			xmlhttp=new XMLHttpRequest();
+		}
+		catch(e)	{		
+			try{			
+				xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e){
+				try{
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e1){
+					xmlhttp=false;
+				}
+			}
+		}
+		return xmlhttp;
+	}
+
+	function getGroups(bank_id,path) {	
+		
+		var strURL=path+"/meetingreport/index/fetchgroups?bank_id="+bank_id;
+		//alert(strURL);
+		var req = getXMLHTTP();
+		
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {
+						document.getElementById('groupDiv').innerHTML=req.responseText;
+					}
+					 else {
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					}
+				}				
+			}			
+			req.open("GET", strURL, true);
+			req.send(null);
+		
+// 		alert(strURL);
+		}
+		
+</script>
+ 
+
+
+
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/meetingreport/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Bank Name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Group Name:</td>
+                                    <td ><div id="groupDiv"><? echo $this->form->field2;?></div></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Meeting Day:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+<fieldset>
+        <legend>Holiday</legend>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Bank Name</th>
+	<th>Group Name</th>
+        <th>Meeting Name</th>
+	<th>Meeting Day</th>
+	<th>Meeting Time</th>
+	<th>Meeting Place</th>
+       
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $meeting ): ?>
+    <tr>
+        
+	<td><?php echo $this->escape($meeting['Institute_bank_name']);?></td>
+	<td><?php echo $this->escape($meeting['group_name']);?></td> 
+	<td><?php echo $this->escape($meeting['meeting_name']);?></td>
+	<td><?php echo $this->escape($meeting['meeting_day']);?></td>
+	<td><?php echo $this->escape($meeting['meeting_time']);?></td>
+	<td><?php echo $this->escape($meeting['meeting_place']);?></td>
+	
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+		<td colspan="6" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?></div></td>
+		</tr>
+</table>
+
+</fieldset>
+
+
+</form>
+<form action="<?php echo $this->baseUrl();?>/meetingreport/index/pdfgeneration/field1/<? echo $this->institute_bank_id;?>/field2/<? echo $this->group_id;?>/field3/<? echo $this->fromDate;?>/field4/<? echo $this->toDate;?>" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/meetingreport/index/reportdisplay/file/meeting<? echo date('Y-m-d');?>.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+
+           <BR> <input type="submit" value="PDF" id="submit">
+</form>

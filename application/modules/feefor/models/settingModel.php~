@@ -1,0 +1,16 @@
+<?php 
+class setting_Model extends Zend_Db_Table
+{
+public function __construct()
+{
+$this->db = Zend_Registry::get('db');
+} 
+
+/**to select all office hierarchy from Db*/
+public function fetchAllLanguage()
+{
+$this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+$result = $this->db->fetchAll('SELECT * FROM ourbank_language ORDER BY language_id');
+return $result;
+}
+}

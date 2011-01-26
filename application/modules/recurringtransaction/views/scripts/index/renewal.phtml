@@ -1,0 +1,107 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div>
+    <fieldset>
+        <legend>Amount Details </legend>
+            <div style="float:left;width:380px">
+                <?php foreach($this->recurringAccountDetails as $productRecurringDetails) : ?>
+                        <div class="cont-rgt-data">
+                            <table id="hor-minimalist-b" summary="Employee Pay Sheet" >
+							<TR>
+							     <td width="50%"><B style="color:red">Capital Amount:</b></td><TD width="50%"><B style="color:red">
+								 <?php echo $this->capitalAmount;?></B></TD>
+							</TR>
+							<TR>
+                                    <td width="50%"><B style="color:red">Recuring Interest:</b></td><TD width="50%"><B style="color:red">
+                                    <?php echo $this->simpleInterest;?></B></TD>
+                                </TR>
+                                <TR>
+                                    <td width="50%"><B style="color:red">Matured Amount:</b></td><TD width="50%">
+                                    <B style="color:red"><?php echo $this->matureAmount;?></B></TD>
+                                </TR>
+                <?php endforeach;?>
+            </table>
+        </div>
+</div>
+<div style="float:left;width:350px">
+    <fieldset>
+        <legend> Transaction Types</legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet" border="1">
+<TR>
+<td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/index/renewal/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>/capital/<?php echo base64_encode($this->capitalAmount);?>">Capital Amount Renewal</a></TD>
+				</TR>
+                    <TR>
+<td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/index/renewal/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>/matured/<?php echo base64_encode($this->matureAmount);?>">Matured Amount Renewal</a></TD>
+                    </TR>
+                </table>
+            </div>
+    </fieldset>
+</div>
+<div id="loanRepayment" style="float:left;width:100%">
+    <fieldset>
+        <legend>Account Renewal </legend>
+            <div class="cont-rgt-data">
+                <form name="form1" action="<?php echo $this->baseUrl();?>/index/newaccount" method="POST" >
+                    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                        <TR class="tdbrown">
+                            <TD width="40%">Account Opening Date</TD>
+                            <TD width="60%"><?php echo $this->form2->member_id;?><?php echo $this->form2->accountId;?><?php echo $this->form2->productId; echo $this->form2->startdate;?><span class="reqMark">(yyyy-mm-dd)*</span></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">Recurring Amount</TD>
+                            <TD width="60%"><?php echo $this->form2->recurringamount;?><span class="reqMark">*</span></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">Recurring Frequency</TD>
+                            <TD width="60%"><?php echo $this->form2->frequencyofdeposit;?></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">Recurring Period</TD>
+                            <TD width="60%"><?php echo $this->form2->perioddescription;?><span class="reqMark">Months*</span></TD>
+                        </TR>
+                        <TR class="tdbrown">
+                            <TD width="40%">Recurring Interest</TD>
+                            <TD width="60%"><div id="statediv"><?php echo $this->form2->recurringinterest;?><span class="reqMark">*</span></div></TD>
+                        </TR>
+                        <?php if ($this->membertype_ID==3 ) { ?>
+                        <TR class="tdbrown">
+                            <TD width="40%">Add Members</TD>
+                            <TD width="60%"><?php echo $this->form2->memberfirstname;?></TD>
+                        </TR><? } ?>
+                </table>
+                <table>
+                    <tr>
+                        <td></td>
+                        <td ></td>
+                        <td><span class="reqMark">*  Marked fields are Mandatory</span></td>
+                    </tr>
+                    <TR>
+                        <TD><?php echo $this->form2->Submit;?>&nbsp;&nbsp;&nbsp;<a href="<?php echo $this->baseUrl();?>">
+                        <input name="submit" type="submit"  value="Back" tabindex="25"></a></TD>
+                    </TR>
+                </table>
+            </form>
+        </div>
+    </fieldset>
+</div>
+</fieldset>
+</div>
+

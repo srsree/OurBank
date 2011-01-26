@@ -1,0 +1,98 @@
+<?php
+if(!$this->ledgedatlist) { ?>   
+
+
+<form action="<?php echo $this->baseUrl();?>/reports/generalledger/index" method="POST">  
+
+<fieldset>
+    <legend>Ledger details</legend>
+
+        <TABLE width="100%">
+			
+
+            <tr>
+                <td class="label">Begin Date</td>
+                <td><?php  echo $this->form->field2;?></td>
+				<Td class="label">product name:</td>
+                <td><?php  echo $this->form->field5;?></td>
+            </tr>
+            <tr>
+					
+                <td class="label">Close Date</td>
+                <td><?php  echo $this->form->field3;?></td>
+            </tr>
+            <tr>
+                <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+
+            </tr>
+        </table>
+	</fieldset>
+	<fieldset>
+<?php } ?>
+<?php if($this->ledgedatlist) { ?>  
+
+        <div class="cont-rgt-data">
+        <TABLE id="hor-minimalist-b" width="80%">
+            <tr class="">
+			<th>date</th>
+			
+                    <th>product name</th>
+
+                    <th>credit</th>
+                    <th>debit</th>
+                    <th>balance</th>
+
+<?php foreach($this->ledgedatlist as $ledger) : ?>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+			</tr>
+            <tr>
+			<TD><?php echo $ledger["createddate"];?></td>
+			
+			    <TD><?php echo $ledger["productname"];?></td>
+                <td></td>
+                <td><? echo "OPENING BALANCE"; ?></td>
+                <td width = "150"><?php echo sprintf("%4.2f",$ledger["capitaltobank"]+$ledger["capitalfrombank"]);?></td></td>
+
+
+            </tr>
+
+            <tr>
+                <td width = "150"></td><td></td>
+                <td width = "150"><?php echo $ledger["amount_to_bank"];?></td></td>
+                <td></td>
+<?php $led=$ledger["amount_to_bank"]+sprintf("%4.2f",$ledger["capitaltobank"]+$ledger["capitalfrombank"]);?>
+                <td><?php echo sprintf("%4.2f",$led);?>(Cr)</td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td></td><td></td>
+                <td width = "150"><?php echo $ledger["amount_from_bank"];?></td></td>
+                <TD><?php echo  sprintf("%4.2f",$led- $ledger["amount_from_bank"]);?>(Dr)</TD>
+            </tr>
+            <tr>
+			    <TD></TD>
+                <td></td>
+				            <td></td>
+                <td><? echo "CLOSING BALANCE"; ?></td>
+                <td width = "150"><?php echo  sprintf("%4.2f",$led- $ledger["amount_from_bank"]);?></td></td>
+
+            </tr>
+		</TABLE>
+    </fielset>
+    </div>
+<form action="<?php echo $this->baseUrl();?>/reports/generalledger/pdfdisplay" method="POST"
+onClick="window.open('/ourbank/public/reports/generalledger/reportdisplay/file/GL.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+                       <input type="hidden" name="field1" value="<?php echo $this->field2; ?>">
+			<input type="hidden" name="field2" value="<?php echo $this->field3;?>">
+            <input type="hidden" name="field3" value="<?php echo $this->field5;?>">
+
+            <input type="submit" value="PDF" id="submit">
+
+</form>
+<?php }?>
+

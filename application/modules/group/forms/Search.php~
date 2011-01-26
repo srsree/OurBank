@@ -1,0 +1,14 @@
+<?php
+class Group_Form_Search extends Zend_Dojo_Form {
+   
+	public function __construct() 
+		{
+			parent::__construct();
+			//$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$decorator,$value
+			$formfield = new App_Form_Field ();
+			//$vtype=array('Alpha');
+			$groupcode = $formfield->field('Text','groupcode','','','','Group code',true,'','','','','',1,'');
+			$groupname = $formfield->field('Text','groupname','','','','Group name',true,'','','','','',1,'');
+			$this->addElements(array($groupcode,$groupname));
+		}
+}

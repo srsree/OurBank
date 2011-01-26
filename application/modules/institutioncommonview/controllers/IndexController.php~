@@ -1,0 +1,39 @@
+<?php
+class Institutioncommonview_IndexController extends Zend_Controller_Action{
+
+    public function init() 
+	{
+        $this->view->pageTitle='Institution';
+        $globalsession = new App_Model_Users();
+        $this->view->globalvalue = $globalsession->getSession();
+		$this->view->username = $this->view->globalvalue[0]['username'];
+//         if (($this->view->globalvalue[0]['id'] == 0)) {
+//              $this->_redirect('index/logout');
+//         }
+		$this->view->adm = new App_Model_Adm();
+	}
+    public function indexAction() 
+    {
+    }
+
+    public function commonviewAction()
+    {
+		//Acl
+//         $access = new App_Model_Access();
+//         $checkaccess = $access->accessRights('Institution',$this->view->globalvalue[0]['name'],'viewinstitutionAction');
+//        	if (($checkaccess != NULL)) {
+            $id=intval($this->_request->getParam("id"));
+            $this->view->institutionid = $id;
+            $individualcommon=new Individualcommonview_Model_individualcommon;
+            $module=$individualcommon->getmodule('Institution');
+            foreach($module as $module_id){ }
+            $this->view->mod_id=$module_id['parent'];
+            $this->view->sub_id=$module_id['module_id'];
+            $this->view->institution = $this->view->adm->editRecord("ob_institution",$id);
+            $this->view->address = $this->view->adm->getModule("contact",$id,"Institution");
+            $this->view->contact = $this->view->adm->getModule("address",$id,"Institution");
+//       	} else {
+//         	$this->_redirect('index/error');
+// 		}
+    }
+}

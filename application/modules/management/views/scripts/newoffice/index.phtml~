@@ -1,0 +1,66 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/management/newoffice/index" method="POST">
+                            <table>
+                                <tr>
+                                    <td class="label">Office Name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Office Short Name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">City:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Office Type:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+<fieldset>
+        <legend>New Office</legend>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Short Name</th>
+        <th>Office Name</td>
+        <th>Office Type</td>
+        <th>City</th>
+        <th>edit</td>
+        <th>delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $office): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/management/office/officeview/id/".$office['officeupdates_id']; ?>">
+                     <?php echo $this->escape($office['officeshort_name']); ?></a></td>
+    <td><?php echo $this->escape($office['office_name']);?></td>
+    <td><?php echo $this->escape($office['officetype']);?></td>
+    <td><?php echo $this->escape($office['officecity']);?></div></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/office/officeedit/id/<?php echo $office['officeupdates_id'];?>">
+                 <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/office/officedelete/id/<?php echo $office['officeupdates_id'];?>">
+                <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+                <?php endforeach; ?>
+                <?php endif; ?>
+    </tr>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/office/officeadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Office"></a></td>
+    </tr>
+</table>
+</fieldset>

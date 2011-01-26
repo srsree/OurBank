@@ -1,0 +1,21 @@
+<?php
+class Commonviewuser_Model_Usergrants extends Zend_Db_Table_Abstract {
+    protected $_name = ' ob_usergrants';
+
+    public function grantsInsert($grant_id,$user_id) {
+        foreach($grant_id as $grant_id) {
+            $data = array('grant_id' => $grant_id,
+                        'user_id' => $user_id,
+                        'recordstatus_id'=>3);
+            $this->insert($data);
+        }
+    }
+
+     public function EdituserLogin($post,$createby,$user_id) {
+        $data = array('grant_id' => $post['grant_id'],
+                      'user_id' => $user_id,
+                      'createdby'=>$createby,
+                      'recordstatus_id'=>3);
+      $this->insert($data);
+     }
+}

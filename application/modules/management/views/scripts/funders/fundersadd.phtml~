@@ -1,0 +1,87 @@
+<div>
+<div style="width:470px;float:left">
+<fieldset>
+    <legend>Create NewFunders</legend>
+        <div class="cont-rgt-data">
+            <form action="<?php echo $this->baseUrl();?>/management/funders/fundersadd" method="POST">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <tr>
+                        <TD>FundersName : </TD>
+                        <TD><?php echo $this->form->fundername;?></TD>
+                    </TR>
+                    <TR>
+                        <TD>Short Name :</TD>
+                        <TD><?php echo $this->form->fundershortname;?></TD>
+                    </TR>
+                    <tr>
+                        <th colspan="4">address<th>
+                    </tr>
+                    <tr> 
+                        <td>line 1 :</td>
+                        <td><?php echo $this->form->funderaddress1;?></td>
+                   </tr>
+                    <tr> 
+                        <td>line 2 :</td>
+                        <td><? echo $this->form->funderaddress2;?></td>
+                    </tr>
+                    <tr> 
+                        <td>line 3 :</td>
+                        <td><? echo $this->form->funderaddress3;?></td>
+                    </tr>
+                    <tr> 
+                        <td>City :</td>
+                        <td><? echo $this->form->fundercity;?></td>
+                    </tr>
+                    <tr> 
+                        <td>state :</td>
+                        <td><? echo $this->form->funderstate;?></td>
+                    </tr>
+                    <tr> 
+                        <td>country :</td>
+                        <td><? echo $this->form->fundercountry;?></td>
+                    </tr>
+                    <tr> 
+                        <td>pincode :</td>
+                        <td><? echo $this->form->funderpincode;?></td>
+                    </tr>
+                    <tr> 
+                        <td>email :</td>
+                        <td><? echo $this->form->emailaddress;?></td>
+                    </tr>
+                    <tr> 
+                        <td>telephonenumber1 :</td>
+                        <td><? echo $this->form->funderphone;?></td>
+                    </tr>
+                </table>
+            </div>
+        <table width="100%">
+            <TR>
+                 <td><a href="<?php echo $this->baseUrl(); ?>/management/funders"><input name="submit" type="submit" class="NormalBtn" 
+                                    value="back"></a></td>
+                    <td align="right"><?echo $this->form->Submit;?></td>
+            </TR>
+        </table>
+            <b style="color:red;"><?php echo $this->existedFunderName; ?></b>
+    </form>
+</fieldset>
+</div>
+    <div style="width:320px;float:left;">
+    <fieldset>
+        <legend> Funders </legend>
+            <div class="cont-rgt-data">
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <TR class="tdbrownheading">
+                        <th>Funders Name</th>
+                        <th>Country</th>
+                    </TR>
+                    <?php foreach($this->result as $funders) : ?>
+                    <tr>
+                        <td><?php echo $this->escape($funders->fundername);?></td>
+                        <td> <?php echo $this->escape($funders->fundercountry );?></td>
+                    </tr>
+                    <?php endforeach;?>
+            </table>
+        </div>
+</fieldset>
+</div>
+</div>

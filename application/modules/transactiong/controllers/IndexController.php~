@@ -1,0 +1,33 @@
+<?php
+class Transaction_IndexController extends Zend_Controller_Action {
+    public function init() {
+	$this->view->title = "Transaction";
+        $this->view->pageTitle='Transaction';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $userid=$this->view->createdby = $sessionName->primaryuserid;
+        $login=new App_Model_Users();
+        $loginname=$login->username($userid);
+        foreach($loginname as $loginname) {
+           $this->view->username=$loginname['login_name'];
+        }
+    }
+
+    public function indexAction() {
+      	$storage = new Zend_Auth_Storage_Session();
+	$data = $storage->read();
+	if(!$data){
+		$this->_redirect('index/login');
+	}
+
+        $date = date("Y-m-d");
+        $transaction = new Transaction_Model_BasicEnquiry();
+        $this->view->transactionByDate=$transactionByDate = $transaction->transactionByDate($date);
+        foreach($transactionByDate as $transaction) {
+            $transaction_id = $transaction['transaction_id'];
+            $transactionamount = $transaction['transaction_amount'];
+        }
+
+    }
+
+}
+

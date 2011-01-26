@@ -1,0 +1,9 @@
+<?php
+return array(
+    'User Name' => ''
+    'Category  ' => 'कातेगोरी नामे ',
+    'Category  Description' => 'Email',
+
+
+);
+

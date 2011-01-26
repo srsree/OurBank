@@ -1,0 +1,26 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class Penalty_Form_Penalty extends Zend_Form
+{
+	public function init()
+	{
+		
+		$formfield = new App_Form_Field ();
+		$vtype=array('Float');
+		$table='ob_penalty';
+		$fieldname='name';
+
+// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+
+		$penaltyname = $formfield->field('Text','penaltyname',$table,$fieldname,'','',true,'','','','','','','');
+		$penalty_per_day = $formfield->field('Text','penalty_per_day','','','','',true,$vtype,'','','','','','');
+		$interest_of_delay = $formfield->field('Text','interest_of_delay','','','','',true,$vtype,'','','','','',0);
+		$creditlinename = $formfield->field('Select','creditlinename','','','','',true,'','','','','','','');
+		$status = $formfield->field('Checkbox','status','','','','',true,'','','','','','','');
+
+		$this->addElements( array($penaltyname,$penalty_per_day,$interest_of_delay,$creditlinename,$status));
+	}
+}
+/** end of class */

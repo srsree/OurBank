@@ -1,0 +1,36 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<form name="form1" action="<?php echo $this->baseUrl();?>/contactdetails/index/addcontact/id/<?php echo $this->id; ?>/subId/<?php echo $this->subId; ?>/modId/<?php echo $this->modId; ?>" method="POST">
+<fieldset>
+    <legend><?php echo $this->translate("Add Contact Details"); ?></legend> 
+        <table class="fieldsets"> 
+                <?php echo $this->form;?>
+            </table>
+        <div class="btnhouse">
+	   <div class="ltbtns">
+		<?php echo $this->submitform->Submit;?>
+	   </div>
+	   <div class="rtbtns">	
+		<a href="<?php echo $this->baseUrl().'/'.$this->path1.'/index/commonview/id/'.$this->id;?>"><input type = "button" name = "Back" value = "<?php echo $this->translate("Back"); ?>"></a>
+	   </div>
+        </div>
+
+</fieldset>
+</form>

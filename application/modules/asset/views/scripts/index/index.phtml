@@ -1,0 +1,110 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+	
+
+<script type="text/javascript">
+	
+                                                         
+                                                       function immoveableasset(c)
+                                                       {
+                                                         if(document.getElementById('icheck'+c).checked==true)
+                                                         {
+                                                            document.getElementById('itext'+c).style.display = '';
+                                                         }
+                                                        else
+                                                        {   
+								document.getElementById('itext'+c).style.display = 'none';
+                                                       	}
+                                                       }
+
+							function livingassets(a) {
+                                                         if(document.getElementById('lcheck'+a).checked==true)
+                                                         {
+                                                            document.getElementById('ltext'+a).style.display = '';
+                                                         }
+                                                        else
+                                                        {
+                                                           document.getElementById('ltext'+a).style.display = 'none';
+                                                        }
+							}
+
+							function nonlivingassets(b) {
+							if(document.getElementById('ncheck'+b).checked==true)
+                                                         {
+                                                            document.getElementById('ntext'+b).style.display = '';
+                                                         }
+                                                        else
+                                                        {
+                                                          document.getElementById('ntext'+b).style.display = 'none';
+                                                        }
+							}
+							</script>
+
+		 <fieldset>
+	           <legend>Member Assets</legend>
+		      <div class="register">
+	                   <div class="profile_tab">                                                                                                                
+                                            <fieldset>
+	       			             <legend>Immovable Assets</legend>
+                                             <?php foreach($this->immovable as $immovleAssetsdetail){ $td1='itext'.$immovleAssetsdetail['asset_id']; ?>
+				             <table id="hor-minimalist-b">
+                                                <tr>
+                                                    <td><?php $b2='icheck'.$immovleAssetsdetail['asset_id']; echo $this->form->$b2; echo $immovleAssetsdetail['asset_name']; ?></td>
+                                                   <td id="<?php echo $td1; ?>" style="display:none;"><?php $a2='itext'.$immovleAssetsdetail['asset_id'];echo $this->form->$a2; echo $immovleAssetsdetail['units']; ?></td>
+                                                   
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+			                 </fieldset>
+                                        </div>
+                                        <div>
+                                        <fieldset>
+	       			             <legend>Non Living Assets</legend>
+                                             <?php foreach($this->nonlivingdetails as $nonlivingAssetsdetail){ $td2='ntext'.$nonlivingAssetsdetail['asset_id']; ?>
+				             <table id="hor-minimalist-b">
+                                                <tr>
+                                                    <td><?php $b='ncheck'.$nonlivingAssetsdetail['asset_id'];echo $this->form->$b; echo $nonlivingAssetsdetail['asset_name']; ?></td>
+                                                   <td id="<?php echo $td2; ?>" style="display:none;"><?php $a='ntext'.$nonlivingAssetsdetail['asset_id'];echo $this->form->$a; echo $nonlivingAssetsdetail['units']; ?></td>
+                                                   
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+			                 </fieldset>
+                                        </div>
+                                        <div>
+                                        <fieldset>
+	       			             <legend>Living Assets</legend>
+                                             <?php foreach($this->living as $livingAssetsdetail){ $td3='ltext'.$livingAssetsdetail['asset_id'];?>
+				                <table id="hor-minimalist-b">
+                                                <tr>
+                                                   <div> <td><?php $b1='lcheck'.$livingAssetsdetail['asset_id']; echo $this->form->$b1; echo $livingAssetsdetail['asset_name']; ?></td></div>
+                                                   <div> <td id="<?php echo $td3; ?>" style="display:none;"><?php $a1='ltext'.$livingAssetsdetail['asset_id']; echo $this->form->$a1;  echo $livingAssetsdetail['units'];  ?></td> </div>
+				                </tr>
+                                            </table>
+                                            <?php } ?>
+                          
+                    </div>
+			<table id="hor-minimalist-b">
+	   <TR >
+				<TD class="label" align="right" width="40%"><a href="<?php echo $this->baseUrl();?>/individualcommon/index"><?php echo $this->form->Back;?></a></TD>	
+				<TD ><?php echo $this->form->Submit;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			</table>
+        </fieldset>

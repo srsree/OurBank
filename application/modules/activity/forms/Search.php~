@@ -1,0 +1,15 @@
+<?php
+class Activity_Form_Search extends Zend_Form 
+{
+	public function __construct() 
+	{
+		parent::__construct();
+		//$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$decorator,$value
+		$formfield = new App_Form_Field ();
+		$vtype=array('Alpha');
+		$activity = $formfield->field('Text','activity','','','mand','Activity',false,$vtype,'','','','',1,'');
+		$category = $formfield->field('Select','sector','','','mand','Sector',false,'','','','','',1,'');
+                $category->setRegisterInArrayValidator(false);
+		$this->addElements(array($activity,$category));
+	}
+}

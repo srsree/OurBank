@@ -1,0 +1,178 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<script type="text/javascript" language="JavaScript1.3">
+function getXMLHTTP() { //fuction to return the xml http object
+    var xmlhttp=false;	
+        try {
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e) {	
+            try {
+              xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+       catch(e){
+            try{
+             xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+       catch(e1) {
+            xmlhttp=false;
+            }
+        }
+    }
+        return xmlhttp;
+    }
+
+    function getGroups(office_id,path) {
+        var strURL = path +"/membership/group/getgroups?office_id="+office_id;
+
+        var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {   // only if "OK"
+            if (req.status == 200) {	
+                document.getElementById('statediv').innerHTML=req.responseText;
+                                                            
+            } else {
+                        alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+                }	
+            req.open("GET", strURL, true);
+            req.send(null);
+        }
+    }
+
+    function getMember(office_id,path) {		
+        var strURL = path+"/membership/group/getmembers?office_id="+office_id;
+
+        var req = getXMLHTTP();
+         if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {   // only if "OK"
+            if (req.status == 200) {	
+    
+                document.getElementById('membersdiv').innerHTML=req.responseText;							
+            } else {
+                        alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                }
+            }
+                }	
+            req.open("GET", strURL, true);
+            req.send(null);
+        }
+    }
+
+		$(document).ready(function()
+		{
+			$("form").submit(function()
+			{
+				if (!isCheckedById("selector"))
+				{
+					alert ("Please select at least one member / No Members in the group");
+					return false;
+				}				
+			
+				else
+				{
+					return true; //submit the form
+				}				
+			});
+			
+			function isCheckedById(id)
+			{
+				var checked = $("input[@id="+id+"]:checked").length;
+				if (checked == 0)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+		});
+	</script>
+
+</head> 
+<form id="Form1" action ="<?php echo $this->baseUrl();?>/membership/group/groupaccount" method="POST">  
+<div>
+    <div style="width:470px;float:left">
+
+        <fieldset>
+            <legend>Groups</legend>      
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <td  class="txt_rgt"><b class="star">Branch:</b></td>
+                        <TD><?php echo $this->form->office_id;?><span class="reqMark">*</span></TD>
+                    </TR>
+                    <TR>
+                        <td  class="txt_rgt"><b class="star">Group Name:</b></td>
+                        <TD><?php echo $this->form->groupname;?><?php echo $this->errorgroupname;?><span class="reqMark">*</span></TD>
+                    </TR>
+                    <TR>
+                        <td  class="txt_rgt"><b class="star">Address:</b></td>
+                        <TD><?php echo $this->form->groupaddress_line1;?><span class="reqMark">*</span></TD>
+                    </TR>
+                    <TR>
+                        <td  class="txt_rgt"><b class="star">Line 2 :</b></td><TD>
+                       <?php echo $this->form->groupaddress_line2;?><span class="reqMark">*</span></TD>
+                    </TR>
+                    <TR>
+                        <td  class="txt_rgt" ><b class="star">Line 3 :</b></td>
+                        <TD><?php echo $this->form->groupaddress_line3;?><span class="reqMark">*</span></TD>
+                    </TR>
+                    <TR>
+                        <td width="30%" class="txt_rgt"><b class="star">Group Location:</b></td><TD width="50%">
+                        <?php echo $this->form->groupaddress_location;?><span class="reqMark">*</span></TD>
+                    </TR>
+
+                    <tr>
+		        <td class="txt_rgt"><b class="star">Select Members:</b></td>
+                        <TD><div id="membersdiv"></div></TD>
+                    </TR>
+
+                    <TR>
+                        <td>  <?php echo $this->form->submit;?></td>
+                        <td align="right"><span class="reqMark">* Marked fields are Mandatory</span></td>
+                    </TR>
+            </table>
+        </fieldset>
+    </div>
+    <div id="statediv"></div>
+</div>
+</form>

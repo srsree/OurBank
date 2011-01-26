@@ -1,0 +1,21 @@
+
+<?php class Receiptpayment_Form_Search extends Zend_Form 
+{
+
+	public function init() 
+	{
+
+		$vtype=array('Alpha','StringLength');
+		$formfield = new App_Form_Field ();
+
+// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
+
+		
+	
+        $date1 = $formfield->field('Text','date1','','','mand','',true,'','','','','',0,0);
+        $date2 = $formfield->field('Select','date2','','','mand','',true,'','','','','',0,0);
+     
+					
+	$this->addElements(array($date1,$date2));
+    }
+}

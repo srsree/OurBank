@@ -1,0 +1,71 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!1-->
+
+<fieldset>
+    <legend>Search member</legend>
+    <form action="<?php echo $this->baseUrl();?>/recurringaccount" method="POST">
+        <table class="fieldsets">
+            <TR>
+                <TD><label for="fld3">Member code / Name / Group Name</label></TD>
+                <TD><? echo $this->form->membercode;?></TD>
+            </TR>
+        </table>
+        <div class="btnhouse">
+            <div class="ltbtns">
+                <?php echo $this->form->Search;?>
+            </div>
+        </div>
+    </form>
+
+</fieldset>
+
+<?php if($this->result) { ?>
+    <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+	    <Th>Member Code</Th>
+	    <Th>Name / Group Name</th>
+            <Th>Branch</th>
+	    <Th>Type</Th>
+            <th></th>
+	</tr>
+	<?php foreach($this->result as $member) : ?>
+	<tr>
+		<td><a href="<?php echo $this->baseUrl();?>/recurringaccount/index/details/Id/<?php echo base64_encode($member->id);?>/code/<?php echo base64_encode($member->code);?>"><?php echo $member->code;?></a></td>
+		<td><?php  echo $member->name;?></td>
+		<td><?php  echo $member->officename;?></td>
+		<td>
+		<?php if ($member->type==1) { 
+		 echo $member->membertype;
+		} else {
+		  echo "-"; 
+		} ?>
+		</td>
+		<td>
+		<?php if($member->type==2) { 
+		echo $member->membertype;
+		} else {
+		echo "-";
+		}?>
+		</td>
+	</tr>
+	<?php endforeach; ?>
+	</table>
+ <?php } else {
+        echo $this->errormsg;
+    }

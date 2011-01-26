@@ -1,0 +1,12 @@
+
+
+
+
+                <TR>
+                    <TD><label for="fld1" class="mand">Interest</label></TD>
+                    <TD><?php echo $this->loan->interest;?></TD>
+                </TR>
+                <TR>
+                    <TD><label for="fld1" class="mand">Ballet</label></TD>
+                    <TD><?php echo $this->loan->ballet;?></TD>
+                </TR>

@@ -1,0 +1,25 @@
+<?php
+	class Userdetails_Form_Delete extends Zend_Form {
+
+	public function init() 
+        {
+		$user_id= new Zend_Form_Element_Hidden('id', array('rows' => 3,'cols' => 20,));
+
+		$remarks= new Zend_Form_Element_Textarea('remarks', array('rows' => 3,'cols' => 20,));
+		$remarks->setAttrib('class', '');
+		$remarks->setLabel('Remarks');
+		$remarks->setRequired(true)
+				   ->addValidators(array(array('NotEmpty')));
+
+		
+		$submit = new Zend_Form_Element_Submit('Submit');
+		$submit->setAttrib('id', 'Delete')
+				->setLabel('Delete');
+				
+
+		$this->addElements(array($remarks,$submit));
+
+			
+
+	}
+}

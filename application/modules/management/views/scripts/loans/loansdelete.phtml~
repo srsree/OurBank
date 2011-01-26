@@ -1,0 +1,152 @@
+<fieldset>	
+    <legend>viewLoan</legend>
+        <div class="cont-rgt-data">
+        <?php foreach($this->loan as $loan) {  ?>
+            <table id="hor-minimalist-b">
+                <TR>
+                    <TH>productDetails</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>productType</TD>
+                    <TD><?php echo $loan['productname'];?></TD>
+                    <td></td>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>Productname</TD>
+                    <TD><?php echo $loan['offerproductname'];?></TD>
+                    <td>ShortName</td>
+                    <TD width="20%"><?php echo $loan['offerproductshortname'];?></TD>
+                </TR>
+                <TR>
+                    <TD>Description</TD>
+                    <TD><?php echo $loan['offerproduct_description'];?></TD>
+                    <td></td>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TH>Date</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Begin Date</TD>
+                    <TD><?php echo $loan['begindate'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>CloseDate</TD>
+                    <TD><?php echo $loan['closedate'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD>ApplicableTo</TD>
+                    <TD><?php echo $loan['membertype'];?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TH>Loan amounts</TH>
+                    <TH></TH>
+                    <TH>Installments</TH>
+                    <TH></TH>
+                 </TR>
+                 <TR>
+                    <TD>Minimum loan amount</TD>
+                    <TD><?php echo $loan['minmumloanamount'];?></TD>
+                    <TD>Minimum Freequency</TD>
+                    <TD><?php echo $loan['minimumfrequency'];?></TD>
+                </TR>
+                <TR>
+                    <TD>Maximum loan amount</TD>
+                    <TD><?php echo $loan['maximunloanamount'];?></TD>
+                    <TD>Maximum Freequency</TD>
+                    <TD><?php echo $loan['maximumfrequency'];?></TD>
+                </TR>
+                <TR>
+                    <TH>Penal fee</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD>Penal</TD>
+                    <TD><?php echo $loan['penal_Interest'];?></TD>
+                    <TD>Grace On</TD>
+                    <TD><?php echo $loan['graceperiodnumber'];?>days</TD>
+
+                    </TR>
+              <TR>
+                    <TH>Interest types</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TH>From</TH>
+                    <TH>To</TH>
+                    <TH>Interests(%)</TH>
+                    <TH></TH>
+                 </TR>
+				<?php foreach($this->interests as $loaninterests) { ?>
+                <TR>
+                    <TD><?php echo $loaninterests['period_ofrange_monthfrom'];?></TD>
+                    <TD><?php echo $loaninterests['period_ofrange_monthto'];?></TD>
+                    <TD><?php echo $loaninterests['Interest'];?></TD>
+                    <TD></TD>
+                  </TR>
+				<?php } ?>
+            </table>
+			<?php } ?>
+            <br>
+            <table>
+                <TR>
+                    <td colspan="8"><a href="<?php echo $this->baseUrl(); ?>/management/loans/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+                </TR>
+            </table>
+    </div>
+</fieldset>
+
+<?php if($this->offerproductstatus==1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+<?php foreach($this->loan as $loan) {  ?>
+	<tr>
+		<Th align="center"><p><B style="color:red">No you cannot delete since the loan exists for </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $loan['offerproductname'];?>' product</b></Th>
+    </tr>
+<?php } ?>
+</table>
+<?php } else { ?>
+<?php foreach($this->loan as $loan) {  ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+		<th><B style="color:red">Are you sure you want to delete Offer product</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $loan['offerproductname'];?>" ?*</b></th>
+	<tr>
+</table>
+<?php } ?>
+<fieldset>
+	<legend>Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/management/loans/loansdelete/offerproductupdate_id/<?php echo $this->offerproductupdate_id; ?>/offerproduct_id/<?php echo $this->offerproduct_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+					</TR>
+					<TR>
+						<TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+						<TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/loans/">
+						<input name="submit" type="submit"  value="No" ></a></TD>
+					</TR>
+				</table>
+				</form>
+			</div>
+		</div>
+</fieldset>
+<?php } ?>

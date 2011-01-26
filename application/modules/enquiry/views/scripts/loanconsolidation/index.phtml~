@@ -1,0 +1,48 @@
+<fieldset>
+    <legend>Consolidation of Loan</legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+
+                    <TR class="tdbrown">
+			   
+                            
+			    <Th>office</TD>
+			    <Th>accountNumber</TD>
+			    <Th>loanAmount</TD>
+			    <Th>Period1</TD>
+			    <Th>Interest</TD>
+      			    <Th>Period2</TD>
+        		    <Th>Interests</TD>
+
+
+                    </TR>
+                    <?php 
+                    foreach($this->loanDetails as $loanDetails1){  ?>
+                     
+                    <TR>
+			   
+			  
+
+                               	<TD><?php echo $loanDetails1->office_name;?></TD>
+		                <td><?php echo $loanDetails1->account_number;?></td>
+                                <td><?php echo $loanDetails1->groupmember_loanamount;?></td>
+                                <td><?php echo $loanDetails1->period_ofrange_description;?></td> 
+                                <td><?php echo $loanDetails1->Interest;?></td>
+                            <?php foreach($this->period as $period1) { ?>
+                                <?php if($this->period_id=2) { ?>
+                                <td><?php echo $period1->period_ofrange_description;?></td> <? } ?>
+                                <td><?php echo $period1->Interest;?></td>
+                                </TR>
+                 <?php } ?>
+                
+                 <?php } ?>
+
+            <table>
+		     
+            <br>
+	    </table>
+		   
+            </table>
+        </div>
+</fieldset>
+

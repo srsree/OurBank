@@ -1,0 +1,13 @@
+<?php
+class Creditline_Form_Search extends Zend_Form {
+    public function init() {
+		$formfield = new App_Form_Field();
+
+		$searchCreditline = $formfield->field('Text','searchCreditline','','','','','','','','','','');
+		$search_from_credit = $formfield->field('Text','search_from_credit','','','','','','','','','','');
+		$search_to_credit = $formfield->field('Text','search_to_credit','','','','','','','','','','');
+
+	        $this->addElements(array($searchCreditline,$search_from_credit,$search_to_credit));
+
+    }
+}

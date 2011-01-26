@@ -1,0 +1,50 @@
+<form action="<?php echo $this->baseUrl();?>/commonviewuser" method="POST">
+				<?php echo $this->form->fee_id;?>
+<fieldset>
+
+		<table class="fieldsets">	
+
+	<div class="profile_tab"> 
+
+			<legend>User details</legend>
+
+			<TR >
+				<td><label for="fld1" class="mand">User name</label></td>
+				<td><?php echo $this->form->username;?></TD>
+			</tr>
+			<tr>
+				<td><label for="fld1" class="mand">Bank:</label></td>
+				<td><?php echo $this->form->officebranch;?></TD>
+			</tr>
+			<tr>
+				<td><label for="fld1" class="mand">Gender</label></td>
+				<td><?php echo $this->form->gender;?></TD>
+			</tr>
+			<tr>
+
+				<td><label for="fld1" class="mand">Designation</label></td>
+				<td><?php echo $this->form->designation;?></TD>
+			</TR>
+              
+				
+  			<TR >
+				<td><label for="fld1" class="mand">Granted as<span class="reqMark"></label></td>
+				<td><?php echo $this->form->grant_id;?></TD>
+ 			</TR>
+				
+			
+					</table>
+
+ 
+
+                	<div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->form->Submit;?>
+                 </div>
+                <div class="rtbtns">
+                   <a href="<?php echo $this->baseUrl();?>/user"><?php echo $this->form->Back;?></a>
+                </div>
+            </div>
+		
+</form>
+</fieldset>

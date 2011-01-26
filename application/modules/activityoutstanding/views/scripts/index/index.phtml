@@ -1,0 +1,76 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<form action="<?php echo $this->baseUrl();?>/activityoutstanding" method="POST">  
+	<fieldset>
+		<legend><?php echo $this->translate("Search"); ?></legend>
+			<TABLE width="100%">
+				<tr>
+                                        <td class="label"><?php echo $this->translate("From Date:"); ?></td>
+                                        <td><?php  echo $this->form->fromdate; ?></td>
+                                        <td class="label"><?php echo $this->translate("To Date:"); ?></td>
+					<td><?php  echo $this->form->todate; ?></td>
+				</tr>
+				<tr>
+					  <Td class="label"><?php echo $this->translate("Bank name :"); ?></td>
+                                          <td><?php  echo $this->form->bank;?></td>
+				</tr>
+                                <tr>
+					<td colspan="4" align="center"><? echo $this->form->Search;?></td>
+				</tr>
+                                <tr><div><?php echo $this->fromerr; echo $this->toerr; echo $this->dateerr;?></div></tr>
+			</form>
+   			</TABLE>
+ 	</fieldset> 
+</form>
+<?php if($this->outstanding or $this->disbursed or $this->paid){ ?>
+            <TABLE id="hor-minimalist-b" >
+                <tr>
+	            <td id="reportth"><?php echo $this->translate("Activity name"); ?></td>
+                    <td align="right" id="reportth"><?php echo $this->translate("Disbursed Amount"); ?></td>
+		    <td align="right" id="reportth"><?php echo $this->translate("Paid Amount"); ?></td>
+		    <td align="right" id="reportth"><?php echo $this->translate("Outstanding Amount"); ?></td>
+	        </tr>
+		<?php foreach($this->disbursed as $disbursed){?>
+		<td><? echo $disbursed['name']; ?></td>
+		<td align="right"><? echo $disbursed['disbursed']; ?></td>
+                <?php $flag1=1; foreach($this->paid as $paid) {
+                            if($disbursed['name']==$paid['name']) {?><td align="right"><?php echo $paid['paid']; ?></td><?php 
+                        $flag1=0; } 
+                } if($flag1==1) { echo "<td></td>";  }  ?>
+		<?php $flag=1; foreach($this->outstanding as $outstanding) {
+				 if($disbursed['name']==$outstanding['name']) {?><td align="right"><?php echo $outstanding['outstanding']; ?></td><?php 
+				$flag=0; } 
+			} if($flag==1) { echo "<td></td>";  }  ?>
+                </tr><?} ?>
+</TABLE>
+
+<form action="<?php echo $this->baseUrl(); ?>/activityoutstanding/index/pdftransaction" method="POST">
+<div class="reportdiv">      <input type="submit" value="PDF"  id="reportbutton">
+                    <input type="hidden" name="field1" value="<?php echo $this->field1; ?>">
+                    <input type="hidden" name="field2" value="<?php echo $this->field2;?>">
+                    <input type="hidden" name="field3" value="<?php echo $this->field3;?>"></div>
+</form>
+<div class="reportdiv"><a href="<?php echo $this->baseUrl();?>/activityoutstanding/index/chart/fdate/<? echo $this->field1; ?>/todate/<? echo $this->field2; ?>/bank_id/<? echo $this->field3; ?>">      <input type="submit" value="Graph"  id="reportbutton"></td></a></div>
+<?php } ?>
+
+
+
+
+

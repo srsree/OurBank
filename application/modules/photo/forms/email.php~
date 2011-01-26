@@ -1,0 +1,20 @@
+<?php
+/**  
+ * class is used to create a form for SavingInstance details along with the validation
+*/
+class Photo_Form_photo extends Zend_Form
+{
+	public function init()
+	{
+	
+      
+         $submit = new Zend_Form_Element_Submit('Submit');
+	 $back= new Zend_Form_Element_Submit('Back');
+
+
+         $this->addElements( array ($email,$website,$submit,$back));
+
+		
+	}
+}
+/** end of class */

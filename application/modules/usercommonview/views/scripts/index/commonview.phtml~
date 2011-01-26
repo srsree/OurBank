@@ -1,0 +1,168 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+ <!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<table id="hor-minimalist-b">
+	
+		<tr>
+			<th class = "firsttd">User information</th>
+			<th class = "secondtd"></th>
+
+			<th class="thirdtd"><a href="<?php echo $this->baseUrl()."/user/index/edituserdetail/id/".$this->id; ?>">
+			<img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th> 
+<? foreach($this->userdetails as $edit_id) { ?>
+			<tr>
+				<td class = "firsttd">User name:</td>
+				<td class = "secondtd"><?php echo $edit_id['username'];?></td>
+				<td class = "third"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Bank:</td>
+				<td class = "secondtd"><?php echo $edit_id['name'];?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Gender:</td>
+				<td class = "secondtd"><?php echo $edit_id['sex'];?></td>
+				<td class = "third"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Designation:</td>
+				<td class = "secondtd"><?php echo $edit_id['designation_name'];?></td>
+				<td class = "third"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">Granted as:</td>
+				<td class = "secondtd"><?php echo $edit_id['grant'];?></td>
+				<td class = "thirdtd"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">username:</td>
+				<td class = "secondtd"><?php echo $edit_id['username'];?></td>
+				<td class = "third"></td>
+			</tr>
+			<tr>
+				<td class = "firsttd">password:</td>
+				<td class = "secondtd"><?php echo $edit_id['password'];?></td>
+				<td class = "third"></td>
+			</tr>
+		<br/>
+		<?php } ?>
+  
+ </table>
+<table id="hor-minimalist-b">
+    <tr>
+        <th class = "firsttd">Address information</th>
+        <th class = "secondtd"></th>
+        <?php if (count($this->address)!=0) {?>
+        <th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->id;?>/modId/<?php echo $this->mod_id ?>/subId/<?php echo $this->sub_id ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php } else { ?>
+        <th class = "firsttd"><a href="<?php echo $this->baseUrl();?>/address/index/add/id/<?php echo $this->id; ?>/modId/<?php echo $this->mod_id ?>/subId/<?php echo $this->sub_id ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></th>
+        <?php } ?>
+    </tr>
+
+        <?php if (count($this->address)!=0) {?>
+        <?php foreach($this->address as $address){ ?>
+        <tr>
+            <td class = "firsttd">Address line1</td>
+            <td class = "secondtd"><?php echo $address['address1']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Address line2</td>
+            <td class = "secondtd"><?php echo $address['address2']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Address line3</td>
+            <td class = "secondtd"><?php echo $address['address3']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">City</td>
+            <td class = "secondtd"><?php echo $address['city']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Country</td>
+            <td class = "secondtd"><?php echo $address['country']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+        <tr>
+            <td class = "firsttd">Pin code</td>
+            <td class = "secondtd"><?php echo $address['zipcode']; ?></td>
+            <td class = "thirdtd"></td>
+        </tr>
+ 
+        <?php } ?>
+        <?php } ?>
+
+        <?php  ?>
+    </table>
+<br>
+<table id="hor-minimalist-b">
+    <tr>
+        <th class="firsttd">Contact information</th>
+        <th class = "secondtd"></th>
+        <?php if((count($this->contact))!=0) {
+        foreach($this->contact as $edit_id) { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/contactdetails/index/editcontact/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id;  ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
+        <?php }} else { ?>
+        <th><a href="<?php echo $this->baseUrl();?>/contactdetails/index/addcontact/id/<?php echo $this->id; ?>/subId/<?php echo $this->sub_id;  ?>/modId/<?php echo $this->mod_id;  ?>"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="20" height="20"></a></th>
+        <?php } ?>
+    </tr>
+
+    <?php foreach($this->contact as $contact){ ?>
+
+    <tr>
+        <td class="firsttd">Telephone number:</td>
+        <td class = "secondtd"><?php echo $contact['telephone']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Mobile number</td>
+        <td class = "secondtd"><?php echo $contact['mobile']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <tr>
+        <td class="firsttd">Email ID:</td>
+        <td class = "secondtd"><?php echo $contact['email']; ?></td>
+        <td class="thirdtd"></td>
+    </tr>
+    <?php } ?>
+</table> 
+

@@ -1,0 +1,293 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php foreach($this->member as $member) { ?>
+    <div id = "picture" align="right">
+        <img src="/upload/<?php  echo $member->picturefile;?>" height="90" width="90"/>
+    </div>
+
+    <div id="container-1">
+            <ul>
+                <li><a href="#fragment-1"><span>Personal</span></a></li>
+                <li><a href="#fragment-2"><span>Member Status</span></a></li>
+                <li><a href="#fragment-3"><span>Family Information</span></a></li>
+                <li><a href="#fragment-4"><span>Health</span></a></li>
+                <li><a href="#fragment-5"><span>Economic Status</span></a></li>
+                <li><a href="#fragment-6"><span>Education</span></a></li>
+            </ul>
+    <div id="fragment-1">
+        <fieldset>
+            <legend>View Individual</legend>
+	      
+                <table id="hor-minimalist-b">
+                    <tr  >
+                        
+                        <td ><B><?php echo $member->salutation; ?>&nbsp;<?php echo $member->memberfirstname; ?>&nbsp;<?php echo $member->membermiddlename ; ?>&nbsp;<?php echo $member->memberlastname; ?></B></td>
+                        
+                    </tr>
+
+                </table>
+                <table  id="hor-minimalist-b">
+
+
+                <tr>
+                    <TH>Communication Details</TH>
+                    <TH></TH>
+                    <TH>Client Information</TH>
+                    <TH></TH>
+                </tr>
+                <tr>
+                    <td>Bank</td>
+                    <td><?php echo $member->bankname; ?></td>
+                    <td></TD>
+                    <td></td>
+                </tr>
+                    <tr  >
+                        <td ><label for="Office_Address1">Address</label></td>
+                        <td ><?php echo $member->memberaddressline1; ?></td>
+                        <td ><label for="Office_Name">Gender</label></TD>
+                        <td ><?php echo $member->sex ; ?></TD>
+                    </tr>
+                    <tr  >
+                        <td ><label for="Office_Address2"></label></td>
+                        <td ><?php echo $member->memberaddressline2; ?></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr  >
+                        <td ><label for="Office_Address3"></label></TD>
+                        <td ><?php echo $member->memberaddressline3; ?></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr  >
+                        <TD ><label for="Office_City">City</label></TD>
+                        <TD ><?php echo $member->membercity; ?></td>
+                        <TD ><label for="Office_Email">Personal Id</label></TD>
+                        <TD ><?php  echo $member->memberpersonalid;?></td>
+                    </tr>
+                    <tr>
+                        <td ><label for="Office_State">State</label></TD>
+                        <td ><?php echo $member->memberstate; ?></td>
+                        <td ><label for="Office_Short_Name">Date Of Birth</label></TD>
+                        <td ><?php echo $member->memberdateofbirth; ?></td>
+                    </tr>
+                    <tr>
+                        <td ><label for="Office_Country">Country</label></td>
+                        <td ><?php echo $member->membercountry; ?></td>
+                       <TD ><label for="Office_contactperson_email">Member Physical Status</label></TD>
+                        <TD ><?php  echo $member->memberphysicalstatusdescription;?></td>
+                    </tr>
+
+                     <tr>
+                        <td ><label for="Office_Pincode">Pincode</label></TD>
+                        <td ><?php echo $member->memberpincode; ?></td>
+                       <TD ><label for="Office_Pone">Telephone</label></TD>
+                        <TD ><?php echo $member->memberphone; ?></td>
+                   </tr>
+                </table>
+                <table id="hor-minimalist-b">
+                    <tr>
+                        <td><a href="<?php echo $this->baseUrl();?>"><input name="submit" type="submit" class="officebutton" value="back"></a></td>
+                        <td><a href="#fragment-2"><input name="submit" type="button" class="officebutton" value="Next" ></a></td>
+                    </tr>
+                </table>
+                </div>
+            </fieldset>
+   
+<?php } ?>
+<?php foreach($this->member as $member) { ?>
+    <div id="fragment-2">
+        <fieldset>
+            <legend>Status Information</legend>
+	    <div class="cont-rgt-data">
+            <table width="100%" id="hor-minimalist-b">
+                <tr>
+                    <td width="0%"><b><B><?php echo $member->salutation; ?>&nbsp;<?php echo $member->memberfirstname; ?>&nbsp;<?php echo $member->membermiddlename ; ?>&nbsp;<?php echo $member->memberlastname; ?></B></b></td>
+                </tr>
+           </table>
+            <table id="hor-minimalist-b">
+                <tr >
+                    <td width="20%"><B>Member Id</TD></td>
+                    <td width="20%"><? echo $member->membercode;?></td>
+		    <td width="20%"><B>Member Status</B></td>
+		    <td width="20%"><? echo $member->memberstatusdescription;?></td>
+                    <td width="20%"></td>
+                </tr>
+            
+		<tr>
+		    <td width="20%"><B>Asset Type</B></td>
+                    <td width="20%"><B>Size</B> <br></td>
+                      <td></td>
+                   <td></td>
+                   <td></td>
+		    
+		</tr>
+<?php } ?>
+                <?php foreach($this->familyasset as $familyasset){ ?>
+		<tr>
+		   <td><?php echo $familyasset['asset_name'] ?></td>
+                   <td><?php echo $familyasset['assest_size'] ?></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+		</tr>
+                <?php } ?>
+            </table>
+            <br>
+	    <a href="#fragment-1"><input name="submit" type="button" class="officebutton" value="Back"></a>
+            <a href="#fragment-3"><input name="submit" type="button" class="officebutton" value="Next"></a>
+
+            </div>
+        </fieldset>
+    </div>
+
+    <div id="fragment-3">
+        <fieldset>
+            <legend>View Family Information</legend>
+	       <div class="cont-rgt-data">
+<?php foreach($this->member as $member) { ?>
+               <table width="100%" id="hor-minimalist-b">
+                    <tr>
+                        <td width="0%"><B><?php echo $member->salutation; ?>&nbsp;<?php echo $member->memberfirstname; ?>&nbsp;<?php echo $member->membermiddlename ; ?>&nbsp;<?php echo $member->memberlastname; ?></B></td>
+                    </tr>
+                </table>
+<?php } ?>
+                <table width="100%" id="hor-minimalist-b">
+                    <tr>
+                        <th >Member Name</td>
+                        <th >Gender</h>
+                        <th >Age</Th>
+                        <th >Relation</h>
+                        <th >Physical Status</Th>
+                        <th >Marital Status</th>
+                    </tr>
+                    <?php foreach($this->familymember as $memberFamily) { ?>
+                    <tr>
+                        <td><?php echo $memberFamily->familymember; ?></TD>
+                        <td><?php echo $memberFamily->sex;?></TD>
+                        <td><?php echo $memberFamily->Age; ?></TD>
+                        <td><?php echo $memberFamily->relationship; ?></TD>
+                        <td><?php echo $memberFamily->memberphysicalstatusdescription; ?></TD>
+                        <td><?php echo $memberFamily->membermaritalstatusdescription; ?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
+                
+                <a href="#fragment-2"><input name="submit" type="button" class="officebutton" value="Back"></a>
+		<a href="#fragment-4"><input name="submit" type="button" class="officebutton" value="Next" onclick="membername()"></a>
+                </div>
+        </fieldset>
+    </div>
+
+    <div id="fragment-4">
+        <fieldset>
+            <legend>View Health Information</legend>
+	       <div class="cont-rgt-data">
+               <table width="100%" id="hor-minimalist-b">
+                    <tr>
+                        <td width="0%"><B><?php echo $this->salutation; ?>&nbsp;<?php echo $this->memberfirstname; ?>&nbsp;<?php echo $this->membermiddlename ; ?>&nbsp;<?php echo $this->memberlastname; ?></B></td>
+                    </tr>
+               </table>
+               <table id="hor-minimalist-b">
+                    <tr>
+                        <th >Member Name</th>
+                        <th >Health Problem</Th>
+                        <th >Under Treatment</Th>
+                        <th >Clinical Accessibility</th>
+                    </tr>
+                    <?php foreach($this->familyhealth as $memberHealth) { ?>
+                    <tr>
+                        <td><?php echo $memberHealth->familymember; ?></TD>
+                        <td><?php echo $memberHealth->health_problem; ?></TD>
+                        <td><?php echo $memberHealth->under_treatmentstatus;?></TD>
+                        <td><?php echo $memberHealth->clinical_accessabilitystatus;?></TD>
+                    </tr>
+                    <?php } ?>
+                </table>
+                
+                <a href="#fragment-3"><input name="submit" type="button" class="officebutton" value="Back"></a>
+		<a href="#fragment-5"><input name="submit" type="button" class="officebutton" value="Next"></a>
+                </div>
+        </fieldset>
+    </div>
+
+    <div id="fragment-5">
+        <fieldset>
+            <legend>View Economical Information</legend>
+	    <div class="cont-rgt-data">
+            <table width="100%" id="hor-minimalist-b">
+                <tr>
+                    <td width="0%"><B><?php echo $this->salutation; ?>&nbsp;<?php echo $this->memberfirstname; ?>&nbsp;<?php echo $this->membermiddlename ; ?>&nbsp;<?php echo $this->memberlastname; ?></B></td>
+                </tr>
+            </table>
+            <table id="hor-minimalist-b">
+                <tr>
+                    <th >Member Name</Th>
+                    <th >Earnings</Th>
+                    <th >Occupation</Th>
+                    <th >Benefits</Th>
+                </tr>
+                <?php foreach($this->familyeconomical as $memberFamilyDetails) { ?>
+                <tr >
+                    <td><?php echo $memberFamilyDetails->familymember; ?></TD>
+                    <td><?php echo $memberFamilyDetails->earningsstatus;?></TD>
+                    <td><?php echo $memberFamilyDetails->profession; ?></TD>
+                    <td><?php echo $memberFamilyDetails->mfi_benefitsstatus;?></td>
+                </tr>
+                <?php } ?>
+             </table>
+             
+             <a href="#fragment-4"><input name="submit" type="button" class="officebutton" value="Back"></a>
+	     <a href="#fragment-6"><input name="submit" type="button" class="officebutton" value="Next"></a>
+            </div>
+        </fieldset>
+    </div>
+
+    <div id="fragment-6">
+        <fieldset>
+            <legend>View  Educational Information</legend>
+	       <div class="cont-rgt-data">
+               <table width="100%" id="hor-minimalist-b">
+                    <tr>
+                        <td width="0%"><B><?php echo $this->salutation; ?>&nbsp;<?php echo $this->memberfirstname; ?>&nbsp;<?php echo $this->membermiddlename ; ?>&nbsp;<?php echo $this->memberlastname; ?></B></td>
+                    </tr>
+                </table>
+                <table id="hor-minimalist-b">
+                    <tr>
+                        <th >Member Name</Th>
+                        <th >Qualification</h>
+                        <th >School Location</Th>
+                        <th >Transportation</Th>
+                    </tr>
+                    <?php foreach($this->familyeducation as $memberFamilyDetails) { ?>
+                    <tr>
+                        <td><?php echo $memberFamilyDetails->familymember; ?></TD>
+                        <td><?php echo $memberFamilyDetails->qualificationdetails; ?></TD>
+                        <td><?php echo $memberFamilyDetails->school_locationstatus;?></TD>
+                        <td><?php echo $memberFamilyDetails->transporation_for_schoolstatus;?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
+                <a href="#fragment-5"><input name="submit" type="button" class="officebutton" value="Back" onclick="membername()"></a>
+                </div>
+    </fieldset>
+    </div>
+    </div>
+
+

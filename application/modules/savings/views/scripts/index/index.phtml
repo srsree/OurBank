@@ -1,0 +1,73 @@
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script> 
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#fromdate").datepicker({"dateFormat":"dd/mm/yy"});
+    $("#todate").datepicker({"dateFormat":"dd/mm/yy"});
+}); 
+</script>
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+        <div class="search" style="margin-left:20px;">
+            <form action="<?php echo $this->baseUrl();?>/savings/index" method="POST">
+                <table width="100%">
+                    <tr>
+                        <td class="label">product name:</td>
+                        <td ><? echo $this->form->prodname;?></td>
+                        <td class="label"> Short Name:</td>
+                        <td ><? echo $this->form->shname;?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">begin date:</td>
+                        <td ><? echo $this->form->fromdate;?></td>
+                        <td class="label">closed date:</td>
+                        <td ><? echo $this->form->todate;?></td>
+                    </tr>
+            <div class="ltbtns">
+                <td><input type = "Submit" name = "Search" id="Search" value = "Search"/></td>
+            </div>
+                  
+            </table>
+            </form>	
+        </div>
+    </fieldset> 
+</div>  
+
+<?php $convertdate = new App_Model_dateConvertor();?>
+<?php  if((count($this->paginator) ==0) && ($this->search == true))  { ?>
+<font color='RED'><?php echo $this->translate('Record not found try again'); ?>.</font>
+<?php } ?>
+<?php if (count($this->paginator)){ ?>
+<table id="hor-minimalist-b">
+
+    <tr>
+        <th>Product name</th>
+        <th>short name</th>
+        <th>Begin date</td>
+        <th>Closed date</td>
+        <th>Applicable to</th>
+    </tr>
+
+
+
+        <?php foreach ($this->paginator as $saving ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/savings/index/savingsview/offerproduct_id/".base64_encode($saving['productid']); ?>">
+                     <?php echo $this->escape($saving['productname']); ?></a></td>
+    <td><?php echo $this->escape($saving['shortnames']);?></td>
+    <td><?php echo $convertdate->phpnormalformat($saving['begindate']); ?>
+    <td><?php $datevalue = $convertdate->phpnormalformat($saving['closedate']);
+            if($datevalue =="00/00/0000") { echo "-----"; } else { echo $datevalue; }?></td> 
+    <td><?php echo $this->escape($saving['type']);?></div></td>
+   
+        <?php endforeach; ?>
+       
+    <tr> 
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+
+    </tr>
+</table>
+ <?php } ?>
+

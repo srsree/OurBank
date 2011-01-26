@@ -1,0 +1,49 @@
+<?php
+
+class Enquiry_FeedetailsController extends Zend_Controller_Action
+{
+    public function init()
+    {
+       $this->view->pageTitle='Fee Details';
+    }
+    public function indexAction()
+    {
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $sessionName->primaryuserid;
+        $this->view->title = "Fee Details";
+
+        $searchForm = new Enquiry_Form_Search();
+        $this->view->form = $searchForm;
+
+	$oName = new Enquiry_Model_FeeDetails();
+	$select = $oName->fetchAllProducts();
+	foreach($select as $oName) {
+        $searchForm->field1->addMultiOption($oName->offerproduct_id,$oName->offerproductname);
+	}
+
+         if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+               $formData = $this->_request->getPost();
+
+            if ($this->_request->isPost()) {
+                   echo "Ramya";
+                   $fromDate = $this->_request->getParam('field5'); 
+                   $toDate = $this->_request->getParam('field6');
+                   $productName = $this->_request->getParam('field1');
+                   $formData = $this->_request->getPost();
+
+                if ($searchForm->isValid($formData)) {
+                    echo "Ramya";
+
+                    $fee = new Enquiry_Model_FeeDetails();
+                    $arrayFee = $fee->feeSearch($fromDate,$toDate,$productName);
+
+                      if (!$arrayFee) {
+                             echo "<font color='RED'>Records Not Found Please Try Again...</font>";
+                            } else {
+                            $this->view->feeView = $arrayFee;
+                                                        }
+                                                }
+                                           }
+                                    }
+                                }
+}

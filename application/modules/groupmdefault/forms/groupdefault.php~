@@ -1,0 +1,42 @@
+<?php
+class  Groupdefault_Form_groupdefault extends Zend_Form {
+			public function init() {
+        
+    }
+
+public function __construct($app) {
+        		$formfield = new App_Form_Field ();
+
+			$office = new Zend_Form_Element_Select('office');
+			$office->addMultiOption('','Select');
+			$office->setAttrib('class', 'txt_put');
+			$office->setAttrib('id', 'office');
+			$office->setAttrib('onchange','getMember(this.value,"'.$app.'")');
+				
+// 			$groupname = new Zend_Form_Element_Text('groupname');
+// 			$groupname->setAttrib('class', 'txt_put');
+// 			$groupname->setAttrib('size', '10');
+// 			$groupname->setRequired(true);
+$groupname = $formfield->field('Text','groupname','','','','Group name',true,'','','','','',1,'');
+$date = $formfield->field('Text','Created_Date','','','mand','Created date',true,'','','','','',1,'');
+			
+
+//                         $date = new Zend_Form_Element_Text('Created_Date');
+//                         $date->setAttrib('tabindex', '8');
+//                         $date->setAttrib('class', 'txt_put');
+//                         $date->setAttrib('size', '10');
+//                         $date->setAttrib('id', 'Created_Date');          
+
+			
+
+                        $code = new Zend_Form_Element_Hidden('code');
+
+                        $submit = new Zend_Form_Element_Submit('Submit');
+			$back= new Zend_Form_Element_Button('Back');
+// 			$update = new Zend_Form_Element_Submit('Update');
+// 			$yes = new Zend_Form_Element_Submit('Yes');
+
+		        $this->addElements(array($office,$groupname,$date,$code,$submit,$back));
+
+    }
+}

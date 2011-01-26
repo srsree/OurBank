@@ -1,0 +1,16 @@
+<?php
+class Meeting_Form_Delete extends Zend_Form {
+    public function init() {
+
+        $remarks = new Zend_Form_Element_Textarea('remarks',array('rows' =>3 ,'cols'=>15));
+        $remarks->setAttrib('class', '');
+	$remarks->setRequired(true);
+
+	
+
+        $Delete = new Zend_Form_Element_Submit('Delete');
+
+        $this->addElements(array($remarks,$Delete));
+
+    }
+}

@@ -1,0 +1,29 @@
+<?php
+class Familydetails_Model_familydetails  extends Zend_Db_Table {
+protected $_name = 'ob_member';
+
+public function edit_family($member_id)
+{
+$select=$this->select()
+			->setIntegrityCheck(false)
+			->join(array('a'=>'ourbank_family'),array('a.id'))
+			->where('a.member_id=?',$member_id);
+$result=$this->fetchAll($select);
+return $result->toArray();
+//die ($select->__toString($select));
+}
+
+public function updatefamily($familyId,$input = array()) {
+$where[] = "id = '".$familyId."'";
+$db = $this->getAdapter();
+$result = $db->update('ourbank_family',$input,$where);
+}
+
+public function deleteRecord($table,$param)
+{
+	$db = $this->getAdapter();
+	$db->delete($table,array('id = '.$param));
+	return;
+}
+
+}

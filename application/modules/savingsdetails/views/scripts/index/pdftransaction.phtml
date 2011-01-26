@@ -1,0 +1,60 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<?php if($this->loanlist) { ?>
+  
+<table id="hor-minimalist-b" summary="">
+    <tr class="tdbrownheading">
+ <!--       <th>Category Name</th>-->
+       
+        
+        <th>Activity</th>
+        <th>Number of account</th>
+	<th>Loan amount</th>
+	<th>Credit</th>
+        
+    </tr>
+       
+        <?php    $acc = 0;
+		 $Lamt = 0;
+		 $folio = 0; 
+			foreach ($this->loanlist as $loandetails ): ?>
+    <tr>
+      <td><?php echo $this->escape($loandetails['activity_name']); ?></td>
+    
+   
+    <td><?php echo $this->escape($loandetails['NumberofAC']);?></td>
+    <td>R$<?php echo ' '.$this->escape($loandetails['Lamt']);?></td>
+    <td><?php $creditlineamt = $loandetails['creditline_portfolio']; $loanamt = $loandetails['Lamt']; $v = $creditlineamt/$loanamt; $txt = sprintf("%4.2f",$v);
+echo $txt;
+		$acc += $loandetails['NumberofAC'];
+		$Lamt += $loandetails['Lamt'];
+		$folio += $txt;
+		?> %</td>
+        <?php endforeach; ?>
+	</tr><tr><td><b>Total</b></td><td><?php echo $acc; ?></td><td>R$ <? echo $Lamt; ?></td><td><? echo $folio; ?> %</td>
+        <?php   }?>
+
+   
+</tr>
+</table>
+<form action="<?php echo $this->baseUrl();?>/loanslist/index/pdftransaction" method="POST"
+onClick="window.open('<?php echo $this->baseUrl(); ?>/loanslist/index/reportdisplay/file/loanslist.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+                 <input type="submit" value="PDF" id="submit">
+</form>

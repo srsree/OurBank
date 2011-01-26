@@ -1,0 +1,147 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<body onclick="limiter()">
+<head>
+<script>
+    var current =0;
+    function addPerson() {
+    current++;
+                    var strToAdd1 = '<table><TR><TD width="10%"><input type="text" name="memberName'+current+'" id="memberName'+current+'" value=""  class="txt_put" size = "5"/><td width="3%"> <input type="text" name="To'+current+'" id="To'+current+'" value=""  class="txt_put" size = "2"/></td><td width="3%"> <input type="text" name="Rate'+current+'" id="Rate'+current+'" value=""  class="txt_put" size = "2"/></td></TD> </TR></table>'
+
+		    document.myform.memberCount.value = current;
+                    $('#FamilyInformation').append(strToAdd1)
+   }
+		$(document).ready(function(){
+                $('#addPerson').click(addPerson)
+               });
+</script>
+</head> 
+
+<fieldset>
+    <legend>New Loan</legend>
+        <div class="register">
+            <div class="profile_tab">
+                <form action="<?php echo $this->baseUrl();?>/management/insurance/insuranceadd" method="POST"  name= "myform">
+                    <table id="hor-minimalist-b">
+                        <TR>
+                            <TH>Product Details</TH>
+                            <TH></TH>
+                            <TH></TH>
+                            <TH></TH>
+                        </TR>
+                        <TR>
+                            <TD>Product Type<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->form->product_id;?></TD>
+                            <TD></TD>
+                            <TD></TD>
+                        </TR>
+                        <TR>
+                            <TD>Product Name<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->form->offerproductname;?></TD>
+                            <TD>Short Name<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->form->offerproductshortname;?></TD>
+                        </TR>
+                        <TR>
+                            <TD>Description<span class="reqMark">*</span></TD>
+                            <TD><?php echo $this->form->offerproduct_description;?></TD>
+                            <TD></TD>
+                            <TD></TD>
+                        </TR>
+                        <TR>
+                            <TH>Date</TH>
+                            <TH></TH>
+                            <TH>AccountingLine</TH>
+                            <TH></TH>
+                        </TR>
+                        <tr> 
+                            <td>Begin Date<span class="reqMark">*</span></td>
+                            <td><?php echo $this->form->begindate;?>
+                            <span class="reqMark">[yyyy-mm-dd]</span></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr> 
+                            <td>Close Date<span class="reqMark">*</span></td>
+                            <td><? echo $this->form->closedate;?>
+                            <span class="reqMark">[yyyy-mm-dd]</span></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr> 
+                            <td>Applicable To<span class="reqMark">*</span></td>
+                            <td><? echo $this->form->applicableto;?></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <TR>
+                             <TH>Loan Amount</TH>
+                             <TH></TH>
+                             <TH>Installments</TH>
+                             <TH></TH>
+                        </TR>
+                        <tr> 
+                            <td>Minimum Loan Amount<span class="reqMark">*</span></td>
+                            <td><? echo $this->form->minmumloanamount;?></td>
+                            <td>Minimum Frequency<span class="reqMark">*</span></td>
+                            <td><? echo $this->form->minimumfrequency;?></td>
+                        </tr>
+                        <tr> 
+                            <td>Maximum Loan Amount<span class="reqMark">*</span></td>
+                            <td><? echo $this->form->maximunloanamount;?></td>
+                            <td>Maximum Frequency<span class="reqMark">*</span></td>
+                            <td><? echo $this->form->maximumfrequency;?></td>
+                        </tr>
+
+                        <TR>
+                            <TH>Grace Period</TH>
+                            <TH></TH>
+                            <TH>Interest Rates</TH>
+                            <TH></TH>
+                        </TR>
+                        <tr> 
+                            <td>Grace Period<span class="reqMark">*</span></td>
+                            <td><? echo $this->form->graceperiodnumber;?>[days]</td>
+                            <td><input type="hidden" name="memberCount" id="memberCount" value=""  class="txt_put" />	
+                            <table>
+                                <tr> 
+                                    <Th width="10%">From </Th>
+                                    <Th width="5%">To</Th>
+                                    <Th width="3%">Rate</Th>
+                                </tr>
+                                <tr> 
+                                    <td width="10%"><?php echo $this->form->period_ofrange_monthfrom;?></td> 
+                                    <td width="5%"><?php echo $this->form->period_ofrange_monthto;?></td>
+                                    <td width="3%"><?php echo $this->form->Interest;?></Th>
+                                </tr></td>
+                               </table><?php echo $this->form->addElement;?><?php echo $this->form->removeElement;?>
+
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <TD><?php echo $this->form->Submit;?></TD>
+                            <td><a href="<?php echo $this->baseUrl(); ?>/management/insurance">
+                                <input name="submit" type="submit" class="NormalBtn" 
+                                       value="Back"></a></td>
+                        </TR>
+                </table>
+            </form>
+        </div>
+    </div>
+</fieldset>

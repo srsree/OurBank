@@ -1,0 +1,93 @@
+<?php
+class Officehierarchy_Model_Officehierarchy extends Zend_Db_Table_Abstract {
+
+    public function noOfficelevel() {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $result = $this->db->fetchAll('SELECT * FROM ourbank_officehierarchy');
+        $result = count($result);
+        return $result;
+    }
+
+    public function fetchAllHierarchy() {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $result = $this->db->fetchAll('SELECT * FROM ourbank_officehierarchy ORDER BY Hierarchy_level');
+        return $result;
+    }
+
+    public function officeExistedInThisType($officeTypeId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM  ourbank_officenames where officetype_id=$officeTypeId AND recordstatus_id=3";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
+    public function officeExistedInThisType1($officeTypeId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM  ourbank_officenames where officetype_id=$officeTypeId AND recordstatus_id=3";
+        $result = $this->db->fetchAll($sql);
+        return count($result);
+    }
+
+    public function officeInsert($input = array()) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $result = $this->db->insert('ourbank_officehierarchy',$input);
+    }
+
+    public function officeUpdate($id,$input = array()) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $where[] = "id = '".$id."'";
+        $result = $this->db->update('ourbank_officehierarchy',$input,$where);
+    }
+
+    public function officeLevelUpdate($id,$input = array(),$level,$createdby,$date) {
+        $where[] = "officetype_id = '".$id."'";
+        $result = $this->db->update('ourbank_officehierarchyupdates',$input,$where);
+        $data = array('hierarchyupdates_id'=>'',
+                      'officetype_id' => $id,
+                      'hierarchylevel'=>$level,
+                      'recordstatus_id'=>'1',
+                      'createdby'=>$createdby,
+                      'createddate'=>$date);
+        $result = $this->db->insert('ourbank_officehierarchyupdates',$data);	 
+    }
+
+    public function fetchOneOfficeHierarchy($id) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM  ourbank_officehierarchy where officetype_id=$id";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
+    public function editOfficeHierarchy($id) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM  ourbank_officehierarchy where officetype_id!=$id";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
+    public function officeLowerLevel($hierarchyLevel) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM  ourbank_officehierarchy where Hierarchy_level>$hierarchyLevel ORDER BY Hierarchy_level";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
+    public function officeTypeLevelUpdate($id,$input = array()) {
+        $where[] = "officetype_id = '".$id."'";
+        $result = $this->db->update('ourbank_officehierarchy',$input,$where);	 
+    }
+
+    public function officeTypeDelete($id) {
+        $where[] = "officetype_id = '".$id."'";
+        $result = $this->db->delete('ourbank_officehierarchy',$where);	 
+    }
+
+
+}

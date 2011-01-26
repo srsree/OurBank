@@ -1,0 +1,36 @@
+<?php
+class Contactdetails_Model_Contactdetails  extends Zend_Db_Table {
+ protected $_name = 'ob_gender';
+
+    public function addContactDetails($data) 
+    {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->insert('ob_contact_details',$data);
+        return;
+    }
+
+    public function getContact($id,$modId,$subId)
+    {
+       $select = $this->select()
+                        ->setIntegrityCheck(false)  
+                        ->from('ob_contact_details')
+                        ->where('recordstatus_id = 3 OR recordstatus_id = 1')
+                        ->where('module_id = ?',$modId)
+                        ->where('submodule_id = ?',$subId)
+                        ->where('id = ?',$id);
+           //die($select->__toString($select));             	 	 
+           $result = $this->fetchAll($select);
+           return $result->toArray();
+
+    }
+    
+    public function updatecontacts($id,$mod_id,$sub_id,$data)  
+    {	
+        $where = array('id = '.$id,'module_id='.$mod_id,'submodule_id='.$sub_id);
+	$db = $this->getAdapter();
+        $db->update('ob_contact_details', $data , $where);
+        return;
+    }
+
+
+}

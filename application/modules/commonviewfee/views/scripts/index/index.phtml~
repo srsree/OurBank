@@ -1,0 +1,38 @@
+<form action="<?php echo $this->baseUrl();?>/commonviewfee" method="POST">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Fee details</legend>
+		<table class="fieldsets">	
+			<?php echo $this->form->fee_id;?>
+
+			<TR>		
+				<td><label for="fld1" class="mand">Fee Name:</label></td>
+				<TD><?php echo $this->form->feename;?></TD>
+			</TR>
+
+		
+
+			<TR>
+				<td><label for="fld1" class="mand">Fee description</label></TD>
+				<TD><?php echo $this->form->feedescription;?></TD>
+			</TR>
+
+			<TR>
+				<td><label for="fld1" class="mand">Amount</label></TD>
+				<TD><?php echo $this->form->feeamount;?></TD>
+			</TR>
+			<TR>
+				<td><label for="fld1" class="mand">Fee applies to</label></TD>
+				<TD><?php echo $this->form->membertype;?></TD>
+			</TR>
+ 
+		</table>
+                	<div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->form->Submit;?>
+                 </div>
+                <div class="rtbtns">
+                   <a href="<?php echo $this->baseUrl();?>/fee"><?php echo $this->form->Back;?></a>
+</fieldset>
+</div>
+</form>

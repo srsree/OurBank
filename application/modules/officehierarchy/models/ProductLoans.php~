@@ -1,0 +1,16 @@
+<?php
+class Management_Model_ProductsLoan extends Zend_Db_Table {
+protected $_name = 'ourbank_productsloan';
+
+public function addProductloans($post,$offerproduct_id){
+  $data = array('offerproductupdate_id'=>'',
+                      'offerproduct_id'=>$offerproduct_id,
+                      'minmumloanamount'=>$post['minmumloanamount'],
+                      'maximunloanamount'=>$post['maximunloanamount'],
+                      'minimumfrequency'=>$post['minimumfrequency'],
+                      'maximumfrequency'=>$post['maximumfrequency'],
+                      'graceperiodnumber'=>$post['graceperiodnumber'],
+                      'penal_Interest'=>$post['penal_Interest']);
+         $this->insert($data);
+
+}

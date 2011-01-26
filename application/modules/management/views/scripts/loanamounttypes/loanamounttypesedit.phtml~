@@ -1,0 +1,66 @@
+<fieldset>
+	<legend>Edit Loanamount</legend>
+	<div class="register">
+		<div class="profile_tab">
+			<form action="<?php echo $this->baseUrl();?>/management/loanamounttypes/loanamounttypesedit/loanamount_type_id/<?php echo $this->loanamount_type_id; ?>" method="POST" name= "myform">
+				<table id="hor-minimalist-b">
+					<TR>
+						<TH width="30%">loan amount types</TH>
+						<TH width="30%"></TH>
+						<TH width="40%"></TH>
+					</TR>
+					<TR>
+						<TD width="30%">"Loan Amount Type<span class="reqMark">*</span></TD>
+						<TD width="30%"><?php echo $this->form->laonamount_type_id;?><?php echo $this->form->laonamount_type_name;?></TD>
+						<TD width="40%"></TD>
+					</TR>
+					<TR>
+						<TH width="30%">"loanAmount with interest</TH>
+						<TH width="30%"></TH>
+						<TH width="40%"></TH>
+					</TR>
+					<TR>
+						<TH width="30%" align="center">-----------Amounts R$---------------Interests---</TH>
+						<th width="30%"></th>
+						<Th width="40%"></Th>
+					</TR>
+					<TR>
+						<TD width="30%">-----From R$-------To R$-------------- Rate %--------</TD>
+						<TD width="30%"></TD>
+						<TD width="40%"></TD>
+					</TR>
+					<TR>
+						<TD width="30%"><?php $count1 = 0; ?>
+                            <?php foreach($this->loanamounttypes as $loanamounttypes) {?>
+                            <?php $count1++; ?>
+                            <input type = "hidden" name = "count1" value = " <?php echo $count1; ?>">
+                            <input type = "hidden" name = "Interestperiod_id1<?php echo $count1?>" value = " <?php echo $loanamounttypes['Interestperiod_id']; ?>">&nbsp;<input name ="loan_amount_from<?php echo $count1?>" type="text" value="<?php echo $loanamounttypes['loan_amount_from'];?>" size="5" class="txt_put">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name ="loan_amount_to<?php echo $count1?>" type="text" value="<?php echo $loanamounttypes['loan_amount_to'];?>" size="5" class="txt_put">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name ="interest_rate<?php echo $count1?>" type="text" value="<?php echo $loanamounttypes['interest_rate'];?>" size="5" class="txt_put"><br/><br/><?php }?></TD>
+						<TD width="30%"></TD>
+						<TD width="40%"></TD>
+					</TR>
+                            <tr> 
+                            <td><input type="hidden" id="id" value="1">
+                                
+			         <div id="interestperiods"></div>
+									<input type="button" onClick="addFormField(); return false;" value="Add interest"></td>
+                            <TD width="50%"><input type="hidden" id="id" value="1"><input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" /><div id="loaninterestperiods"></div>
+                            <td></td>
+                            <td></td>
+                           </tr>
+					<!--<TR>
+						<TD width="50%"><input type="hidden" id="id" value="1"><input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" /><div id="loaninterestperiods"></div>
+									<input type="button" onClick="addFormField(); return false;" value="Add interest"></TD>
+						<TD width="20%"></TD>
+						<TD width="30%"></TD>
+					</TR>-->
+					<TR>
+						<TD width="50%"><?php echo $this->form->Submit;?></TD>
+						<TD width="20%"><a href="<?php echo $this->baseUrl(); ?>/management/loanamounttypes/">
+                                <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+						<TD width="30%"></TD>
+					</TR>
+				</table>
+			</form>
+		</div>
+	</div>
+</fieldset>

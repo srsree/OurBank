@@ -1,0 +1,115 @@
+<?php
+class Management_CategoryController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Category';
+    }
+
+    public function indexAction() {
+       $this->view->title = "Category";
+
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $category = new Management_Model_Category();
+        $result = $category->getCategoryDetails();
+
+        $category = new Management_Model_Funds();
+        $result1 = $category->pagination();
+
+//         $page = $this->_getParam('page',1);
+//         $paginator = Zend_Paginator::factory($result);
+//         $paginator->setItemCountPerPage(5);
+//         $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $result1;
+
+
+
+        if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($searchForm->isValid($formData)) {
+                    $result = $category->SearchCategory($searchForm->getValues());
+
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+                }
+            }
+        }
+    }
+
+    public function categoryviewAction() {
+        $this->view->title = "View Category";
+        $category_id = (int)$this->_getParam('id');
+        $category = new Management_Model_Category();
+        $result = $category->viewCategory($category_id);
+        $this->view->category = $result;
+    }
+
+    public function categoryaddAction() {
+        $this->view->title = "New Category";
+        $categoryForm = new Management_Form_category();
+        $this->view->form = $categoryForm;
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($categoryForm->isValid($formData)) {
+//                                     $category = new Management_Model_categoryi();
+//                                     $result = $category->addCategoryi();
+                                    echo $category_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_category','category_id');
+
+                                    $category = new Management_Model_Category();
+                                    $result = $category->addCategory($categoryForm->getValues(),$category_id);
+
+//                                     $this->_redirect('management/category/index');
+               }
+            }
+        }
+            $this->view->form1 = $postForm;
+    }
+
+    public function categoryeditAction() {
+        $this->view->title = "Edit Category";
+        $category_id = (int)$this->_getParam('id');
+        $categoryForm = new Management_Form_category();
+        $this->view->form = $categoryForm;
+        if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($categoryForm->isValid($formData)) {
+                                    $category = new Management_Model_Category();
+                                    $category->UpDateCategory($category_id);
+
+                                    $category = new Management_Model_Category();
+                                    $id = 0;
+                                    $result = $category->addCategory($categoryForm->getValues(),$id);
+                                    $this->_redirect('management/category/index');
+               }
+
+            }
+        }
+            else {
+                $category = new Management_Model_Category();
+                $result = $category->viewCategory($category_id); 
+                $categoryForm->populate($result[0]);
+          }
+            $this->view->form = $categoryForm;
+            $this->view->form->Submit->setName('Update');	
+
+        }
+
+    public function categorydeleteAction() {
+        $category_id= (int)$this->_getParam('id');
+        $category = new Management_Model_Category();
+        $category->deleteCategory($category_id);
+        $this->_redirect('management/category/index');
+    }
+
+
+}

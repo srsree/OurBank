@@ -1,0 +1,187 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<script>
+function getXMLHTTP() { //fuction to return the xml http object
+		var xmlhttp=false;	
+		try{
+			xmlhttp=new XMLHttpRequest();
+		}
+		catch(e)	{		
+			try{			
+				xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e){
+				try{
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e1){
+					xmlhttp=false;
+				}
+			}
+		}
+		 	
+		return xmlhttp;
+    }
+
+    function getBranch(office_id,path) {		
+    var strURL = path +"/membership/individual/getbranch?office_id="+office_id;
+
+    var req = getXMLHTTP();
+    if (req) {
+        req.onreadystatechange = function() {
+        if (req.readyState == 4) {   // only if "OK"
+        if (req.status == 200) {	
+            document.getElementById('statediv').innerHTML=req.responseText;						
+        } else {
+               alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+            }
+        }
+            }	
+        req.open("GET", strURL, true);
+        req.send(null);
+        }
+	}
+
+	function getglcode(glcode,path) {		
+		var strURL=path+"/transaction/receipts/glsubcode?glcode="+glcode;
+		var req = getXMLHTTP();
+		if (req) {
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {	
+						document.getElementById('statediv2').innerHTML=req.responseText;						
+					} else {
+
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					}
+				}				
+			}			
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+		var glcode=$('#glcode').val();
+		if(glcode!='') {
+			$('#errorspan2').show();
+			$('#tect2').hide();
+		} else {
+			$('#errorspan2').hide();
+			$('#tect2').show();
+		}
+	}  
+
+	function gettoglcode(glcode,path) {		
+		var strURL=path+"/transaction/receipts/getglsubcode?glcode="+glcode;
+		var req = getXMLHTTP();
+		if (req) {
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) {
+					// only if "OK"
+					if (req.status == 200) {	
+						document.getElementById('statediv1').innerHTML=req.responseText;						
+					} else {
+
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+					}
+				}				
+			}			
+			req.open("GET", strURL, true);
+			req.send(null);
+		}
+		var glcode=$('#glcode').val();
+		if(glcode!='') {
+			$('#errorspan1').show();
+			$('#tect1').hide();
+		} else {
+			$('#errorspan1').hide();
+			$('#tect1').show();
+		}
+	} 
+
+
+</script> 
+<fieldset>
+	<legend>Receipts</legend>
+	<div class="cont-rgt-data">
+		<form action="<?php echo $this->baseUrl();?>/transaction/receipts" method="POST">
+			<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                                <tr>
+                                    <td>Office Levels</td>
+                                    <td><?php  echo $this->form->officeType;?></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr >
+                                    <td>Branch</td>
+                                    <td><div id="statediv"><?php  echo $this->form->subOffice;?><span class="reqMark"></span></div></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+				<tr>
+					<td>From GL code</td>
+					<td><?php echo $this->form->fromglcode;?></td>
+					<td>To GL code</td>
+					<td><?php echo $this->form->toglcode;?></td>
+				</tr>
+
+				<tr>
+					<td>From GL subcode</td>
+					<td><div id="errorspan2" style="display:none" class="reqMark"><div id="statediv2"></div></div><div id="tect2"  class="reqMark"><?php echo $this->form->fromglsubcode;?></div></td>
+					<td>To GL subcode</td>
+					<td><div id="errorspan1" style="display:none" class="reqMark"><div id="statediv1"></div></div><div id="tect1"  class="reqMark"><?php echo $this->form->toglsubcode;?></div></td>
+				</tr>
+				<tr>
+					<td>Amount</td>
+					<td><?php echo $this->form->amount;?></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr >
+					<td>Date</td>
+					<td><?php echo $this->form->transactiondate;?></td>
+					<td></td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td >Transaction mode</td>
+					<td ><?php echo $this->form->paymenttype;?><?php echo $this->form->paymenttype_details;?><h id="details" style="display:none">Voucher/ cheque/draft</h> </td> 
+					<td></td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>Description</td>
+					<td><?php echo $this->form->description;?></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<TD colspan = "2"><?php echo $this->form->Submit;?></TD>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</fieldset>
+

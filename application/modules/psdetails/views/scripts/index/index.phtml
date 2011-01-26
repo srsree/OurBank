@@ -1,0 +1,108 @@
+    <fieldset>
+        <legend>Search account</legend>
+        <form action="<?php echo $this->baseUrl();?>/psdetails/index" method="POST">
+            <table class="fieldsets">
+                <tr>
+                    <td><label for="fld1" class="mand">Account number</label></td>
+                    <td><?php echo $this->form->accNum;?></td>
+                </tr>
+            </table>
+            <div class="btnhouse">
+                <div class="ltbtns">
+                    <?php echo $this->form->Search;?>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+<?php if (count($this->details)) { ?>
+
+    <?php foreach($this->details as $details) { ?>
+        <table id="hor-minimalist-b">
+            <TR>
+                <TH>Member details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td>Name </td>
+                <TD><?php echo $details->name ?></TD>
+            </TR>
+
+            <TR>
+                <td>Branch</td>
+                <TD><?php echo $details->officename ?></TD>
+            </TR>
+            <TR>
+                <td>Code</td>
+                <TD><?php echo $details->code ?></TD>
+
+            </TR>
+            <TR>
+                <TH>Account details</TH>
+                <TH></TH>
+            </TR>
+            <TR>
+                <td> Account number</td>
+                <td><?php echo $details->number ?></TD>
+            </TR>
+            <TR>
+                <td>Product name</td>
+                <td><?php echo $details->offername ?></TD>
+            </TR>
+            <TR>
+                <td>Created date</td>
+                <td><?php echo $details->createdDate ?></TD>
+            </TR>
+<!--            <TR>
+                <td>Balance</td>
+                <td><?php echo $details->balance ?></TD>
+            </TR>-->
+        </table> 
+    <?php } ?>
+	<?php if(count($this->group)) { ?>
+        <table id="hor-minimalist-b">
+            <TR>
+                <TH>Member code </TH>
+                <TH>Member name</TH>
+            </TR>
+		<?php foreach ($this->group as $group) { ?>
+            <TR>
+                <td><?php echo $group->code; ?></b></td>
+                <td><?php echo $group->name; ?></TD>
+            </TR>
+		<?php }?>
+		</table>
+	<?php } ?>
+<?php } //if ?>
+
+</br>
+<?php if (count($this->tran)) {?>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>V No.</td>
+        <th>Transaction date</td>
+        <th>Creidt</td>
+        <th>Debit</td>
+        <th>Payment mode</td>
+        <th>Transacted by</td>  
+    </tr>
+    <?php foreach($this->tran as $transaction) : ?>
+    <tr>
+       <td><?php echo $transaction->id; ?></td>
+       <td><?php echo $transaction->date; ?></td>
+       <?php if ($transaction->cr) {?>
+       <td><?php echo $transaction->cr; ?></td>
+       <?php } else { ?>
+       <td>----</td>
+       <?php } ?>
+       <?php if ($transaction->dt) { ?> 
+       <td><?php echo $transaction->dt; ?></td>
+       <?php } else { ?>
+       <td>----</td>
+       <?php } ?>
+
+       <td><?php echo $transaction->mode; ?></td>
+       <td><?php echo $transaction->name; ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<?php } ?>

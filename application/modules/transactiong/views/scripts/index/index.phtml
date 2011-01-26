@@ -1,0 +1,51 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<table id="hor-minimalist-b">
+    <tr>
+        <th>V No.</td>
+        <th >A/c number</td>
+        <th>Transaction date</td>
+        <th>Credit</td>
+        <th>Debit</td>
+        <th>Payment mode</td>
+        <th>Transacted by</td>  
+    </tr>
+    <?php foreach($this->tran as $transaction) : ?>
+    <tr>
+       <td><?php echo $transaction->id; ?></td>
+       <td><?php echo $transaction->number; ?> </td>
+       <td><?php echo $transaction->date; ?></td>
+       <?php if ($transaction->cr) {?>
+       <td><?php echo $transaction->cr; ?></td>
+       <?php } else { ?>
+       <td>----</td>
+       <?php } ?>
+       <?php if ($transaction->dt) { ?> 
+       <td><?php echo $transaction->dt; ?></td>
+       <?php } else { ?>
+       <td>----</td>
+       <?php } ?>
+
+       <td><?php echo $transaction->mode; ?></td>
+       <td><?php echo $transaction->name; ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+

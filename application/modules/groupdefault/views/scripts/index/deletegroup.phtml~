@@ -1,0 +1,22 @@
+<div id = "searchDiv">
+	<fieldset>
+		<form action="<?php echo $this->baseUrl();?>/groupdefault/index/deletegroup/id/<?php echo $this->groupid; ?>" method="POST">
+			 <table class = "fieldsets">
+                          
+                       
+				<TR>
+					<TD><font color="red">Are you sure you want to delete</font></TD>
+					<TD><?php echo $this->form->remarks;?></TD>
+				</TR>
+			        <tr>
+					<td class = "firsttd"><input type = "Submit" name = "Submit" id="Submit" value = "Submit"/></td>
+					<td class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/groupcommonview/index/commonview/id/<?echo $this->groupid; ?>"><input type = "Button" name = "Back" id="Back" value = "Back"/></a></td>
+				</tr>
+				
+			
+			</table>
+		</form>
+	</fieldset>
+</div>
+
+

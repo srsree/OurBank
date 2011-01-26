@@ -1,0 +1,34 @@
+<?php
+/**  
+ * class is used to create a form for searching the product details.
+*/
+class ProductSearchForm extends Zend_Form
+{
+	public function __construct($options = null)
+        {
+		parent::__construct($options);
+		$this->setName('Search product');
+
+		$categoryId = new Zend_Form_Element_Select('category_id');
+		$categoryId ->addMultiOption('','Select...');
+		$categoryId->setAttrib('class', 'txt_put');
+
+		$productName = new Zend_Form_Element_Text('productname');
+		$productName->setAttrib('class', 'txt_put');
+
+		$productShortName = new Zend_Form_Element_Text('productshortname');
+		$productShortName->setAttrib('class', 'txt_put');
+
+		$createdDate = new Zend_Form_Element_Text('createddate');
+		$createdDate->setAttrib('class', 'txt_put');
+
+        	$submit = new Zend_Form_Element_Submit('Search');
+                $submit->setAttrib('class', 'primaryAction');
+                $submit->setlabel('search');
+
+		$this->addElements(array($categoryId,$productName,$productShortName,$createdDate,$submit));
+        }
+}
+/**  
+ * end of class 
+*/

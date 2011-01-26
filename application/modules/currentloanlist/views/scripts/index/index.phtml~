@@ -1,0 +1,61 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<form action="<?php echo $this->baseUrl();?>/currentloanlist" method="POST">  
+<fieldset>
+    <legend>Details</legend>
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+
+                    <TR>
+			   
+                           <!-- <TH width="20%">Product</TD>-->
+			    <TH width="20%">Loan</TH>
+                            <TH width="20%">Account Number</TH>
+                            <TH width="20%">Member Name</TD>
+			    <TH width="20%">Amount Disbursed</TH>
+	           </TR>
+		    <?php $totalAmount = 0;
+			  foreach($this->paginator as $loanDetails1) : ?>
+                    <TR>
+			   	<!--<TD width="20%"><?php echo $loanDetails1->productname;?></TD>-->
+			       	<TD  width="20%"><?php echo $loanDetails1->offerproductname;?></TD>
+                                <TD  width="20%"><?php echo $loanDetails1->account_number;?></TD>
+				<TD  width="20%"><?php echo $loanDetails1->memberfirstname;?></TD>
+				<TD  width="20%"><?php echo $loanDetails1->amount_disbursed;?></TD>
+			       	<?php $totalAmount = $totalAmount + $loanDetails1->amount_disbursed; ?>
+		   </TR>
+		    <?php endforeach; ?>
+	    </table>
+	    <table>
+		     <TR>
+			<TH>totalamountDisbursed</TH>
+			<TH><?php echo $totalAmount?></TH>
+			
+		   </TR>
+	    </table>
+<form action="<?php echo $this->baseUrl();?>/currentloanlist/index/pdfgeneration" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/currentloanlist/index/reportdisplay/file/Currentloanlist.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+            <input type="submit" value="PDF" id="submit" name="PDF">
+</form>
+</fieldset>
+        </div>
+
+
+
+

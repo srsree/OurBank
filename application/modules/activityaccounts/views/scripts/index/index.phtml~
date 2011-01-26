@@ -1,0 +1,33 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/activityaccounts" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td width="50%">Bank name:<? echo $this->form->bank;?></td><TD width="50%"><? echo $this->form->Search;?></TD>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+<?php if($this->results){ ?>
+
+	  <table id="hor-minimalist-b">
+		<tr><th>Activity name</th><th>No of accounts</th></tr>
+<?php foreach($this->results as $activityresult){ ?>
+	<tr>
+	<td><?php echo $activityresult['activity_name']; ?></td>
+	<td><?php echo $activityresult['COUNT(a.account_id)']; ?></td>
+	</tr>
+<?php } ?>
+           
+ 
+          </table>
+<form action="<?php echo $this->baseUrl();?>/activityaccounts/index/pdftransaction" method="POST">
+<div class="reportdiv">      <input type="submit" value="PDF"  id="reportbutton"><input type="hidden" name="bank" value="<?php echo $this->act_id; ?>"></div>
+</form>
+<div class="reportdiv"><a href="<?php echo $this->baseUrl();?>/activityaccounts/index/chart/act_id/<? echo $this->act_id; ?>"><input type="submit" value="Graph"  id="reportbutton"></td></a></div>
+<?php } ?>

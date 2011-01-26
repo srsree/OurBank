@@ -1,0 +1,77 @@
+
+<?php
+ <!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+?>
+
+<!-- search !-->
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+		<div class="search" style="margin-left:20px;">
+			<form action="<?php echo $this->baseUrl();?>/user" method="POST">
+				<table width="100%">
+					<tr>
+						<td class="label">User name:</td>
+						<td ><? echo $this->form->name;?></td>
+						<td class="label">designation:</td>
+						<td ><? echo $this->form->designation;?></td>
+					</tr>
+					<tr>					
+						<td class="label">bank name:</td>
+						<td ><? echo $this->form->bank;?></td>
+						<td class="label">Granted:</td>
+						<td ><? echo $this->form->grant_id;?></td>
+					</tr>
+				</table>
+<!-- search button  !-->
+				<input type="submit" name="Search" id="Submit" value="Search">			
+			</form>	
+		</div>
+    </fieldset> 
+</div> 
+<!-- search result display !-->
+<table id="hor-minimalist-b">
+	<tr>
+		<th>User name </th>
+		<th>Designation</td>
+		<th>Office name</td>
+
+ 		<th>Gendre</td>
+ 		<th>Granted as</td>
+	</tr>
+ 	    <?php if (count($this->paginator)): ?>
+		<?php foreach ($this->paginator as $userdetail): ?>
+	<tr>
+		<td>
+<!-- fetching the datas from array  !-->
+    <a href="<?php echo $this->baseUrl()."/usercommonview/index/commonview/id/".$userdetail['userid']; ?>"><?php echo $this->escape($userdetail['username']);?></a></td>
+       <td><?php echo $this->escape($userdetail['designation_name']);?></td>
+       <td><?php echo $this->escape($userdetail['name']);?></td>
+       <td><?php echo $this->escape($userdetail['sex']);?></td>
+       <td><?php echo $this->escape($userdetail['grant']);?></td>
+           		 </tr>
+		<?php endforeach; ?>
+		<?php endif; ?>
+	<tr>
+		<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                            '/partials/my_pagination_control.phtml'); ?></div></td>
+	</tr>
+</table>

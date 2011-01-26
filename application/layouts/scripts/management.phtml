@@ -1,0 +1,354 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<title><?php echo $this->escape($this->title); ?></title>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/transactionPeriods.js"></script>
+<script src="<?php echo $this->baseUrl();?>/js/management/saving.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/jquery-1.2.3.pack.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/jquery.autotab.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/jquery-ui-1.8.custom.min.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/management/officehierarchy.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$('#content1').hide();
+$('#open').click(function(){
+$('#content1').show('slow');
+});
+$('a#close').click(function(){
+$('#content1').hide('slow');
+})
+});
+</script>
+</head>
+
+
+<body>
+<div id="container">
+    <div id="header"><?php echo $this->render('managementheader.phtml'); ?></div>
+
+<!--    <div id="pagetitle">
+        <h3><?php echo $this->pageTitle;?></h3>
+    </div>-->
+<div id="leftnavig">
+
+        <?php if($this->pageTitle == "Sectors") { ?>
+<h4><a href="#">Sectors</a></h4>
+<ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/sectors/index"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/sectors/index/sectorsadd"> <img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16">New sector</a></li>
+    
+</ul>
+<?php } ?>
+<?php if($this->pageTitle == "Activities") { ?>
+<h4><a href="#">Activities</a></h4>
+<ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/activity/index"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/activity/index/activityadd"> <img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16">New activity</a></li>
+</ul>
+<?php } ?>
+
+    <?php if($this->pageTitle == "Fee") { ?>
+    <h4><a href="#">Fee</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/fee"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/fee/index/add"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New fee</a></li>
+    </ul>
+    <?php } ?>
+
+    
+    <?php if($this->pageTitle == "User details") { ?>
+    <h4><a href="#">User</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/user"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/commonviewuser/index/index"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> User add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "User personal information") { ?>
+    <h4><a href="#">User</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/user"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/user/index/add"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> User add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "User") { ?>
+    <h4><a href="#">User</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/user"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16" >Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/user/index/add"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> User add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "User Login information") { ?>
+    <h4><a href="#">User</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/user"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16" >Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/user/index/add"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> User add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "User Address details") { ?>
+    <h4><a href="#">User</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/user"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/user/index/add"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> User add</a></li>
+    </ul>
+    <?php } ?>
+
+        
+    <?php if($this->pageTitle == "Funder") { ?>
+    <h4><a href="#">Funder</a></h4>
+    <ul>
+        <li><a href="<?php  echo $this->baseUrl();?>/funder"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/funderdetails/index/addfunder"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New funder</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Funder address details") { ?>
+    <h4><a href="#">Funder</a></h4>
+    <ul>
+        <li><a href="<?php  echo $this->baseUrl();?>/funder"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/funderdetails/index/addfunder"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New funder</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Bank address details") { ?>
+    <h4><a href="#">Bank</a></h4>
+    <ul>
+                <li><a href="<?php  echo $this->baseUrl();?>/bank"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/bank/index/addbank"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New bank</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Contact Details") { ?>
+    <h4><a href="#">Bank</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/bank"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/bank/index/addbank"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New bank</a></li>
+    </ul>
+    <?php } ?>
+
+
+
+    <?php if($this->pageTitle == "Fundings") { ?>
+    <h4><a href="#">Fundings</a></h4>
+    <ul>
+        <li><a href="<?php  echo $this->baseUrl();?>/fundings"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/fundings/index/addfundings"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New fundings</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Bank") { ?>
+    <h4><a href="#">Bank</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/bank"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/bank/index/addbank"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New bank</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Credit line") { ?>
+    <h4><a href="#">Credit line</a></h4>
+    <ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/creditline/index/creditlineadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Creditline add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Interestrates") { ?>
+    <h4><a href="#">Interest rates</a></h4>
+    <ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/interestrates/index/interestratesadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Interest add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Penalty") { ?>
+    <h4><a href="#">Penalty</a></h4>
+    <ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/penalty/index/penaltyadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Penalty add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Institution") { ?>
+    <h4><a href="#">Institution</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/institution"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/institution/index/addinstitution"> <img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16">New institution</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Institution address details") { ?>
+    <h4><a href="#">Institution</a></h4>
+    <ul>
+<li><a href="<?php  echo $this->baseUrl();?>/institution"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/institution/index/addinstitution"> <img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16">New institution</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Graceperiod") { ?>
+    <h4><a href="#">Graceperiod</a></h4>
+    <ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/graceperiod/index/graceperiodadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Graceperiod add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Meetings") { ?>
+    <h4><a href="#">Meeting</a></h4>
+    <ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/meeting/index/meetingadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Meeting add</a></li>
+    </ul>
+    <?php } ?>
+
+    <?php if($this->pageTitle == "Attendance") { ?>
+    <h4><a href="#">Attendance</a></h4>
+    <ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/attendance/index/attendanceadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Attendance add</a></li>
+    </ul>
+    <?php } ?>
+
+<?php if($this->pageTitle == "Roles") { ?>
+<h4><a href="#">Roles</a></h4>
+<ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/roles/index/"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+    <li><a href="<?php  echo $this->baseUrl();?>/roles/index/rolesadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New role</a></li>
+</ul>
+<?php } ?>
+
+
+<?php if($this->pageTitle == "Meetings") { ?>
+    <h4><a href="#">Roles</a></h4>
+    <ul>
+    <li><a href="<?php  echo $this->baseUrl();?>/roles/index/rolesadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Roles add</a></li>
+    </ul>
+    <?php } ?>
+
+
+   <?php if($this->pageTitle == "Loans") { ?>
+        <h4><a href="#">Loans</a></h4>
+        <ul>
+            <li><a href="<?php  echo $this->baseUrl();?>/loans/index/"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/loans/index/loansadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New loans</a></li>
+        </ul>
+        <?php } ?>
+    
+    <?php if($this->pageTitle == "Ledger") { ?>
+        <h4><a href="#">Ledger</a></h4>
+        <ul>
+            <li><a href="<?php  echo $this->baseUrl();?>/ledger/index/"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/ledger/index/addledger"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New ledger </a></li>
+        </ul>
+        <?php } ?>
+
+   <?php if($this->pageTitle == "Office Hierarchy") { ?>
+   <h4><a href="#">Office hierarchy</a></h4>
+   <?php } ?>
+
+   <?php if($this->pageTitle == "New Office") { ?>
+   <h4><a href="#">Office</a></h4>
+   <ul>
+       <li><a href="<?php  echo $this->baseUrl();?>/office"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+     <li><a href="<?php  echo $this->baseUrl();?>/officedefault/index/officeadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New office</a></li>
+   </ul>
+   <?php } ?>
+
+<?php if($this->pageTitle == "Office address details") { ?>
+   <h4><a href="#">Office</a></h4>
+   <ul>
+       <li><a href="<?php  echo $this->baseUrl();?>/office"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64" border=0 width="16" height="16">Search</a></li>
+     <li><a href="<?php  echo $this->baseUrl();?>/officedefault/index/officeadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> New office</a></li>
+   </ul>
+   <?php } ?>
+
+<?php if($this->pageTitle == "Savings") { ?>
+    <h4><a href="#">Savings</a></h4>
+    <ul>
+        <li><a href="<?php  echo $this->baseUrl();?>/savings"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16">Search</a></li>
+      <li><a href="<?php  echo $this->baseUrl();?>/savings/index/savingsadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16">New savings</a></li>
+    </ul>
+    <?php } ?>
+
+<?php if($this->pageTitle == "Product") { ?>
+    <h4><a href="#">Product</a></h4>
+    <ul>
+        <li><a href="<?php  echo $this->baseUrl();?>/product"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16">Search</a></li>
+      <li><a href="<?php  echo $this->baseUrl();?>/product/index/productadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16">New product</a></li>
+    </ul>
+    <?php } ?>
+
+<?php if($this->pageTitle == "Category") { ?>
+   <h4><a href="#">Category</a></h4>
+   <ul>
+       <li><a href="<?php  echo $this->baseUrl();?>/category"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16">Search</a></li>
+     <li><a href="<?php  echo $this->baseUrl();?>/category/index/categoryadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16">New Category</a></li>
+   </ul>
+   <?php } ?>
+
+<?php if($this->pageTitle == "Holiday") { ?>
+    <h4><a href="#">Holiday</a></h4>
+    <ul>
+        <li><a href="<?php  echo $this->baseUrl();?>/holiday"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16">Search</a></li>
+      <li><a href="<?php  echo $this->baseUrl();?>/holiday/index/holidayadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16">New holiday</a></li>
+    </ul>
+    <?php } ?>
+<?php if($this->pageTitle == "Management") { ?>
+    <h4><a href="#">Management</a></h4>
+        <ul>
+        <li ><a href="<?php  echo $this->baseUrl();?>/institution">Institution</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/bank">Bank</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/roles">Roles</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/user">User</a></li>
+<!--            <li><a href="<?php  echo $this->baseUrl();?>/fee">Fee</a></li>-->
+        <li><a href="<?php  echo $this->baseUrl();?>/funder">Funder</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/fundings">Fundings</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/sectors">Sector</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/activity">Activites</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/activity">Activites</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/savings">Savings</a></li>	   
+        <li><a href="<?php  echo $this->baseUrl();?>/loans">Loans</a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/ledger">Ledger</a></a>
+        <li><a href="<?php  echo $this->baseUrl();?>/meetings">Meeting</a></li>
+                    <li><a href="<?php  echo $this->baseUrl();?>/category">Category</a></li>
+                    <li><a href="<?php  echo $this->baseUrl();?>/product">Product</a></li>
+                    <li><a href="<?php  echo $this->baseUrl();?>/holiday">Holiday</a></li>
+
+
+        </ul>
+    <?php } ?>
+</div>
+
+    <div id="pagecontent">
+        <h3><?php echo $this->pageTitle;?></h3>
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+<div id="footer">
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
+</div>
+</div>
+</BODY>
+
+
+</html>
+

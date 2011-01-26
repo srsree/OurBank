@@ -1,0 +1,17 @@
+<?php
+class Account_Form_Accounts extends Zend_Form {
+    public function init() {
+
+        $membercode = new Zend_Form_Element_Text('membercode');
+        $membercode->setRequired(true);
+
+
+
+       $Type = new Zend_Form_Element_Hidden('Type');
+
+       $submit = new Zend_Form_Element_Submit('Submit');
+
+       $this->addElements(array($membercode,$Type,$submit));
+
+    }
+}

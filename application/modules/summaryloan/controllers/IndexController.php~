@@ -1,0 +1,57 @@
+<?php
+class Summaryloan_IndexController extends Zend_Controller_Action 
+{
+ function init()
+     { 
+      	$this->view->pageTitle = "Summary Loan Outstanding Details";
+        $this->view->tilte = "Reports";
+        $this->view->type=$this->_request->getParam('type');
+
+     }
+     function indexAction()
+     {
+        $this->view->pageTitle = "Summary Loan";
+        $searchForm = new Summaryloan_Form_Search();
+        $this->view->form = $searchForm;
+
+//         $individual = new Membership_Model_Individual();
+// 
+//         $subBranch = $individual->getBranchOffice();
+//         foreach($subBranch as $subBranch) {
+//                 $searchForm->field1->addMultiOption($subBranch->office_id,$subBranch->office_name);
+//         }
+
+	 if ($this->_request->isPost()) {
+            $sub1 = $this->_request->getPost('Search');
+	    if($sub1 == "Search") {	
+               $fromDate = $this->_request->getParam('field3'); 
+               $toDate = $this->_request->getParam('field2');
+               $brancId = $this->_request->getParam('field1');
+               
+               $summaryloans = new Reports_Model_Summaryloans();
+	       $accountLoan = $summaryloans->accountloandetailsSearch(array('office_id' => $brancId,
+                                                          'accountinstallment_date1' => $fromDate,
+                                                          'accountinstallment_date' => $toDate));
+    
+                $Loan = $summaryloans->accountdetailsSearch(array('office_id' => $brancId));
+                if (!$Loan) {
+                     echo "<font color='RED'>Records Not Found Please Try Again...</font>";	
+                } else {
+                      $amountPaid = 0;
+                      $this->view->Loan = $Loan;
+                      $this->view->accountLoan = $accountLoan;
+               }
+            }
+        }
+        $sub1 = $this->_request->getPost('Search');
+	if($sub1!= "Search") {	
+            $summaryloans = new Summaryloans_Model_Summaryloans();
+            $accountLoan = $summaryloans->accountloandetails();
+            $Loan = $summaryloans->accountdetails();
+            $this->view->Loan = $Loan;
+            $this->view->accountLoan = $accountLoan;
+        }
+    }
+
+}
+

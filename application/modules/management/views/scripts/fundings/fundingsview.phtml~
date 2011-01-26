@@ -1,0 +1,54 @@
+<fieldset>
+    <legend>View Fundings</legend>
+        <div class="cont-rgt-data">
+                <?php foreach($this->fundings as $fundings) { ?>
+                <table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                    <tr>
+                        <TD>Funders</TD>
+                        <TD><?php echo $fundings['fundername'];?></TD>
+                    </TR>
+		<tr> 
+                        <td>Instituition Name</td>
+			<TD><?php echo $fundings['institutionname'];?></TD>
+		</tr>
+
+
+                    <tr> 
+                        <td>Funding Name</td>
+                        <td><?php echo $fundings['fundingname'];?></td>
+                   </tr>
+                    <tr> 
+                        <td>Funding Amount</td>
+                        <td><?php echo  $fundings['fundingamount'];?></td>
+                    </tr>
+			<tr> 
+                        <td>Interest</td>
+			<td><?php echo  $fundings['fundingamount'];?></td>
+			</tr>
+                    <tr> 
+                        <td>Funding Currency</td>
+                        <td><?php echo $fundings['currencyname'];?></td>
+                    </tr>
+                    <tr> 
+                        <td>Currency Exchanging Rate</td>
+                        <td><?php  echo  $fundings['exchangerate'];?></td>
+                    </tr>
+                    <tr> 
+                        <td>Funding Period From   (yyyy-mm-dd)</td>
+                        <td><?php echo  $fundings['fund_beginingdate'];?></td>
+                    </tr>
+                    <tr> 
+                        <td>Funding Period To   (yyyy-mm-dd)</td>
+                        <td><?php echo  $fundings['fund_closingdate'];?></td>
+                    </tr>
+                </table>
+                <?php } ?>
+            </div>
+        <table width="100%">
+            <TR>
+                 <td><a href="<?php echo $this->baseUrl(); ?>/management/fundings"><input name="submit" type="submit" class="NormalBtn" 
+                                    value="back"></a></td>
+                    <td></td>
+            </TR>
+        </table>
+</fieldset>

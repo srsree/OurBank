@@ -1,0 +1,187 @@
+<script>
+function getXMLHTTP() {
+    var xmlhttp=false;   
+        try{
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e) {
+            try {   
+                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e){
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e1){
+                    xmlhttp=false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+function getInterests(officetype_id,path) {
+
+    var strURL=path+"/management/newoffice/suboffice?officetype_id="+officetype_id;
+
+    var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    document.getElementById('statediv').innerHTML=req.responseText;
+                } else {
+                    alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                  }
+            }
+        }
+        req.open("GET", strURL, true);
+        req.send(null);
+        }
+        var perioddescription=$('#perioddescription').val();
+        if(perioddescription!='') {
+            $('#errorspan').show();
+        } else {
+            $('#errorspan').hide();
+          }
+}
+</script>
+<fieldset>
+    <legend>NewOffice</legend>
+        <div class="register">
+            <div class="profile_tab">
+                <form action="<?php  echo $this->baseUrl();?>/management/newoffice/officeadd" method="POST" name="joe" id="signupForm" class="cmxform">
+                    <table style="float:left">  
+                        <tr>
+                            <TD></TD>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="td_border">clientInformation</td>
+                        </tr>
+                        <tr>
+                            <td class="label">OfficeType<span class="reqMark">*</span></td>
+                            <td><?php  echo $this->form->officetype_id;?></td>    
+                        </tr>
+
+                        <tr>
+                            <td class="label">Parent office<span class="reqMark">*</span></td>
+                            <td><div id="statediv"><?php  echo $this->form->parentoffice_id;?></td>    
+                        </tr>
+		        <tr>
+			<td width="200" class="label">OfficeName<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->office_name;?></td>
+		        </tr>
+
+		        <tr>
+			<td class="label">ShortName<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->officeshort_name;?></td>
+		        </tr>
+
+		        <tr>
+			<td class="label">Description<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->officedescription;?></td>
+		        </tr>
+
+		        <tr>
+			<td colspan="2" class="td_border1">address</td>
+		        </tr>
+
+                        <tr>
+			<td class="label">line1<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->officeaddress1;?></td>
+		        </tr>
+
+                        <tr>
+			<td class="label">line2</td>
+			<td><?php  echo $this->form->officeaddress2;?></td>
+        		</tr>
+
+                        <tr>
+			<td class="label">line3</td>
+			<td><?php  echo $this->form->officeaddress3;?></td>
+            		</tr>
+
+                        <tr>
+			<td class="label">City<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->officecity;?></td>
+		        </tr>
+                        
+                        <tr>
+			<td class="label">state<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->officestate;?></td>
+		        </tr>
+        
+                        <tr>
+			<td class="label">country<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->officecountry;?></td>
+		        </tr>
+
+                        <tr>
+			<td class="label">pincode<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->officepincode;?></td>
+		        </tr>
+
+		        <tr>
+			<td colspan="2" class="td_border1">communicationdetails</td>
+		        </tr>
+
+                        <tr>
+			<td class="label">telephonenumber<span class="reqMark">*</span></td>
+			<td><?php  echo $this->form->officephone;?></td>
+		        </tr>
+                        
+                        <tr>
+			<td class="label">fax</td>
+			<td><?php  echo $this->form->office_fax;?></td>
+		        </tr>
+                        
+                        <tr>
+			<td class="label">Description</td>
+			<td><?php  echo $this->form->officedescription;?></td>
+		        </tr>
+       
+                        <tr>
+			<td class="label">email</td>
+			<td><?php  echo $this->form->office_email_Id;?></td>
+		        </tr>
+
+		        <tr>
+			<td colspan="2" class="td_border1">contactpersondetails</td>
+        		</tr>
+
+                        <tr>
+			<td class="label">contactPersonName</td>
+			<td><?php  echo $this->form->contactperson;?></td>
+		        </tr>
+        
+                        <tr>
+			<td class="label">telephonenumber1</td>
+			<td><?php  echo $this->form->contactperson_phone1;?></td>
+		        </tr>
+                        
+                        <tr>
+			<td class="label">telephonenumber2</td>
+			<td><?php  echo $this->form->contactperson_phone2;?></td>
+		        </tr>
+                
+                        <tr>
+			<td class="label">email</td>
+			<td><?php  echo $this->form->contactperson_email;?></td>
+		        </tr>
+
+        		<tr>
+			<td colspan="2" class="label" style="font-weight:bold; padding-left:225px;padding-top:25px;padding-bottom:10px;">
+			<div style="float:left"><?echo $this->form->Submit;?></div>
+		        <td><a href=/ourbank/public/management/newoffice/index>
+                        <input name="submit" type="submit" class="officebutton" value="cancel"></a></td>
+	           	</tr>
+
+                        <tr>
+			<td></td>
+			<td><B style='color:red'><?php echo $this->error; ?></B></td>
+		        </tr>
+	         </table>
+	   </form>
+	</div>
+    </div>
+</fieldset>

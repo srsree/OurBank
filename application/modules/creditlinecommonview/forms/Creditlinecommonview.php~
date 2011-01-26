@@ -1,0 +1,57 @@
+<?php
+	class Creditlinecommonview_Form_Creditlinecommonview extends Zend_Form {
+
+	public function init()
+	{
+		Zend_Dojo::enableForm($this);
+	}
+
+	public function __construct($options = null)
+	{
+		Zend_Dojo::enableForm($this);
+		parent::__construct($options);
+
+		$creditlinecommonviewname = new Zend_Form_Element_Text('creditlinecommonviewname');
+		$creditlinecommonviewname->addValidator(new Zend_Validate_Db_NoRecordExists('ourbank_creditlinecommonview1','name'));
+		$creditlinecommonviewname->setAttrib('class', 'txt_put');
+		$creditlinecommonviewname->setAttrib('id', 'creditlinecommonviewname');
+		$creditlinecommonviewname->setLabel('creditlinecommonviewname')
+				->setRequired(true)
+				->addValidators(array(array('NotEmpty')));
+
+
+		$protfoliovalue = new Zend_Form_Element_Text('portfoliovalue');
+		$protfoliovalue->setAttrib('class', 'txt_put');
+		$protfoliovalue->setAttrib('id', 'protfoliovalue');
+		$protfoliovalue->setRequired(true)
+				->addValidators(array(array('NotEmpty'),array('Float')));
+
+		$creditlinecommonviewfrom = new ZendX_JQuery_Form_Element_DatePicker('creditlinecommonview_beginingdate');
+		$creditlinecommonviewfrom->setJQueryParam('dateFormat', 'yy-mm-dd');
+		$creditlinecommonviewfrom->setRequired(true)
+				->addValidators(array(array('Date')));
+		$creditlinecommonviewfrom->setAttrib('class', 'txt_put');
+		$creditlinecommonviewfrom->setAttrib('id', 'creditlinecommonview_beginingdate');
+
+		$creditlinecommonviewto = new ZendX_JQuery_Form_Element_DatePicker('creditlinecommonview_closingdate');
+		$creditlinecommonviewto->setJQueryParam('dateFormat', 'yy-mm-dd');
+		$creditlinecommonviewto->setRequired(true)
+				->addValidators(array(array('Date')));
+		$creditlinecommonviewto->setAttrib('class', 'txt_put');
+		$creditlinecommonviewto->setAttrib('id', 'creditlinecommonview_closingdate');
+		
+		$status = new Zend_Form_Element_Checkbox('status');
+		$status->setAttrib('class', 'txt_put');
+		$status->setAttrib('id', 'status');
+		$status->setLabel('Active')
+					->setRequired(true);
+
+		$submit = new Zend_Form_Element_Submit('Submit');
+		$submit->setAttrib('class', 'officesubmit');
+		$submit->setlabel('Submit');
+
+		$this->addElements( array ($protfoliovalue,$status,$creditlinecommonviewfrom,$creditlinecommonviewto,$submit,$creditlinecommonviewname));
+
+//===================================================================================================================================
+	}
+}

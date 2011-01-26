@@ -1,0 +1,47 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<form action="<?php echo $this->baseUrl();?>/education/index/add/id/<?php echo $this->memberid; ?>" method="POST">
+<table id="hor-minimalist-b">
+<tr> 
+    <th width="27%">&nbsp;Family member Name</h>
+    <th width="12%">Qualification</TD>
+    <th width="10%">School Location</Th>
+    <th width="17%">Transportation</Th>
+</tr>
+<?php
+for($i=1;$i<=$this->family_number;$i++) {
+    $a='name'.$i;
+    $b='health'.$i;
+    $c='treatment'.$i;
+    $d='accessability'.$i;
+    $e='familymemberid'.$i;
+?>
+<tr>
+    <td><?php echo $this->form->$a; ?></td>
+    <td><?php echo $this->form->$b; ?></td>
+    <td><?php echo $this->form->$c; ?></td>
+    <td><?php echo $this->form->$d; echo $this->form->$e; ?></td>
+</tr> 
+<?php }?>
+<tr><td><input type="submit" id="submit" name="submit" value="Submit"></td>
+<td><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="Back"></a></td>
+</tr>
+</table>
+</form>

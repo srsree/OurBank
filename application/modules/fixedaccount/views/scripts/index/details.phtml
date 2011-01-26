@@ -1,0 +1,74 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div style="float:left;width:350px"> 
+<table id="hor-minimalist-s">
+    <TR>
+        <TH>Member details</TH>
+        <TH></TH>
+    </TR>
+
+    <?php foreach($this->result as $result) ?>
+    <TR>
+        <td>Member code</td><TD><? echo $result->code; ?></TD>
+    </TR>
+    <TR>
+        <td>Name</td>
+        <td><?php echo $result->name; ?></TD>
+    </TR>
+    <TR>
+        <td>Branch</td><td><?php echo $result->officename ;?></td>
+    </TR>
+</table>
+<br/>
+
+<?php 
+if ($this->savingsProducts) { ?>
+<table id="hor-minimalist-s">
+    <tr>
+        <th>Available savings</th>
+    </tr>
+<?php foreach ($this->savingsProducts as $savingsProducts) { ?>
+    <tr>
+        <td><a href = "<?php echo $this->baseUrl();?>/fixedaccount/index/createaccount/Id/<?php echo base64_encode($savingsProducts->id);?>/memberId/<?php echo base64_encode($this->memberId);?>/code/<?php echo base64_encode($result->code);?>" ><?php echo $savingsProducts->name;?></a></td>
+    </tr>
+<?php }  ?>
+</table>
+<?php }  ?>
+</div> 
+
+<?php 
+if ($this->account) { ?>
+<div style="float:right;width:350px">
+    <table id="hor-minimalist-s">
+    <TR>
+        <th>Active fixed account</td>
+        <th>Products</th>
+    </TR>
+        <?php foreach($this->account as $account)  { ?>
+
+    <TR>
+        <TD><?php echo $account->number;?></TD>
+        <TD><?php echo $account->name;?></TD>
+    </TR>
+    <?php  }?>
+
+    </table>
+</div>
+<?php } ?>

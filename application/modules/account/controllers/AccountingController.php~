@@ -1,0 +1,1074 @@
+<?php
+class Accounting_AccountingController extends Zend_Controller_Action {
+    public function init() {
+       $this->view->pageTitle='New Savings Accounting';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+    }
+
+    public function indexAction() {
+        $storage = new Zend_Auth_Storage_Session();
+        $data = $storage->read();
+        if(!$data){
+            $this->_redirect('index/login');
+         }
+        $this->view->title = "Accounting";
+        $category = new Management_Model_Category();
+        $fetchCategoryType=$category->fetchCategoryDetails();
+        $this->view->fetchCategoryName=$fetchCategoryType;
+
+        $Type=$this->_request->getParam('Type');
+        $this->view->Type = $Type;
+
+        if($Type==1) {
+           $this->view->pageTitle='New Savings Account'; 
+        } 
+        if($Type==2) {
+           $this->view->pageTitle='New Loans Account';
+        }
+        if($Type==3) {
+           $this->view->pageTitle=' Product Yet To be Defined';
+        }
+
+
+        $accountsForm = new Accounting_Form_Accounts();
+        $this->view->form = $accountsForm;
+        $this->view->form->Type->setValue($Type);
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($accountsForm->isValid($formData)) {
+
+                    $accounts = new Accounting_Model_Savings();
+                    $this->view->result = $accounts->searchMembercode($accountsForm->getValues());
+
+
+               }
+            }
+        }
+    }
+
+    public function memberAction() {
+        $category = new Management_Model_Category();
+        $fetchCategoryType=$category->fetchCategoryDetails();
+        $this->view->fetchCategoryName=$fetchCategoryType;
+
+        $memberId=$this->_request->getParam('memberId');
+        $Type=$this->_request->getParam('Type');
+        $this->view->Type = $Type;
+        $this->view->memberId = $memberId;
+
+        $productDetails = new Accounting_Model_Savings();//creating an instance         
+        $fetchMemberDetails= $productDetails->fetchMemberDetails($memberId); 
+            foreach($fetchMemberDetails as $fetchMemberDetails1) {
+                    $branchID=$this->view->branch=$fetchMemberDetails1->office_name;
+                    $memberCode=$this->view->membercode=$fetchMemberDetails1->membercode;
+                    $membertypeId=$this->view->membertype_ID=$fetchMemberDetails1->membertype_ID;
+            }
+
+            if($membertypeId==3) {
+               $fetchGroupDetails= $productDetails->fetchGroupDetails($memberId);
+                    foreach($fetchGroupDetails as $fetchGroupDetails1) {
+                            $groupName=$this->view->groupname=$fetchGroupDetails1->groupname;
+                    }
+                    $this->view->label='Group Name';
+                    $this->view->pageTitle='Group Accounting';
+           }
+
+            if($membertypeId == 4) {
+               $fetchmemberName= $productDetails->fetchmemberName($memberId);
+                    foreach($fetchmemberName as $fetchmemberName1) {
+                            $memberName=$this->view->memberfirstname=$fetchmemberName1->memberfirstname;
+                    }
+                    $this->view->label='First Name'; 
+                    $this->view->pageTitle='Individual Accounting';
+            } 
+
+            $fetchProducts= $productDetails->fetchSavingsProducts($membertypeId);//Fetching Products Based On member Type Indi or Group
+            $this->view->savingsProducts=$fetchProducts;
+
+            $fetchProducts= $productDetails->fetchLoansProducts($membertypeId);//Fetching Products Based On member Type Indi or Group
+            $this->view->fetchLoansProducts=$fetchProducts;
+
+            $accountsSearchFetch = $productDetails->accountsSearch($memberId);
+            $this->view->account = $accountsSearchFetch;
+            foreach($this->view->account as $account) {
+                    $this->view->accounts = $account->category_id;
+            }
+
+            $accountsSearchFetch = $productDetails->accountsSearch1($memberId);
+            $this->view->account1 = $accountsSearchFetch;
+            foreach($this->view->account1 as $account) {
+                    $this->view->acounts1 = $account->category_id;
+            }
+    }
+
+    function interestsAction() {
+
+        $this->_helper->layout()->disableLayout();
+        $interests = new Accounting_Model_Savings();
+        $productId = $this->_request->getParam('productId');
+        $country = $this->_request->getParam('country');
+        $this->view->selectedInterest = $interests->interestFromUrl($productId,$country);
+
+
+    }
+
+    public function productsAction() {
+        $category = new Management_Model_Category();
+        $fetchCategoryType=$category->fetchCategoryDetails();
+        $this->view->fetchCategoryName=$fetchCategoryType;
+
+        $productId=$this->_request->getParam('productId');
+        $this->view->productId=$productId;
+        $memberId=$this->_request->getParam('memberId');
+        $this->view->memberId=$memberId;
+        $Type = $this->view->Type=$this->_request->getParam('Type');
+
+
+        $productDetails = new Accounting_Model_Savings();
+        $fetchMemberDetails= $productDetails->fetchMemberDetails($memberId);
+        foreach($fetchMemberDetails as $fetchMemberDetails1) {
+                 $branchID=$this->view->branch=$fetchMemberDetails1->office_name;
+                 $memberCode=$this->view->membercode=$fetchMemberDetails1->membercode;
+                 $membertypeId=$this->view->membertype_ID=$fetchMemberDetails1->membertype_ID;
+        }
+
+        if($membertypeId==3) {
+           $fetchGroupDetails= $productDetails->fetchGroupDetails($memberId);
+                foreach($fetchGroupDetails as $fetchGroupDetails1) {
+                        $groupName=$this->view->groupname=$fetchGroupDetails1->groupname;
+                } 
+                 $this->view->label='Group Name';
+        }
+
+        if($membertypeId==4) {
+           $fetchmemberName= $productDetails->fetchmemberName($memberId);
+                  foreach($fetchmemberName as $fetchmemberName1) {
+                        $memberName=$this->view->memberfirstname=$fetchmemberName1->memberfirstname;
+                }
+                $this->view->label='First Name';
+        }
+
+        $savingsProductFetch= $productDetails->savingsProductFetch($productId);
+        $this->view->savingsProductFetch= $productDetails->savingsProductFetch($productId);
+        foreach($savingsProductFetch as $savingsProductFetch) {
+                $productName=$this->view->productname=$savingsProductFetch->productname;
+                $offerproductname=$this->view->offerproductname=$savingsProductFetch->offerproductname;
+                $offerproductshortname=$this->view->offerproductshortname=$savingsProductFetch->offerproductname;
+                $minimumDepositAmount=$this->view->minimumDepositAmount=$savingsProductFetch->minimum_deposit_amount;
+                $maximumDepositAmount=$this->view->maximumDepositAmount=$savingsProductFetch->maximum_deposit_amount; 
+                $penalInterest=$this->view->penal_Interest=$savingsProductFetch->penal_Interest;
+                $beginDate=$this->view->begindate=$savingsProductFetch->begindate;
+                $matureDate=$this->view->closedate=$savingsProductFetch->closedate;
+                $productshortname=$this->view->productshortname=$savingsProductFetch->productshortname;
+        }
+
+        $personalSavingsFetch= $productDetails->personalSavingsFetch($productId);
+        $this->view->personalSavingsFetch = $personalSavingsFetch;
+        foreach($personalSavingsFetch as $personalSavingsFetch) {
+                $productName=$this->view->productname=$personalSavingsFetch->productname;
+                $offerproductname=$this->view->offerproductname=$personalSavingsFetch->offerproductname;
+                $minimumDeposit=$this->view->minimumDepositAmount=$personalSavingsFetch->minmumdeposit;
+                $this->view->minimumbalanceforinterest=$personalSavingsFetch->minimumbalanceforinterest;
+                $beginDate=$this->view->begindate=$personalSavingsFetch->begindate;
+                $matureDate=$this->view->closedate=$personalSavingsFetch->closedate;
+                $productshortname=$this->view->productshortname=$personalSavingsFetch->productshortname;
+        }
+
+        $interestPeriods =$productDetails->fetchingInterests($productId);
+        $this->view->fetchingInterests = $interestPeriods;
+
+
+        $savingsForm = new Accounting_Form_Savings($minimumDeposit);//creating an instance
+        $this->view->savingsForm=$savingsForm;
+        $this->view->savingsForm->memberId->setValue($memberId);
+        $this->view->savingsForm->productId->setValue($productId);
+        $this->view->savingsForm->typeId->setValue($membertypeId);
+        $this->view->savingsForm->Type->setValue($Type);
+
+        $groupMembers= $productDetails->groupMembers($memberId);
+        $this->view->groupMembers = $groupMembers;
+        foreach($groupMembers as $groupMembers1) {
+                $savingsForm->memberfirstname->addMultiOption($groupMembers1->member_id,$groupMembers1->memberfirstname);
+        }
+
+        $this->view->feeTotal = 0;
+        $accountId = new Accounting_Model_Savings();
+        $this->view->Savingfee = $accountId->Savingfee();
+
+        $recuringForm = new Accounting_Form_Recuring($minimumDeposit);//creating an instance
+        $this->view->recuringForm=$recuringForm;
+        $this->view->recuringForm->memberId->setValue($memberId);
+        $this->view->recuringForm->productId->setValue($productId);
+        $this->view->recuringForm->typeId->setValue($membertypeId);
+
+        $interestperiods =$productDetails->interestperiods($productId);
+        for($i=1;$i<=$interestperiods;$i++)  {
+            $recuringForm->period->addMultiOption($i,$i);
+        }
+
+        $groupMembers= $productDetails->groupMembers($memberId);
+        $this->view->groupMembers = $groupMembers;
+        foreach($groupMembers as $groupMembers1) {
+                $recuringForm->memberfirstname->addMultiOption($groupMembers1->member_id,$groupMembers1->memberfirstname);
+        }
+
+
+        $fixedForm = new Accounting_Form_Fixed($minimumDeposit);//creating an instance
+        $this->view->fixedForm=$fixedForm;
+        $this->view->fixedForm->memberId->setValue($memberId);
+        $this->view->fixedForm->productId->setValue($productId);
+        $this->view->fixedForm->typeId->setValue($membertypeId);
+
+        $interestperiods =$productDetails->interestperiods($productId);
+        for($i=1;$i<=$interestperiods;$i++)  {
+            $fixedForm->period->addMultiOption($i,$i);
+        }
+
+
+        if($this->view->productshortname == 'fd') {
+           $this->render('fixed');
+           $this->render('products');
+                $this->view->pageTitle='New Fixed Account';
+        } elseif ($this->view->productshortname =='rd' ) {
+                  $this->render('recuring'); 
+                  $this->render('products');
+                  $this->view->pageTitle='New Recurring Account';
+          } else { 
+                $this->render('savings'); 
+                $this->render('products'); 
+                $this->view->pageTitle='New Savings Account';
+                    }
+
+
+
+    }
+
+    public function loansAction() {
+        $category = new Management_Model_Category();
+        $fetchCategoryType=$category->fetchCategoryDetails();
+        $this->view->fetchCategoryName=$fetchCategoryType;
+
+        $memberId=$this->_request->getParam('memberId');
+        $Type=$this->_request->getParam('Type');
+        $productId=$this->_request->getParam('productId');
+        $this->view->Type = $Type;
+        $this->view->memberId = $memberId;
+
+
+        $productDetails = new Accounting_Model_Savings();
+        $fetchMemberDetails= $productDetails->fetchMemberDetails($memberId);
+        foreach($fetchMemberDetails as $fetchMemberDetails1) {
+                 $branchID=$this->view->branch=$fetchMemberDetails1->office_name;
+                 $memberCode=$this->view->membercode=$fetchMemberDetails1->membercode;
+                 $membertypeId=$this->view->membertype_ID=$fetchMemberDetails1->membertype_ID;
+        }
+
+        $this->view->Loanfee = $productDetails->Loanfee();
+        $this->view->feeTotal = 0;
+        $app = $this->view->baseUrl();
+        $loan = new Accounting_Form_Loan($beginDate,$matureDate,$minimumDeposit,$maxmDeposit,$app);//creating an instance
+        $this->view->loan=$loan;
+
+        $this->view->loan->memberId->setValue($memberId);
+        $this->view->loan->productId->setValue($productId);
+        $this->view->loan->typeId->setValue($membertypeId);
+        $this->view->loan->Type->setValue($Type);
+
+        $productDetails = new Accounting_Model_Savings();
+        $fetchMemberDetails= $productDetails->fetchMemberDetails($memberId);
+        foreach($fetchMemberDetails as $fetchMemberDetails1) {
+                $branchID=$this->view->branch=$fetchMemberDetails1->office_name;
+                $memberCode=$this->view->membercode=$fetchMemberDetails1->membercode;
+                $membertypeId=$this->view->membertype_ID=$fetchMemberDetails1->membertype_ID;
+        }
+
+        if($membertypeId==3) {
+           $fetchGroupDetails= $productDetails->fetchGroupDetails($memberId);
+           foreach($fetchGroupDetails as $fetchGroupDetails1) {
+                   $groupName=$this->view->groupname=$fetchGroupDetails1->groupname;
+                   $this->view->pageTitle='Group Loan Accounting';
+           }
+           $this->view->label='Group Name';
+       }
+
+       if($membertypeId==4) {
+          $fetchmemberName= $productDetails->fetchmemberName($memberId);
+          foreach($fetchmemberName as $fetchmemberName1) {
+                  $memberName=$this->view->memberfirstname=$fetchmemberName1->memberfirstname;
+          }
+          $this->view->pageTitle='Individual Loan Accounting';
+          $this->view->label='First Name';
+      }
+
+
+      $LoansFetch= $productDetails->loansProductsFetch($productId);
+      foreach($LoansFetch as $LoansFetch) {
+              $productName=$this->view->productname=$LoansFetch->productname;
+              $offerproductname=$this->view->offerproductname=$LoansFetch->offerproductname;
+              $minimumDeposit=$this->view->minimumDepositAmount=$LoansFetch->minmumloanamount;
+              $maxmDeposit=$this->view->maximumDepositAmount=$LoansFetch->maximunloanamount;
+              $beginDate=$this->view->begindate=$LoansFetch->begindate; 
+              $matureDate=$this->view->closedate=$LoansFetch->closedate;
+              $this->view->penal_Interest=$LoansFetch->penal_Interest;
+     }
+
+     $interestPeriods =$productDetails->fetchingInterests($productId);
+     $this->view->fetchingInterests = $interestPeriods;
+
+
+     $fetchSavingDetails= $productDetails->fetchSavingDetails($memberId,$membertypeId);
+     foreach($fetchSavingDetails as $fetchSavingDetails) {
+             $this->view->savingAccount = $loan->savingAccount->addMultiOption($fetchSavingDetails->account_id,
+                                                  $fetchSavingDetails->offerproductshortname.$fetchSavingDetails->account_number);
+     }
+
+     $groupMembers= $productDetails->groupMembers($memberId);
+     $this->view->groupMembers = $groupMembers;
+     foreach($groupMembers as $groupMembers1) {
+             $loan->memberfirstname->addMultiOption($groupMembers1->member_id,$groupMembers1->memberfirstname);
+     }
+
+     $interestperiods =$productDetails->interestperiods($productId);
+     for($i=1;$i<=$interestperiods;$i++)  {
+         $loan->loanInterest->addMultiOption($i,$i);
+     }
+
+     if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+         $formData = $this->_request->getPost();
+         if ($this->_request->isPost()) {
+             $formData = $this->_request->getPost();
+                 $this->view->Type=$this->_request->getParam('Type');
+                 $memberId=$this->_request->getParam('memberId');
+                 $typeId=$this->_request->getParam('typeId');
+                 if($typeId == 4) { 
+                    $loan->memberfirstname->setRequired(false); 
+                 }
+                 if ($loan->isValid($formData)) {
+                 $this->view->Submit = $this->_request->getParam('Submit');
+                 $this->view->date1 = $this->_request->getParam('loanAccountdate');
+                 $this->view->amount = $this->_request->getParam('amount');
+                 $this->view->interest = $this->_request->getParam('interest');
+                 $this->view->period = $this->_request->getParam('loanInterest');
+                 $this->view->savingAccount = $this->_request->getParam('savingAccount');
+            }
+         }
+
+     }
+
+     if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+          $productId=$this->_request->getPost('productId');
+          $memberId=$this->_request->getParam('memberId');
+          $typeId=$this->_request->getParam('typeId');
+
+          $accountId = new Accounting_Model_Accounts();
+          $accountId->insertAccounts();
+          $account_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_accounts','account_id');
+
+          $accounting = new Accounting_Model_Savings();
+          $branchid = $accounting->accountnumber($memberId);
+          foreach($branchid as $branchid) {
+                  $groupoffice_id = $this->view->memberbranch_id = $branchid->memberbranch_id;
+          }
+          $productcode = 'L';
+          if($typeId==3) {
+             $grouporIndividualNumber=3; 
+          } else { 
+                $grouporIndividualNumber=4;
+            }
+                $b=str_pad($groupoffice_id,3,"0",'STR_PAD_LEFT'); 
+                $t=str_pad($grouporIndividualNumber,2,"0",'STR_PAD_RIGHT');
+                $p=str_pad($productcode,3,"0",'STR_PAD_RIGHT');
+                $a=str_pad($account_id,6,"0",'STR_PAD_RIGHT');
+                $date=date("y/m/d H:i:s");
+                $accountNumber=$b.$t.$p.$a;
+                $createby = $this->view->createdby;
+                $accountId->UpDateAccounts($account_id,$accountNumber,$memberId,$productId,$grouporIndividualNumber,$createby);
+
+                $date1 = $this->_request->getParam('date1');
+                $savings_amount = $this->_request->getParam('amount');
+                $period = $this->_request->getParam('period');
+                $interest = $this->_request->getParam('interest');
+                $tAmount = $this->_request->getParam('tAmount');
+                $createdby = $this->view->createdby;
+
+                $loanaccounts = new Accounting_Model_Loanaccounts();
+                $loanaccounts->Addloanaccounts($account_id,$date1,$savings_amount,$period,$interest,$createdby);
+
+                $loanaccounts = new Accounting_Model_Transaction();
+                $loanaccounts->Addtransaction($account_id,$savings_amount,$tAmount,$createdby,$interest);
+                $transaction_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_transaction','transaction_id');
+
+                $branchID = $accounting->fetchbranchid($memberId);
+                foreach($branchID as $branch) {
+                    $branchID = $branch->memberbranch_id;
+                }
+
+                $branchAccountNumber = $accounting->fetchbranchaccount($branchID);
+                foreach($branchAccountNumber as $branchAccountNumber) {
+                        $branchAccountNumber =  $branchAccountNumber->bankaccont_id;
+                }
+
+                $bankaccounts = new Accounting_Model_Bankaccounts();
+                $bankaccounts->Addbankaccounts($account_id,$savings_amount,$transaction_id,$branchAccountNumber);
+
+
+                $feeTotal = $this->_request->getParam('feeTotal');
+                if($feeTotal) {
+                  $bankfeeaccounts = new Accounting_Model_Bankfee();
+                  $bankfeeaccounts->Addbankfee($branchAccountNumber,$transaction_id,$account_id,$feeTotal);
+               }
+
+               if($typeId==3){
+                  $memberfirstname= $this->_request->getParam('memberfirstname');
+                  $groupaccounts = new Accounting_Model_Groupmemberaccounts();
+                  $groupaccounts->Addgroupmembers($memberfirstname,$account_id,$productId,$createdby);
+
+            }
+                  $this->_redirect('/accounting');
+
+     }
+
+
+    }
+
+    public function savingsAction() {
+        $category = new Management_Model_Category();
+        $fetchCategoryType=$category->fetchCategoryDetails();
+        $this->view->fetchCategoryName=$fetchCategoryType;
+
+        $memberId=$this->_request->getParam('memberId');
+        $Type=$this->_request->getParam('Type');
+        $productId=$this->_request->getParam('productId');
+        $this->view->Type = $Type;
+        $this->view->memberId = $memberId;
+
+        $this->view->feeTotal = 0;
+        $accountId = new Accounting_Model_Savings();
+        $this->view->Savingfee = $accountId->Savingfee();
+
+        $productDetails = new Accounting_Model_Savings();
+        $fetchMemberDetails= $productDetails->fetchMemberDetails($memberId);
+        foreach($fetchMemberDetails as $fetchMemberDetails1) {
+                $branchID=$this->view->branch=$fetchMemberDetails1->office_name;
+                $memberCode=$this->view->membercode=$fetchMemberDetails1->membercode;
+                $membertypeId=$this->view->membertype_ID=$fetchMemberDetails1->membertype_ID;
+        }
+
+        if($membertypeId==3) {
+           $fetchGroupDetails= $productDetails->fetchGroupDetails($memberId);
+           foreach($fetchGroupDetails as $fetchGroupDetails1) {
+                   $groupName=$this->view->groupname=$fetchGroupDetails1->groupname;
+                   $this->view->pageTitle='Group Loan Accounting';
+           }
+           $this->view->label='Group Name';
+       }
+
+       if($membertypeId==4) {
+          $fetchmemberName= $productDetails->fetchmemberName($memberId);
+          foreach($fetchmemberName as $fetchmemberName1) {
+                  $memberName=$this->view->memberfirstname=$fetchmemberName1->memberfirstname;
+          }
+          $this->view->pageTitle='Individual Loan Accounting';
+          $this->view->label='First Name';
+      }
+
+
+        $personalSavingsFetch= $productDetails->personalSavingsFetch($productId);
+        $this->view->personalSavingsFetch = $personalSavingsFetch;
+        foreach($personalSavingsFetch as $personalSavingsFetch) {
+                $productName=$this->view->productname=$personalSavingsFetch->productname;
+                $offerproductname=$this->view->offerproductname=$personalSavingsFetch->offerproductname;
+                $minimumDeposit=$this->view->minimumDepositAmount=$personalSavingsFetch->minmumdeposit;
+                $this->view->minimumbalanceforinterest=$personalSavingsFetch->minimumbalanceforinterest;
+                $beginDate=$this->view->begindate=$personalSavingsFetch->begindate;
+                $matureDate=$this->view->closedate=$personalSavingsFetch->closedate;
+                $productshortname=$this->view->productshortname=$personalSavingsFetch->productshortname;
+        }
+
+        $interestPeriods =$productDetails->fetchingInterests($productId);
+        $this->view->fetchingInterests = $interestPeriods;
+
+
+        if($productshortname == 'ps') {
+           echo $this->view->render('/accounting/products.phtml');
+           $this->view->pageTitle='New savings Account';
+        } 
+
+
+        $savingsForm = new Accounting_Form_Savings($minimumDeposit);//creating an instance
+        $this->view->savingsForm=$savingsForm;
+        $this->view->savingsForm->memberId->setValue($memberId);
+        $this->view->savingsForm->productId->setValue($productId);
+        $this->view->savingsForm->typeId->setValue($membertypeId);
+        $this->view->savingsForm->Type->setValue($Type);
+
+
+        $groupMembers= $productDetails->groupMembers($memberId);
+        $this->view->groupMembers = $groupMembers;
+        foreach($groupMembers as $groupMembers1) {
+                $savingsForm->memberfirstname->addMultiOption($groupMembers1->member_id,$groupMembers1->memberfirstname);
+        }
+
+
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost(); 
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                $this->view->Type=$this->_request->getParam('Type');
+                 $memberId=$this->_request->getParam('memberId');
+                 $typeId=$this->_request->getParam('typeId');
+                 $this->view->productId = $this->_request->getParam('productId');
+                 if($typeId == 4) { 
+                    $savingsForm->memberfirstname->setRequired(false); 
+                 }
+                if ($savingsForm->isValid($formData)) {
+            $this->view->Submit = 'Submit';
+            $this->view->date1=$this->_request->getPost('date1');
+            $this->view->savings_amount=$this->_request->getPost('savings_amount');
+            $this->view->tAmount=$this->_request->getPost('tAmount');
+            $this->view->message = 'Are you sure u want to create a savings account';
+
+            }
+          }
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+                    $productId = $this->view->productId =$this->_request->getPost('productId');
+                    $memberId=$this->_request->getParam('memberId');
+                    $typeId=$this->_request->getParam('typeId');
+                    $date1=$this->_request->getParam('date1');
+                    $this->view->memberId = $memberId;
+                    $savings_amount=$this->_request->getParam('savings_amount');
+
+                    $accountId = new Accounting_Model_Accounts();
+                    $accountId->insertAccounts();
+                    $account_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_accounts','account_id');
+
+                    $accounting = new Accounting_Model_Savings();
+                    $branchid = $accounting->accountnumber($memberId);
+                    foreach($branchid as $branchid) {
+                            $groupoffice_id = $this->view->memberbranch_id = $branchid->memberbranch_id;
+                    }
+
+                    $productcode = 'S';
+                    if($typeId==3) {
+                       $grouporIndividualNumber=3; 
+                    } else { 
+                        $grouporIndividualNumber=4;
+                      }
+                      $b=str_pad($groupoffice_id,3,"0",'STR_PAD_LEFT'); 
+                      $t=str_pad($grouporIndividualNumber,2,"0",'STR_PAD_RIGHT');
+                      $p=str_pad($productcode,3,"0",'STR_PAD_RIGHT');
+                      $a=str_pad($account_id,6,"0",'STR_PAD_RIGHT');
+                      $date=date("y/m/d H:i:s");
+                      $accountNumber=$b.$t.$p.$a;
+                      $createby = $this->view->createdby;
+                      $accountId->UpDateAccounts($account_id,$accountNumber,$memberId,
+                                                 $productId,$grouporIndividualNumber,$createby);
+
+                      $feeTotal = $this->_request->getParam('feeTotal');
+                      $tAmount = $this->_request->getParam('tAmount');
+                      $savings_amount = $this->_request->getParam('savings_amount');
+                      $createdby = $this->view->createdby;
+                      $interest = 0;
+
+
+                      $savingaccounts = new Accounting_Model_Transaction();
+                      $savingaccounts->Addtransaction($savings_amount,$account_id,$createdby,$tAmount,$interest);
+                      $transaction_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_transaction','transaction_id');
+
+
+
+                      $savingtransactionaccounts = new Accounting_Model_Savingaccounttransaction();
+                      $savingtransactionaccounts->Addsavingaccounttransaction($account_id,$date1,$savings_amount,
+                                                                              $createdby,$interest);
+
+                      $branchID = $accounting->fetchbranchid($memberId);
+                      foreach($branchID as $branch) {
+                              $branchID = $branch->memberbranch_id;
+                      } 
+
+                      $branchAccountNumber = $accounting->fetchbranchaccount($branchID);
+                      foreach($branchAccountNumber as $branchAccountNumber) {
+                              $branchAccountNumber =  $branchAccountNumber->bankaccont_id;
+                      }
+
+
+                      $bankaccounts = new Accounting_Model_Bankaccounts();
+                      $bankaccounts->Addbankaccounts($account_id,$savings_amount,$transaction_id,$branchAccountNumber);
+
+
+
+
+                      if($feeTotal) {
+                         $bankfeeaccounts = new Accounting_Model_Bankfee();
+                         $bankfeeaccounts->Addbankfee($branchAccountNumber,$transaction_id,$account_id,$feeTotal);
+                       }
+
+                       if($typeId == 3){
+                          $memberfirstname= $this->_request->getParam('memberfirstname');
+                          $groupaccounts = new Accounting_Model_Groupmemberaccounts();
+                          $groupaccounts->Addgroupmembers($memberfirstname,$account_id,$productId,$createdby);
+
+
+                          $groupmemberaccounts = new Accounting_Model_Groupmembersavingtransaction();
+                          $groupmemberaccounts->Addgroupmembersavingtransaction($memberfirstname,$account_id,$transaction_id,
+                                                                                $savings_amount,$createdby);
+                      }
+
+                                    $this->_redirect('/accounting');
+
+        }
+
+
+    }
+
+
+    public function accountnumberAction() {
+
+        $category = new Management_Model_Category();
+        $fetchCategoryType=$category->fetchCategoryDetails();
+        $this->view->fetchCategoryName=$fetchCategoryType;
+
+        $accountid = $this->_request->getParam('accountid');
+
+        $savings = new Accounting_Model_Savings();
+        $savings = $savings->fetchaccountnumber($accountid);
+        foreach($savings as $savings) {
+                 $this->view->account_number =  $savings->account_number;
+        }
+    }
+
+    public function recuringAction() {
+        $category = new Management_Model_Category();
+        $fetchCategoryType=$category->fetchCategoryDetails();
+        $this->view->fetchCategoryName=$fetchCategoryType;
+
+        $memberId=$this->_request->getParam('memberId');
+        $productId=$this->_request->getPost('productId');
+
+        $productDetails = new Accounting_Model_Savings();
+        $fetchMemberDetails= $productDetails->fetchMemberDetails($memberId);
+        foreach($fetchMemberDetails as $fetchMemberDetails1) {
+                $branchID=$this->view->branch=$fetchMemberDetails1->office_name;
+                $memberCode=$this->view->membercode=$fetchMemberDetails1->membercode;
+                $membertypeId=$this->view->membertype_ID=$fetchMemberDetails1->membertype_ID;
+        }
+
+        $savingsProductFetch= $productDetails->savingsProductFetch($productId);
+        $this->view->savingsProductFetch= $productDetails->savingsProductFetch($productId);
+        foreach($savingsProductFetch as $savingsProductFetch) {
+                $productName=$this->view->productname=$savingsProductFetch->productname;
+                $offerproductname=$this->view->offerproductname=$savingsProductFetch->offerproductname;
+                $offerproductshortname=$this->view->offerproductshortname=$savingsProductFetch->offerproductname;
+                $minimumDepositAmount=$this->view->minimumDepositAmount=$savingsProductFetch->minimum_deposit_amount;
+                $maximumDepositAmount=$this->view->maximumDepositAmount=$savingsProductFetch->maximum_deposit_amount; 
+                $penalInterest=$this->view->penal_Interest=$savingsProductFetch->penal_Interest;
+                $beginDate=$this->view->begindate=$savingsProductFetch->begindate;
+                $matureDate=$this->view->closedate=$savingsProductFetch->closedate;
+                $productshortname=$this->view->productshortname=$savingsProductFetch->productshortname;
+        }
+
+        if($membertypeId==3) {
+           $fetchGroupDetails= $productDetails->fetchGroupDetails($memberId);
+           foreach($fetchGroupDetails as $fetchGroupDetails1) {
+                   $groupName=$this->view->groupname=$fetchGroupDetails1->groupname;
+                   $this->view->pageTitle='Group Loan Accounting';
+           }
+           $this->view->label='Group Name';
+       }
+
+       if($membertypeId==4) {
+          $fetchmemberName= $productDetails->fetchmemberName($memberId);
+          foreach($fetchmemberName as $fetchmemberName1) {
+                  $memberName=$this->view->memberfirstname=$fetchmemberName1->memberfirstname;
+          }
+          $this->view->pageTitle='Individual Loan Accounting';
+          $this->view->label='First Name';
+      }
+
+        $interestPeriods =$productDetails->fetchingInterests($productId);
+        $this->view->fetchingInterests = $interestPeriods;
+
+
+        if($productshortname == 'rd') {
+           echo $this->view->render('/accounting/products.phtml');
+           $this->view->pageTitle='New savings Account';
+        }
+
+        $this->view->feeTotal = 0;
+        $accountId = new Accounting_Model_Savings();
+        $this->view->Savingfee = $accountId->Savingfee();
+        $recuringForm = new Accounting_Form_Recuring($minimumDeposit);//creating an instance
+        $this->view->recuringForm=$recuringForm;
+        $this->view->recuringForm->memberId->setValue($memberId);
+        $this->view->recuringForm->productId->setValue($productId);
+        $this->view->recuringForm->typeId->setValue($membertypeId); 
+
+        $interestperiods =$productDetails->interestperiods($productId);
+        for($i=1;$i<=$interestperiods;$i++)  {
+            $recuringForm->period->addMultiOption($i,$i);
+        }
+
+        $groupMembers= $productDetails->groupMembers($memberId);
+        $this->view->groupMembers = $groupMembers;
+        foreach($groupMembers as $groupMembers1) {
+                $recuringForm->memberfirstname->addMultiOption($groupMembers1->member_id,$groupMembers1->memberfirstname);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost(); 
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                $this->view->Type=$this->_request->getParam('Type');
+                 $memberId=$this->_request->getParam('memberId');
+                 $typeId=$this->_request->getParam('typeId');
+                 if($typeId == 4) { 
+                    $recuringForm->memberfirstname->setRequired(false); 
+                 }
+                if ($recuringForm->isValid($formData)) {
+                   $this->view->Submit = 'Submit';
+                   $this->view->typeId=$this->_request->getParam('typeId');
+                   $this->view->date1=$this->_request->getPost('date1');
+                   $this->view->period=$this->_request->getParam('period');
+                   $this->view->interest=$this->_request->getParam('interest');
+                   $this->view->amount=$this->_request->getParam('amount');
+                   $this->view->tAmount=$this->_request->getParam('tAmount');
+                   $this->view->matureamount=$this->_request->getParam('matureamount');
+                   $this->view->memberfirstname= $this->_request->getParam('memberfirstname');
+                }
+              }
+            }
+             if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+                 $this->view->Type=$this->_request->getParam('Type');
+                 $memberId=$this->_request->getParam('memberId'); 
+                 $typeId=$this->_request->getParam('typeId');
+                 $productId=$this->_request->getPost('productId');
+                 $memberId=$this->_request->getParam('memberId');
+                 $this->view->memberId = $memberId;
+
+                 $accountId = new Accounting_Model_Accounts();
+                 $accountId->insertAccounts();
+                 $account_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_accounts','account_id');
+
+                 $accounting = new Accounting_Model_Savings();
+                 $branchid = $accounting->accountnumber($memberId);
+                 foreach($branchid as $branchid) {
+                         $groupoffice_id = $this->view->memberbranch_id = $branchid->memberbranch_id;
+                 }
+
+                 $productcode = 'R';
+                 if($typeId==3) {
+                    $grouporIndividualNumber=3; 
+                  } else { 
+                      $grouporIndividualNumber=4;
+                    }
+                      $b=str_pad($groupoffice_id,3,"0",'STR_PAD_LEFT'); 
+                      $t=str_pad($grouporIndividualNumber,2,"0",'STR_PAD_RIGHT');
+                      $p=str_pad($productcode,3,"0",'STR_PAD_RIGHT');
+                      $a=str_pad($account_id,6,"0",'STR_PAD_RIGHT');
+                      $date=date("y/m/d H:i:s");
+                      $accountNumber=$b.$t.$p.$a;
+                     echo  "hiiiiiiiiiiiiiiiii".$createby = $this->view->createdby;
+                      $accountId->UpDateAccounts($account_id,$accountNumber,$memberId,
+                                                 $productId,$grouporIndividualNumber,$createby);
+
+
+                     $date1=$this->_request->getParam('date1');
+                     $period=$this->_request->getParam('period');
+                     $interest=$this->_request->getParam('interest');
+                     $savings_amount=$this->_request->getParam('amount');
+                     $tAmount=$this->_request->getParam('tAmount');
+                     $this->view->matureamount=$this->_request->getParam('matureamount');
+                     $this->view->memberfirstname= $this->_request->getParam('memberfirstname');
+
+
+                     $mature = new Zend_Date();
+                     $mature->set($date1,Zend_Date::DATES);
+                     $mature->add($period,Zend_Date::MONTH);
+                     $matureDates= $mature->toString("YYY-MM-dd");
+
+                     $recuringaccounts = new Accounting_Model_Reccuringtransaction();
+                     $recuringaccounts->Addrecuring($account_id,$date1,$matureDates,$savings_amount,$interest,$createby);
+                     $installments = new Zend_Date();
+                     $installments->set($date1,Zend_Date::DATES);
+                        for($i=1;$i<=($period);$i++) {
+                            if($i==1) { 
+                               $paid=2;
+                            } elseif($i == 2) {
+                                $paid = 4;
+                              } else { 
+                                $paid=3;
+                              }
+                              $installments->add('30', Zend_Date::DAY);
+                              $installmentDetailsDates= $installments->toString("YYY-MM-dd").'<br>';
+                              $accounting = new Accounting_Model_Savings();
+                              $accounting->ourbankRecurringInstalmentsInsertion(array('paymentserial_id' => '',
+                                                                                     'rec_payment_id'=>$i,
+                                                                                     'rec_payment_date' =>$installmentDetailsDates,
+                                                                                     'account_id' => $account_id,
+                                                                                     'rec_payment_amount' =>$savings_amount,
+                                                                                     'rec_payment_status' => $paid,
+                                                                                     'created_by'=> $createby,
+                                                                                     'created_date'=>date('Y-m-d')));
+                        }
+                     $createby = $this->view->createdby;
+                     $savingaccounts = new Accounting_Model_Transaction();
+                     $savingaccounts->Addtransaction($savings_amount,$account_id,$createdby,$tAmount,$interest);
+                     $transaction_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_transaction','transaction_id');
+
+                     $recuringpayment = new Accounting_Model_Recuringpayment();
+                     $recuringpayment->Addrecuringpayment($transaction_id,$account_id,$date1,$savings_amount);
+
+                     $branchID = $accounting->fetchbranchid($memberId);
+                     foreach($branchID as $branch) {
+                             $branchID = $branch->memberbranch_id;
+                     } 
+
+                     $branchAccountNumber = $accounting->fetchbranchaccount($branchID);
+                     foreach($branchAccountNumber as $branchAccountNumber) {
+                             $branchAccountNumber =  $branchAccountNumber->bankaccont_id;
+                     }
+
+                     $bankaccounts = new Accounting_Model_Bankaccounts();
+                     $bankaccounts->Addbankaccounts($account_id,$savings_amount,$transaction_id,$branchAccountNumber);
+
+                     $feeTotal=$this->_request->getParam('feeTotal');
+                     if($feeTotal) {
+                        $bankfeeaccounts = new Accounting_Model_Bankfee();
+                        $bankfeeaccounts->Addbankfee($branchAccountNumber,$transaction_id,$account_id,$feeTotal);
+                     }
+
+                     if($typeId == 3){
+                        $memberfirstname= $this->_request->getParam('memberfirstname');
+
+                        $groupaccounts = new Accounting_Model_Groupmemberaccounts();
+                        $groupaccounts->Addgroupmembers($memberfirstname,$account_id,$productId,$createdby);
+
+                        $groupmemberaccounts = new Accounting_Model_Groupmembersavingtransaction();
+                        $groupmemberaccounts->Addgroupmembersavingtransaction($memberfirstname,$account_id,$transaction_id,
+                                                                                $savings_amount,$createdby);
+                   }
+
+                    $this->_redirect('/accounting');
+
+                    }
+            }
+
+
+
+    public function fixedAction() {
+        $category = new Management_Model_Category();
+        $fetchCategoryType=$category->fetchCategoryDetails();
+        $this->view->fetchCategoryName=$fetchCategoryType;
+
+        $memberId=$this->_request->getParam('memberId');
+        $productId=$this->_request->getPost('productId');
+        $Type=$this->_request->getParam('Type');
+
+        $productDetails = new Accounting_Model_Savings();
+        $fetchMemberDetails= $productDetails->fetchMemberDetails($memberId);
+        foreach($fetchMemberDetails as $fetchMemberDetails1) {
+                $branchID=$this->view->branch=$fetchMemberDetails1->office_name;
+                $memberCode=$this->view->membercode=$fetchMemberDetails1->membercode;
+                $membertypeId=$this->view->membertype_ID=$fetchMemberDetails1->membertype_ID;
+        }
+
+        $savingsProductFetch= $productDetails->savingsProductFetch($productId);
+        $this->view->savingsProductFetch= $productDetails->savingsProductFetch($productId);
+        foreach($savingsProductFetch as $savingsProductFetch) {
+                $productName=$this->view->productname=$savingsProductFetch->productname;
+                $offerproductname=$this->view->offerproductname=$savingsProductFetch->offerproductname;
+                $offerproductshortname=$this->view->offerproductshortname=$savingsProductFetch->offerproductname;
+                $minimumDepositAmount=$this->view->minimumDepositAmount=$savingsProductFetch->minimum_deposit_amount;
+                $maximumDepositAmount=$this->view->maximumDepositAmount=$savingsProductFetch->maximum_deposit_amount; 
+                $penalInterest=$this->view->penal_Interest=$savingsProductFetch->penal_Interest;
+                $beginDate=$this->view->begindate=$savingsProductFetch->begindate;
+                $matureDate=$this->view->closedate=$savingsProductFetch->closedate;
+                $productshortname=$this->view->productshortname=$savingsProductFetch->productshortname;
+        }
+
+        if($membertypeId==3) {
+           $fetchGroupDetails= $productDetails->fetchGroupDetails($memberId);
+           foreach($fetchGroupDetails as $fetchGroupDetails1) {
+                   $groupName=$this->view->groupname=$fetchGroupDetails1->groupname;
+                   $this->view->pageTitle='Group Loan Accounting';
+           }
+           $this->view->label='Group Name';
+       }
+
+       if($membertypeId==4) {
+          $fetchmemberName= $productDetails->fetchmemberName($memberId);
+          foreach($fetchmemberName as $fetchmemberName1) {
+                  $memberName=$this->view->memberfirstname=$fetchmemberName1->memberfirstname;
+          }
+          $this->view->pageTitle='Individual Loan Accounting';
+          $this->view->label='First Name';
+      }
+
+        $interestPeriods =$productDetails->fetchingInterests($productId);
+        $this->view->fetchingInterests = $interestPeriods;
+
+
+        if($productshortname == 'fd') {
+           echo $this->view->render('/accounting/products.phtml');
+           $this->view->pageTitle='New savings Account';
+        }
+
+        $this->view->feeTotal = 0;
+        $accountId = new Accounting_Model_Savings();
+        $this->view->Savingfee = $accountId->Savingfee();
+
+        $fixedForm = new Accounting_Form_Fixed($minimumDeposit);//creating an instance
+        $this->view->fixedForm=$fixedForm;
+        $this->view->fixedForm->memberId->setValue($memberId);
+        $this->view->fixedForm->productId->setValue($productId);
+        $this->view->fixedForm->typeId->setValue($membertypeId);
+        $this->view->fixedForm->Type->setValue($Type);
+
+
+        $interestperiods =$productDetails->interestperiods($productId);
+        for($i=1;$i<=$interestperiods;$i++)  {
+            $fixedForm->period->addMultiOption($i,$i);
+        }
+
+        $groupMembers= $productDetails->groupMembers($memberId);
+        $this->view->groupMembers = $groupMembers;
+        foreach($groupMembers as $groupMembers1) {
+                $fixedForm->memberfirstname->addMultiOption($groupMembers1->member_id,$groupMembers1->memberfirstname);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            $formData = $this->_request->getPost(); 
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                $this->view->Type=$this->_request->getParam('Type');
+                $memberId = $this->view->memberId = $this->_request->getParam('memberId');
+                $typeId = $this->view->typeId = $this->_request->getParam('typeId');
+                 if($typeId == 4) { 
+                    $fixedForm->memberfirstname->setRequired(false); 
+                 }
+                if ($fixedForm->isValid($formData)) {
+                   $this->view->Submit = 'Submit';
+
+                    $fixedForm = new Accounting_Form_Fixed($minimumDeposit);
+                    $groupMembers= $productDetails->groupMembers($memberId);
+                    $this->view->groupMembers = $groupMembers;
+                    foreach($groupMembers as $groupMembers1) {
+                      $fixedForm->memberfirstname->addMultiOption($groupMembers1->member_id,$groupMembers1->memberfirstname);
+                     }
+
+
+                   $this->view->date1=$this->_request->getPost('date1');
+                   $this->view->period=$this->_request->getParam('period');
+                   $this->view->interest=$this->_request->getParam('interest');
+                   $this->view->amount=$this->_request->getParam('amount');
+                   $this->view->tAmount=$this->_request->getParam('tAmount');
+                   $this->view->matureamount=$this->_request->getParam('matureamount');
+                   $this->view->memberfirstname= $this->_request->getParam('memberfirstname');
+
+
+                      }
+                    }
+                }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+                    echo $this->view->productId = $productId =$this->_request->getParam('productId');
+                    $memberId=$this->_request->getParam('memberId');
+                    $typeId=$this->_request->getParam('typeId');
+                    $this->view->memberId = $memberId;
+
+
+
+                    $accountId = new Accounting_Model_Accounts();
+                    $accountId->insertAccounts();
+                    $account_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_accounts','account_id');
+
+                    $accounting = new Accounting_Model_Savings();
+                    $branchid = $accounting->accountnumber($memberId);
+                    foreach($branchid as $branchid) {
+                            $groupoffice_id = $this->view->memberbranch_id = $branchid->memberbranch_id;
+                    }
+
+                    $productcode = 'F';
+                    if($typeId==3) {
+                       $grouporIndividualNumber=3; 
+                    } else { 
+                        $grouporIndividualNumber=4;
+                      }
+                      $b=str_pad($groupoffice_id,3,"0",'STR_PAD_LEFT'); 
+                      $t=str_pad($grouporIndividualNumber,2,"0",'STR_PAD_RIGHT');
+                      $p=str_pad($productcode,3,"0",'STR_PAD_RIGHT');
+                      $a=str_pad($account_id,6,"0",'STR_PAD_RIGHT');
+                      $date=date("y/m/d H:i:s");
+                      $accountNumber=$b.$t.$p.$a;
+                      $createby = $this->view->createdby;
+                      $accountId->UpDateAccounts($account_id,$accountNumber,$memberId,
+                                                 $productId,$grouporIndividualNumber,$createby);
+
+                     $date1 = $this->_request->getPost('date1');
+                     $savings_amount = $this->_request->getPost('amount');
+                     $period = $this->_request->getPost('period');
+                     $interest = $this->_request->getPost('interest');
+                     $createby = $this->view->createdby;
+                     $feeTotal= $this->_request->getParam('feeTotal'); 
+                     $tAmount= $this->_request->getParam('tAmount');
+                     $createdby = $this->view->createdby;
+                     $interest = 0; 
+
+                     $mature = new Zend_Date();
+                     $mature->set($date1,Zend_Date::DATES);
+                     $mature->add($period, Zend_Date::MONTH);
+                     $matureDates= $mature->toString("YYY-MM-dd").'<br>';
+                     $systems=date("y/m/d H:i:s");
+
+                     $fixedaccounting = new Accounting_Model_fixaccounts();
+                     $fixedaccounting->Addfixedaccounts($account_id,$date1,$createby,$matureDates,$savings_amount,$interest);
+
+                     $savingaccounts = new Accounting_Model_Transaction();
+                     $savingaccounts->Addtransaction($savings_amount,$account_id,$createdby,$tAmount,$interest);
+                     $transaction_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_transaction','transaction_id');
+
+                     $Fixedpayment = new Accounting_Model_Fixedpayment();
+                     $Fixedpayment->Addfixedpayment($transaction_id,$account_id,$date1);
+
+                     $branchID = $accounting->fetchbranchid($memberId);
+                     foreach($branchID as $branch) {
+                              $branchID = $branch->memberbranch_id;
+                     } 
+
+                     $branchAccountNumber = $accounting->fetchbranchaccount($branchID);
+                     foreach($branchAccountNumber as $branchAccountNumber) {
+                              $branchAccountNumber =  $branchAccountNumber->bankaccont_id;
+                     }
+
+                     $bankaccounts = new Accounting_Model_Bankaccounts();
+                     $bankaccounts->Addbankaccounts($account_id,$savings_amount,$transaction_id,$branchAccountNumber);
+
+                     if($feeTotal) {
+                         $bankfeeaccounts = new Accounting_Model_Bankfee();
+                         $bankfeeaccounts->Addbankfee($branchAccountNumber,$transaction_id,$account_id,$feeTotal);
+
+                     }
+
+                     if($typeId == 3){
+                        $memberfirstname= $this->_request->getParam('memberfirstname');
+                        $groupaccounts = new Accounting_Model_Groupmemberaccounts();
+                        $groupaccounts->Addgroupmembers($memberfirstname,$account_id,$productId,$createdby);
+
+                        $groupfixedaccounts = new Accounting_Model_Groupmemberrecurringtransaction();
+                        $groupfixedaccounts->Addtransaction($memberfirstname,$transaction_id,$account_id,$savings_amount,$createdby);
+
+                    }
+                                    $this->_redirect('/accounting');
+                  }
+                }
+
+        }
+

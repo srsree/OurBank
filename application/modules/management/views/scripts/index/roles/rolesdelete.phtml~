@@ -1,0 +1,34 @@
+<?php if ($this->recordstatus_id == 1) { ?>
+<TABLE id="hor-minimalist-b">
+        <TR>
+            <TD></TD><TD></TD>
+            <TD ><B style="color:red">Are You Sure To Delete Role <?php echo $this->grantname; ?></B></TD>
+        </TR>
+</TABLE>
+<?php } ?>
+<?php if ($this->recordstatus_id == 3) { ?>
+<form action="<?php echo $this->baseUrl();?>/management/roles/rolesdelete/id/<?php echo $this->grant_id; ?>" method="POST">
+    <TABLE id="hor-minimalist-b">
+        <TR>
+            <TD></TD><TD></TD>
+            <TD ><B style="color:red">Are You Sure To Delete Role <?php echo $this->grantname; ?></B></TD>
+        </TR>
+    </TABLE>
+    <table id="hor-minimalist-b">
+        <TR>
+            
+        </TR>
+        <TR>
+	   <TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+	   <TD  width="65%"  align="left" ><?php echo $this->form->remarks;?></TD>
+	</TR>
+	
+	<TR>
+            <TD width="35%" align="right"><?php echo $this->form->Yes;?></td>
+	    <TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/roles/">
+            <input name="submit" type="submit"  value="No" ></a></TD>
+	</TR>
+    </table>
+</form>
+
+<?php } ?>

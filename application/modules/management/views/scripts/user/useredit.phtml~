@@ -1,0 +1,116 @@
+<fieldset>
+    <legend>create new user</legend>
+        <div class="register">
+            <div class="profile_tab">
+                <form action="<?php  echo $this->baseUrl();?>/management/user/useredit/id/<?php echo $this->user_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+                    <table  id="hor-minimalist-b">
+                        <tr>
+                            <th>Personal Information</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+			     <td >Office branch<span class="reqMark">*</span></td>
+			     <td><?php  echo $this->form->officetype_id; echo $this->form->user_id;?></td>
+	                     <td >Gender<span class="reqMark">*</span></td>
+			     <td><?php  echo $this->form->gender_id;?></td>
+			</tr>
+                        <tr>
+			     <td >salutation<span class="reqMark">*</span></td>
+			     <td><?php  echo $this->form->membertitle;?></td>
+			     <td >marital status<span class="reqMark">*</span></td>
+			     <td><?php  echo $this->form->membermaritalstatus_id;?></td>
+			</tr>
+			<tr>
+			     <td >First Name<span class="reqMark">*</span></td>
+			     <td><?php  echo $this->form->first_name;?></td>
+			     <td >date of Birth<span class="reqMark">*</span></td>
+			     <td><?php  echo $this->form->dateofbirth;?></td>
+			</tr>
+                        <tr>
+			     <td width="200" >middle name<span class="reqMark">*</span></td>
+			     <td><?php  echo $this->form->middle_name;?></td>
+			     <td width="200" >date of join<span class="reqMark">*</span></td>
+			     <td><?php  echo $this->form->dateofjoin;?></td>
+			</tr>
+                        <tr>
+                             <td >Last Name<span class="reqMark">*</span></td>
+                             <td><?php  echo $this->form->userlast_name;?></td>
+                        </tr>
+                        <tr>
+                             <th>address</th>
+                             <th></th>
+                             <th>Login Details</th>
+                             <th></th>
+                        </tr>
+                        <tr>
+                             <td >line1</td>
+                             <td><?php  echo $this->form->line1;?></td>
+                             <td >login name</td>
+                             <td><?php  echo $this->form->loginname;?></td>
+                        </tr>
+                        <tr>
+                             <td >line2</td>
+                             <td><?php  echo $this->form->line2;?></td>
+                             <td >password</td>
+                             <td><?php  echo $this->form->password;?></td>
+                        </tr>
+                        <tr>
+                             <td >line3</td>
+                             <td><?php  echo $this->form->line3;?></td>
+                             <td >confirm password</td>
+                             <td><?php  echo $this->form->confirmpassword;?></td>
+                        </tr>
+                        <tr>
+                             <td >City<span class="reqMark">*</span></td>
+                             <td><?php  echo $this->form->city;?></td>
+                             <td >designation</td>
+                             <td><?php  echo $this->form->designation;?></td>
+                        </tr>
+                        <tr>
+                             <td >state<span class="reqMark">*</span></td>
+                             <td><?php  echo $this->form->state;?></td>
+                             <td >E mail</td>
+                             <td><?php  echo $this->form->Email;?></td>
+                        <tr>
+                             <td >country<span class="reqMark">*</span></td>
+                             <td><?php  echo $this->form->country;?></td>
+                             <td >Personnal Id</td>
+                             <td><?php  echo $this->form->personnelid;?></td>
+                        </tr>
+                        <tr>
+                             <td>pincode<span class="reqMark">*</span></td>
+                             <td><?php  echo $this->form->pincode;?></td>
+                             <td></td>
+                             <td></td>
+                        </tr>
+                        <tr>
+                             <td>telephone number<span class="reqMark">*</span></td>
+                             <td><?php  echo $this->form->telephonenumber;?></td>
+                             <td></td>
+                             <td></td>
+                        </tr>
+                             <th>Granted As</th>
+                             <th></th>
+                             <th></th>
+                             <th></th>
+                        <tr>
+                             <td>Grants<span class="reqMark">*</span></td>
+                             <td><?php echo $this->form->grant_id;?> </td>
+                             <td></td>
+                             <td></td>
+                        </tr>
+                        <tr>
+                             <td><?echo $this->form->Submit;?></td>
+                             <td><a href=/ourbank/public/management/user/index>
+                             <input name="submit" type="submit" class="officebutton" value="cancel"></a></td>
+                             <td></td>
+                             <td></td>
+                        </tr>
+                   </table>
+              </form>
+          </div>
+     </div>
+   </legend>
+</fieldset>

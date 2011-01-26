@@ -1,0 +1,289 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+?>
+
+<?php
+class Account_Model_Accounts extends Zend_Db_Table {
+    protected $_name = 'ob_accounts';
+
+    public function searchMembercode($membercode) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql="SELECT a.id as id,
+                     a.membercode as code,
+                     a.member_name as Name,
+                     b.name as Office 
+                     from  ob_member a,
+                           ob_bank b
+                     where b.id = a.bank_id AND b.status='1' AND
+                          (a.member_name like '$membercode' '%'  or a.membercode like '$membercode' '%')
+                    UNION
+                    SELECT a.id as id,
+                     a.groupcode as code,
+                     a.group_name as Name,
+                     b.name as Office 
+                     from  ob_group a,
+                           ob_bank b
+                     where b.id = a.bank_id AND b.status='1'AND
+                          (a.group_name like '$membercode' '%'  or a.groupcode like '$membercode' '%')";
+        $result = $this->db->fetchAll($sql,array($membercode));
+        return $result;
+    }
+
+
+
+    public function fetchMemberDetails($memberId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM ob_member A,
+                              ob_bank C
+                         where A.id='$memberId' AND
+                               A.bank_id=C.id AND 
+                               C.status='1'";
+        $result = $this->db->fetchAll($sql,array($memberId));
+        return $result;
+    }
+
+    public function creditlineamount($creditlineId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT SUM(loan_amount) as totalloansamount  FROM ob_loan_accounts A
+                         where A.creditline_id='$creditlineId'";
+        $result = $this->db->fetchAll($sql,array($creditlineId));
+        return $result;
+    }
+
+    public function creditline($creditlineId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM ob_creditline A
+                         where A.id='$creditlineId' AND A.status='1'";
+        $result = $this->db->fetchAll($sql,array($creditlineId));
+        return $result;
+    }
+
+    public function fetchGroupDetails($memberId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM ob_group A,
+                              ob_bank C
+                         where A.id='$memberId' AND
+                               A.bank_id=C.id AND 
+                               C.status='1'";
+        $result = $this->db->fetchAll($sql,array($memberId));
+        return $result;
+    }
+
+    public function fetchloanProducts() {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "select * from ob_activity where status='1'";
+        $result = $this->db->fetchAll($sql,array());
+        return $result;
+    }
+
+    public function accountsSearch($memberId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM ob_accounts A,ob_activity B WHERE A.member_id='$memberId' AND A.activity_id=B.id AND (A.accountstatus_id = '1' OR A.accountstatus_id = '3') AND B.status = '1'";
+        $result = $this->db->fetchAll($sql,array($memberId));
+        return $result;
+    }
+
+    public function loansactivityFetch($activityId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "select * from ob_activity A,ob_sector B where A.id='$activityId' AND A.sector_id = B.id AND A.status = '1' AND B.status = '1'";
+      $result = $this->db->fetchAll($sql,array($activityId));
+      return $result;
+    }
+
+
+    public function fetchcreditline($interestcategory) {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a' => 'ob_creditline'),array('DISTINCT(id)'),array('a.id','a.name','a.portfolio'))
+			->where('a.status = 1')
+			->join(array('H' => 'ob_interest_rates'),'H.creditline_id=a.id',array('H.fee'))
+			->where('H.id = ?',$interestcategory)
+			->where('H.status = 1');
+// die($select->__toString());
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+    }
+
+    public function fetchfeeamount($creditlineId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a' => 'ob_interest_rates'),array('id'))
+			->where('a.creditline_id = ?',$creditlineId)
+			->where('a.status = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+    }
+
+
+    public function groupMembers($memberId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT B.member_name,B.id FROM 
+                        ob_groupmembers A,
+                        ob_member B
+                        WHERE A.id='$memberId' AND
+                              A.member_id=B.id AND A.groupmember_status='3'";
+        $result = $this->db->fetchAll($sql,array($memberId));
+        return $result;
+    }
+
+
+    public function activityname() {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT * FROM ob_activity WHERE status='1'";
+        $result = $this->db->fetchAll($sql,array());
+        return $result;
+    }
+
+    public function interestcategory() {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT DISTINCT(id),name FROM ob_interest_rates WHERE status='1'";
+        $result = $this->db->fetchAll($sql,array());
+        return $result;
+    }
+
+    public function activitydate($activityId) {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a' => 'ob_activity'),array('id'))
+			->where('a.id = ?',$activityId)
+			->where('a.status = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+    }
+
+    public function interestsranges($creditlineId,$interestcategory) {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			->join(array('a' => 'ob_interest_rates'),array('id'))
+			->where('a.creditline_id = ?',$creditlineId)
+			->where('a.id = ?',$interestcategory)
+			->where('a.status = 1');
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+    }
+
+    public function interestFromUrl($amountrange,$creditlineId,$interest_id) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "SELECT rate,ballet,fee FROM  ob_interest_rates
+                                   WHERE start_range <= $amountrange AND
+                                         end_range >= $amountrange AND
+                                         creditline_id = $creditlineId AND
+                                         id = $interest_id AND
+                                         status = '1'";
+        $result = $this->db->fetchAll($sql,array($amountrange,$creditlineId));
+        return $result;
+    }
+
+
+    public function fetchbranchid($memberId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "select * from  ob_member  where id =? " ;
+        $result = $this->db->fetchAll($sql,array($memberId));
+        return $result;
+    }
+
+    public function fetchgroupbranchid($memberId) {
+        $this->db = Zend_Db_Table::getDefaultAdapter();
+        $this->db->setFetchMode(Zend_Db::FETCH_OBJ);
+        $sql = "select * from  ob_group  where id =? " ;
+        $result = $this->db->fetchAll($sql,array($memberId));
+        return $result;
+    }
+
+     public function insertAccounts() {
+            $data = array('account_id'=> '');
+            $this->insert($data);
+
+     }
+
+    public function UpDateAccounts($account_id,$accountNumber,$memberId,$activityId,$IndividualNumber,$creditline_id,$date,$userId) {
+        $data = array('account_number' =>$accountNumber,
+                      'member_id' => $memberId,
+                      'activity_id' => $activityId,
+                      'creditline_id' => $creditline_id,
+                      'membertype_id' => $IndividualNumber,
+                      'created_date' => $date,
+                      'created_by' => $userId,
+                      'accountstatus_id'=>'3');
+        $where = 'account_id = '.$account_id;
+        $this->update($data , $where );
+	}
+
+      public function Addloanaccounts($account_id,$loanAccountdate,$amount,$creditline_id,$interest,$installments,$date,$ballet,$feeamount,$userId) {
+	   $this->db = Zend_Db_Table::getDefaultAdapter();
+           $data = array('loanaccount_id' => '',
+                      'account_id' => $account_id,
+                      'loanstatus_id' => '3',
+                      'creditline_id' => $creditline_id,
+                      'loansanctioned_date' => $loanAccountdate,
+                      'loan_amount' => $amount,
+                      'loan_installments' => $installments,
+                      'loan_interest'=> $interest,
+                      'billet'=> $ballet,
+                      'fee' => $feeamount,
+                      'interest_type' => '',
+                      'created_date' => $date,
+                      'created_by' => $userId,
+                      'recordstatus_id' => '3');
+	   $this->db->insert('ob_loan_accounts',$data);
+	}
+
+        public function Addgroupmembers($member,$account_id,$activityId,$userId,$date) {
+	    $this->db = Zend_Db_Table::getDefaultAdapter();
+            foreach($member as $member) {
+                $data = array('groupmemberaccount_id' => '',
+                          'groupaccount_id' => $account_id,
+                          'groupmember_id' => $member,
+                          'activity_id' => $activityId,
+                          'groupmember_account_status' => 3,
+                          'groupcreateddate' => $date,
+                          'groupcreatedby'=> $userId);
+                $this->db->insert('ob_groupmembers_accounts',$data);
+            }
+        }
+
+// 	public function membersupdate($memberId,$input = array()) {
+// 		$this->db = Zend_Db_Table::getDefaultAdapter();
+// 		$where[] = "member_id = '".$memberId."'";
+// 		$where[] = "recordstatus_id = '1' OR recordstatus_id = '3'";
+// 		$result = $this->db->update('ob_member_details',$input,$where);
+// 	}
+// 
+// 	public function groupmembersupdate($memberId,$input = array(),$member) {
+// 		$this->db = Zend_Db_Table::getDefaultAdapter();
+// 		$where[] = "group_id = '".$memberId."'";
+// 		$where[] = "member_id = '".$member."'";
+// 		$result = $this->db->update('ob_groupmembers',$input,$where);
+// 	}
+
+}

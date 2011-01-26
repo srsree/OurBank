@@ -1,0 +1,73 @@
+<?php
+if(!$this->loanrepaylist) { ?>   
+<form action="<?php echo $this->baseUrl();?>/reports/loanpayments/index" method="POST">  
+
+<fieldset>
+<legend>Loan details</legend>
+
+<TABLE width="100%">
+			
+
+<tr>
+<td class="label">Begin Date</td>
+<td><?php  echo $this->form->field2;?></td>
+<Td class="label">Account Number:</td>
+<td><?php  echo $this->form->field4;?></td>
+</tr>
+<tr>
+					
+<td class="label">Close Date</td>
+<td><?php  echo $this->form->field3;?></td>
+
+</tr>
+<tr>
+<td colspan="4" align="center"><? echo $this->form->Search;?></td>
+
+</tr>
+</form>
+</TABLE>
+		
+</fieldset> 
+<?php } ?>
+<?php if($this->loanrepaylist) { ?>  
+<fieldset>
+<legend>transactionDetails</legend>
+<div class="cont-rgt-data">
+<TABLE id="hor-minimalist-b" width="80%">
+<tr class="tdbrownheading">
+
+<th>Created Date</th>
+<th>account number</th>
+<th>credit</th>
+<th>debit</th>
+<?php $totalAmount = 0; ?>
+<?php $tlAmount = 0; ?>
+
+</tr>
+<?php foreach($this->loanrepaylist as $loan) : ?>
+<td width = "150"><?php echo $loan->createddate;?></td></td>
+<td width = "150"><?php echo $loan["account_number"];?></td></td>
+<td width = "150"><?php echo $loan["amount_from_bank"];?></td></td>
+<td width = "150"><?php echo $loan["amount_to_bank"];?></td></td>
+
+<?php $totalAmount = $totalAmount + $loan["amount_from_bank"]; ?>
+<?php $tlAmount = $tlAmount + $loan["amount_to_bank"]; ?>
+
+
+<tr class="tdbrown">
+
+</tr>
+
+<?php endforeach; ?>
+<TH></TH>
+<TH>TOTAL</TH>
+<TH><?php echo $totalAmount?></TH>
+<TH><?php echo $tlAmount?></TH>
+
+</TABLE>
+                
+</div>
+</fieldset>
+<br>
+<?}?>
+

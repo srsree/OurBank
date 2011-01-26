@@ -1,0 +1,21 @@
+<div id = "searchDiv">
+ <fieldset>
+    <legend><?php echo $this->translate('New activity'); ?></legend>
+               <form action="<?php echo $this->baseUrl();?>/sectors/index/sectorsadd" method="POST"  name= "myform">
+					<table class="fieldsets"> 
+							<?php echo $this->form;?>
+					</table>
+	
+					<div class="btnhouse">
+							<div class="ltbtns">
+								<input type = "Submit" name = "Submit" id="Submit" value = "Submit"/>
+							</div>
+							<div class="rtbtns">
+									<a href="<?php echo $this->baseUrl(); ?>/sectors/index"><input type = "Button" name = "Back" id="Back" value = "Back"/></a>
+							</div>
+					</div>
+				</form>
+	</fieldset>
+</div>
+			
+                       

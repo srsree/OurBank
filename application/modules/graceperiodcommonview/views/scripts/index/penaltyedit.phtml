@@ -1,0 +1,64 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+
+
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Penalty EDIT</legend>
+	<form action="<?php echo $this->baseUrl();?>/penalty/index/penaltyedit/penalty_id/<?php echo $this->penalty_id;?>/creditline_id/<?php echo $this->creditline_id;?>" method="POST">
+		<table style="float:left">
+			<tr>
+				<td colspan="5" class="td_border">Penalty</td>
+			</tr>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->penaltyname;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Per Month<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->penalty_per_month;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			
+				<TD class="label" align="right" width="40%">Unit / Month<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->unit_per_month;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Penalty Per Day<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->penalty_per_day;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			
+				<TD class="label" align="right" width="40%">Unit / Day<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->unit_per_day;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%">Credit Line Name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->creditlinename;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%">Active<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->penaltyform->status;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR> 
+			<TR >
+				<TD class="label" align="right" width="40%"></TD>
+				<TD ><?php echo $this->penaltyform->Submit;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+		</table>
+	</form>
+</fieldset>

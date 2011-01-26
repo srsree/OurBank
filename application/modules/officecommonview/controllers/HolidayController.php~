@@ -1,0 +1,274 @@
+<?php
+class Management_HolidayController extends Zend_Controller_Action{
+
+    public function init() {
+	$this->view->pageTitle='Holiday';
+	$sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+    }
+
+    public function indexAction() {
+        $this->view->title = "Holiday";
+
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $holiday= new Management_Model_Holiday();
+        $result = $holiday->getHoliday();
+        $this->view->changelog = $holiday->getChangelog();
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+		
+	$model = new Management_Model_Office();
+        $office_id1 = $model->getOffice();
+        foreach($office_id1 as $office_id) {
+		$searchForm->field1->addMultiOption($office_id['office_id'], 
+		$office_id['office_name']); }
+		
+		if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+		    $formData = $this->_request->getPost();
+		    if ($this->_request->isPost()) {
+		        $formData = $this->_request->getPost();
+		        if ($searchForm->isValid($formData)) {
+				    $holiday = new Management_Model_Holiday();
+					$result = $holiday->SearchHoliday($searchForm->getValues());
+
+					$page = $this->_getParam('page',1);
+		            $paginator = Zend_Paginator::factory($result);
+		            $paginator->setItemCountPerPage(5);
+		            $paginator->setCurrentPageNumber($page);
+		            $this->view->paginator = $paginator;
+		
+		}
+}
+}
+}
+    public function holidayviewAction() {
+        $this->view->title = "View Holiday";
+        $holidayupdate_id = (int)$this->_getParam('id');
+        $posts = new Management_Model_Holiday();
+        $result = $posts->viewholiday($holidayupdate_id);
+        $this->view->holiday = $result;
+    }
+
+    public function holidayaddAction() {
+        $this->view->title = "New Holiday";
+        $holidayForm = new Management_Form_Holiday();
+        $this->view->form = $holidayForm;
+
+        $model = new Management_Model_Office();
+        $office_id1 = $model->getOffice();
+        foreach($office_id1 as $office_id) {
+                $holidayForm->office_id->addMultiOption($office_id['office_id'], 
+                                                     $office_id['office_name']);
+        }
+
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+ //$uptodate=$this->_getParam('holidayupto');echo "<h1>".$uptodate."</h1>";
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                
+                if ($holidayForm->isValid($formData)) {            
+// 				 echo "<pre>".print_r($formData)."</pre>";
+
+				$holiday = new Management_Model_Holiday();
+				$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+				$data['holiday_id']='';
+				$dbAdapter->insert('ourbank_holiday', $data);
+				$holiday_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_holiday','holiday_id');
+                    				
+				
+				$createdby = $this->view->createdby;
+                                $today=date('Y-m-d');
+			        $fromdate=$this->_getParam('holidayfrom'); 
+                                $uptodate=$this->_getParam('holidayupto');
+
+                                $repaydate=$this->_getParam('repayment_date');  
+                                      if($fromdate < $today){
+                                                $this->view->from="From Date <b>".$fromdate."</b> <br> Should Come AFTER Today's Date <b>".$today."</b>";
+                                                }
+                                      elseif($uptodate < $today){
+                                                $this->view->to="Upto Date <b>".$uptodate."</b>  <br> Should Come AFTER FROM Date <b>".$today."</b>";
+                                                }
+                                      elseif($fromdate > $uptodate){ 
+                                                $this->view->to="From Date <b>".$fromdate."</b><br>   Should Come BEFORE Upto Date <b>".$uptodate."</b>";
+                                                }
+                                      elseif($uptodate>$repaydate){
+                                                $this->view->repay="Repayment Date <b>".$repaydate."</b><br>   Should Come AFTER Upto Date <b>".$uptodate."</b>";
+                                                }
+                                      else{
+				                $model = new Management_Model_Holiday();
+				                $model->insertHoliday($holidayForm->getValues(),$createdby,$holiday_id);
+                                                $this->_redirect('management/holiday');
+                                          }
+                                
+            }
+        }
+            $this->view->form = $holidayForm;
+    }
+
+}
+    public function holidayeditAction() {
+        $this->view->title = "Edit Holiday";
+        $holidayupdate_id = (int)$this->_getParam('id');
+        $msg=$this->_request->getParam('msg');echo $msg;
+        $holidayForm = new Management_Form_Holiday();
+        $this->view->form = $holidayForm;
+	$createdby = $this->view->createdby;
+	
+	$model = new Management_Model_Office();
+        $office_id1 = $model->getOffice();
+        foreach($office_id1 as $office_id) {
+		$holidayForm->office_id->addMultiOption($office_id['office_id'], 
+		$office_id['office_name']);
+		}
+		$posts = new Management_Model_Holiday();
+        $result = $posts->viewholiday($holidayupdate_id);
+        
+		foreach($result as $holiday) {
+		$hid=$this->view->form->holidayupdate_id->setValue($holiday['holidayupdate_id']);
+		$hn=$this->view->form->holidayname->setValue($holiday['holidayname']);
+		$ii=$this->view->form->office_id->setValue($holiday['office_id']);
+		$f=$this->view->form->holidayfrom->setValue($holiday['holidayfrom']);
+		$t=$this->view->form->holidayupto->setValue($holiday['holidayupto']);
+		$r=$this->view->form->repayment_date->setValue($holiday['repayment_date']);
+		}
+//$r=$this->view->form->msg->setValue($msg);
+		$holidayForm->holidayname->removeValidator('Db_NoRecordExists');
+                
+                if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+$hUpdateId =$this->_request->getParam('holidayupdate_id');
+
+//=======================================
+                                $today=date('Y-m-d');
+			        $fromdate=$this->_request->getParam('holidayfrom');
+                                $uptodate=$this->_request->getParam('holidayupto');
+
+                                $repaydate=$this->_request->getParam('repayment_date');
+                                      if($fromdate < $today){
+                                                $this->view->from1="From Date <b>".$fromdate."</b> <br> Should Come AFTER Today's Date <b>".$today."</b>";
+                                                }
+                                      elseif($uptodate < $today){
+                                                $this->view->to1="Upto Date <b>".$uptodate."</b>  <br> Should Come AFTER FROM Date <b>".$today."</b>";
+                                                }
+                                      elseif($fromdate > $uptodate){ 
+                                                $this->view->to1="From Date <b>".$fromdate."</b><br>   Should Come BEFORE Upto Date <b>".$uptodate."</b>";
+                                                }
+                                      elseif($uptodate>$repaydate){
+                                                $this->view->repay1="Repayment Date <b>".$repaydate."</b><br>   Should Come AFTER Upto Date <b>".$uptodate."</b>";
+                                                }
+                                      else{
+				                
+//=======================================
+
+
+                    $hUpdateId =$this->_request->getParam('holidayupdate_id');
+                    $hName=$this->_request->getParam('holidayname');
+                    $hFromOld=$this->_request->getParam('office_id');
+                    $hFrom=$this->_request->getParam('holidayfrom');
+                    $hUpto=$this->_request->getParam('holidayupto');
+                    $hRepaymentId=$this->_request->getParam('repayment_date');
+
+                    $holidaySelect = $posts->editHoliday($hUpdateId);
+                    foreach ($holidaySelect as $holiday) {
+                        $hNameOld = $holiday["holidayname"];
+                        $hId = $holiday["holiday_id"];
+                        $oIdOld = $holiday["office_id"];
+                        $hFromOld= $holiday["holidayfrom"];
+                        $hUptoOld = $holiday["holidayupto"];
+                        $hRepaymentIdOld= $holiday["repayment_date"];  
+                    }
+                    $previous =  array('holidayname' =>$hNameOld,
+                                        'office_id' =>$oIdOld,
+                                        'holidayfrom' =>$hFromOld,
+                                        'holidayupto' =>$hUptoOld,
+                                        'repayment_date' =>$hRepaymentIdOld);
+
+                    $current =  array('holidayname' =>$hName,
+                                      'office_id' =>$oIdOld,
+                                      'holidayfrom' =>$hFrom,
+                                      'holidayupto' =>$hUpto,
+                                      'repayment_date' =>$hRepaymentId);
+                    $match = array(); // To check for the changa in values
+                    foreach ($previous as $key=>$val) {
+                        if ($val != $current[$key]) {
+                        $match[] = $key;
+                        }
+                    }
+                    if (count($match) <= 0) {
+                        echo "<B style='color:red'>values in the form are not changed</B>";
+                    }   else {
+
+                    $posts->insertUpdates($previous,$current,$hId,$createdby);
+                    $date=date("y/m/d H:i:s");
+
+                    $data = array('recordstatus_id' => 2);
+                    $posts->holidayUpdate($hUpdateId,$data);
+
+                    $hAuto = $posts->insertHoliday1(array('holiday_id' => $hId,
+                                                            'holidayname' => $hName,
+                                                            'office_id' => $oIdOld,
+                                                            'holidayfrom' => $hFrom,
+                                                            'holidayupto' => $hUpto,
+                                                            'repayment_date' => $hRepaymentId,
+                                                            'recordstatus_id'=> 3,
+                                                            'createddate' => $date,
+                                                            'createdby' => $createdby));
+
+                    $this->_redirect('management/holiday');
+               }
+        }
+//  $this->_redirect('management/holiday/holidayedit/id/'.$hUpdateId.'/msg/'.$msg);
+        //$this->view->form = $holidayForm;
+$posts = new Management_Model_Holiday();
+        $result = $posts->viewholiday($holidayupdate_id);
+$holidayForm->setDefaults($result[0]);
+}
+               
+         $this->view->form->Submit->setName('Update');	
+        
+    }
+   
+    public function holidaydeleteAction() {
+	$this->view->title = "Delete Holiday";
+	
+	$holidayupdate_id = (int)$this->_getParam('id');
+	
+	$this->view->holidayupdate_id = $holidayupdate_id;
+
+	$posts = new Management_Model_Holiday();
+	$result = $posts->viewholiday($holidayupdate_id);
+	$this->view->holiday = $result;
+	foreach($this->view->holiday as $holiday){
+	$this->view->recordstatus_id = $holiday['recordstatus_id'];
+	}
+
+	$deleteform = new Management_Form_Delete();
+	$this->view->deleteform = $deleteform;
+
+	if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+	$formData = $this->_request->getPost();
+	if ($deleteform->isValid($formData)) {
+	
+	$holiday = new Management_Model_Holiday();
+	$result = $holiday->viewholiday($holidayupdate_id);
+	$this->view->holiday = $result;
+
+	$remarks = $deleteform->getvalue('remarks');
+	$holidayupdate_id  = (int)$this->_getParam('id');
+	
+	$holiday = new Management_Model_Holiday();
+	$holiday->deleteHoliday($holidayupdate_id,$remarks);
+	$this->_redirect('management/holiday');
+
+	
+	}
+	}
+
+    }
+}

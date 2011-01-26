@@ -1,0 +1,116 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<?php if ($this->result && $this->accountBalanc ) { ?>
+
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b">
+
+                    <TR bgcolor="Gray">
+                            <?php if ($this->officeName) { ?>
+                            <TD><B><font color="black"><?php echo $this->translate('Branch Name'); ?></font></B></TD>
+                            <TD><B><font color="#039"><?php echo $this->officeName; ?></font></B></TD>
+
+                            <?php } ?>
+                    </TR>
+            </table><BR>
+            <table id="hor-minimalist-b">
+                    <TR bgcolor="Silver">
+			    <TD ><font color="black"><?php echo $this->translate('Type of savings'); ?></font></TD>
+			    <TD align="center" ><font color="black"><?php echo $this->translate('Number of accounts'); ?></font></TD>
+			    <TD  align="right"><font color="black"><?php echo $this->translate('Total Savings Amount'); ?></font></TD>
+                    </TR>
+                    <?php foreach($this->result as $savingsdetails){  ?>
+                     
+                    <TR>
+                                <TD><?php echo $savingsdetails['prodoffername'];?></TD>
+			    	<TD  align="center"><?php echo $savingsdetails['countvalue'];?></TD>
+
+                                <?php  foreach($this->accountBalanc as $balance1){
+                                            
+                              if($savingsdetails["id"] == $balance1["offerprodid"]) {?>
+
+                                    <?php if($balance1["transactiontype_id"] == 1) {
+                                    
+                                    
+                                        $this->depositAmount = $this->depositAmount + $balance1["amount_to_bank"];
+                                        $this->deposit = $this->deposit + $balance1["amount_to_bank"];
+
+                                        } if($balance1["transactiontype_id"] == 2) {
+                                    
+                                        $this->withdrawlAmount = $this->withdrawlAmount + $balance1["amount_from_bank"];
+                                        $this->withdrawl = $this->withdrawl + $balance1["amount_from_bank"];
+                                        }
+        
+                                        $this->totalamount = $this->depositAmount - $this->withdrawlAmount;
+                                        
+                                        $this->sum = $this->deposit - $this->withdrawl;
+        
+                                    } 
+                                    
+                                } if($this->totalamount) { ?>
+                                
+		                <td align="right"><?php echo sprintf("%4.2f", $this->totalamount);
+                                               $this->totalamount =0; 
+                                               $this->withdrawlAmount =0;  
+                                               $this->depositAmount =0; ?></td>
+                                <? } else {?>
+                                <td></td>
+                                <? }?>
+                    </TR>
+                 <?php } ?>
+	    </table>
+            <table align = "right" >
+		     <TR>
+                        <TH></TH>
+                        <TH></TH>
+			<Th align="left"><b>Total :</b></Th>
+			<th align="right"><font color="#039"><b><?php  echo sprintf("%4.2f", $this->sum);?></b></font></TH>
+                        
+                        
+			
+		   </TR>
+             </table>
+        </div>
+<form action="<?php echo $this->baseUrl();?>/depositsummary/index/pdftransaction/field1/<?php echo $this->office_id;?>" method="POST"
+onClick="window.open('<?php echo $this->baseUrl(); ?>/depositsummary/index/reportdisplay/file/savingsummaryreport.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+           <input type="submit" value="PDF" id="submit">
+</form>
+
+
+<?php } ?>
+

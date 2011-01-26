@@ -1,0 +1,21 @@
+<form action="<?php echo $this->baseUrl();?>/userdetails/index/delete/id/<?php echo $this->user_id; ?>/modId/<?php echo $this->mod_id; ?>/subId/<?php echo $this->sub_id; ?>" method="POST">
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>User Details</legend>
+		<table id="hor-minimalist-b">
+                        <?php foreach($this->user as $funder_view){?>
+                          <tr><th>User Information</th><th></th><th></th><th></th></tr>
+                          
+                        <tr><td>user Name:</td><td><?php echo $funder_view['firstname']; ?></td><td></td><td></td></tr>
+                  
+                                                <?php } ?>
+
+			<tr><td><font color="red">Do you want to delete</font><?php echo $this->delete; ?></td><td></td><td></td></tr> 
+			<tr><td></td><td><a href="<?php echo $this->baseUrl();?>/user/index/edituserdetail/id/<?php echo $this->funderid ?>"><input type="button" name="no" value="No"></a></tr>
+			
+		</table>
+</fieldset>
+</div>
+</div>
+</form>

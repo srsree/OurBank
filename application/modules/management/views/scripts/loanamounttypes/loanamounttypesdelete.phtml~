@@ -1,0 +1,66 @@
+<fieldset>	
+	<legend>view Loan amounts Details</legend>
+	<div class="cont-rgt-data">
+		<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<tr>
+				<Th>loanamount type</Th>
+				<TH></TH>
+				<TH></TH>
+				<TH></TH>
+			</tr> 
+			<tr>
+				<td>loanamount type</TD>
+				<td><?php echo $this->loanamounttypename ;?></TD>
+				<TD></TD>
+				<TD></TD>
+			</tr>
+		</table>
+		<table width="100%" id="hor-minimalist-b">
+			<tr>
+				<th width="15%">Amount From R$</th>
+				<th width="10%">Amount To R$</h>
+				<th width="10%">Rate %</Th>
+			</tr>
+			<?php foreach($this->loanamounttypes as $loanamounttypes) { ?>
+				<tr>
+					<td>R$. <?php echo $loanamounttypes['loan_amount_from'];?></TD>
+					<td>R$. <?php echo $loanamounttypes['loan_amount_to'];?></TD>
+					<td><?php echo $loanamounttypes['interest_rate'];?></TD>
+				</tr>
+			<?php } ?>
+		</table>
+	</div>
+</fieldset>
+
+<?php if($this->loanamounttypesstatus==1) { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+		<Th align="center"><p><B style="color:red">No you cannot delete since </b>&nbsp;&nbsp;<B style="color:red">'<?php echo $this->loanamounttypename;?>' is in use</b></Th>
+    </tr>
+</table>
+<?php } else { ?>
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+	<tr>
+		<th><B style="color:red">Are you sure you want to delete loanamount type</b>&nbsp;&nbsp;<B style="color:red">"<?php echo $this->loanamounttypename;?>" ?*</b></th>
+	<tr>
+</table>
+<fieldset>
+	<legend>Delete</legend>
+			<div class="cont-rgt-data">
+				<form action="<?php echo $this->baseUrl();?>/management/loanamounttypes/loanamounttypesdelete/loanamount_type_id/<?php echo $this->loanamount_type_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+					<TR>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
+						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+					</TR>
+					<TR>
+						<TD width="35%" align="right"><?php echo $this->deleteform->Yes;?></td>
+						<TD width="65%"><a href="<?php echo $this->baseUrl();?>/management/loanamounttypes/">
+						<input name="submit" type="submit"  value="No" ></a></TD>
+					</TR>
+				</table>
+				</form>
+			</div>
+		</div>
+</fieldset>
+<?php } ?>

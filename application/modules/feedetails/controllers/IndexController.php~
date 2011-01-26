@@ -1,0 +1,64 @@
+<?php
+class Feedetails_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle="Fee";
+        $sessionName = new Zend_Session_Namespace('ourbank');
+       $userid=$this->view->createdby = $sessionName->primaryuserid;
+	$login=new App_Model_Users();
+	$loginname=$login->username($userid);
+	foreach($loginname as $loginname) {
+		$this->view->username=$loginname['username'];
+	}
+}
+ public function indexAction() {
+
+    }
+
+    public function editfeedetailAction() {
+$addForm = new Commonviewfee_Form_Feedetails();
+                        $this->view->form=$addForm;
+$appliesTo = new Feecommon_Model_Feecommon();
+        $appliesTo = $appliesTo->getAppliesTo();
+        foreach($appliesTo as $appliesTo) {
+                $addForm->membertype->addMultiOption($appliesTo['membertype_id'],$appliesTo['membertype']);
+				}
+$fee_id=$this->_getParam('id');
+	    $this->view->fee_id=$fee_id;
+                        $feedetail= new Feedetails_Model_Feedetail();
+                        $edit_fee=$feedetail->editfeedetails($fee_id);
+                        foreach($edit_fee as $edit_fee)
+{   
+                            $this->view->form->feename->setValue($edit_fee['feename']);
+                            $this->view->form->feeamount->setValue($edit_fee['feevalue']);
+                            $this->view->form->feedescription->setValue($edit_fee['feedescription']);
+                            $this->view->form->membertype->setValue($edit_fee['feeappliesto_id']);
+
+                        }
+if ($this->_request->isPost() && $this->_request->getPost('Update')) 
+          { 
+		$fee_id= $this->_request->getParam('id');
+		$feename = $this->_request->getParam('feename');
+		$feevalue = $this->_request->getParam('feeamount');
+		$feedescription = $this->_request->getParam('feedescription');
+		$memberid = $this->_request->getParam('membertype');
+
+		$feedetail= new Feedetails_Model_Feedetail();
+
+	    $data = array('recordstatus_id' => 2);
+            $feedetail->feeEdit($fee_id,$data);
+
+            $fInsert = $feedetail->addFeename(array('feedetails_id' => '',
+                                                      'fee_id'=> $fee_id,
+                                                      'feename' =>$feename,
+                                                      'feedescription' => $feedescription,
+                                                      'feevalue' => $feevalue,
+                                                      'feeappliesto_id' => $memberid,
+							'recordstatus_id' => 3));
+            $this->_redirect('/fee');
+
+    }
+
+    }
+
+}

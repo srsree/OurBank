@@ -1,0 +1,132 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+                <TR>
+                    <TH width=200%>Summary  Information of MFI's</TH> 
+                    <th></th><th></th>
+                </TR>
+                 <?php foreach($this->savings as $savings1){?>
+                    <TR>
+                        <td>Number of Branch Offices</td>
+                        <TD><?php echo $savings1['COUNT(office_name)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->savings1 as $allmembers){?>
+                    <TR>
+                        <td>Number of Members</td>
+                        <TD><?php echo $allmembers['COUNT(member_id)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->activeMembers as $activemember){?>
+                    <TR>
+                        <td>Number of Active Members</td>
+                        <TD><?php echo $activemember['COUNT(member_id)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->inactiveMembers as $inactivemember){?>
+                    <TR>
+                        <td>Number of Inactive Members</td>
+                        <TD><?php echo $inactivemember['COUNT(member_id)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                <?php foreach($this->savingAccounts as $savingaccounts){?>
+                    <TR>
+                        <td>Number of Saving Accounts</td>
+                        <TD><?php echo $savingaccounts['COUNT(productname)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                 <?php foreach($this->totalSavings as $totalsavings){?>
+                    <TR>
+                        <td>Total Figure of Savings Amount</td>
+                        <TD>Rs<?php echo $totalsavings['SUM(savings_amount)']?>/-</TD>   
+                   </tr>
+                  <?php } ?>
+                 <?php foreach($this->loanAccounts as $loanaccounts){?>
+                    <TR>
+                        <td>Number of Loan Accounts</td>
+                        <TD><?php echo $loanaccounts['COUNT(productname)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                   <?php foreach($this->totalLoans as $totalloans){?>
+                    <TR>
+                        <td>Total Figure of Loans Amount</td>
+                        <TD>Rs<?php echo $totalloans['SUM(loan_amount)']?>/-</TD>   
+                   </tr>
+                  <?php } ?>
+                   <?php foreach($this->loanDisburse as $loandisburse){?>
+                    <TR>
+                        <td>Total Amount of Loans Disbursed</td>
+                        <TD>Rs<?php echo $loandisburse['SUM(amount_disbursed)']?>/-</TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->loanRepay as $loanrepay){?>
+                    <TR>
+                        <td>Total Amount of Loans Repaid</td>
+                        <TD>Rs<?php echo $loanrepay['SUM(loaninstallmentpaid_amount)']?>/-</TD>   
+                   </tr>
+                   <?php } ?>
+                   <?php while($rateofRepay = mysql_fetch_array($this->sql1)){  ?>
+                        <TR>
+                           <td>The Rate of Loan Repayment</font></td>
+                           <TD><?php echo $rateofRepay['rate'];?>%</TD>
+                       </TR>
+                    <?php } ?>
+                    <?php while($loanDetails1 = mysql_fetch_array($this->sql)){  ?>
+                        <TR>
+                            <td>The Amount of Loan Outstanding Details<font color ="red"> "(LoanDisbursed - LoanRepaid)"</font></td>
+                            <TD>Rs<?php echo $loanDetails1['test'];?>/-</TD>
+                    </TR>
+                    <?php } ?>
+                   <?php while($rateofRepay = mysql_fetch_array($this->sql2)){  ?>
+                        <TR>
+                           <td>The Rate of Loan Outstanding Details</font></td>
+                           <TD><?php echo $rateofRepay['paid'];?>%</TD>
+                       </TR>
+                    <?php } ?>
+                     <?php foreach($this->interestAmount as $interestamount){?>
+                    <TR>
+                        <td>Total Interest collected</td>
+                        <TD>Rs<?php echo $interestamount['SUM(transaction_interest_amount)']?>/-</TD>   
+                   </tr>
+                  <?php } ?>
+                    <?php foreach($this->funders as $Funders){?>
+                    <TR>
+                        <td>Total Number of Funders</td>
+                        <TD><?php echo $Funders['COUNT(DISTINCT(fundername))']?></TD>   
+                   </tr>
+                  <?php } ?>
+                  <?php foreach($this->fundings as $Fundings){?>
+                    <TR>
+                        <td>Total Number of Fundings by Funders</td>
+                        <TD><?php echo $Fundings['COUNT(funding_id)']?></TD>
+                   </tr>
+                   <?php } ?>
+                   <?php foreach($this->totalFundings as $totalfundings){?>
+                    <TR>
+                        <td>Amount of Fundings funded for <font color ="red">"<?php echo $totalfundings['COUNT(funding_id)']?>"</font> are</td>
+                        <TD>Rs<?php echo $totalfundings['SUM(fundingamount)']?>/-</TD>
+                   </tr>
+                  <?php } ?>
+                    
+                 
+              </table>
+	   <?php echo $this->Error;?>
+        </div>

@@ -1,0 +1,112 @@
+<?php
+class Activityaccounts_IndexController extends Zend_Controller_Action
+{
+    public function init()
+    {
+        $this->view->pageTitle =  $this->view->translate("Activity wise accounts");
+        $this->view->title =  $this->view->translate("Activity wise accounts");
+	$this->view->type = "others";
+	 $sessionName = new Zend_Session_Namespace('ourbank');
+        $userid=$this->view->createdby = $sessionName->primaryuserid;
+        $login=new App_Model_Users();
+        $loginname=$login->username($userid);
+        foreach($loginname as $loginname) 
+	{
+          $this->view->username=$loginname['username'];
+        }
+    }
+
+    public function indexAction()
+    {
+        $activityform=new Outstanding_Form_Search();
+        $this->view->form=$activityform;
+	$activity=new Activityaccounts_Model_activityaccounts();
+        $bank_name=$activity->getBankname();
+
+	foreach($bank_name as $bank_name) 
+	{
+	$activityform->bank->addMultiOption($bank_name['Institute_bank_id'],$bank_name['Institute_bank_name']);
+	}
+
+	if ($this->_request->isPost() && $this->_request->getPost('Search')) 
+	{   $formData = $this->_request->getPost();
+	    if($activityform->isValid($formData))
+            { 
+		$this->view->act_id=$activityid=$this->_request->getParam('bank');
+		$this->view->results=$activity->getactivity_accounts($activityid);
+	   }
+    	}
+	}
+
+	public function chartAction()
+	{
+		$activity_id=$this->_request->getParam('act_id');
+		$activity=new Activityaccounts_Model_activityaccounts();
+		$this->view->results=$activity->getactivity_accounts($activity_id);
+	
+	}
+
+	function reportdisplayAction() {
+		$app = $this->view->baseUrl();
+		$word=explode('/',$app);
+		$projname='';
+		for($i=0; $i<count($word); $i++){
+			if($i>0 && $i<(count($word)-1)) { $projname.='/'.$word[$i]; }
+		}
+		$this->_helper->layout->disableLayout();
+		$file1 = $this->_request->getParam('file'); 
+		$this->view->filename = $projname."/reports/".$file1;
+	}
+
+	function pdftransactionAction()
+	{	
+		$pdf = new Zend_Pdf();
+		$page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+		$pdf->pages[] = $page;
+		$baseURl=$this->view->baseUrl();
+		$word=explode('/',$baseURl);
+		$projname='';
+		for($i=0; $i<count($word); $i++){
+			if($i>0 && $i<(count($word)-1)) { $projname.='/'.$word[$i]; }
+		}
+		$image_name = "/var/www".$baseURl."/images/logo.jpg";
+		$image = Zend_Pdf_Image::imageWithPath($image_name);
+		//$page->drawImage($image, 25, 770, 570, 820);
+	
+		$page->drawImage($image, 30, 770, 130, 820);
+		$page->setLineWidth(1)->drawLine(25, 25, 570, 25); //bottom horizontal
+		$page->setLineWidth(1)->drawLine(25, 25, 25, 820); //left vertical
+		$page->setLineWidth(1)->drawLine(570, 25, 570, 820); //right vertical
+		$page->setLineWidth(1)->drawLine(570, 820, 25, 820); //top horizontal
+		//set the font
+		$page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 8);
+                $activity=new Activityaccounts_Model_activityaccounts();
+                $bankid=$this->_request->getParam('bank');
+                $bankname=$activity->getbank($bankid);
+                foreach($bankname as $bankname){$banknameres=$bankname['Institute_bank_name'];}
+ 		$text=array("Activity wise accounts","Activity","Number of Account"); 
+		$x2=150;
+		$x3 = 250;
+		$x4 = 380;
+		$x6 = 450;
+		$y1= 700;
+		$page->drawLine(50, 740, 550, 740);
+	        $page->drawLine(50, 720, 550, 720);
+                $page->drawText("Bank:    ".$banknameres, $x6, 750);
+ 		$page->drawText($text[0], $x3, 760);
+         	$page->drawText($text[1], $x2, 725);
+ 		$page->drawText($text[2], $x4, 725);
+		$this->view->results=$activity->getactivity_accounts($bankid);
+                foreach($this->view->results as $activityresult){ 
+                    $page->drawText($activityresult['activity_name'], $x2, $y1);
+                    $page->drawText($activityresult['COUNT(a.account_id)'], $x4, $y1);
+                    $y1-=15;
+                }	
+		$page->drawLine(50, $y1, 550, $y1);
+		$pdfData = $pdf->render();	
+		$pdf->save('/var/www/'.$projname.'/reports/activityaccounts.pdf');
+		$path = '/var/www/'.$projname.'/reports/activityaccounts.pdf';
+		chmod($path,0777);
+ 		$this->_redirect('/activityaccounts/index/reportdisplay/file/activityaccounts.pdf');	
+	}
+}

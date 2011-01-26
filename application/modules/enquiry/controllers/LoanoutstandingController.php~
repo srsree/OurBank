@@ -1,0 +1,66 @@
+<?php
+
+class Enquiry_LoanoutstandingController extends Zend_Controller_Action
+{
+
+    public function init()
+    {
+       $this->view->pageTitle='Loan Outstanding List';
+    }
+
+    public function indexAction()
+    {
+       $sessionName = new Zend_Session_Namespace('ourbank');
+       $sessionName->primaryuserid;
+       $this->view->title = "Transaction Due Amount";
+
+       $searchForm = new Enquiry_Form_Search();
+       $this->view->form = $searchForm;
+
+       $oName = new Enquiry_Model_LoanoutstandingDetails();
+       $select = $oName->fetchAllOffice();
+       foreach($select as $oName) {
+       $searchForm->field1->addMultiOption($oName->office_id,$oName->office_name);
+                }
+       
+         if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+               $formData = $this->_request->getPost();
+
+            if ($this->_request->isPost()) {
+
+               $fromDate = $this->_request->getParam('field5'); 
+               $toDate = $this->_request->getParam('field6');
+               $brancId = $this->_request->getParam('field1');
+               $formData = $this->_request->getPost();
+         
+               if ($searchForm->isValid($formData)) {
+
+                    $loan = new Enquiry_Model_LoanoutstandingDetails();
+                    $arrayLoan = $loan->loanSearch($fromDate,$toDate,$brancId);
+                      if (!$arrayLoan) {
+                        echo "<font color='RED'>Records Not Found Please Try Again...</font>";	
+                    } else {
+                        $this->view->loanView = $arrayLoan;
+                        foreach ($this->view->loanView as $arrayLoan) {
+                        	        
+                        	        $this->view->memberfirstname=$arrayLoan->memberfirstname;
+					$this->view->account_number=$arrayLoan->account_number;
+					$this->view->address = $arrayLoan->memberaddressline1;
+					//.$arrayLoan->memberaddressline2.$arrayLoan->memberaddressline3
+					$this->view->loan_amount = $arrayLoan->loan_amount;
+					$loan_amount = $arrayLoan->loan_amount;
+ 					if($arrayLoan->installment_status == 2) {
+                                               $amountPaid =0;
+					       $amountPaid = $amountPaid+$arrayLoan->accountinstallment_amount ;
+					       $this->view->amountPaid = $amountPaid;
+                                        } 
+					 
+				}
+			$this->view->balance = $loan_amount - $amountPaid;
+          }
+        }
+      }
+    }
+  }
+}
+

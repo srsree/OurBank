@@ -1,0 +1,15 @@
+<?php
+class Photo_IndexController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Add Photograph';
+    }
+
+    public function indexAction() {
+        $photo=new Photo_Form_photo();
+        $this->view->form=$photo;
+    }
+
+
+
+}

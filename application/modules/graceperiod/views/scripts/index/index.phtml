@@ -1,0 +1,84 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/graceperiod/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Grace Period Name:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Days:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                               <!-- <tr>
+                                    <td class="label">Creditline From:</td>
+                                    <td ><?/* echo $this->form->field3;*/?></td>
+                                    <td class="label">Creditline To:</td>
+                                    <td ><?/* echo $this->form->field4;*/?></td>
+                                </tr>-->
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+
+
+<fieldset>
+	<legend>Grace Period</legend>
+	<table id="hor-minimalist-b" summary="">
+    	<tr class="tdbrownheading">
+        <th>Grace Period Name</th>
+        <th>No of Days</th>
+	<th>Credit Line Name</th>
+	
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $graceperiod ): ?>
+    <tr>
+     
+    <td><a href="<?php echo $this->baseUrl()."/graceperiodcommonview/index/index/graceperiod_id/".$graceperiod['graceperiod_id']; ?>"><?php echo $this->escape($graceperiod['graceperiod_name']);?></a></td>
+     <td><?php echo $this->escape($graceperiod['graceperiod_days']); ?></td>
+    
+    <td><?php echo $this->escape($graceperiod['creditline_name']);?></td>
+        <?php endforeach; ?>
+        <?php endif; ?>
+
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+</tr>
+</table>
+<br>
+    <table>
+        <TR>        
+                   <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/graceperiod/index/graceperiodadd">
+        <input name="submit" type="submit" class="NormalBtn" value="New Graceperiod"></a></td>
+        </TR>
+    </table>
+</fieldset>

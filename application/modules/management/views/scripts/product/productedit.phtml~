@@ -1,0 +1,66 @@
+<fieldset>
+   <legend>Edit Product</legend> 
+            <table id="hor-minimalist-b"> 
+                <?php echo $this->form;?>
+            </table>
+</fieldset>
+<div>
+   <?php  foreach($this->bankdetails as $bank_name) {
+                                echo $bank_name['bankname']."<br>";
+                        } ?>
+</div>
+<!--<fieldset>
+<legend>Edit Sectors</legend>
+            <table id="hor-minimalist-b">
+                <TR>
+                    <TH>Sectors Details</TH>
+                    <TH></TH>
+                    <TH></TH>
+                    <TH></TH>
+                 </TR>
+                <TR>
+                    <TD><?php echo $this->form->category_id;?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD><?php echo $this->form->productname;?></TD>
+                </TR>
+                <TR>
+                    <TD><?php echo $this->form->productshortname;?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+                  <TR>
+                    <TD><?php echo $this->form->product_description;?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+
+
+               <TR>
+                    <TD><?php echo $this->form->bank_id;?>present Bank:</TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+               <tr>
+                     <TD>Present Name</TD>
+                   
+                    <TD><?php  foreach($this->bankdetails as $bank_name) {
+                                echo $bank_name['bankname']."<br>";
+                        } ?>  </TD>
+               </tr>
+              <TR>
+                    <TD><?php echo $this->form->Submit;?></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+	   </table>
+			
+</fieldset>-->
+
+
+
+
+

@@ -1,0 +1,75 @@
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <script type="text/javascript">
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();
+        var raw_data = [['16-25',<?php echo $this->age_ratio1[0]['membercount']; ?>],
+                        ['26-35',<?php echo $this->age_ratio2[0]['membercount']; ?>],
+                        ['36-45',<?php echo $this->age_ratio3[0]['membercount']; ?>],
+                        ['46-60',<?php echo $this->age_ratio4[0]['membercount']; ?>],
+                        ['60 above',<?php echo $this->age_ratio5[0]['membercount']; ?>]];
+        
+        var years = ['16-25 yrs','26-35 yrs','36-45 yrs','46-60 yrs','60 yrs'];
+	
+        data.addColumn('string', 'Year');
+        for (var i = 0; i  < raw_data.length; ++i) {
+          data.addColumn('number', raw_data[i][0]);
+        }
+
+        data.addRows(years.length);
+        for (var j = 0; j < years.length; ++j) { 
+        data.setValue(j, 0, years[j].toString()); 
+        }
+
+    	data.setValue(0,1,raw_data[0][1]);
+	data.setValue(1,2,raw_data[1][1]);
+	data.setValue(2,3,raw_data[2][1]);
+	data.setValue(3,4,raw_data[3][1]);
+	data.setValue(4,5,raw_data[4][1]);
+	
+
+        // Create and draw the visualization.
+        new google.visualization.ColumnChart(document.getElementById('visualization')).
+            draw(data,
+                 {title:"Age wise chart",
+                  width:600, height:400,
+                  hAxis: {title: "Age"}}
+            );
+      }
+      google.setOnLoadCallback(drawVisualization);
+    </script>
+    <div id="visualization" style="width: 600px; height: 400px;"></div>
+   
+          <table id="hor-minimalist-b">
+                <tr><td id="reportth">Age Limits</td><td align="center" id="reportth">Total Members(numbers)</td></tr>
+                <tr><td>Age between <?php echo $this->from1; ?> - <?php echo $this->to1; ?></td>
+                        <?php if(($this->age_ratio1)!=NULL) { ?>
+				<td align="center"><?php echo $this->age_ratio1[0]['membercount']; ?></td>
+                                  <?php } ?>
+                </tr>
+
+                <tr><td>Age between <?php echo $this->from2; ?> - <?php echo $this->to2; ?></td>
+                        <?php if(($this->age_ratio2)!=NULL) { ?><td align="center"><?php echo $this->age_ratio2[0]['membercount']; ?></td>
+                                  <?php } ?>
+                </tr>
+
+                <tr><td>Age between <?php echo $this->from3; ?> - <?php echo $this->to3; ?></td>
+                        <?php if(($this->age_ratio3)!=NULL) { ?><td align="center"><?php echo $this->age_ratio3[0]['membercount']; ?></td>
+                                  <?php } ?>
+                </tr>
+
+                 <tr><td>Age between <?php echo $this->from4; ?> - <?php echo $this->to4; ?></td>
+                        <?php if(($this->age_ratio4)!=NULL) { ?><td align="center"><?php echo $this->age_ratio4[0]['membercount']; ?></td>
+                                  <?php } ?>
+                </tr>
+
+                 <tr><td>Age above <?php echo $this->age; ?></td>
+                        <?php if(($this->age_ratio5)!=NULL) { ?><td align="center"><?php echo $this->age_ratio5[0]['membercount']; ?></td>
+                                  <?php } else{ ?><td>0 </td> <?php } ?>
+                </tr>
+
+
+          </table>

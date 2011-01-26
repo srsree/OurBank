@@ -1,0 +1,59 @@
+ <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <script type="text/javascript">
+     function drawVisualization() {
+  // Create and populate the data table.
+  var data = new google.visualization.DataTable();
+
+  var raw_data = [['Number accounts',
+		    <?php foreach ($this->results as $activity ){ echo $activity['COUNT(a.account_id)'].","; }?>],
+		 ];
+
+      
+ var creditline = [<?php foreach ($this->results as $activityname ){?>
+	      '<?php echo $activityname['activity_name']; ?>',
+		<?php } ?>
+];
+
+  data.addColumn('string', 'Activity');
+  for (var i = 0; i  < raw_data.length; ++i) {
+    data.addColumn('number', raw_data[i][0]);   
+  }
+  
+  data.addRows(creditline.length);
+
+
+  for (var j = 0; j < creditline.length; ++j) {    
+    data.setValue(j, 0, creditline[j].toString());    //print Creditline on X-axis
+  }
+  for (var i = 0; i  < raw_data.length; ++i) {
+    for (var j = 1; j  < raw_data[i].length; ++j) {
+      data.setValue(j-1, i+1, raw_data[i][j]);    
+    }
+  }
+  
+  // Create and draw the visualization.
+  new google.visualization.ColumnChart(document.getElementById('visualization')).
+      draw(data,
+           {title:"Activity wise number of accounts", 
+            width:600, height:400,
+            hAxis: {title: "Activity"},
+	    vAxis: {title: "Number of accounts"}
+		});
+}
+ google.setOnLoadCallback(drawVisualization);
+    </script>
+
+
+<div id="visualization" style="width: 600px; height: 400px;"></div>
+ <table id="hor-minimalist-b">
+		<tr><th>Activity name</th><th>No of accounts</th></tr>
+<?php foreach($this->results as $activityresult){ ?>
+	<tr>
+	<td><?php echo $activityresult['activity_name']; ?></td>
+	<td><?php echo $activityresult['COUNT(a.account_id)']; ?></td>
+	</tr>
+<?php }?>
+	</table>

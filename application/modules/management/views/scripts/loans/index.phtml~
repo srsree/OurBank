@@ -1,0 +1,59 @@
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/management/loans" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Sectors :</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Activity :</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Begin date :</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                    <td class="label">Close date :</td>
+                                    <td ><? echo $this->form->field6;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div>  
+<fieldset>
+        <legend>Activities</legend>
+<table id="hor-minimalist-b">
+    <tr>
+        <th>Activities</th>
+        <th>Sectors</td>
+        <th>Begin date</td>
+        <th>Close date</th>
+        <th>edit</td>
+        <th>delete</th>
+    </tr>
+        <?php if (count($this->paginator)): ?>
+        <?php foreach ($this->paginator as $loan ): ?>
+    <tr>
+        <td><a href="<?php echo $this->baseUrl()."/management/loans/loansview/offerproductupdate_id/".$loan['offerproductupdate_id']; ?>">
+                     <?php echo $this->escape($loan['offerproductname']); ?></a></td>
+    <td><?php echo $this->escape($loan['productname']);?></td>
+    <td><?php echo $this->escape($loan['begindate']);?></td>
+    <td><?php echo $this->escape($loan['closedate']);?></div></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/loans/loansedit/offerproductupdate_id/<?php echo $loan['offerproductupdate_id'];?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></td>
+    <td><a href="<?php echo $this->baseUrl();?>/management/loans/loansdelete/offerproductupdate_id/<?php echo $loan['offerproductupdate_id'];?>">
+                                    <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
+        <?php endforeach; ?>
+        <?php endif; ?>
+    <tr>
+        <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                    '/partials/my_pagination_control.phtml'); ?></div></td>
+    </tr>
+       <td colspan="8"><a href="<?php  echo $this->baseUrl();?>/management/loans/loansadd"> <input name="submit" type="submit" class="NormalBtn" value="New Loan"></a></td>
+    </tr>
+</table>
+</fieldset>

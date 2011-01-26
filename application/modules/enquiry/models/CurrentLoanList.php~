@@ -1,0 +1,37 @@
+<?php
+class Enquiry_Model_CurrentLoanList extends Zend_Db_Table_Abstract {
+protected $_name = 'ourbank_loan_disbursement'; 
+
+//  public function currentLoan() {
+//               $select = $this->select()
+//                        ->setIntegrityCheck(false)  
+//                        ->join(array('a' => 'ourbank_loan_disbursement'),array('a.amount_disbursed ,a.officeshort_name'))
+//                        ->join(array('b'=>'ourbank_accounts'),'a.account_id = b.account_id')
+//                        ->join(array('c'=>'ourbank_productsofferdetails'),'b.product_id = c.offerproduct_id')
+//                        ->where('c.recordstatus_id = 3')
+//                        ->join(array('d'=>'ourbank_productdetails'),'c.product_id = d.product_id');
+// //           die($select->__toString());
+//        return $this->fetchAll($select);
+//     }
+public function loanSearch($fromDate,$toDate,$brancId)  {
+$select = $this->select()
+                       ->setIntegrityCheck(false)  
+                       ->join(array('a' => 'ourbank_installmentdetails'),array('a.accountinstallment_date'))
+                       ->where('a.accountinstallment_date >= "'.$fromDate.'" AND a.accountinstallment_date <= "'.$toDate.'"')
+                       ->join(array('b' => 'ourbank_loanaccounts'),'a.account_id = b.account_id')
+                       ->join(array('c' => 'ourbank_accounts'),'b.account_id = c.account_id')
+                       ->join(array('d' => 'ourbank_members'),'d.member_id = c.member_id')
+                       ->join(array('e' => 'ourbank_officenames'),'e.office_id = d.memberbranch_id')
+                       ->where('e.recordstatus_id = 3')
+                       ->where('e.office_id = ?',$brancId)
+                       ->join(array('f' => 'ourbank_membername'),'f.member_id = d.member_id')
+                       ->where('f.recordstatus_id=3')
+                       ->join(array('g' => 'ourbank_memberaddress'),'g.member_id = f.member_id');
+           die($select->__toString());
+       return $this->fetchAll($select);
+    }
+}
+
+
+
+

@@ -1,0 +1,13 @@
+<?php
+class Activityreport_Form_activityreport extends Zend_Form
+{
+    public function init()
+    {
+        $activity  = new Zend_Form_Element_Select('activity');
+			$activity->addMultiOption('','Select');
+			$activity->setAttrib('class', 'txt_put');
+			$activity->setAttrib('id', 'gender_id');
+			$activity->setAttrib('tabindex', '9');
+        $this->addElements(array($activity));
+    }
+}

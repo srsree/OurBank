@@ -1,0 +1,76 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+
+<!-- view chart -->
+ <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+<?php $count=1; foreach ($this->results as $activity ){ } $count++; $leastcount=$count-1;?>
+
+    <script type="text/javascript">
+     function drawVisualization() {
+  // Create and populate the data table.
+  var data = new google.visualization.DataTable();
+
+  	var raw_data = [['Number accounts',<?php $count1=1; foreach ($this->results as $activity ){ if($count==$count1++){ echo $activity['COUNT(a.account_id)']; } else {  echo $activity['COUNT(a.account_id)'].","; } } ?>]];
+      
+ 	var creditline = [<?php $count1=1; foreach ($this->results as $activityname ){ if($count==$count1++){ ?> '<?php echo $activityname['name']; ?>'<?php } else { ?> '<?php echo $activityname['name']; ?>', <?php } } ?>];
+
+  data.addColumn('string', 'Activity');
+  for (var i = 0; i  < raw_data.length; ++i) {
+    data.addColumn('number', raw_data[i][0]);   
+  }
+  
+  data.addRows(creditline.length);
+
+
+  for (var j = 0; j < creditline.length; ++j) {    
+    data.setValue(j, 0, creditline[j].toString());    //print Creditline on X-axis
+  }
+  for (var i = 0; i  < raw_data.length; ++i) {
+    for (var j = 1; j  < raw_data[i].length; ++j) {
+      data.setValue(j-1, i+1, raw_data[i][j]);    
+    }
+  }
+  
+  // Create and draw the visualization.
+  new google.visualization.ColumnChart(document.getElementById('visualization')).
+      draw(data,
+           {title:"Activity wise number of accounts", 
+            width:600, height:400,
+            hAxis: {title: "Activity"},
+	    vAxis: {title: "Number of accounts"}
+		});
+}
+ google.setOnLoadCallback(drawVisualization);
+    </script>
+
+<!-- summarry view -->
+<div id="visualization" style="width: 600px; height: 400px;"></div>
+ <table id="hor-minimalist-b">
+		<tr><th><?php echo $this->translate("Activity name"); ?></th><th><?php echo $this->translate("No of accounts"); ?></th></tr>
+<?php foreach($this->results as $activityresult){ ?>
+	<tr>
+	<td><?php echo $activityresult['name']; ?></td>
+	<td><?php echo $activityresult['COUNT(a.account_id)']; ?></td>
+	</tr>
+<?php }?>
+	</table>

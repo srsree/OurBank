@@ -1,0 +1,27 @@
+<?php
+	class Sectors_Form_Delete extends Zend_Form {
+
+	public function init() 
+        {
+
+		$remarks= new Zend_Form_Element_Textarea('remarks', array('rows' => 3,'cols' => 20,));
+		$remarks->setAttrib('class', '');
+		$remarks->setRequired(true)
+				   ->addValidators(array(array('NotEmpty')));
+
+		
+		$submit = new Zend_Form_Element_Submit('Submit');
+		$submit->setAttrib('id', 'Delete')
+				->setLabel('Delete');
+
+		$back = new Zend_Form_Element_Submit('Back');
+		$back->setAttrib('id', 'Back')
+ 				->setLabel('Back');
+				
+
+		$this->addElements(array($remarks,$submit,$back));
+
+			
+
+	}
+}

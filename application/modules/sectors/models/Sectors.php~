@@ -1,0 +1,16 @@
+<?php
+class Sectors_Model_Sectors extends Zend_Db_Table 
+{
+	protected $_name = 'ob_sector';
+
+	public function SearchSectors($post) 
+	{
+
+		$select = $this->select()
+			->setIntegrityCheck(false)  
+			->join(array('b' => 'ob_sector'),array('id'))
+			->where('b.sector_name like "%" ? "%"',$post);
+		$result = $this->fetchAll($select);
+		return $result->toArray();
+	}
+}

@@ -1,0 +1,56 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<title><?php echo $this->escape($this->title); ?></title>
+<link href="<?php  echo $this->baseUrl();?>/css/reset-min.css" rel="stylesheet" type="text/css" />
+<link href="<?php  echo $this->baseUrl();?>/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="container">
+
+    <div id="header"><?php echo $this->render('defaultheader.phtml'); ?></div>
+
+
+    <div id="pagetitle">
+        <h2><?php echo $this->pageTitle;?></h2>
+    </div>
+  <div id="leftnavig">
+    <h4><a href="#">Home</a></h4>
+    <ul>
+      <li><a href="<?php  echo $this->baseUrl();?>/index/address"> Contact us</a></li>
+      <li><a href="#">Site map</a></li>
+      <li><a href="#">Site news</a></li>
+      <li><a href="#">Learning centre</a></li>
+    </ul>
+  </div>
+
+    <div id="pagecontent">
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+  <div id="footer">
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
+  </div>
+</div>
+</BODY>
+</html>

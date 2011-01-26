@@ -1,0 +1,166 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<head>
+<script type="text/javascript" language="JavaScript">
+
+    function getSubproduct(path,product_id) 
+    {
+        if(product_id) {
+            targeturl=path+"/ledger/index/getsubproduct1?product_id="+product_id;
+            $.ajax({ url: targeturl, success: function(data){ $("#subproducts").html(data) }});
+        }
+    }
+
+    function getSubLedger(glcode_id)
+    {
+        if(glcode_id) {
+            targeturl=path+"/ledger/index/getsubledger?glcode_id="+glcode_id;
+            $.ajax({ url: targeturl, success: function(data){ $("#statediv").html(data) }});
+        }
+    }
+
+    function getGlcode(path,ledger_id)
+    {
+       if(ledger_id) {
+            targeturl=path+"/ledger/index/getglcode?ledger_id="+ledger_id;
+            $.ajax({ url: targeturl, success: function(data){ $("#glcode").html(data) }});
+        }
+    }
+
+    function check(yy,glcode_id)
+    {
+        var div1=document.getElementById(1);
+        var div2=document.getElementById(2);
+        var div3=document.getElementById(3);
+        if(yy==1) {
+            div1.style.display='block';
+            div2.style.display='none';
+            div3.style.display='none';
+            document.subcode.glcode_id.value = glcode_id;
+        }
+    }
+</script>
+</head>
+
+<div class="register">
+    <div class="profile_tab">   
+        <div id =2 style="width:400px;float:left">
+            <fieldset>
+            <legend>New Ledger</legend> 
+                <form name="addledger" action="<?php echo $this->baseUrl();?>/ledger/index/addledger" method="POST">
+                <table id="hor-minimalist-b">
+                    <TR>
+                        <td class="txt_rgt"><b class="star">Ledger For</b><span class="reqMark">*</span></td>
+                        <TD><?php echo $this->form->product;?><?php  echo $this->errorLedgerFor;?></TD>
+                    </TR>
+                    <TR>
+                        <td class="txt_rgt"><b class="star">Gl Header</b><span class="reqMark">*</span></td>
+                        <TD ><?php echo $this->form->accountHeader; //echo $this->erroraccountHeader;?></TD>
+                    </TR>
+                    <TR>
+                        <td class="txt_rgt"><b class="star">Description<span class="reqMark">*</span></b></td>
+                        <TD ><?php echo $this->form->glcodeDescription;?></TD>
+                    </TR>
+                    <TR>
+                        <TD><?php echo $this->form->Submit;?></TD>
+                        <td><a href=<?php echo $this->baseUrl(); ?>/ledger/index>
+                        <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+                    </TR>
+
+                </table>
+                </form>
+            </fieldset>
+        </div>
+
+        <div id = "1" style="display:none;width:400px;float:left">
+            <fieldset>
+            <legend>New Sub-Ledger</legend> 
+                <form name = "subcode" action="<?php echo $this->baseUrl();?>/ledger/index/addsubledger" method="POST">
+                    <table id="hor-minimalist-b">
+                        <TR>
+                            <td  class="txt_rgt"><b>Main Ledger</b></td>
+                            <td ><div id="subproducts"><b class="star">*</b></div><?php  echo $this->errorSubLedgerFor;?></td>
+                        </TR>
+    
+                        <TR>
+                            <td  class="txt_rgt"><b class="star">Sub-Ledger For : </b></td>
+                            <TD ><?php echo $this->form->offerproduct; ?><span class="reqMark">*</span></TD>
+                        </TR>
+                        <TR>
+                            <td  class="txt_rgt"><b class="star">Gl Sub Header: </b></td>
+                            <TD ><?php echo $this->form->subheader; echo $this->erroraccountHeader;?><span class="reqMark">*</span></TD>
+                        </TR>
+                        <TR>
+                            <td  class="txt_rgt"><b class="star">Description:</b></td>
+                            <TD ><?php echo $this->form->glsubaccountdescription;?><span class="reqMark">*</span></TD>
+                            <input type="hidden" name="glcode_id" value="">
+                        </TR>
+                        <TR>
+                            <TD><input type = "submit" name="submit" value="Submit" class="holiday1"></TD>
+                            <TD><a href="<?php echo $this->baseUrl();?>/ledger/index/addledger">
+                            <input name="button" type="button" class="NormalBtn" value="Back"></a></td>
+                        </TR>
+                    </table>
+                </form>
+            </fieldset>
+        </div>
+        <span id="glcode">
+            <div id =3 style="width:400px;float:left">
+                <fieldset>
+                <legend>Existing ledger</legend>
+                    <table id="hor-minimalist-b">
+                            <tr >
+                                <td ><b class="star">Gl Code</b></td>
+                                <td ><b class="star">Gl Header</b></td>
+                            </tr>
+                            <?php foreach($this->ledger as $ledger) : ?>
+                                <tr >
+                                    <td >
+                                    <a href = "javascript:check('01',<?php echo $ledger->id;?>),getSubproduct('<? echo $this->baseUrl();?>',<?php echo $ledger->lid;?>),getSubLedger('<? echo $this->baseUrl();?>',<?php echo $ledger->id;?>);"><?php echo $ledger->glcode;?>
+                                    </a>
+                                    </td>
+                                        <td ><?php echo $ledger->header;?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                    </table>
+                </fieldset>
+            </div>
+        </span>
+        <div id="statediv"></div>
+        </div>
+</div>

@@ -1,0 +1,85 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<fieldset>
+    <legend>View SubLedger</legend>
+	<div class="cont-rgt-data">
+            <TABLE id="hor-minimalist-b">
+                <TR>
+                    <TD >Ledger Code</TD>
+                    <TD ><?php echo $this->glcode;?></TD>
+
+                </TR>
+                <TR>
+                    <TD >Sub Ledger Code</TD>
+                    <TD ><?php echo $this->glsubcode;?></TD>
+
+                </TR>
+                <TR>
+                    <TD >Gl Header</TD>
+                    <TD ><?php echo $this->subheader;?></TD>
+
+                </TR>
+
+                <TR>
+                    <TD >Description</TD>
+                    <TD >
+                    <?php echo $this->glsubaccountdescription;?></TD>
+
+                </TR>
+                <TR>
+                    <TD >Created By</TD>
+                    <TD ><?php echo $this->login_name;?></TD>
+
+                </TR>
+                <TR>
+                    <TD >Created Date</TD>
+                    <TD ><?php echo $this->createddate;?></TD>
+
+                </TR>
+
+
+
+                <TR>
+	            <td><a href=<?php echo $this->baseUrl(); ?>/management/ledger>
+                         <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+                    <TD ></TD>
+
+	       </TR>
+        </TABLE>
+    </div>
+</fieldset>

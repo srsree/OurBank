@@ -1,0 +1,1015 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ourbank\n"
+"POT-Creation-Date: 2010-12-11 13:12+0530\n"
+"PO-Revision-Date: 2010-12-13 17:45+0530\n"
+"Last-Translator: mahiti <ourbank@mahiti.org>\n"
+"Language-Team: ob <vijay@mahiti.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: INDIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "test"
+msgstr "ಮಾಹಿತಿ"
+
+#, Modules
+msgid "Management"
+msgstr "Management"
+
+msgid "Membership"
+msgstr "Membership"
+
+msgid "Meeting"
+msgstr "Meeting"
+
+msgid "Reports"
+msgstr "Reports"
+
+msgid "Transaction"
+msgstr "Transaction"
+
+msgid "Accounting"
+msgstr "Accounting"
+
+msgid "Credit Line"
+msgstr "Credit Line"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Institution"
+msgstr "Institution"
+
+msgid "Bank"
+msgstr "Bank"
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "user"
+msgstr "user"
+
+msgid "Funder"
+msgstr "Funder"
+
+msgid "Fundings"
+msgstr "Fundings"
+
+msgid "Fee"
+msgstr "Fee"
+
+msgid "Sector"
+msgstr "Sector"
+
+msgid "Activities"
+msgstr "Activities"
+
+#, Common
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Remarks"
+msgstr "Remarks"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Dsecription"
+msgstr "Dsecription"
+
+#, Institution
+msgid "New Institution"
+msgstr "New Institution"
+
+msgid "Address information"
+msgstr "Address information"
+
+msgid "Contact information"
+msgstr "Contact information"
+
+msgid "Contact person"
+msgstr "Contact person"
+
+msgid "Telephone number"
+msgstr "Telephone number"
+
+msgid "Mobile number"
+msgstr "Mobile number"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "City"
+msgstr "City"
+
+msgid "State"
+msgstr "State"
+
+msgid "Country"
+msgstr "Country"
+
+msgid "Granted By"
+msgstr "Granted By"
+
+msgid "Ofice name"
+msgstr "Office name"
+
+msgid "Designation"
+msgstr "Designation"
+
+msgid "Funder code"
+msgstr "Funder code"
+
+msgid "Funder"
+msgstr "Funder"
+
+msgid "Fundings period from"
+msgstr "Fundings period from"
+
+msgid "Fundings period to"
+msgstr "Fundings period to"
+
+msgid "Funding exchange rate"
+msgstr "Funding exchange rate"
+
+msgid "Currency"
+msgstr "Currency"
+
+msgid "member type"
+msgstr "member type"
+
+msgid "Fee value"
+msgstr "Fee value"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Gender"
+msgstr "Gender"
+
+msgid "Father"
+msgstr "Father"
+
+msgid "Mother"
+msgstr "Spouse"
+
+msgid "Children"
+msgstr "Children"
+
+msgid "Other information"
+msgstr "Other information"
+
+msgid "Group information"
+msgstr "Group information"
+
+msgid "Branch name"
+msgstr "Branch name"
+
+msgid "Member's list"
+msgstr "Member's list"
+
+msgid "Group head"
+msgstr "Group head"
+
+msgid "Group members"
+msgstr "Group members"
+
+msgid "Contact information"
+msgstr "Contact information"
+
+#, Bank
+msgid "New"
+msgstr "New"
+
+msgid "New Bank"
+msgstr "New Bank"
+
+#, Fundings
+msgid "Funding name"
+msgstr "Funding name"
+
+msgid "Funding amount"
+msgstr "Funding amount"
+
+msgid "Funding currency"
+msgstr "Funding currency"
+
+msgid "Funding amount"
+msgstr "Funding amount"
+
+msgid "Funding period from"
+msgstr "Funding period from"
+
+msgid "Funding period to"
+msgstr "Funding period to"
+
+#, Roles
+msgid "New role"
+msgstr "New role"
+
+msgid "Grant name"
+msgstr "Grant name"
+
+msgid "Grant date"
+msgstr "Grant date"
+
+msgid "Grant by"
+msgstr "Grant by"
+
+msgid "Modules"
+msgstr "Modules"
+
+msgid "Sub module"
+msgstr "Sub module"
+
+msgid "Are you sure to delete role"
+msgstr "Are you sure to delete role"
+
+#, Sector
+msgid "New sector"
+msgstr "New sector"
+
+msgid "Sector name"
+msgstr "Sector name"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Sector information"
+msgstr "Sector information"
+
+msgid "Edit sector"
+msgstr "Edit sector"
+
+msgid "Are you sure you want to delete"
+msgstr "Are you sure you want to delete"
+
+#, Activity
+msgid "New activity"
+msgstr "New activity"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Activities"
+msgstr "Activities"
+
+msgid "Sectors"
+msgstr "Sectors"
+
+msgid "Sector"
+msgstr "Sector"
+
+msgid "Activity information"
+msgstr "Activity information"
+
+msgid "Activity name"
+msgstr "Activity name"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Edit activity"
+msgstr "Edit activity"
+
+msgid "Category type"
+msgstr "Category type"
+
+#, Fee
+msgid "Fee name"
+msgstr "Fee name"
+
+msgid "Fee amount"
+msgstr "Fee amount"
+
+msgid "Fee description"
+msgstr "Fee description"
+
+msgid "Fee details"
+msgstr "Fee details"
+
+msgid "edit Fee Information"
+msgstr "Edit fee information"
+
+msgid "New fee"
+msgstr "New fee"
+
+#, user
+msgid "Username"
+msgstr "User name"
+
+msgid "Designation"
+msgstr "Designation"
+
+msgid "Bank name"
+msgstr "Bank name"
+
+msgid "Granted"
+msgstr "Granted"
+
+msgid "Gender"
+msgstr "Gender"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "Address line"
+msgstr "Address line"
+
+msgid "City"
+msgstr "City"
+
+msgid "Country"
+msgstr "Country"
+
+msgid "Pin code"
+msgstr "Pin code"
+
+msgid "Personal information"
+msgstr "Personal information"
+
+msgid "Date of birth"
+msgstr "Date of birth"
+
+msgid "Date of join"
+msgstr "Date of join"
+
+msgid "login details"
+msgstr "Login details"
+
+msgid "Password"
+msgstr "Password"
+
+#, Creditline
+msgid "Add credit line"
+msgstr "Add credit line"
+
+msgid "Edit credit line"
+msgstr "Edit credit line"
+
+msgid "Delete Credit line"
+msgstr "Delete Credit line"
+
+msgid "Start date should be today or after today"
+msgstr "Start date should be today or after today"
+
+msgid "Credit line Information"
+msgstr "Credit line Information"
+
+msgid "Portfolio value"
+msgstr "Portfolio value"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Credit line From"
+msgstr "Credit line From"
+
+msgid "Credit line To"
+msgstr "Credit line To"
+
+msgid "Portfolio value"
+msgstr "Portfolio value"
+
+msgid "Select From and To Date"
+msgstr "Select From and To Date"
+
+#, Grace, poeriod
+msgid "Grace period"
+msgstr "Grace period"
+
+msgid "Add grace period"
+msgstr "Add grace period"
+
+msgid "Edit grace period"
+msgstr "Edit grace period"
+
+msgid "Delete grace period"
+msgstr "Delete grace period"
+
+msgid "Credit line name"
+msgstr "Credit line name"
+
+msgid "Grace period name"
+msgstr "Grace period name"
+
+msgid "Grace period Information"
+msgstr "Grace period Information"
+
+msgid "Days"
+msgstr "Days"
+
+msgid "Active"
+msgstr "Active"
+
+#, Penalty
+msgid "Penalty"
+msgstr "Penalty"
+
+msgid "Add penalty"
+msgstr "Add penalty"
+
+msgid "Edit penalty"
+msgstr "Edit penalty"
+
+msgid "Penalty name"
+msgstr "Penalty name"
+
+msgid "Penalty for delay"
+msgstr "Penalty for delay"
+
+msgid "Interest of delay / day"
+msgstr "Interest of delay / day"
+
+msgid "Unit per day"
+msgstr "Unit per day"
+
+msgid "Unit per month"
+msgstr "Unit per month"
+
+msgid "Creditl ine name"
+msgstr "Credit line name"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Delete penalty"
+msgstr "Delete penalty"
+
+msgid "Penalty Information"
+msgstr "Penalty Information"
+
+#, Interest, rates
+msgid "Interest rates"
+msgstr "Interest rates"
+
+msgid "Add interest rates"
+msgstr "Add interest rates"
+
+msgid "Start range"
+msgstr "Start range"
+
+msgid "End range"
+msgstr "End range"
+
+msgid "Interest"
+msgstr "Interest"
+
+msgid "Fee"
+msgstr "Fee"
+
+msgid "Billet"
+msgstr "Billet"
+
+msgid "Delete interest rates"
+msgstr "Delete interest rates"
+
+msgid "Edit interest rates"
+msgstr "Edit interest rates"
+
+msgid "Interest category"
+msgstr "Interest category"
+
+msgid "Loan start range"
+msgstr "Loan start range"
+
+msgid "Loan end range"
+msgstr "Loan end range"
+
+msgid "Interest category"
+msgstr "Interest category"
+
+#, Meeting
+msgid "Community Meetings"
+msgstr "Community Meetings"
+
+msgid "Meeting"
+msgstr "Meeting"
+
+msgid "New Meeting"
+msgstr "New Meeting"
+
+msgid "Edit Meeting"
+msgstr "Edit Meeting"
+
+msgid "Add meeting"
+msgstr "Add meeting"
+
+msgid "Meeting name"
+msgstr "Meeting name"
+
+msgid "Office type"
+msgstr "Office type"
+
+msgid "Group name"
+msgstr "Group name"
+
+msgid "Group head"
+msgstr "Group head"
+
+msgid "Meeting place"
+msgstr "Meeting place"
+
+msgid "Meeting time"
+msgstr "Meeting time"
+
+msgid "Meeting day"
+msgstr "Meeting day"
+
+msgid "Delete meeting"
+msgstr "Delete meeting"
+
+msgid "Edit meeting"
+msgstr "Edit meeting"
+
+msgid "Meeting Information"
+msgstr "Meeting Information"
+
+#, Attendance
+msgid "Attendance"
+msgstr "Attendance"
+
+msgid "Add attendance"
+msgstr "Add attendance"
+
+msgid "Meeting date"
+msgstr "Meeting date"
+
+msgid "Members"
+msgstr "Members"
+
+msgid "Delete penalty"
+msgstr "Delete penalty"
+
+msgid "Edit attendance"
+msgstr "Edit attendance"
+
+msgid "Meeting Information"
+msgstr "Meeting Information"
+
+msgid "Absentees name"
+msgstr "Absentees name"
+
+#, Attendance, report
+msgid "Attendance Report"
+msgstr "Attendance Report"
+
+msgid "Meeting Held"
+msgstr "Meeting Held"
+
+msgid "Group name"
+msgstr "Group name"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Time"
+msgstr "Time"
+
+msgid "Place"
+msgstr "Place"
+
+msgid "Absentees"
+msgstr "Absentees"
+
+msgid "Meeting date from"
+msgstr "Meeting date from"
+
+msgid "Meeting date to"
+msgstr "Meeting date to"
+
+msgid "Group name"
+msgstr "Group name"
+
+msgid "Meeting date"
+msgstr "Meeting date"
+
+msgid "Meeting time"
+msgstr "Meeting time"
+
+msgid "Meeting place"
+msgstr "Meeting place"
+
+msgid "Absent member names"
+msgstr "Absent member names"
+
+msgid "Group member names"
+msgstr "Group member names"
+
+#, Meeting, report
+msgid "Meeting Repor"
+msgstr "Meeting Repor"
+
+msgid "Group name"
+msgstr "Group name"
+
+msgid "Meeting day"
+msgstr "Meeting day"
+
+#, PAR, report
+msgid "Account number"
+msgstr "Account number"
+
+msgid "Bank"
+msgstr "Bank"
+
+msgid "Date from"
+msgstr "Date from"
+
+msgid "Date to"
+msgstr "Date to"
+
+msgid "Portfolio at risk"
+msgstr "Portfolio at risk"
+
+msgid "Month"
+msgstr "Month"
+
+msgid "Loan A/C"
+msgstr "Loan A/C"
+
+msgid "On Time"
+msgstr "On Time"
+
+msgid "Days"
+msgstr "Days"
+
+msgid "Days above"
+msgstr "Days above"
+
+msgid "O/S Loan"
+msgstr "O/S Loan"
+
+msgid "Total"
+msgstr "Total"
+
+#, Loan, disbursement, report
+msgid "Loan Disbursement"
+msgstr "Loan Disbursement"
+
+msgid "Creditline name"
+msgstr "Creditline name"
+
+msgid "Loan Disburse Report"
+msgstr "Loan Disburse Report"
+
+#, Membership, group
+msgid "Group code"
+msgstr "Group code"
+
+msgid "Group name"
+msgstr "Group name"
+
+msgid "New Group"
+msgstr "New Group"
+
+msgid "Branch name"
+msgstr "Branch name"
+
+msgid "Created date"
+msgstr "Created date"
+
+msgid "Group information"
+msgstr "Group information"
+
+msgid "Group Member"
+msgstr "Group Member"
+
+msgid "Member's list"
+msgstr "Member's list"
+
+msgid "Address information"
+msgstr "Address information"
+
+msgid "Group head"
+msgstr "Group head"
+
+msgid "Edit group"
+msgstr "Edit group"
+
+#, Report, Loanlist
+msgid "Loan list"
+msgstr "Loan list"
+
+msgid "Activity"
+msgstr "Activity"
+
+msgid "Number of account"
+msgstr "Number of account"
+
+msgid "	Credit line amount"
+msgstr "Credit line amount"
+
+msgid "Loan amount"
+msgstr "Loan amount"
+
+msgid "Credit"
+msgstr "Credit"
+
+#, Report, Loanlist
+msgid "Loan count"
+msgstr "Loan count"
+
+msgid "Member code"
+msgstr "Member code"
+
+msgid "Member name"
+msgstr "Member name"
+
+msgid "Number of accounts"
+msgstr "Number of accounts"
+
+#, Credit, line, details
+msgid "Credit line"
+msgstr "Credit line"
+
+msgid "Credit line name"
+msgstr "Credit line name"
+
+msgid "Credit line value"
+msgstr "Credit line value"
+
+msgid "Amount financed"
+msgstr "Amount financed"
+
+msgid "Amount released"
+msgstr "Amount released"
+
+msgid "Interest"
+msgstr "Interest"
+
+msgid "Money value(INR)"
+msgstr "Money value(INR)"
+
+#, Accounts
+msgid "Loans"
+msgstr "Loans"
+
+msgid "Accounting"
+msgstr "Accounting"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Search member"
+msgstr "Search member"
+
+msgid "Member code"
+msgstr "Member code"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Member code"
+msgstr "Member code"
+
+msgid "Group name"
+msgstr "Group name"
+
+msgid "Branch"
+msgstr "Branch"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Individual account"
+msgstr "Individual account"
+
+msgid "New loan account"
+msgstr "New loan account"
+
+msgid "Active account "
+msgstr "Active account "
+
+msgid "Activites"
+msgstr "Activites"
+
+msgid "Interest category"
+msgstr "Interest category"
+
+msgid "Credit line"
+msgstr "Credit line"
+
+msgid "Credit line balance"
+msgstr "Credit line balance"
+
+msgid "Activity name"
+msgstr "Activity name"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Loan amount"
+msgstr "Loan amount"
+
+msgid "Interest"
+msgstr "Interest"
+
+msgid "Billet"
+msgstr "Billet"
+
+msgid "Fee"
+msgstr "Fee"
+
+msgid "Back"
+msgstr "Back"
+
+#, Transactions
+msgid "Transactions"
+msgstr "Transactions"
+
+msgid "Loan disbursment"
+msgstr "Loan disbursment"
+
+msgid "Loan repayment"
+msgstr "Loan repayment"
+
+msgid "Loan status"
+msgstr "Loan status"
+
+msgid "Loan details"
+msgstr "Loan details"
+
+msgid "Transaction"
+msgstr "Transaction"
+
+msgid "Voucher No."
+msgstr "Voucher No."
+
+msgid "A/c number"
+msgstr "A/c number"
+
+msgid "Transaction date"
+msgstr "Transaction date"
+
+msgid "Credit"
+msgstr "Credit"
+
+msgid "Debit"
+msgstr "Debit"
+
+msgid "Transaction mode"
+msgstr "Transaction mode"
+
+msgid "Transacted by"
+msgstr "Transacted by"
+
+msgid "Status"
+msgstr "Status"
+
+#, loan, disbursment
+msgid "Search account"
+msgstr "Search account"
+
+msgid "Account number"
+msgstr "Account number"
+
+msgid "Account code"
+msgstr "Account code"
+
+msgid "Sector name"
+msgstr "Sector name"
+
+msgid "Loan amount"
+msgstr "Loan amount"
+
+msgid "Interest rate"
+msgstr "Interest rate"
+
+msgid "Billet"
+msgstr "Billet"
+
+msgid "Installments"
+msgstr "Installments"
+
+msgid "Sanctioned date"
+msgstr "Sanctioned date"
+
+msgid "Amount"
+msgstr "Amount"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Send sms"
+msgstr "Send sms"
+
+msgid "Amount delivered"
+msgstr "Amount delivered"
+
+msgid "Next due"
+msgstr "Next due"
+
+msgid "Over due"
+msgstr "Over due"
+
+msgid "Due"
+msgstr "Due"
+
+msgid "Paid"
+msgstr "Paid"
+
+msgid "Payment mode"
+msgstr "Payment mode"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "New status"
+msgstr "New status"
+
+msgid "Installment"
+msgstr "Installment"
+
+msgid "Principal"
+msgstr "Principal"
+
+msgid "Due date"
+msgstr "Due date"
+
+msgid "Current due"
+msgstr "Current due"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Category"
+msgstr "Category"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Sanctioned"
+msgstr "Sanctioned"
+
+msgid "Loan status"
+msgstr "Loan status"
+
+msgid "Principal"
+msgstr "Principal"
+
+msgid "Current"
+msgstr "Current"
+
+msgid "Grace period"
+msgstr "Grace period"
+
+msgid "Number of days"
+msgstr "Number of days"
+
+msgid "Days"
+msgstr "Days"
+
+msgid "Penalty"
+msgstr "Penalty"
+
+msgid "Penalty for delay"
+msgstr "Penalty for delay"
+
+msgid "Interest of delay/day"
+msgstr "Interest of delay/day"
+
+msgid "General"
+msgstr "General"
+
+msgid "Assets"
+msgstr "Assets"
+
+msgid "Income"
+msgstr "Income"
+
+msgid "Financial"
+msgstr "Financial"
+
+msgid "Field"
+msgstr "Field"
+
+msgid "Liabilities"
+msgstr "Liablities"
+
+msgid "Expenditure"
+msgstr "Expenditure"
+
+msgid "Operational"
+msgstr "Operational"
+

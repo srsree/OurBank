@@ -1,0 +1,21 @@
+
+<?php
+class Attendance_Model_Attend extends Zend_Db_Table {
+	protected $_name = 'ob_member';
+
+	public function fetchMembers($meeting_ID) {
+		$select = $this->select()
+			->setIntegrityCheck(false)
+			
+			->join(array('a' => 'ob_meeting'),array('id'))
+			->where('a.id = '.$meeting_ID)
+
+			->join(array('b' => 'ob_groupmembers'),'a.id = b.group_id')
+			->where('b.groupmember_status = 1 OR b.groupmember_status = 3')
+
+			->join(array('c' => 'ob_member'),'b.member_id = c.id');
+		$result = $this->fetchAll($select);
+		return $result->toArray();		
+	}
+	
+}

@@ -1,0 +1,81 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+
+class Membership_Form_Group extends Zend_Form {
+    public function init() {
+        Zend_Dojo::enableForm($this);
+    }
+
+    public function __construct($app) {
+        Zend_Dojo::enableForm($this);
+
+        parent::__construct($app);
+
+
+    $office_id = new Zend_Form_Element_Select('office_id');
+    $office_id->addMultiOption('','Select...');
+    $office_id->setAttrib('class', 'txt_put');
+    $office_id->setAttrib('id', 'office_id');
+    $office_id->setAttrib('onchange', 'getstate(this.value,'.$app.'),memberState(this.value,'.$app.')');
+
+
+    $groupname= new Zend_Form_Element_Text('groupname');
+    $groupname->setAttrib('id', 'groupname');
+    $groupname->setAttrib('class', 'txt_put');
+    //$groupname->setAttrib('size', '14');
+
+    $groupaddress_line1= new Zend_Form_Element_Text('groupaddress_line1');
+    $groupaddress_line1->setAttrib('id', 'groupaddress_line1');
+    $groupaddress_line1->setAttrib('class', 'txt_put');
+    //$groupaddress_line1->setAttrib('size', '14');
+
+    $groupaddress_line2 = new Zend_Form_Element_Text('groupaddress_line2');
+    $groupaddress_line2->setAttrib('id', 'groupaddress_line2');
+    $groupaddress_line2->setAttrib('class', 'txt_put');
+    //$groupaddress_line2->setAttrib('size', '14');
+
+    $groupaddress_line3 = new Zend_Form_Element_Text('groupaddress_line3');
+    $groupaddress_line3->setAttrib('id', 'groupaddress_line3');
+    $groupaddress_line3->setAttrib('class', 'txt_put');
+    //$groupaddress_line3->setAttrib('size', '14');
+
+    $groupaddress_location = new Zend_Form_Element_Text('groupaddress_location');
+    $groupaddress_location->setAttrib('id', 'groupaddress_location');
+    $groupaddress_location->setAttrib('class', 'txt_put');
+    //$groupaddress_location->setAttrib('size', '14');
+
+    $groupname1 = new Zend_Form_Element_MultiCheckbox('groupname1');
+    $groupname1->setAttrib('id', 'groupname1');
+    $groupname1->setAttrib('class', 'txt_put');
+    $groupname1->setAttrib('disabled', 'true');
+
+    $member_id = new Zend_Form_Element_MultiCheckbox('member_id');
+    $member_id->setAttrib('id', 'member_id');
+    $member_id->setAttrib('class', 'txt_put');
+
+
+    $submit = new Zend_Form_Element_Submit('submit');
+    $submit->setAttrib('class', 'groups'); 
+    $submit->setlabel('submit'); 
+
+    $this->addElements(array($office_id,$groupname,$groupaddress_line1,$groupaddress_line2,$groupaddress_line3,$groupaddress_location,
+                                $member_id,$groupname1,$submit));
+    }
+}

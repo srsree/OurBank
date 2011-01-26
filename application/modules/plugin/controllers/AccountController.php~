@@ -1,0 +1,59 @@
+<?php
+class Institution_AccountController extends Zend_Controller_Action 
+{
+    public function init()
+     {
+        $this->view->pageTitle='Institution Account';
+     }
+
+    public function indexAction() 
+    {   
+        $this->view->title='Institution Account';
+      	$storage = new Zend_Auth_Storage_Session();
+	$data = $storage->read();
+	if(!$data)
+        {
+		$this->_redirect('index/login');
+	}
+        $searchform=new Institution_Form_Search();
+        $this->view->form=$searchform;
+        $searchsql=new Institution_Model_Account();
+        $result=$searchsql->fetch_all_detail();
+        //print_r($result);
+        $page = $this->_getParam('page',1); 
+		$paginator = Zend_Paginator::factory($result);
+		$paginator->setItemCountPerPage(5);
+          //      print_r($paginator);
+		$paginator->setCurrentPageNumber($page);
+		$this->view->paginator = $paginator;
+
+       if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost(); echo "dfasf  ";
+            //print_r($formData);
+                 if ($searchform->isValid($formData)) {
+                   // echo "dfasf  ";
+                    $searchsql=new Institution_Model_Account();
+                    $result = $searchsql->Search($formData);
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+                 }
+            }
+        }
+
+        public function viewcreditsAction()
+        {
+            $id=$this->_getParam('id');
+            $view_int=new Institution_Model_Account();
+            $result=$view_int->view_inst($id);
+            print_r($result);
+            //print_r($result);
+        }
+
+
+}
+
+
+

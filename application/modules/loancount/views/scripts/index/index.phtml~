@@ -1,0 +1,24 @@
+<div class="searchDiv">
+    <fieldset>
+    
+	<table id="hor-minimalist-b">
+		<th  width="40%">Member Code</th><th width="40%">Member Name</th><th width="40%">Number of Accounts</th>
+			<? if (count($this->paginator)): ?>
+			<?php foreach ($this->paginator as $loandetails ): ?>
+		<tr>
+		<td><?php echo $this->escape($loandetails['member_code']); ?></td>
+		<td><?php echo $this->escape($loandetails['member_name']);?></td>
+		<td><?php echo $this->escape($loandetails['Account']);?></td>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		
+		<tr>
+			<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?></div></td>
+		</tr>
+		</tr>
+	</table>
+<br>
+   
+</fieldset>
+</div>

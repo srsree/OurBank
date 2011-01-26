@@ -1,0 +1,53 @@
+
+<?php
+class Interestratesindex_IndexController extends Zend_Controller_Action{
+
+	public function init() {
+		$this->view->pageTitle = "Interest rates";
+
+		$globalsession = new App_Model_Users();
+		$this->view->globalvalue = $globalsession->getSession();
+			$this->view->username = $this->view->globalvalue[0]['username'];
+			$this->view->createdby = $this->view->globalvalue[0]['id'];
+		
+		if (($this->view->globalvalue[0]['id'] == 0)) {
+			$this->_redirect('index/logout');
+		}
+		$this->view->adm = new App_Model_Adm();
+	}
+
+	public function indexAction() {
+		$this->view->title = "Interest rates";
+
+		$searchForm = $this->view->form = new Interestrates_Form_Search();
+		
+
+		$creditline = $this->view->adm->viewRecord("ob_creditline","id","DESC");
+		foreach($creditline as $creditline){
+			$searchForm->search_credit_interest->addMultiOption($creditline['id'],$creditline['name']);
+		}
+
+		
+		$interest = new Interestrates_Model_Interestrates();
+		$result = $interest->fetchAllinterestdetails();
+
+		$page = $this->_getParam('page',1);
+		$paginator = Zend_Paginator::factory($result);
+		$paginator->setItemCountPerPage(5);
+		$paginator->setCurrentPageNumber($page);
+		$this->view->paginator = $paginator;
+
+		if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+ 			$formData = $this->_request->getPost();
+				if ($searchForm->isValid($formData)) {
+					$result = $interest->SearchInterestrates1($formData);
+					$page = $this->_getParam('page',1);
+					$paginator = Zend_Paginator::factory($result);
+					$paginator->setItemCountPerPage(5);
+					$paginator->setCurrentPageNumber($page);
+					$this->view->paginator = $paginator;
+				}
+		}
+	}
+
+}
