@@ -46,10 +46,11 @@ class Institution_IndexController extends Zend_Controller_Action
 		$this->view->form = $searchForm; 
 		//poster validation
 		if ($this->_request->isPost() && $this->_request->getPost('Search')) {
-            $institution = new Institution_Model_Institution();
-            $page = $this->_getParam('page',1);
-	    	$paginator = Zend_Paginator::factory($institution->searchRecord($this->_request->getPost('field2')));
-		} else {
+                    $institution = new Institution_Model_Institution();
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($institution->searchRecord($this->_request->getPost('field2')));
+                    $this->view->errormsg="Record not found";
+                    } else {
             $this->view->title=$this->view->translate('Institution');
 	    //session
             $storage = new Zend_Auth_Storage_Session();
@@ -60,11 +61,16 @@ class Institution_IndexController extends Zend_Controller_Action
             $institution = new Institution_Model_Institution();
             $page = $this->_getParam('page',1);
 	    	$paginator = Zend_Paginator::factory($this->view->adm->viewRecord("ob_institution","id","DESC"));
+                if(!$paginator){
+                $this->view->errormsg="Record not found";
         }
+
+    }
 		//paginator
 	    $paginator->setItemCountPerPage($this->view->adm->paginator());
 	    $paginator->setCurrentPageNumber($page);
 	    $this->view->paginator = $paginator;
+
     }
     //add action
     public function addinstitutionAction() 
@@ -101,7 +107,7 @@ class Institution_IndexController extends Zend_Controller_Action
 			$form = new Institution_Form_Institution(1);
 			$this->view->form = $form;
 			$this->view->submitform = new Bank_Form_Submit();
-			if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+			if ($this->_request->isPost() && $this->_request->getPost('Update')) {
 				$formData = $this->_request->getPost();
 				if ($form->isValid($formData)) { 
 					//Update the previous record
