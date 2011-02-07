@@ -22,23 +22,19 @@
 	       <div class="profile_tab">
                     <TABLE id="hor-minimalist-b">
                     <TR>
-                        <th class="txt_rgt" colspan='2'><b>Delete Subledger</b></th>
+                        <th class="txt_rgt" colspan='2'><b>Delete Ledger</b></th>
                     </TR>
 			  <TR >
                             <TD class="txt_rgt">Gl code</TD>
                             <TD ><?php echo $this->glcode; ?></TD>
                         </TR>
 			  <TR >
-                            <TD class="txt_rgt">Gl subcode</TD>
-                            <TD ><?php echo $this->glsubcode; ?></TD>
-                        </TR>
-			  <TR >
-                            <TD class="txt_rgt">Gl subheader</TD>
-                            <TD ><?php echo $this->subheader;?></TD>
+                            <TD class="txt_rgt">Gl header</TD>
+                            <TD ><?php echo $this->header;?></TD>
                         </TR>
                         <TR >
                             <TD class="txt_rgt">Description</TD>
-                            <TD ><?php echo $this->glsubaccountdescription;?></TD>
+                            <TD ><?php echo $this->description;?></TD>
                         </TR>
                     </TABLE>
 	       </div>
@@ -46,21 +42,21 @@
 
 
 	<div class="cont-rgt-data">
-		<form action="<?php echo $this->baseUrl();?>/ledger/index/deletesubledger/id/<?php echo $this->id;?>" method="POST"  name= "deleteledger">
-				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+			<form action="<?php echo $this->baseUrl();?>/ledger/index/deleteledger/id/<?php echo $this->id;?>" method="POST"  name= "deleteledger">
+				<table id="hor-minimalist-b" summary="Employee Pay Sheet" class="fieldsets">
 					<TR>
-						<TD  width="35%" align="right" ><font color="Green"><b>*</b>&nbsp;</font>Remarks</TD>
+						<TD  width="35%" align="right" ><label><label class="mand">Remarks</label></TD>
 						<TD  width="65%"  align="left" ><?php echo $this->form->remarks; echo $this->errormsg;?></TD>
 					</TR>
 					<TR>
 						<TD colspan='2'>	
-						<p style="color:red">Are you sure you want to delete Ledger ?</p>			
+						<p style="color:red">Are you sure you want to delete Ledger?</p>			
 						<input name="Delete" type="submit" class="officebutton" value="Delete">			
 						<a href=<?php echo $this->baseUrl();?>/ledger/index>
 						<input  name="submit" type="button" class="officebutton" value="cancel" ></a>
 					</TD></TR>
 				</table>
-		</form>
+				</form>
 	  </div>
 			
 
