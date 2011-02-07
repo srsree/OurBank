@@ -1,8 +1,0 @@
-<?php
-class Management_Model_Roles extends Zend_Db_Table {
-     protected $_name = 'ourbank_grant';
-
-
-
-
-}

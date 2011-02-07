@@ -160,5 +160,36 @@ class Officedefault_Model_officedefault extends Zend_Db_Table_Abstract {
           return $result->toArray();
         }
 
+   public function fetchoffice()
+        {
+            $db = $this->getAdapter();
 
+            $sql = 'select id,name,parentoffice_id from ourbank_office 
+                        where officetype_id not in(select id from ourbank_officehierarchy 
+                        where Hierarchy_level in (select max(Hierarchy_level) from ourbank_officehierarchy))';
+            $result = $db->fetchAll($sql);
+          return $result;
+        }
+
+        public function fetchofficesub($input)
+        {
+          $select = $this->select()
+                ->setIntegrityCheck(false)  
+                ->join(array('a' => 'ourbank_office'),array('a.id'))
+//                 ->where('a.officetype_id !=3')
+                ->where('a.parentoffice_id = ?',$input);
+          $result = $this->fetchAll($select);
+          return $result->toArray();
+        }
+
+    public function getBranch() {
+        $db = $this->getAdapter();
+            $sql = 'select * from ourbank_office
+                        where officetype_id in 
+                    (select id from ourbank_officehierarchy 
+                        where Hierarchy_level in
+                    (select max(Hierarchy_level) from ourbank_officehierarchy))';
+        $result = $db->fetchAll($sql);
+        return $result;
+    }
 }
