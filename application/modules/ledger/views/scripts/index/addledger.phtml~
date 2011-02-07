@@ -95,7 +95,7 @@
             <fieldset>
             <legend>New Sub-Ledger</legend> 
                 <form name = "subcode" action="<?php echo $this->baseUrl();?>/ledger/index/addsubledger" method="POST">
-                    <table id="hor-minimalist-b" class="fieldsets">
+                    <table id="hor-minimalist-b">
                         <TR>
                             <td  class="txt_rgt"><b>Main Ledger</b></td>
                             <td ><div id="subproducts"><b class="star">*</b></div><?php  echo $this->errorSubLedgerFor;?></td>
@@ -126,7 +126,7 @@
         <span id="glcode">
             <div id =3 style="width:400px;float:left">
 
-                    <table id="hor-minimalist-b" class="fieldsets">
+                    <table id="hor-minimalist-b">
                     <tr>
                         <th class="txt_rgt" colspan='2'>Existing Ledger</th>
                     </tr>

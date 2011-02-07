@@ -338,6 +338,19 @@ class Ledger_IndexController extends Zend_Controller_Action
 
     public function deleteledgerAction()
     {
+        $this->view->id=$ledgerID=$this->_request->getParam('id');
+        $ledger = new Ledger_Model_Ledger();
+        $ledgerselect = $ledger->viewLedger($ledgerID);
+        $this->view->ledger = $ledgerselect;
+        foreach ($ledgerselect as $ledger1) {
+            $ledgerID = $ledger1->id;
+            $this->view->header=$ledger1->header;
+            $this->view->glcode=$ledger1->glcode;
+            $this->view->description=$ledger1->description;
+            $this->view->login_name=$ledger1->name;
+            $this->view->created_date=$ledger1->created_date;
+        }
+
         $form = new Management_Form_Delete();
         $this->view->form = $form;
         $id= $this->view->id = $this->_request->getParam('id');
@@ -358,6 +371,18 @@ class Ledger_IndexController extends Zend_Controller_Action
 
     public function deletesubledgerAction()
     {
+        $this->view->id = $subLedgerID = $this->_request->getParam('id');
+        $ledger = new Ledger_Model_Ledger();
+        $ledgerselect = $ledger->viewSubLedger($subLedgerID);
+        $this->view->subledger = $ledgerselect;
+        foreach ($this->view->subledger as $ledger1) {
+            $this->view->glcode=$ledger1->glcode;
+            $this->view->glsubcode=$ledger1->glsubcode;
+            $this->view->subheader=$ledger1->header;
+            $this->view->glsubaccountdescription=$ledger1->description;
+            $this->view->login_name=$ledger1->name;
+            $this->view->created_date=$ledger1->created_date;
+        }
         $form = new Management_Form_Delete();
         $this->view->form = $form;
         $id= $this->view->id = $this->_request->getParam('id');
