@@ -49,7 +49,7 @@
 		<form action="<?php echo $this->baseUrl();?>/ledger/index/deletesubledger/id/<?php echo $this->id;?>" method="POST"  name= "deleteledger">
 				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
 					<TR>
-						<TD  width="35%" align="right" ><font color="Green"><b>*</b>&nbsp;</font>Remarks</TD>
+						<TD  width="35%" align="right" ><span><font color="Green"><b>*</b>&nbsp;</font>Remarks</label></TD>
 						<TD  width="65%"  align="left" ><?php echo $this->form->remarks; echo $this->errormsg;?></TD>
 					</TR>
 					<TR>

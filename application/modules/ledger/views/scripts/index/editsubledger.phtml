@@ -17,48 +17,34 @@
 ############################################################################
 !-->
 
-<!--
-############################################################################
-#  This file is part of OurBank.
-############################################################################
-#  OurBank is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU Affero General Public License as
-#  published by the Free Software Foundation, either version 3 of the
-#  License, or (at your option) any later version.
-############################################################################
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU Affero General Public License for more details.
-############################################################################
-#  You should have received a copy of the GNU Affero General Public License
-#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-############################################################################
-!-->
-<fieldset>
-	<legend>Edit SubLedger</legend>
+
 	   <div class="register">
 	       <div class="profile_tab">
-<p align="right"><a href="<?php echo $this->baseUrl();?>/ledger/index/deletesubledger/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20"></a></p>
-                    <TABLE id="hor-minimalist-b">
+
+                    <TABLE id="hor-minimalist-b" class="fieldsets">
 
                         <form action="<?php echo $this->baseUrl();?>/ledger/index/editsubledger" method="POST">
+                    <TR>
+                        <th class="txt_rgt"><b>Edit SubLedger</b></th>
+			<th class="txt_rgt"><div align="right"><a href="<?php echo $this->baseUrl();?>/ledger/index/deletesubledger/id/<?php echo $this->id;?>">
+			<img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20"></a></div></th>
+                    </TR>
 			 <TR>
-                            <TD class="txt_rgt">Ledger Code</TD>
+                            <TD class="txt_rgt"><label class="mand">Ledger Code</TD>
                             <TD><?php echo $this->glcode;?></TD>
                         </TR>
 
 			<TR>
-                            <TD class="txt_rgt">subLedgerCode</TD>
+                            <TD class="txt_rgt"><label class="mand">subLedgerCode</TD>
                             <TD ><?php echo $this->glsubcode;?></TD>
                         </TR>
                         <TR>
-                            <TD class="txt_rgt">Gl Sub Header</TD>
+                            <TD class="txt_rgt"><label class="mand">Gl Sub Header</TD>
                             <TD><?php echo $this->form1->hidden_glsubcodeid;echo $this->form1->subheader;?></TD>
                         </TR>
 
                         <TR>
-                            <TD class="txt_rgt">Description</TD>
+                            <TD class="txt_rgt"><label class="mand">Description</TD>
                             <TD ><?php echo $this->form1->glsubaccountdescription;?></TD>
 
                         </TR>
@@ -74,4 +60,4 @@
 	           </form>
 	       </div>
 	  </div>
-</fieldset>
+

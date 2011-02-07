@@ -1,4 +1,5 @@
-<!--
+<?php
+/*
 ############################################################################
 #  This file is part of OurBank.
 ############################################################################
@@ -15,23 +16,29 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ############################################################################
-!-->
+*/
+class Livingassets_Model_livingassets  extends Zend_Db_Table {
+    protected $_name = 'ourbank_liveassetdetails';
 
-<form name="editform" action="<?php echo $this->baseUrl();?>/institution/index/editinstitution" method="POST">
-	<fieldset>
-    	<legend><?php echo $this->translate('Edit institution'); ?><a href="<?php echo $this->baseUrl();?>/institution/index/deleteinstitution/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20" align="right"></a></legend> 
-    	<table class="fieldsets"> 
-            <?php echo $this->form;?>
-        </table>
-        <div class="btnhouse">
-	    	<div class="ltbtns">
-				<input type="submit" name="Update" id="Update" value="<?php echo $this->translate('Update'); ?>">
-	   		</div>
-	   		<div class="rtbtns">
-				<a href="<?php echo $this->baseUrl();?>/institution"><input type = "button" name = "Back" value = "<?php echo $this->translate('Back'); ?>"></a>
-	   		</div>
-        </div>
-		<input type="hidden" name="id" value="<?php echo $this->id;?>">
-	</fieldset>
-</form>
+  
+    public function deleteasset($param)  
+    {
+        $db = $this->getAdapter();
+                    //$db->delete("ourbank_cropdetails",array('member_id = '.$param));
+        $db->delete("ourbank_liveassetdetails",array('member_id = '.$param));
 
+    // $db->exec("delete from ourbank_cropdetails where member_id = $param");
+        return;
+    }
+    public function getAssetdetails($mebmerid)
+    {
+        $select=$this->select($param)
+                        ->setIntegrityCheck(false)
+                        ->join(array('a'=>'ourbank_liveassetdetails'),array('a.id'))
+                        ->where('a.member_id=?',$mebmerid);
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+    }
+}
+
+?>

@@ -18,38 +18,45 @@
 !-->
 
 
-
 	   <div class="register">
 	       <div class="profile_tab">
-                    <TABLE id="hor-minimalist-b" class="fieldsets">
 
-                        <form action="<?php echo $this->baseUrl();?>/ledger/index/editledger" method="POST">
+                    <TABLE id="hor-minimalist-b">
+
+                        <form action="<?php echo $this->baseUrl();?>/ledger/index/editsubledger" method="POST">
                     <TR>
-                        <th class="txt_rgt"><b>Edit Ledger</b></th>
-			<th class="txt_rgt"><div align="right"><a href="<?php echo $this->baseUrl();?>/ledger/index/deleteledger/id/<?php echo $this->id;?>">
+                        <th class="txt_rgt"><b>Edit SubLedger</b></th>
+			<th class="txt_rgt"><div align="right"><a href="<?php echo $this->baseUrl();?>/ledger/index/deletesubledger/id/<?php echo $this->id;?>">
 			<img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20"></a></div></th>
                     </TR>
+			 <TR>
+                            <TD class="txt_rgt"><label class="mand">Ledger Code</TD>
+                            <TD><?php echo $this->glcode;?></TD>
+                        </TR>
 
-			  <TR >
-                            <TD class="txt_rgt"><label class="mand">Gl code</TD>
-                            <TD ><?php echo $this->glcode;?></TD>
-                        </TR>
-			  <TR >
-                            <TD class="txt_rgt"><label class="mand">Gl header</TD>
-                            <TD ><?php echo $this->form1->accountHeader;?></TD>
-                        </TR>
-                        <TR >
-                            <TD class="txt_rgt"><label class="mand">Description</TD>
-                            <TD><?php echo $this->form1->glcodeDescription;?></TD>
+			<TR>
+                            <TD class="txt_rgt"><label class="mand">subLedgerCode</TD>
+                            <TD ><?php echo $this->glsubcode;?></TD>
                         </TR>
                         <TR>
-                            <TD class="txt_rgt"><?php echo $this->form1->Submit;?></TD>
-                            <td><a href=<?php echo $this->baseUrl(); ?>/ledger/index>
-                              <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+                            <TD class="txt_rgt"><label class="mand">Gl Sub Header</TD>
+                            <TD><?php echo $this->form1->hidden_glsubcodeid;echo $this->form1->subheader;?></TD>
                         </TR>
-                    </TABLE>
-		    <CENTER style="color:red"><?php echo $this->updateerror; ?></CENTER>
-		    <?php echo $this->form1->hidden_glcodeid;?>
+
+                        <TR>
+                            <TD class="txt_rgt"><label class="mand">Description</TD>
+                            <TD ><?php echo $this->form1->glsubaccountdescription;?></TD>
+
+                        </TR>
+			<TR>
+				
+				<TD class="txt_rgt"><?php echo $this->form1->Submit;?></TD>
+		               <td><a href=<?php echo $this->baseUrl(); ?>/ledger/index>
+                                 <input name="submit" type="submit" class="officebutton" value="Back"></a></td>
+			</TR>
+                        </TABLE>
+			
+ 		    <CENTER style="color:red"><?php echo $this->updateerror; ?></CENTER>
 	           </form>
 	       </div>
 	  </div>

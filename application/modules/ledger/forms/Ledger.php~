@@ -49,7 +49,7 @@ class Ledger_Form_Ledger extends Zend_Form
         $glsubaccountdescription->setAttrib('id', 'glsubaccountdescription');
         $glsubaccountdescription->removeDecorator('HtmlTag');
 
-        $submit = $formfield->field('Submit','Save','','','mand','holiday1','true','','','','','','','');
+        $submit = $formfield->field('Submit','Save','','','','holiday1','','','','','','','','');
         $this->addElements( array ($submit,$accountHeader,$glcodeDescription,$subheader,$glsubaccountdescription,$product,$offerproduct));
 
         $glcodeHiddenId = new Zend_Form_Element_Hidden('hidden_glcodeid');

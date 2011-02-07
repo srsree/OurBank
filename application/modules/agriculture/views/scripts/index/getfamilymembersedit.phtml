@@ -17,21 +17,26 @@
 ############################################################################
 !-->
 
-<form name="editform" action="<?php echo $this->baseUrl();?>/institution/index/editinstitution" method="POST">
-	<fieldset>
-    	<legend><?php echo $this->translate('Edit institution'); ?><a href="<?php echo $this->baseUrl();?>/institution/index/deleteinstitution/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20" align="right"></a></legend> 
-    	<table class="fieldsets"> 
-            <?php echo $this->form;?>
-        </table>
-        <div class="btnhouse">
-	    	<div class="ltbtns">
-				<input type="submit" name="Update" id="Update" value="<?php echo $this->translate('Update'); ?>">
-	   		</div>
-	   		<div class="rtbtns">
-				<a href="<?php echo $this->baseUrl();?>/institution"><input type = "button" name = "Back" value = "<?php echo $this->translate('Back'); ?>"></a>
-	   		</div>
-        </div>
-		<input type="hidden" name="id" value="<?php echo $this->id;?>">
-	</fieldset>
-</form>
-
+<table id="hor-minimalist-b">
+<?php 
+    $i=$this->oldcount+1;
+    $j=$this->oldcount+$this->newvalue;
+    for($i;$i<=$j;$i++) {
+    $a='name'.$i;
+    $b='age'.$i;
+    $c='gender'.$i;
+    $d='relationship'.$i;
+    $e='physicalstatus'.$i;
+    $f='maritalstatus'.$i;	
+?>
+<tr>
+    <td><?php echo $this->form->$a; ?></td>
+    <td><?php echo $this->form->$b; ?></td>
+    <td><?php echo $this->form->$c; ?></td>
+    <td><?php echo $this->form->$d; ?></td>
+    <td><?php echo $this->form->$e; ?></td>
+    <td><?php echo $this->form->$f; ?></td>
+    <td></td><td></td><td></td>
+</tr> 
+<?php } ?>
+</table>

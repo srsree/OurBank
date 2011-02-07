@@ -1,4 +1,5 @@
-<!--
+<?php
+/*
 ############################################################################
 #  This file is part of OurBank.
 ############################################################################
@@ -15,23 +16,11 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ############################################################################
-!-->
+*/
+?>
 
-<form name="editform" action="<?php echo $this->baseUrl();?>/institution/index/editinstitution" method="POST">
-	<fieldset>
-    	<legend><?php echo $this->translate('Edit institution'); ?><a href="<?php echo $this->baseUrl();?>/institution/index/deleteinstitution/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20" align="right"></a></legend> 
-    	<table class="fieldsets"> 
-            <?php echo $this->form;?>
-        </table>
-        <div class="btnhouse">
-	    	<div class="ltbtns">
-				<input type="submit" name="Update" id="Update" value="<?php echo $this->translate('Update'); ?>">
-	   		</div>
-	   		<div class="rtbtns">
-				<a href="<?php echo $this->baseUrl();?>/institution"><input type = "button" name = "Back" value = "<?php echo $this->translate('Back'); ?>"></a>
-	   		</div>
-        </div>
-		<input type="hidden" name="id" value="<?php echo $this->id;?>">
-	</fieldset>
-</form>
+<?php
 
+class Livingassets_Bootstrap extends Zend_Application_Module_Bootstrap
+{
+}

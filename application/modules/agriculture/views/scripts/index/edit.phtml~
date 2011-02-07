@@ -17,21 +17,31 @@
 ############################################################################
 !-->
 
-<form name="editform" action="<?php echo $this->baseUrl();?>/institution/index/editinstitution" method="POST">
-	<fieldset>
-    	<legend><?php echo $this->translate('Edit institution'); ?><a href="<?php echo $this->baseUrl();?>/institution/index/deleteinstitution/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20" align="right"></a></legend> 
-    	<table class="fieldsets"> 
-            <?php echo $this->form;?>
-        </table>
-        <div class="btnhouse">
-	    	<div class="ltbtns">
-				<input type="submit" name="Update" id="Update" value="<?php echo $this->translate('Update'); ?>">
-	   		</div>
-	   		<div class="rtbtns">
-				<a href="<?php echo $this->baseUrl();?>/institution"><input type = "button" name = "Back" value = "<?php echo $this->translate('Back'); ?>"></a>
-	   		</div>
-        </div>
-		<input type="hidden" name="id" value="<?php echo $this->id;?>">
-	</fieldset>
+<form action="<?php echo $this->baseUrl();?>/health/index/edit/id/<?php echo $this->memberid; ?>" method="POST">
+<table id="hor-minimalist-b">
+<tr> 
+    <th width="27%">&nbsp;Family member Name</h>
+    <th width="12%">Health Problem</TD>
+    <th width="10%">Under Treatment</Th>
+    <th width="17%">Clinical Accessibility</Th>
+</tr>
+<?php  
+for($i=1;$i<=$this->family_number;$i++) {
+    $a='name'.$i;
+    $b='health'.$i;
+    $c='treatment'.$i;
+    $d='accessability'.$i;
+    $e='familymemberid'.$i;
+?>
+<tr>
+    <td><?php echo $this->form->$a; ?></td>
+    <td><?php echo $this->form->$b; ?></td>
+    <td><?php echo $this->form->$c; ?></td>
+    <td><?php echo $this->form->$d; echo $this->form->$e; ?></td>
+</tr> 
+<?php }?>
+<tr><td><input type="submit" id="submit" name="submit" value="Submit"></td>
+<td><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="Back"></a></td>
+</tr>
+</table>
 </form>
-

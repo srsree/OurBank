@@ -1,4 +1,5 @@
-<!--
+<?php
+/*
 ############################################################################
 #  This file is part of OurBank.
 ############################################################################
@@ -15,23 +16,28 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ############################################################################
-!-->
+*/
+?>
 
-<form name="editform" action="<?php echo $this->baseUrl();?>/institution/index/editinstitution" method="POST">
-	<fieldset>
-    	<legend><?php echo $this->translate('Edit institution'); ?><a href="<?php echo $this->baseUrl();?>/institution/index/deleteinstitution/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20" align="right"></a></legend> 
-    	<table class="fieldsets"> 
-            <?php echo $this->form;?>
-        </table>
-        <div class="btnhouse">
-	    	<div class="ltbtns">
-				<input type="submit" name="Update" id="Update" value="<?php echo $this->translate('Update'); ?>">
-	   		</div>
-	   		<div class="rtbtns">
-				<a href="<?php echo $this->baseUrl();?>/institution"><input type = "button" name = "Back" value = "<?php echo $this->translate('Back'); ?>"></a>
-	   		</div>
-        </div>
-		<input type="hidden" name="id" value="<?php echo $this->id;?>">
-	</fieldset>
-</form>
+<?php
+class Agriculture_Model_agriculture  extends Zend_Db_Table {
+    protected $_name = 'ourbank_member';
 
+        public function edit_landtypes()
+        {
+        $select=$this->select()
+                                ->setIntegrityCheck(false)
+                                ->join(array('a'=>'ourbank_landtypes'),array('a.id'));
+        $result=$this->fetchAll($select);
+        return $result->toArray();
+//         die ($select->__toString($select));
+        }
+
+//update the family details with respective to member id...
+    public function updatehealth($memberId,$input = array()) {
+    $where[] = "familymember_id = '".$memberId."'";
+    $db = $this->getAdapter();
+    $result = $db->update('ourbank_familyhealth',$input,$where);
+    }
+
+}
