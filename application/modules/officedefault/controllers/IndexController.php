@@ -273,6 +273,17 @@ $this->_redirect('/officecommonview/index/commonview/id/'.$office_id);
         //             $this->_redirect('index/index');
         // 	}
     
+    public function treestructureAction() 
+    {
+        $treeobj = new Officedefault_Model_officedefault();
+        $branch = $treeobj->getBranch();
+        $alloffice = $treeobj->fetchoffice();
+        if(count($alloffice)) {
+            if($alloffice[0]['parentoffice_id'] == '0'){
+                $this->view->rootname = $alloffice[0]['name'];
+            }
+        }
+    }
 
     }
 
