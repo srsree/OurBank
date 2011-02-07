@@ -1,0 +1,93 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<html>
+  <head>
+    <script type='text/javascript' src='js/jquery-1.3.2.js'></script>
+    <script type='text/javascript'>
+$(document).ready(
+  function() {
+    $('input#tmpAddRow').click(
+      function() {
+        var newRow = $('tr#tmp').clone(true).removeAttr('id');
+        newRow.children("select").each( function() {
+            $(this).children(':first').attr('selected', 'selected');
+        });
+        //$('input:text').val('');
+        newRow.children("input:text").val("");
+        newRow.appendTo('tbody');
+        //$('#tmp').show();
+      }
+    );
+
+    $('tr input[type=text]').focus(
+      function() {
+        $(this).addClass('myFocused');   
+      }
+    ).blur(
+      function() {
+        $(this).removeClass('myFocused');
+      }
+    );
+
+    $('.delete-icon').click(function() {$(this).closest('tr').remove()});
+  }
+);
+
+    </script>
+<div style="height:250px; width:750px; overflow-x:scroll ; overflow-y: scroll; padding-bottom:10px;">      
+    <form name="form1" action="<?php echo $this->baseUrl();?>/crop/index/editcrop/id/<?php echo $this->id; ?>/subId/<?php echo 1; ?>/modId/<?php echo 2; ?>" method="POST">
+        <table id="hor-minimalist-b">
+            <tr> 
+                <th ><?php echo $this->translate("Crop"); ?></th>
+                <th ><?php echo $this->translate("Acre"); ?></th>
+                <th ><?php echo $this->translate("Quantity of production"); ?></th>
+                <th ><?php echo $this->translate("Marketed"); ?></th>
+                <th ><?php echo $this->translate("Marketing Price/unit"); ?></th>
+                <th >Action</th>
+            </tr>
+            <?php $i = 0; ?>
+            <?php foreach ($this->editCrop as $editCrop) { $i++;?>
+             <?php if ($i == 1) { ?>
+             <tr id='tmp'>
+            <?php } else { ?>
+            <tr>
+            <?php } ?>
+                <td><select name = "crop_id[]">
+                    <OPTION value="<?php echo $editCrop["crop_id"]; ?>">
+                    <?php echo $editCrop["name"]; ?>
+                    </OPTION>
+                    <?php foreach ($this->cropdetails as $cropdetails) { ?>
+                        <? if($editCrop["name"] != $cropdetails["name"] ) {?>
+                           <option value="<?php echo $cropdetails['id']?>"><?php echo $cropdetails['name']?></option>
+                    <?php } } ?>
+                </select>    
+                </td>
+                <td><INPUT type="text" name = "acre[]" value = "<?php echo $editCrop["acre"];?>"></td>
+                <td><INPUT type="text" name = "quantity[]" value = "<?php echo $editCrop["quantity"];?>"></td>
+                <td><INPUT type="text" name = "marketed[]" value = "<?php echo $editCrop["marketed"];?>"></td>
+                <td><INPUT type="text" name = "price[]" value = "<?php echo $editCrop["price"];?>"></td>
+                <td><img class="delete-icon" alt="delete" src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width='16' height='16'></td>
+            </tr> 
+
+        <?php } ?>
+        </table>  
+
+        <input type="button" id="tmpAddRow" name="Add" value="<?php echo $this->translate("Add"); ?>"><input type="submit" id="submit" name="submit" value="<?php echo $this->translate("Submit"); ?>"><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a>
+    </form>
+</div>
