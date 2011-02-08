@@ -19,7 +19,7 @@
 */
 ?>
 
-<?php class Fundings_Form_Fundings extends Zend_Form {
+<?php class Fundings_Form_Fundings extends ZendX_JQuery_Form {
 	public function init() 
 	{
 		$formfield = new App_Form_Field ();
