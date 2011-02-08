@@ -4,8 +4,6 @@ class settings_DropdownController extends Zend_Controller_Action
     public function init() 
     {
         $this->view->pageTitle='Drop Down Settings';
-		$this->view->adm = new App_Model_Adm();   	
-
     }
 
     public function indexAction() 
@@ -588,55 +586,10 @@ case "ourbank_master_kvs" :
                 $setting=new settings_Model_Dropdown();
                 $arrayTable=$setting->insertContent($tName,array($pK=>'',$attribute=>$tInsert));
                 echo "<font color='red'>This value is successfully added</font>";
-
                 }
-
+        
         } 
-//                 $this->view->field2 = $year;
-//                 $this->view->field3 = $bank;
     }
  public function commonviewAction() 
-    {
-$tName=$this->_request->getParam('ff');
-
- $id=$this->_request->getParam('id');
-
-$settings = new settings_Model_Dropdown;
-$this->view->details=$settings->getdetails($tName,$id);
-$this->view->tableName =$tName;
-
-}
-public function editAction() 
-    {
- $dropdownForm = new settings_Form_Dropdown();
-        $this->view->form = $dropdownForm;
-
- if ($this->_request->isPost() && $this->_request->getPost('Update')) {
-// 	    if ($this->_request->isPost()) {
-// 		$formData = $this->_request->getPost();
-// 		if ($dropdownForm->isValid($formData)) {
- 	echo 	$tName=$this->_request->getParam('ff');
-		echo $id=$this->_request->getParam('id');
-
-/*
-  	$previousdata = $this->view->adm->editRecord("$tName",$id);
-	$this->view->adm->updateRecord("$tName",$id,$dropdownForm->getValues());*/
-
-
-// }
-// }
-} else {
- $id=$this->_request->getParam('id');
-			$this->view->id = $id;
-
-$tName=$this->_request->getParam('ff');
-			$this->view->ff = $tName;
-
-
-$settings = new settings_Model_Dropdown;
-$namedetails = $settings->getdetails($tName,$id);
-$dropdownForm->populate($namedetails[0]);
-}
-
-}
+    {echo "hi";}
 }

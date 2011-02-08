@@ -1,0 +1,29 @@
+<form action="<?php echo $this->baseUrl();?>/settings/dropdown/edit/id/<?php echo $this->id; ?>/ff/<?php  echo $this->ff; ?>" method="POST">
+ 	<div id="container-1">
+		<div class="profile_tab">
+
+			<fieldset>
+				<legend>Edit</legend>
+					<table class="fieldsets">	
+						<TR>
+							<TD class="label">Name<span class="reqMark"></span></TD>
+							<TD><?php echo $this->form->name;?></TD>
+
+						</TR>
+
+
+ 					</table>
+						<div class="btnhouse">
+							<div class="ltbtns">
+ 								<input type="submit" name="Update" id="Submit" value="Update">                 
+							</div>
+								<div class="rtbtns">
+								<a href="<?php echo $this->baseUrl();?>/settings"><?php echo $this->form->Back;?></a>
+								</div>
+						</div>
+			</fieldset>
+		</div>
+	</div>
+</form>
+
+<form action="<?php echo $this->baseUrl();?>/settings/dropdown/edit/id/<?php echo $this->id; ?>" method="POST">

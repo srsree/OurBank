@@ -1,5 +1,5 @@
 <?php
-class settings_Form_Dropdown extends  ZendX_JQuery_Form 
+class settings_Form_Drop extends  ZendX_JQuery_Form 
 {
     public function init() 
     {

@@ -1,7 +1,7 @@
 <?php 
 class settings_Model_Setting extends Zend_Db_Table 
 { 
-     protected $_name='ourbank_language'; 
+//     protected $_name='ourbank_language'; 
     public function fetchAllLanguage() 
     {
         $select = $this->select()

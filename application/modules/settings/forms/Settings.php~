@@ -13,7 +13,7 @@ $languages->setAttrib('onchange', 'getmember(this.value,"'.$app.'")');
 
 $submit = new Zend_Form_Element_Submit('Submit');
 $submit->removeDecorator('DtDdWrapper');
-$this->addElements(array($languages,$submit));
+$this->addElements(array($languages));
 
 }
 }

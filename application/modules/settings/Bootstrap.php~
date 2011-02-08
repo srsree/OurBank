@@ -7,7 +7,7 @@ function _initTranslation() {
 
        $translate = new Zend_Translate('Array',APPLICATION_PATH. '/languages/english.php', 'en_US');
        $translate->addTranslation( APPLICATION_PATH. '/languages/hindi.php','hi_IN');
-       $translate->setLocale('kn_IN');
+       $translate->setLocale('hi_IN');
        Zend_Registry::set('Zend_Translate', $translate);
 	   }
 	   
