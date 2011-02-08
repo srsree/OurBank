@@ -17,56 +17,47 @@
 ############################################################################
 !-->
 
-
 <script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/meeting.js"></script>
-
 <div id = "searchDiv">
 <fieldset>
 <legend>Add meeting</legend>
-	<form action="<?php echo $this->baseUrl();?>/meeting/index/meetingadd" method="POST">
-		<table class="fieldsets">
-			
-			<TR >
-				<TD ><label for="fld1" class="mand">Meeting name</TD>
-				<TD ><?php echo $this->meetingForm->meeting_name;?></TD>
-			</TR>
-			<TR >
-				<TD ><label for="fld1" class="mand">Office type</TD>
-				<TD ><?php echo $this->meetingForm->institute_bank_id;?></TD>
-			</TR>
-			<TR >
-				<TD ><label for="fld1" class="mand">Group name</TD>
-				<TD ><div id="groupDiv"><?php echo $this->meetingForm->group_name;?></div><SPAN style="color:red"><?php echo $this->startMsg;?></SPAN></TD>
-			</TR>
-			<TR >
-				<TD ><label for="fld1" class="mand">Group head</TD>
-				<TD ><?php echo $this->meetingForm->group_head;?><SPAN style="color:red"><?php echo $this->endMsg;?></SPAN></TD>
-			</TR>
-			<TR >
-				
-				<TD ><label for="fld1" class="mand">Meeting place</TD>
-				<TD ><?php echo $this->meetingForm->meeting_place;?></TD>
-			</TR>
-			<TR >
-				
-				<TD ><label for="fld1" class="mand">Meeting time</TD>
-				<TD ><?php echo $this->meetingForm->meeting_time;?></TD>
-			</TR>
-			<TR >
-				
-				<TD ><label for="fld1" class="mand">Meeting day</TD>
-				<TD ><?php echo $this->meetingForm->meeting_day;?></TD>
-			</TR>
-		</table>
-		</table>
-		<div class="btnhouse">
-			<div class="ltbtns">
-			<?php echo $this->meetingForm->Submit;?>
-			</div>
-			<div class="rtbtns">
-			<a href="<?php echo $this->baseUrl();?>/meetingindex"><?php echo $this->meetingForm->Back;?></a>
-			</div>
-		</div>
-	</form>
+    <form action="<?php echo $this->baseUrl();?>/meeting/index/meetingadd" method="POST">
+        <table class="fieldsets">
+            <TR >
+                <TD ><label for="fld1" class="mand">Meeting name</TD>
+                <TD ><?php echo $this->meetingForm->meeting_name;?></TD>
+            </TR>
+            <TR >
+                <TD ><label for="fld1" class="mand">Bank</TD>
+                <TD ><?php echo $this->meetingForm->institute_bank_id;?></TD>
+            </TR>
+            <TR >
+                <TD ><label for="fld1" class="mand">Group name</TD>
+                <TD ><div id="groupDiv"><?php echo $this->meetingForm->group_name;?></div><SPAN style="color:red"><?php echo $this->startMsg;?></SPAN></TD>
+            </TR>
+
+            <TR >
+                <TD ><label for="fld1" class="mand">Meeting place</TD>
+                <TD ><?php echo $this->meetingForm->meeting_place;?></TD>
+            </TR>
+            <TR >
+                <TD ><label for="fld1" class="mand">Meeting time</TD>
+                <TD ><?php echo $this->meetingForm->meeting_time;?></TD>
+            </TR>
+            <TR >
+                <TD ><label for="fld1" class="mand">Meeting day</TD>
+                <TD ><?php echo $this->meetingForm->meeting_day;?></TD>
+            </TR>
+        </table>
+
+        <div class="btnhouse">
+            <div class="ltbtns">
+            <?php echo $this->meetingForm->Submit;?>
+            </div>
+            <div class="rtbtns">
+            <a href="<?php echo $this->baseUrl();?>/meetingindex"><?php echo $this->meetingForm->Back;?></a>
+            </div>
+        </div>
+    </form>
 </fieldset>
 </div>

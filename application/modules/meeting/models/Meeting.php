@@ -22,7 +22,8 @@ class Meeting_Model_Meeting extends Zend_Db_Table
                 ->join(array('a' => 'ob_meeting'),array('id'))
                 ->where('a.id = '.$id)
                 ->join(array('b' => 'ob_group'),'b.id = a.group_id',array('b.id as gid','b.name as gname'))
-                ->join(array('c'=>'ob_bank'),'c.id = a.bank_id',array('name as bank_name'));
+                ->join(array('c'=>'ob_bank'),'c.id = a.bank_id',array('name as bank_name'))
+                ->join(array('d' => 'ob_member'),'d.id = b.group_head',array('d.member_name as grouphead_name'));
         $result = $this->fetchAll($select);
         return $result->toArray();
     }
@@ -80,7 +81,6 @@ class Meeting_Model_Meeting extends Zend_Db_Table
                     ->where('b.name like "%" ? "%"',$post['search_group_name'])
                     ->order(array('a.id desc'));
 //         die ($select->__toString($select));
-
         $result = $this->fetchAll($select);
         return $result->toArray();
     }

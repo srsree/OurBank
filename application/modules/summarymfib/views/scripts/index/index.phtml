@@ -1,0 +1,92 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+        <div class="cont-rgt-data">
+            <table id="hor-minimalist-b" summary="Employee Pay Sheet" width="50%">
+                <TR>
+                    <TH width=200%>Summary  Information of MFI's</TH> 
+                    <th></th><th>Amount in RS</th>
+ </TR>
+                 <?php foreach($this->budjetamount as $budjetamount){?>
+                    <TR>
+                        <td>Budget amount</td>
+                        <TD>Rs<?php echo $budjetamount['SUM(portfolio)']?>/-</TD>   
+                   </tr>
+                </TR>
+                <?php } ?>
+
+
+					 <?php foreach($this->loangiven as $loangiven){?>
+                    <TR>
+                        <td>Amount issued</td>
+                        <TD><?php echo $loangiven['SUM(amount_disbursed)']?></TD>   
+                   </tr>
+                  <?php } ?>
+
+ <?php foreach($this->expectedamount as $expectedamount){?>
+                    <TR>
+                        <td>Total amount to be received</td>
+                        <TD><?php echo $expectedamount['loan']+$expectedamount['interest'];?></TD>   
+                   </tr>
+                  <?php } ?>
+
+  				<?php foreach($this->financedamount as $financedamount){?>
+				<TR>
+					<td>Amount financed</td>
+                        <TD><?php echo $financedamount['fee']+$financedamount['disbursement']?></TD>   
+                   </tr>
+                <?php } ?>
+
+<?php foreach($this->paidamount as $paidamount){?>
+				<TR>
+					<td>Amount paid</td>
+                        <TD><?php echo $paidamount['amount']+$paidamount['interest']?></TD>   
+                   </tr>
+                <?php } ?>
+
+<?php foreach($this->tax as $tax){?>
+				<TR>
+					<td>Service tax</td>
+                        <TD><?php echo $tax['fee']?></TD>   
+                   </tr>
+                <?php } ?>
+
+<?php foreach($this->loaninterest as $interestrates){?>
+				<TR>
+					<td>Total interest amount</td>
+                        <TD><?php echo $interestrates['interest']?></TD>   
+                   </tr>
+                <?php } ?>
+
+
+                 <?php foreach($this->savings1 as $savings1){?>
+                    <TR>
+                        <td>Number of Branch Offices</td>
+                        <TD><?php echo $savings1['COUNT(name)']?></TD>   
+                   </tr>
+                <?php } ?>
+
+					 <?php foreach($this->activeMembers as $activemember){?>
+                    <TR>
+                        <td>Total number of members</td>
+                        <TD><?php echo $activemember['COUNT(id)']?></TD>   
+                   </tr>
+                  <?php } ?>
+                 </table>
+        </div>

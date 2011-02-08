@@ -1,0 +1,105 @@
+<?php
+class  Address_Form_Addressdetails extends Zend_Form {
+
+    public function init() {
+
+    }
+
+    public function __construct($options = null) {
+
+			Zend_Dojo::enableForm($this);
+			parent::__construct($options);
+
+			$addressline1 = new Zend_Form_Element_Text('addressline1');
+			$addressline1->setAttrib('class', 'txt_put');
+			$addressline1->setAttrib('id', 'office')
+				     ->setLabel('Address line 1');
+			$addressline1->setRequired(true)
+						->addValidators(array(array('NotEmpty')))
+						->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+			$addressline2 = new Zend_Form_Element_Text('addressline2');
+			$addressline2->setAttrib('class', 'txt_put');
+			$addressline2->setAttrib('id', 'office')
+				     ->setLabel('Address line 2');
+			$addressline2->setRequired(true)
+						->addValidators(array(array('NotEmpty')))
+						->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+			$addressline3 = new Zend_Form_Element_Text('addressline3');
+			$addressline3->setAttrib('class', 'txt_put');
+			$addressline3->setAttrib('id', 'office')
+				     ->setLabel('Address line 3');
+			$addressline3->setRequired(true)
+						->addValidators(array(array('NotEmpty')))
+						->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+			$city = new Zend_Form_Element_Text('city');
+			$city->setAttrib('class', 'txt_put');
+			$city->setLabel('Address line 1');
+			$city->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+			$state = new Zend_Form_Element_Text('state');
+			$state->setAttrib('class', 'txt_put');
+			$state->setLabel('State');
+			$state->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+			$country = new Zend_Form_Element_Text('country');
+			$country->setAttrib('class', 'txt_put');
+			$country->setLabel('Contry');
+			$country->setRequired(true)
+						->addValidators(array(array('NotEmpty')))
+						->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+			$pincode = new Zend_Form_Element_Text('pincode');
+			$pincode->setAttrib('class', 'txt_put');
+			$pincode->setAttrib('id', 'office')
+				     ->setLabel('Pincode');
+			$pincode->setDecorators(array('ViewHelper',
+						array('Description',array('tag'=>'','escape'=>false)),'Errors',
+						array(array('data'=>'HtmlTag'), array('tag' => 'td')),
+						array('Label', array('tag' => 'td','requiredSuffix' => ' *',)),
+						array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+			$type_id = new Zend_Form_Element_Hidden('type_id');
+			$type_id->setAttrib('class', 'txt_put');
+			$type_id->setAttrib('id', 'type_id')
+						->setLabel('');
+
+		        $this->addElements(array($addressline1,$addressline2,$addressline3,$city,$state,$country,$pincode,$type_id));
+			$submit = new Zend_Form_Element_Submit('Submit');
+			$submit->setAttrib('id', 'save')
+					->setDecorators(array('ViewHelper',
+					array('Description',array('tag'=>'','escape'=>false)),'Errors',
+					array(array('data'=>'HtmlTag'), array('colspan' => '8 ')),
+					array(array('data'=>'HtmlTag'), array('tag' => 'td ', 'colspan'=>'8')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'tr'))));
+
+			$this->addElements(array($submit));
+
+    }
+}

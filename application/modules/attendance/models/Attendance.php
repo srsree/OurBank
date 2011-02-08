@@ -99,7 +99,7 @@ class Attendance_Model_Attendance extends Zend_Db_Table
         }
         $select = $this->select()
                 ->setIntegrityCheck(false)  
-                ->join(array('a' => 'ob_attendance'),array('id'))
+                ->join(array('a' => 'ob_attendance'),array('id'),array('a.id as attid','a.meeting_date as meeting_date'))
                 ->where('a.meeting_id like "%" ? "%"',$post['search_meeting_name_att'])
                 ->where('a.meeting_date like "%" ? "%"',$search_meeting_date)
                 ->group('a.id')
