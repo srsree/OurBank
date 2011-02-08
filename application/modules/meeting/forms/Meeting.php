@@ -33,7 +33,7 @@
 // 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$decorator,$value
 
         $meeting_name = $formfield->field('Text','meeting_name','','','mand','',true,'','','','','','','');
-        $group_head = $formfield->field('Text','group_head','','','mand','',true,'','','','','','','');
+        $group_head = $formfield->field('Text','group_head','','','mand','','','','','','','','','');
         $hiddenId=new Zend_Form_Element_Hidden('group_head_id');
         $meeting_place = $formfield->field('Text','meeting_place','','','mand','',true,'','','','','','','');
         $meeting_time = $formfield->field('Text','meeting_time','','','mand','',true,'','','','','','','');
