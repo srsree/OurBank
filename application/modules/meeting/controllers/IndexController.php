@@ -77,7 +77,7 @@ class Meeting_IndexController extends Zend_Controller_Action
                 $formdata1=array('name'=>$formData['meeting_name'],
                                     'bank_id'=>$formData['institute_bank_id'],
                                     'group_id'=>$formData['group_name'],
-                                    'grouphead_name'=>$formData['group_head'],
+                                    'grouphead_name'=> '',
                                     'place'=>$formData['meeting_place'],
                                     'time'=>$formData['meeting_time'],
                                     'day'=>$formData['meeting_day'],
@@ -139,6 +139,7 @@ class Meeting_IndexController extends Zend_Controller_Action
                 $meetingForm->group_name->addMultiOption($office['id'],$office['name']);
             }
         $this->view->meetingForm->group_name->setValue($meetings['group_id']);
+        $meetingForm->meeting_name->removeValidator('Db_NoRecordExists');
 
         if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
             $id = $this->_getParam('meeting_id');
@@ -148,7 +149,7 @@ class Meeting_IndexController extends Zend_Controller_Action
                 $formdata1=array('name'=>$formData['meeting_name'],
                                     'bank_id'=>$formData['institute_bank_id'],
                                     'group_id'=>$formData['group_name'],
-                                    'grouphead_name'=>$formData['group_head'],
+                                    'grouphead_name'=> '',
                                     'place'=>$formData['meeting_place'],
                                     'time'=>$formData['meeting_time'],'day'=>$formData['meeting_day'],
                                     'created_by'=>$this->view->createdby);

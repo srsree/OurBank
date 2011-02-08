@@ -1,0 +1,12 @@
+<?php
+class Accounting_Model_accounts extends Zend_Db_Table {
+
+     protected $_name = 'ourbank_fixedaccounts';
+
+
+    public function Addfixedaccounts() {
+        $data = array('fixedaccount_id' => '');
+
+       $this->insert($data);
+    }
+}

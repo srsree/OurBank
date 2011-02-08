@@ -32,8 +32,8 @@ class Institution_Form_Institution extends Zend_Form
 	$formfield = new App_Form_Field ();
         $name = $formfield->field('Text','name','','','mand','Name',true,'','','','','',1,0);
         $status = $formfield->field('Checkbox','status','','','','Active',false,'','','','','',1,0);
-        $code = $formfield->field('Text','code','','','','Code',true,'','','','','',1,0);
-        $description = $formfield->field('Text','description','','','','Description',true,'','','','','',1,0);
+        $code = $formfield->field('Text','code','','','mand','Code',true,'','','','','',1,0);
+        $description = $formfield->field('Text','description','','','mand','Description',true,'','','','','',1,0);
 
 
 		//hidden feilds

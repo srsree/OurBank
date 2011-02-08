@@ -1,0 +1,138 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<html>
+  <head>
+    <script type='text/javascript' src='<?php  echo $this->baseUrl();?>/js/jquery-1.3.2.min.js'></script>
+    <script type='text/javascript' src='<?php  echo $this->baseUrl();?>/js/jquery-1.3.1.js'></script>
+    <script type='text/javascript'>
+$(document).ready(
+  function() {
+    $('input#tmpAddRow').click(
+      function() {
+        var newRow = $('tr#tmp').clone(true).removeAttr('id');
+        newRow.children("select").each( function() {
+            $(this).children(':first').attr('selected', 'selected');
+        });
+        newRow.children("input:text").val("");
+        newRow.appendTo('tbody');
+      }
+    );
+
+    $('tr input[type=text]').focus(
+      function() {
+        $(this).addClass('myFocused');
+      }
+    ).blur(
+      function() {
+        $(this).removeClass('myFocused');
+      }
+    );
+
+    $('.delete-icon').click(function() {$(this).closest('tr').remove()});
+  }
+);
+
+    </script>
+<div style="height:250px; width:750px; overflow-x:scroll ; overflow-y: scroll; padding-bottom:10px;">      
+    <form name="form1" action="<?php echo $this->baseUrl();?>/familymembers/index/addfamily/id/<?php echo $this->id; ?>/subId/<?php echo $this->subId; ?>/modId/<?php echo $this->modId; ?>" method="POST">
+        <table id="hor-minimalist-b">
+            <tr> 
+                <th ><?php echo $this->translate("Name"); ?></th>
+                <th ><?php echo $this->translate("Relation"); ?></th>
+                <th ><?php echo $this->translate("Education"); ?></th>
+                <th ><?php echo $this->translate("Age"); ?></th>
+                <th ><?php echo $this->translate("Gender"); ?></th>
+                <th ><?php echo $this->translate("Proffession"); ?></th>
+                <th ><?php echo $this->translate("Skill"); ?></th>
+                <th ><?php echo $this->translate("Bank A/C"); ?></th>
+                <th ><?php echo $this->translate("DOB"); ?></th>
+                <th ><?php echo $this->translate("Joined SHG"); ?></th>
+                <th ><?php echo $this->translate("Marital status"); ?></th>
+                <th></th>
+
+            </tr>
+
+            <tr id='tmp'>
+
+                <td><INPUT type="text" name = "mem_name[]" ></td>   
+
+                <td><select name = "relation[]">
+                    <?php foreach ($this->relation as $relation) { ?>
+                    <option value="<?php echo $relation['id']?>"><?php echo $relation['name']?></option>
+
+                    <?php } ?>
+                </select>    
+                </td>
+
+                <td><select name = "education[]">
+                    <?php foreach ($this->qualify as $qualify) { ?>
+                    <option value="<?php echo $qualify['id']?>"><?php echo $qualify['name']?></option>
+
+                    <?php } ?>
+                </select>    
+                </td>
+
+                <td><INPUT type="text" name = "age[]" ></td>   
+
+                <td><select name = "gender[]">
+                    <?php foreach ($this->gender as $gender) { ?>
+                    <option value="<?php echo $gender['id']?>"><?php echo $gender['name']?></option>
+
+                    <?php } ?>
+                </select>    
+                </td>
+
+                <td><select name = "proffesion[]">
+                    <?php foreach ($this->proffession as $proffession) { ?>
+                    <option value="<?php echo $proffession['id']?>"><?php echo $proffession['name']?></option>
+
+                    <?php } ?>
+                </select>    
+                </td>
+
+                <td><select name = "skill[]">
+                    <?php foreach ($this->skill as $skill) { ?>
+                    <option value="<?php echo $skill['id']?>"><?php echo $skill['name']?></option>
+
+                    <?php } ?>
+                </select>    
+                </td>
+
+
+                <td><INPUT type="checkbox" name = "banckAccount[]" ></td>
+                <td><INPUT type="text" name = "dob[]" ></td>   
+                <td><INPUT type="checkbox" name = "joinedshg[]" ></td>
+
+                <td><select name = "marital[]">
+                    <?php foreach ($this->marital as $marital) { ?>
+                    <option value="<?php echo $marital['id']?>"><?php echo $marital['name']?></option>
+
+                    <?php } ?>
+                </select>   
+                </td>
+
+                <td><img class="delete-icon" alt="delete" src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width='16' height='16'></td>
+            </tr>
+
+
+        </table>  
+
+        <input type="button" id="tmpAddRow" name="Add" value="<?php echo $this->translate("Add"); ?>"><input type="submit" id="submit" name="submit" value="<?php echo $this->translate("Submit"); ?>"><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a>
+    </form>
+</div>
