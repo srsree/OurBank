@@ -32,7 +32,7 @@ class Holiday_IndexController extends Zend_Controller_Action
 //        if (($this->view->globalvalue[0]['id'] == 0)) {
 //             $this->_redirect('index/logout');
  //       }
-		$this->view->adm = new App_Model_Adm();   	
+		$this->view->adm = new App_Model_Adm();
 	}
 
 	public function indexAction() 
@@ -67,6 +67,7 @@ $officename = $this->view->adm->viewRecord("ourbank_office","id","DESC");
 //search function
 		if ($this->_request->isPost() && $this->_request->getPost('Search')) {
 			$formData = $this->_request->getPost();
+                        $this->view->errormsg="Record not found....Try again...";
 			if ($this->_request->isPost()) {
 				$formData = $this->_request->getPost();
 				if ($searchForm->isValid($formData)) {
@@ -74,6 +75,9 @@ $officename = $this->view->adm->viewRecord("ourbank_office","id","DESC");
 					$result = $holiday->SearchHoliday($searchForm->getValues());
 					$page = $this->_getParam('page',1);
 					$paginator = Zend_Paginator::factory($result);
+                                         if(!$paginator)
+                                        {          $this->view->errormsg="Record not found....Try again...";
+                                        }
 					$paginator->setItemCountPerPage(5);
 					$paginator->setCurrentPageNumber($page);
 					$this->view->paginator = $paginator;
@@ -161,7 +165,7 @@ $officename = $this->view->adm->viewRecord("ourbank_office","id","DESC");
 		$this->view->holidaydetails=$holiday->getHoliday($id);
 //Delete action
 
-		if($this->_request->isPost() && $this->_request->getPost('DELETE')) {
+		if($this->_request->isPost() && $this->_request->getPost('Delete')) {
 			$formdata = $this->_request->getPost();
 				if ($delform->isValid($formdata)) { 
        $redirect = $this->view->adm->deleteRecord("ourbank_holiday",$id);

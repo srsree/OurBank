@@ -1,12 +1,32 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
 
 
 <div style="width:480px;float:left"> 
 
 <fieldset>
-	<legend>View Category</legend>
+	
 	<div class="cont-rgt-data">
 			<TABLE id="hor-minimalist-b">
-        <?php foreach($this->holidaydetails as $category) {  ?>
+                        <tr><Th>View Category</Th><th></th><th></th><th></th><th></th></tr>
+                             <?php foreach($this->holidaydetails as $category) {  ?>
 
 				<TR>
 					<TD>Holiday Name</TD>
@@ -45,22 +65,19 @@
 					<TD></TD>
 				</TR>
 			</TABLE>
-</fieldset>
+
 <?php } ?>
-
-
-<fieldset>
-	<legend>confirm Delete</legend>
 			<div class="cont-rgt-data">
-				<form action="<?php echo $this->baseUrl();?>/management/category/categorydelete/category_id/<?php echo $this->categoryid; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+				<form action="<?php echo $this->baseUrl();?>/holiday/index/holidaydelete/id/<?php echo $this->id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
 				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                                <tr><Th>Confirm Delete</th><th></th></tr>
 					<TR>
-						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
-						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
+						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label>
+						<?php echo $this->deleteform->remarks;?></TD>
 					</TR>
 					<TR>
 										</table>
-							<input type="submit" name="DELETE" id="Submit" value="DELETE">			
+							<input type="submit" name="Delete" id="Submit" value="Delete">			
 
 						<input name="submit" type="submit"  value="No" ></a></TD>
 				</form>
