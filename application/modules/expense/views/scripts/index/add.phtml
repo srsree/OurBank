@@ -1,0 +1,45 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<form action="<?php echo $this->baseUrl();?>/expense/index/add/id/<?php echo $this->memberid; ?>" method="POST">
+<table id="hor-minimalist-b">
+<tr> 
+    <th><?php echo $this->translate("Expense"); ?></th>
+    <th><?php echo $this->translate("Value"); ?></th>
+    <th></th>
+</tr>
+<?php  
+for($i=1;$i<=$this->number;$i++) {
+    $a='expense'.$i;
+    $b='value'.$i;
+    $c='source_id'.$i;
+?>
+<tr>
+    <td><?php echo $this->form->$a; ?></td>
+    <td><?php echo $this->form->$b; ?></td>
+    <td><?php echo $this->form->$c; ?></td>
+<input type="hidden" name="subId" value="<?php echo $this->submoduleid; ?>">
+</tr> 
+<?php }?>
+<tr><td><input type="submit" id="submit" name="submit" value="<?php echo $this->translate("Submit"); ?>"></td>
+<td><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a></td>
+</tr>
+</table>
+
+</form>

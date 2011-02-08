@@ -1,0 +1,79 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+<html>
+  <head>
+<script type='text/javascript' src="<?php  echo $this->baseUrl();?>/js/jquery-1.3.2.js"></script>    <script type='text/javascript'>
+$(document).ready(
+  function() {
+    $('input#tmpAddRow').click(
+      function() {
+        $('tr#tmp').clone(true).removeAttr('id').appendTo('tbody');
+      }
+    );
+ $("select").each( function() {
+           $(this).children(':first').attr('selected', 'selected');
+
+         });
+
+
+    $('tr input[type=text]').focus(
+      function() {
+        $(this).addClass('myFocused');   
+      }
+    ).blur(
+      function() {
+        $(this).removeClass('myFocused');
+      }
+    );
+    $('.delete-icon').click(function() {$(this).closest('tr').remove()});
+  }
+);
+
+    </script>
+</head>
+<body>
+<div style="height:250px; width:750px; overflow-x:scroll ; overflow-y: scroll; padding-bottom:10px;">
+<form action="<?php echo $this->baseUrl();?>/nonlivingassets/index/addasset/id/<?php echo $this->memberid; ?>" method="POST">
+<table id="hor-minimalist-b">
+<tr> 
+    <th><?php echo $this->translate("Nonliving asset"); ?></th>
+    <th><?php echo $this->translate("Number"); ?></th>
+    <th><?php echo $this->translate("Value"); ?></th>
+    <th>Action</th>
+</tr>
+ <tr id='tmp'>
+            <td><select name = assettype[]>
+                            <?php foreach ($this->nonliveasset_details as $nonliveassets) { ?>
+                            <option value="<?php echo $nonliveassets['id']?>"><?php echo $nonliveassets['name']?></option>
+                            <?php } ?>
+                        </select>
+            </td>  
+
+            <td><INPUT type="text" name = "number[]" ></td>
+            <td><INPUT type="text" name = "value[]" ></td>
+            <td><img class="delete-icon" alt="delete" src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width='16' height='16'></td>
+
+        <input type="hidden" name="subid" value="<?php echo $this->submoduleid;?>">
+        </tr>
+    </table>  
+<input type="button" id="tmpAddRow" name="Add" value="<?php echo $this->translate("Add"); ?>"><input type="submit" id="submit" name="submit" value="<?php echo $this->translate("Submit"); ?>"><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a>
+    </form>
+</div>
+</body>
+</html>
