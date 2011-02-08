@@ -1,0 +1,48 @@
+<?php
+class Address_Form_Address extends Zend_Form {
+
+    public function init()
+    {    		$addressline1 = new Zend_Form_Element_Text('addressline1');
+			$addressline1->setAttrib('class', 'txt_put');
+			$addressline1->setAttrib('id', 'office');
+			
+			$addressline2 = new Zend_Form_Element_Text('addressline2');
+			$addressline2->setAttrib('class', 'txt_put');
+			$addressline2->setAttrib('id', 'office');
+			
+			$addressline3 = new Zend_Form_Element_Text('addressline3');
+			$addressline3->setAttrib('class', 'txt_put');
+			$addressline3->setAttrib('id', 'office');
+			
+
+			$city = new Zend_Form_Element_Text('city');
+			$city->setAttrib('class', 'txt_put');
+			
+			$state = new Zend_Form_Element_Text('state');
+			$state->setAttrib('class', 'txt_put');
+			
+
+			$country = new Zend_Form_Element_Text('country');
+			$country->setAttrib('class', 'txt_put');
+			
+
+			$pincode = new Zend_Form_Element_Text('pincode');
+			$pincode->setAttrib('class', 'txt_put');
+			$pincode->setAttrib('id', 'office');
+			
+                        $contact_no1= new Zend_Form_Element_Text('contact_no1');
+                        $contact_no1->setAttrib('class', 'txt_put');
+                        $contact_no1->setAttrib('tabindex', '5');
+			
+			 $back= new Zend_Form_Element_Submit('Back');
+
+			$submit = new Zend_Form_Element_Submit('Submit');
+                        $update = new Zend_Form_Element_Submit('Update');
+
+		        $this->addElements(array($addressline1,$addressline2,$addressline3,$city,$state,$country,$pincode,$contact_no1,$back,$submit,$update));
+			
+			
+
+
+    }
+}

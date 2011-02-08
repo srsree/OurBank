@@ -1,0 +1,189 @@
+<?php
+/*
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+*/
+?>
+
+<?php 
+class Services_IndexController extends Zend_Controller_Action 
+{
+    public function init() 
+    {
+//it is create session and implement ACL concept...
+        $this->view->pageTitle=$this->view->translate('Loan details');
+        $globalsession = new App_Model_Users();
+        $this->view->globalvalue = $globalsession->getSession();
+        $this->view->createdby = $this->view->globalvalue[0]['id'];
+        $this->view->username = $this->view->globalvalue[0]['username'];
+//         if (($this->view->globalvalue[0]['id'] == 0)) {
+//             $this->_redirect('index/logout');
+//         }
+        $this->view->adm = new App_Model_Adm();
+    }
+
+    public function indexAction() 
+    {
+    }
+
+//add family health add action
+    public function addAction() 
+    {
+        $this->view->title = $this->view->translate("Add loan details");
+        $this->view->memberid=$member_id=$this->_getParam('id');
+//count number of family members
+        $family_model=new Services_Model_services();
+        $this->view->loan_details=$count_loan = $family_model->get_servicesdetails();
+        $this->view->number=$number=count($count_loan);
+//load form with respective to number of family member
+        $addForm = new Services_Form_services($number);
+        $this->view->form=$addForm;
+//set the value of member name and sex
+
+//         for($i=1;$i<=$number;$i++){
+//         foreach($count_loan as $count_loan1){
+//             $a='source'.$i;
+//             $b='source_id'.$i;
+//            $addForm->$a->setValue($count_loan1['name']);
+//            $addForm->$b->setValue($count_loan1['id']);
+//             $i++;
+//          }
+//         }
+
+       
+
+
+//insert the family health details 
+        if ($this->_request->isPost() && $this->_request->getPost('submit')) 
+        {
+            $formData = $this->_request->getPost();
+            for($i=1;$i<=$number;$i++)
+            {	if($this->_request->getParam('loanamount'.$i)){
+                $this->view->adm->addRecord("ourbank_loandetails",array('id' => '',
+                                            'member_id'=>$member_id,
+                                            'source_id'=>$this->_request->getParam('source_id'.$i),
+                                            'loanamount' => $this->_request->getParam('loanamount'.$i),
+                                            'purpose'=>$this->_request->getParam('purpose'.$i),
+                                            'repaymentamount' => $this->_request->getParam('repayment'.$i),
+                                            'dueamount'=>$this->_request->getParam('due'.$i), 
+                                            'outstandingloan'=>$this->_request->getParam('outstanding'.$i),
+                                            'created_date'=>date("y/m/d H:i:s"),
+                                            'created_by'=>$this->view->createdby
+                                            ));
+		}
+            }
+             $this->_redirect('/individualmcommonview/index/commonview/id/'.$member_id);
+        }
+    }
+
+//edit family health details
+    public function editAction() 
+    {
+        $this->view->title = $this->view->translate("Edit health information");
+        $this->view->memberid=$member_id=$this->_getParam('id');
+//count number of family members
+        $family_model=new Loandetails_Model_loandetails();
+        $this->view->loan_details=$count_loan = $family_model->edit_loantypes();
+        $this->view->number=$number=count($count_loan);
+//load form with respective to number of family member
+        $addForm = new Loandetails_Form_loandetails($number);
+        $this->view->form=$addForm;
+//set the value of member name and sex
+
+        for($i=1;$i<=$number;$i++){
+        foreach($count_loan as $count_loan1){
+            $a='source'.$i;
+            $b='source_id'.$i;
+           $addForm->$a->setValue($count_loan1['name']);
+           $addForm->$b->setValue($count_loan1['id']);
+            $i++;
+         }
+        }
+
+	$purpose = $this->view->adm->viewRecord("ourbank_loanpurpose","id","DESC");
+        for($i=1;$i<=$number;$i++)
+        {   $health_id = "purpose".$i;
+            foreach($purpose as $purpose1){ 
+            $addForm->$health_id->addMultiOption($purpose1['id'],$purpose1['name']);
+            }
+        }
+// //set the value of health problem and other drop down box...
+        $loandetails = $family_model->get_loandetails($member_id); 
+        $i=1;
+        foreach($loandetails as $loandetails1){ 
+        $c='loanamount'.$i;
+        $d='purpose'.$i;
+        $e='repayment'.$i;
+        $f='due'.$i;
+        $g='outstanding'.$i;
+        $h='record_id'.$i;
+        $addForm->$c->setValue($loandetails1['loanamount']);
+        $addForm->$d->setValue($loandetails1['purpose']);
+        $addForm->$e->setValue($loandetails1['repaymentamount']);
+        $addForm->$f->setValue($loandetails1['dueamount']);
+        $addForm->$g->setValue($loandetails1['outstandingloan']);
+        $addForm->$h->setValue($loandetails1['id']);
+        $i++;
+        }
+
+//update the family health details...
+        if ($this->_request->isPost() && $this->_request->getPost('update')) 
+        {
+            $formData = $this->_request->getPost();  
+//update the family health is already exiting...
+            for($i=1;$i<=$number;$i++)
+            {   $loan_id=$this->_request->getParam('record_id'.$i);
+                if($this->_request->getParam('record_id'.$i)) {
+                $family_model->update($loan_id,array(
+                                            'member_id'=>$member_id,
+                                            'source_id'=>$this->_request->getParam('source_id'.$i),
+                                            'loanamount' => $this->_request->getParam('loanamount'.$i),
+                                            'purpose'=>$this->_request->getParam('purpose'.$i),
+                                            'repaymentamount' => $this->_request->getParam('repayment'.$i),
+                                            'dueamount'=>$this->_request->getParam('due'.$i), 
+                                            'outstandingloan'=>$this->_request->getParam('outstanding'.$i),
+                                            'created_date'=>date("y/m/d H:i:s"),
+                                            'created_by'=>$this->view->createdby
+                                            )); }
+
+		
+	    }
+
+	    for($i=1; $i<=$number; $i++)
+		{
+			if(!$this->_request->getParam('record_id'.$i) && $this->_request->getParam('loanamount'.$i))
+			{
+			$this->view->adm->addRecord("ourbank_loandetails",array('id' => '',
+							'member_id'=>$member_id,
+							'source_id'=>$this->_request->getParam('source_id'.$i),
+							'loanamount' => $this->_request->getParam('loanamount'.$i),
+							'purpose'=>$this->_request->getParam('purpose'.$i),
+							'repaymentamount' => $this->_request->getParam('repayment'.$i),
+							'dueamount'=>$this->_request->getParam('due'.$i), 
+							'outstandingloan'=>$this->_request->getParam('outstanding'.$i),
+							'created_date'=>date("y/m/d H:i:s"),
+							'created_by'=>$this->view->createdby
+							)); 
+			}
+		}
+		}
+            
+            
+         $this->_redirect('/individualmcommonview/index/commonview/id/'.$member_id);
+        }
+	
+}
