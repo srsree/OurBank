@@ -24,6 +24,14 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Table structure for table `address`
 --
+CREATE TABLE IF NOT EXISTS `ourbank_master_bank` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `serialno` smallint(6) NOT NULL,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 CREATE TABLE IF NOT EXISTS `address` (
   `submodule_id` tinyint(4) NOT NULL,
