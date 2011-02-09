@@ -22,19 +22,25 @@
     	<legend><?php echo $this->translate('Search'); ?></legend>
     	<div class="search" style="margin-left:20px;">
         	<form action="<?php echo $this->baseUrl();?>/bank/index/index" method="POST">
-            	<table width="100%" id = "fieldsets">
+            	<table  id = "fieldsets">
                 	<tr>
                     	<td class="label"><?php echo $this->translate('Bank name:'); ?></td>
                         <td ><? echo $this->form->field2;?></td>
-                        <td class="label"></td>
-                        <td ><? echo $this->form->Search;?></td>
                     </tr>
                 </table>
+                        <div class="btnhouse">
+               <div class="ltbtns">
+                   <?php echo $this->form->Search;?>
+               </div>
+               <div class="rtbtns">
+                   
+               </div>
+           </div>
             </form>	
         </div>
     </fieldset> 
 </div> 
-<?php if (count($this->paginator)): ?>
+<?php if (count($this->paginator)){ ?>
 	<table id="hor-minimalist-b" summary="">
     	<tr class="tdbrownheading">
 			<th><?php echo $this->translate('Bank name'); ?></th>
@@ -51,7 +57,9 @@
 						'/partials/my_pagination_control.phtml'); ?></div></td>
 		</tr>
 	</table>
-<?php endif; ?>
+<?php } else { 
+        echo $this->errormsg;
+    } ?>
 
 
 
