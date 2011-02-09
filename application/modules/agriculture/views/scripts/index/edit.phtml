@@ -16,32 +16,99 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ############################################################################
 !-->
+<html>
+  <head>
+    <script type='text/javascript' src='js/jquery-1.3.2.js'></script>
+    <script type='text/javascript'>
+$(document).ready(
+  function() {
+    $('input#tmpAddRow').click(
+      function() {
+        var newRow = $('tr#tmp').clone(true).removeAttr('id');
+        newRow.children("select").each( function() {
+            $(this).children(':first').attr('selected', 'selected');
+        });
+        //$('input:text').val('');
+        newRow.children("input:text").val("");
+        newRow.appendTo('tbody');
+        //$('#tmp').show();
+      }
+    );
 
-<form action="<?php echo $this->baseUrl();?>/health/index/edit/id/<?php echo $this->memberid; ?>" method="POST">
+    $('tr input[type=text]').focus(
+      function() {
+        $(this).addClass('myFocused');   
+      }
+    ).blur(
+      function() {
+        $(this).removeClass('myFocused');
+      }
+    );
+
+    $('.delete-icon').click(function() {$(this).closest('tr').remove()});
+  }
+);
+
+    </script>
+</head>
+<body>
+<div style="height:250px; width:750px; overflow-x:scroll ; overflow-y: scroll; padding-bottom:10px;">
+<form action="<?php echo $this->baseUrl();?>/agriculture/index/edit/id/<?php echo $this->memberid; ?>" method="POST">
 <table id="hor-minimalist-b">
 <tr> 
-    <th width="27%"><?php echo $this->translate("Family member Name"); ?></h>
-    <th width="12%"><?php echo $this->translate("Health Problem"); ?></TD>
-    <th width="10%"><?php echo $this->translate("Under Treatment"); ?></Th>
-    <th width="17%"><?php echo $this->translate("Clinical Accessibility"); ?></Th>
+    <th><?php echo $this->translate("Details of land"); ?></th>
+    <th><?php echo $this->translate("Acquisition type"); ?></th>
+    <th><?php echo $this->translate("Owner name"); ?></th>
+    <th><?php echo $this->translate("Village"); ?></th>
+    <th><?php echo $this->translate("Survey no"); ?></th>
+    <th><?php echo $this->translate("Acre"); ?></th>
+    <th><?php echo $this->translate("Value"); ?></th>
+    <th>Action</th>
 </tr>
-<?php  
-for($i=1;$i<=$this->family_number;$i++) {
-    $a='name'.$i;
-    $b='health'.$i;
-    $c='treatment'.$i;
-    $d='accessability'.$i;
-    $e='familymemberid'.$i;
-?>
-<tr>
-    <td><?php echo $this->form->$a; ?></td>
-    <td><?php echo $this->form->$b; ?></td>
-    <td><?php echo $this->form->$c; ?></td>
-    <td><?php echo $this->form->$d; echo $this->form->$e; ?></td>
-</tr> 
-<?php }?>
-<tr><td><input type="submit" id="submit" name="submit" value="<?php echo $this->translate("Submit"); ?>"></td>
-<td><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a></td>
-</tr>
-</table>
-</form>
+
+            <?php $i = 0; ?>
+            <?php foreach ($this->agriculture as $agri) { $i++;?>
+             <?php if ($i == 1) { ?>
+ <tr id='tmp'>
+          <?php } else { ?>
+            <tr>
+            <?php } ?>
+
+            <td><select name = "tenant[]">
+                    <OPTION value="<?php echo $agri["id"]; ?>">
+                    <?php echo $agri["landtypename"]; ?>
+                    </OPTION>
+                    <?php foreach ($this->land_details as $landdetails) { ?>
+                        <? if($agri["land_id"] != $landdetails["id"] ) {?>
+                           <option value="<?php echo $landdetails['id']?>"><?php echo $landdetails['name']?></option>
+                    <?php } } ?>
+                </select>    
+                </td>
+
+             <td><select name = "ownertype[]">
+                    <OPTION value="<?php echo $agri["id"]; ?>">
+                    <?php echo $agri["ownertype"]; ?>
+                    </OPTION>
+                    <?php foreach ($this->ownertype as $ownertype) { ?>
+                        <? if($agri["landowner_id"] != $ownertype["id"] ) {?>
+                           <option value="<?php echo $ownertype['id']?>"><?php echo $ownertype['name']?></option>
+                    <?php } } ?>
+                </select>    
+                </td>
+
+       
+            <td><INPUT type="text" name = "ownername[]" size="15" value = "<?php echo $agri["landowner_name"];?>" ></td> 
+            <td><INPUT type="text" name = "villagename[]" size="15" value = "<?php echo $agri["villagename"];?>"></td>
+            <td><INPUT type="text" name = "survey[]" size="5" value = "<?php echo $agri["survey_no"];?>"></td>
+            <td><INPUT type="text" name = "acre[]" size="5" value = "<?php echo $agri["acre"];?>"></td>
+            <td><INPUT type="text" name = "acrevalue[]" size="5" value = "<?php echo $agri["value"];?>"></td>
+            <td><img class="delete-icon" alt="delete" src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width='16' height='16'></td>
+        </tr>
+        <?php } ?>
+    </table>  
+ <input type="button" id="tmpAddRow" name="Add" value="<?php echo $this->translate("Add"); ?>">
+    <input type="submit" id="submit" name="submit" value="<?php echo $this->translate("Submit"); ?>"><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a>
+    </form>
+</div>
+</body>
+</html>

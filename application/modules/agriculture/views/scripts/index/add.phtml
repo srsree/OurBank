@@ -66,13 +66,13 @@ $(document).ready(
  <tr id='tmp'>
             <td><select name = tenant[]>
                             <?php foreach ($this->land_details as $land_details) { ?>
-                            <option value="<?php echo $land_details['id']?>"><?php echo $land_details['landtype_name']?></option>
+                            <option value="<?php echo $land_details['id']?>"><?php echo $land_details['name']?></option>
                             <?php } ?>
                         </select>
             </td>  
             <td><select name = ownertype[]>
                                 <?php foreach ($this->ownertype as $ownertype) { ?>
-                                <option value="<?php echo $ownertype['id']?>"><?php echo $ownertype['ownertype']?></option>
+                                <option value="<?php echo $ownertype['id']?>"><?php echo $ownertype['name']?></option>
                                 <?php } ?>
                             </select>
             </td> 
