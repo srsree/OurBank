@@ -203,8 +203,6 @@ class Activity_IndexController extends Zend_Controller_Action
                     $this->_helper->flashMessenger->addMessage('You cannot delete this Activity, its in usage');
                     $this->_helper->redirector('index');
                 }
-            //                     } else {
-            //                             $this->_redirect('index/error');
-            //                 }
+           
 	}
 }
