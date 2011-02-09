@@ -22,12 +22,12 @@
 	<form action="<?php echo $this->baseUrl();?>/fundings/index/deletefundings" method="POST">
 	   <table class="fieldsets">
            <TR>
-           	<TD><label for="fld1" class="mand">Remarks</label></TD>
+           	<TD>Remarks<span>*</span></TD>
 	    	<TD><?php echo $this->form->remarks;?></TD>					
 		</TR>
-		
+		<tr><td><font color="red">Do you Want to delete</font></td></tr>
 		<TR>
-		    <TD ><?php echo $this->form->Yes;?></td>
+		    <TD > <input name="submit" type="submit"  value="Delete" ></td>
 		    <TD ><a href="<?php echo $this->baseUrl();?>/fundingscommonview/index/commonview/id/<?php echo $this->id; ?>">
 		      <input name="submit" type="submit"  value="No" ></a></TD>
 		</TR>
