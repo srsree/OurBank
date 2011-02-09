@@ -25,12 +25,11 @@ function getInterests(officetype_id,path) {
 	}
 }
 </script>
-<fieldset>
-    <legend><?php echo $this->translate('NewOffice'); ?></legend>
         <div class="register">
             <div class="profile_tab">
                 <form action="<?php  echo $this->baseUrl();?>/officedefault/index/officeadd" method="POST" name="joe" id="signupForm" class="cmxform">
-                    <table style="float:left">  
+                    <table id="hor-minimalist-b">
+                        <tr><Th>New Office</Th><th></th></tr>
                         <tr>
                             <td><?php echo $this->translate('Office type'); ?></td><td><?php  echo $this->form->officetype_id;?></td>    
                         </tr>
@@ -56,4 +55,4 @@ function getInterests(officetype_id,path) {
 	   </form>
 	</div>
     </div>
-</fieldset>
+
