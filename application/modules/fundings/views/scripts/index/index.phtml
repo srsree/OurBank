@@ -44,19 +44,18 @@ $(document).ready(function() {
                                 <tr>
                                     <td class="label">Fundings amount:</td>
                                     <td ><? echo $this->form->field4;?></td>
-                                    <td class="label">Fundings period to</td>
+                                    <td class="label">Fundings period to:</td>
                                     <td ><? echo $this->form->field8;?></td>
                                 </tr>
-                                <tr>
-                                    <td><? echo $this->form->Search;?></td>
-                                </tr>
+
                         </table>
+                            <input type="submit" name="Search" id="Submit" value="Search">
                     </form>	
             </div>
     </fieldset> 
 </div> 
 <?php $convertdate = new Creditline_Model_dateConvertor(); ?>
-<?php if (count($this->paginator)): ?>
+<?php if (count($this->paginator)){ ?>
 <table id="hor-minimalist-b" summary="">
     <tr class="tdbrownheading">
         <th>Fundings name</th>
@@ -64,7 +63,7 @@ $(document).ready(function() {
         <th>Fundings period from</td>
         <th>Fundings period to</td>
     </tr>
-    <?php foreach ($this->paginator as $fundings ): ?>
+    <?php foreach ($this->paginator as $fundings): ?>
     <tr>
         <td><a href="<?php echo $this->baseUrl()."/fundingscommonview/index/commonview/id/".$fundings['id']; ?>"><?php echo $this->escape($fundings['name']);?></a></td>
         <td><?php echo $this->escape($fundings['amount']); ?></td>
@@ -77,8 +76,9 @@ $(document).ready(function() {
 						'/partials/my_pagination_control.phtml'); ?></div></td>
     </tr>
 </table>
-<?php endif; ?>
-
+<?php } else { 
+        echo "<font color=red>".$this->errormsg."</font>";
+    } ?>
 
 
 
