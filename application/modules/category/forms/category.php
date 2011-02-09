@@ -43,7 +43,7 @@
         // Hidden Feilds 
         $id = $formfield->field('Hidden','id','','','','',false,'','','','','',0,0);
         $createdBy = $formfield->field('Hidden','created_by','','','','',false,'','','','','',0,1);
-        $createdDate = $formfield->field('Hidden','created_date','','','','',false,'','','','','',0,date("y/m/d H:i:s"));
+        $createdDate = $formfield->field('Hidden','created_date','','','','',false,'','','','','',0,date("d/m/y H:i:s"));
 
 					
             $this->addElements(array($id,$categoryname,$categorydescription,
