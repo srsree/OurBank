@@ -32,7 +32,2536 @@ CREATE TABLE IF NOT EXISTS `ourbank_master_bank` (
   `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `ourbank_master_accountype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_accountype` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `ourbank_master_accountype`
+--
+
+INSERT INTO `ourbank_master_accountype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'No Frills', 0, '0000-00-00 00:00:00'),
+(2, 'Post office', 0, '0000-00-00 00:00:00'),
+(3, 'Savings', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_businesstype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_businesstype` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `ourbank_master_businesstype`
+--
+
+INSERT INTO `ourbank_master_businesstype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Self-employed', 0, '0000-00-00 00:00:00'),
+(2, 'Salaried - Regular', 0, '0000-00-00 00:00:00'),
+(3, 'Salaried - Contract/Seasonal', 0, '0000-00-00 00:00:00'),
+(4, 'Daily Wage', 0, '0000-00-00 00:00:00'),
+(5, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_castetype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_castetype` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `ourbank_master_castetype`
+--
+
+INSERT INTO `ourbank_master_castetype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'SC', 0, '0000-00-00 00:00:00'),
+(2, 'ST', 0, '0000-00-00 00:00:00'),
+(3, 'OBC', 0, '0000-00-00 00:00:00'),
+(4, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_cbopromoter`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_cbopromoter` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `ourbank_master_cbopromoter`
+--
+
+INSERT INTO `ourbank_master_cbopromoter` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'IDF', 0, '0000-00-00 00:00:00'),
+(2, 'Myrada', 0, '0000-00-00 00:00:00'),
+(3, 'Dhan', 0, '0000-00-00 00:00:00'),
+(4, 'None', 0, '0000-00-00 00:00:00'),
+(5, 'Anganwadi', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_cbos`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_cbos` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `cbopromoter_id` smallint(6) NOT NULL,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `ourbank_master_cbos`
+--
+
+INSERT INTO `ourbank_master_cbos` (`id`, `cbopromoter_id`, `name`, `created_by`, `created_date`) VALUES
+(1, 1, 'SHG', 0, '0000-00-00 00:00:00'),
+(2, 5, 'Stree Shakti', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_cookingfuel`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_cookingfuel` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `ourbank_master_cookingfuel`
+--
+
+INSERT INTO `ourbank_master_cookingfuel` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Wood', 0, '0000-00-00 00:00:00'),
+(2, 'Cow Dung', 0, '0000-00-00 00:00:00'),
+(3, 'Kerosene', 0, '0000-00-00 00:00:00'),
+(4, 'Biogas', 0, '0000-00-00 00:00:00'),
+(5, 'Electricity', 0, '0000-00-00 00:00:00'),
+(6, 'LPG', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_countrylist`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_countrylist` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `country_code` varchar(3) CHARACTER SET utf8 DEFAULT NULL,
+  `currencyname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `currencysymbol` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `currencyshortname` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `timezone` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `default` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18446744073709551615 ;
+
+--
+-- Dumping data for table `ourbank_master_countrylist`
+--
+
+INSERT INTO `ourbank_master_countrylist` (`id`, `name`, `country_code`, `currencyname`, `currencysymbol`, `currencyshortname`, `timezone`, `default`) VALUES
+(1, 'India', 'IND', 'Indian Rupee', 'Rs', 'Rupee', 'asia', '1'),
+(2, 'America', 'USA', 'US Dollar', '$', 'USD', '', ''),
+(3, 'Russia', 'USR', 'Rouble', 'RUB', 'RUB', '', ''),
+(4, 'Japan', 'JAP', 'YEN', '¥', 'JPY', '', ''),
+(5, 'South Africa', 'SA', 'ZAR', 'ZAR', 'ZAR', '', ''),
+(6, 'United Kingdom', 'UK', 'Punds', '₤', 'GBP', '', ''),
+(7, 'Brazil', 'BRZ', 'BRL', 'R$', 'Real', '', ''),
+(8, 'France', 'FRN', 'EURO', '€', 'euro', '', ''),
+(9, 'Germany', 'GRM', 'Deutsche Mark', 'DM', 'DM', '', ''),
+(10, 'Qatar', 'QAT', 'Qatari Rial', 'Rial', 'Rial', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_crop`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_crop` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `ourbank_master_crop`
+--
+
+INSERT INTO `ourbank_master_crop` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Rice', 0, '0000-00-00 00:00:00'),
+(2, 'Ragi', 0, '0000-00-00 00:00:00'),
+(3, 'Corns', 0, '0000-00-00 00:00:00'),
+(4, 'Sugar cane', 0, '0000-00-00 00:00:00'),
+(5, 'Vegetables', 0, '0000-00-00 00:00:00'),
+(6, 'Fruits', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_currency`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_currency` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `currencysymbol` varchar(5) DEFAULT NULL,
+  `currencyshortname` varchar(5) DEFAULT NULL,
+  `country_id` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18446744073709551615 ;
+
+--
+-- Dumping data for table `ourbank_master_currency`
+--
+
+INSERT INTO `ourbank_master_currency` (`id`, `name`, `currencysymbol`, `currencyshortname`, `country_id`) VALUES
+(1, 'Indian Rupee', 'Rs', 'INR', 1),
+(2, 'US Dollar', '$', 'USD', 0),
+(3, 'YEN', 'Ye', 'YEN', 0),
+(4, 'Britain Pounds', 'L', 'P', 0),
+(5, 'United Arab Emirates dirhams', 'D', 'UAE D', 0),
+(6, 'Euro', 'EU', 'EUR', 0),
+(7, 'Australian Dollar', '$', 'AU D', 0),
+(8, 'Oman Riyals', 'R', 'ORY', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_diseasetypes`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_diseasetypes` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `ourbank_master_diseasetypes`
+--
+
+INSERT INTO `ourbank_master_diseasetypes` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Immune system [viral and bacterial infections] ', 0, '0000-00-00 00:00:00'),
+(2, 'Musculoskeletal(fractures,swelling,sprain,wound)', 0, '0000-00-00 00:00:00'),
+(3, 'Cardiovascular (heart & blood circulation related)', 0, '0000-00-00 00:00:00'),
+(4, 'Digestive system (Dental, Oesophageal, Gastrointes', 0, '0000-00-00 00:00:00'),
+(5, 'Nervous system ', 0, '0000-00-00 00:00:00'),
+(6, 'ENT (Ear, Nose, Throat, head related)', 0, '0000-00-00 00:00:00'),
+(7, 'Ophthalmology (eye related)', 0, '0000-00-00 00:00:00'),
+(8, 'Dermatology  (Skin related)', 0, '0000-00-00 00:00:00'),
+(9, 'Urinary system', 0, '0000-00-00 00:00:00'),
+(10, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_districtlist`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_districtlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=102 ;
+
+--
+-- Dumping data for table `ourbank_master_districtlist`
+--
+
+INSERT INTO `ourbank_master_districtlist` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Alappanagudde', 0, '0000-00-00 00:00:00'),
+(2, 'Ammanahatti', 0, '0000-00-00 00:00:00'),
+(3, 'Amruthur', 0, '0000-00-00 00:00:00'),
+(4, 'Beeraganahalli', 0, '0000-00-00 00:00:00'),
+(5, 'Belligere', 0, '0000-00-00 00:00:00'),
+(6, 'Benavara', 0, '0000-00-00 00:00:00'),
+(7, 'Bettahalli', 0, '0000-00-00 00:00:00'),
+(8, 'Bidarakattepalya ', 0, '0000-00-00 00:00:00'),
+(9, 'Bilidevalaya', 0, '0000-00-00 00:00:00'),
+(10, 'Bisinele', 0, '0000-00-00 00:00:00'),
+(11, 'Boralinganapalya', 0, '0000-00-00 00:00:00'),
+(12, 'Bydagere', 0, '0000-00-00 00:00:00'),
+(13, 'Chandanahalli', 0, '0000-00-00 00:00:00'),
+(14, 'Chikka Arjunahalli', 0, '0000-00-00 00:00:00'),
+(15, 'Chottanahalli ', 0, '0000-00-00 00:00:00'),
+(16, 'Choudarypalya', 0, '0000-00-00 00:00:00'),
+(17, 'Devarakanasandra', 0, '0000-00-00 00:00:00'),
+(18, 'Devarayanapalya', 0, '0000-00-00 00:00:00'),
+(19, 'Doddakallahalli', 0, '0000-00-00 00:00:00'),
+(20, 'Doddamadure', 0, '0000-00-00 00:00:00'),
+(21, 'Dombarahatti', 0, '0000-00-00 00:00:00'),
+(22, 'Gajjanapalya', 0, '0000-00-00 00:00:00'),
+(23, 'Giriyappanapalya', 0, '0000-00-00 00:00:00'),
+(24, 'Gollarahatti', 0, '0000-00-00 00:00:00'),
+(25, 'Gowdagere', 0, '0000-00-00 00:00:00'),
+(26, 'H.B.Shettihalli', 0, '0000-00-00 00:00:00'),
+(27, 'Hadonahalli', 0, '0000-00-00 00:00:00'),
+(28, 'Halagere', 0, '0000-00-00 00:00:00'),
+(29, 'Hanchipura', 0, '0000-00-00 00:00:00'),
+(30, 'Handalagere', 0, '0000-00-00 00:00:00'),
+(31, 'Hanumapura', 0, '0000-00-00 00:00:00'),
+(32, 'Heddigere', 0, '0000-00-00 00:00:00'),
+(33, 'Helavarahatti', 0, '0000-00-00 00:00:00'),
+(34, 'Holalagunda ', 0, '0000-00-00 00:00:00'),
+(35, 'Hosahalli', 0, '0000-00-00 00:00:00'),
+(36, 'Hosakere', 0, '0000-00-00 00:00:00'),
+(37, 'Hosuru', 0, '0000-00-00 00:00:00'),
+(38, 'Hulivana', 0, '0000-00-00 00:00:00'),
+(39, 'Indiranagara', 0, '0000-00-00 00:00:00'),
+(40, 'Jaladigere', 0, '0000-00-00 00:00:00'),
+(41, 'Janatha Coloni', 0, '0000-00-00 00:00:00'),
+(42, 'Jiddigere', 0, '0000-00-00 00:00:00'),
+(43, 'Jinnaagara', 0, '0000-00-00 00:00:00'),
+(44, 'Jivajihatti', 0, '0000-00-00 00:00:00'),
+(45, 'Kadashettihalli', 0, '0000-00-00 00:00:00'),
+(46, 'Kagganahalli', 0, '0000-00-00 00:00:00'),
+(47, 'Kaggere', 0, '0000-00-00 00:00:00'),
+(48, 'Kalasegowdanapalya', 0, '0000-00-00 00:00:00'),
+(49, 'Kanchagalapura', 0, '0000-00-00 00:00:00'),
+(50, 'Kannaguni', 0, '0000-00-00 00:00:00'),
+(51, 'Kantanahalli', 0, '0000-00-00 00:00:00'),
+(52, 'Kattigehalli', 0, '0000-00-00 00:00:00'),
+(53, 'KH halli', 0, '0000-00-00 00:00:00'),
+(54, 'Kiranguru', 0, '0000-00-00 00:00:00'),
+(55, 'Kittaghatta', 0, '0000-00-00 00:00:00'),
+(56, 'Kodipalya', 0, '0000-00-00 00:00:00'),
+(57, 'Koppa', 0, '0000-00-00 00:00:00'),
+(58, 'Korati', 0, '0000-00-00 00:00:00'),
+(59, 'Kottegere', 0, '0000-00-00 00:00:00'),
+(60, 'Kuppe', 0, '0000-00-00 00:00:00'),
+(61, 'kuvempunagar', 0, '0000-00-00 00:00:00'),
+(62, 'Madihalli', 0, '0000-00-00 00:00:00'),
+(63, 'Madihalli', 0, '0000-00-00 00:00:00'),
+(64, 'Madurepalya', 0, '0000-00-00 00:00:00'),
+(65, 'Mallapura', 0, '0000-00-00 00:00:00'),
+(66, 'Mantya', 0, '0000-00-00 00:00:00'),
+(67, 'Markonahalli', 0, '0000-00-00 00:00:00'),
+(68, 'Megala Tenginmaradapalya', 0, '0000-00-00 00:00:00'),
+(69, 'Megalaplya', 0, '0000-00-00 00:00:00'),
+(70, 'Muttugadahalli', 0, '0000-00-00 00:00:00'),
+(71, 'Muttugadahalli', 0, '0000-00-00 00:00:00'),
+(72, 'Nagasandra', 0, '0000-00-00 00:00:00'),
+(73, 'Nagegowdanapalya', 0, '0000-00-00 00:00:00'),
+(74, 'Paduvagere', 0, '0000-00-00 00:00:00'),
+(75, 'Pallerayanahalli', 0, '0000-00-00 00:00:00'),
+(76, 'Puttanapalya', 0, '0000-00-00 00:00:00'),
+(77, 'Rangegoudanapalya', 0, '0000-00-00 00:00:00'),
+(78, 'Renukanagara', 0, '0000-00-00 00:00:00'),
+(79, 'Sanaba', 0, '0000-00-00 00:00:00'),
+(80, 'Sanabagatta', 0, '0000-00-00 00:00:00'),
+(81, 'Shanuboganahalli', 0, '0000-00-00 00:00:00'),
+(82, 'Shattihalli', 0, '0000-00-00 00:00:00'),
+(83, 'Shettibidu', 0, '0000-00-00 00:00:00'),
+(84, 'Siddapura ', 0, '0000-00-00 00:00:00'),
+(85, 'Singatihalli', 0, '0000-00-00 00:00:00'),
+(86, 'Sondekoppa', 0, '0000-00-00 00:00:00'),
+(87, 'Tenginamaradapalya', 0, '0000-00-00 00:00:00'),
+(88, 'Thathayyanapalya', 0, '0000-00-00 00:00:00'),
+(89, 'Thippur', 0, '0000-00-00 00:00:00'),
+(90, 'Timmegowdanapalya', 0, '0000-00-00 00:00:00'),
+(91, 'Tippuru', 0, '0000-00-00 00:00:00'),
+(92, 'Tubinakere', 0, '0000-00-00 00:00:00'),
+(93, 'Turuganuru', 0, '0000-00-00 00:00:00'),
+(94, 'Ungara', 0, '0000-00-00 00:00:00'),
+(95, 'Urkehalli', 0, '0000-00-00 00:00:00'),
+(96, 'Valagerepura', 0, '0000-00-00 00:00:00'),
+(97, 'Venkategowdanapalya', 0, '0000-00-00 00:00:00'),
+(98, 'Y.Hampapura', 0, '0000-00-00 00:00:00'),
+(99, 'Yachanahalli', 0, '0000-00-00 00:00:00'),
+(100, 'Yadavani', 0, '0000-00-00 00:00:00'),
+(101, 'Yadiyur', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_educationtype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_educationtype` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `ourbank_master_educationtype`
+--
+
+INSERT INTO `ourbank_master_educationtype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Illiterate', 0, '0000-00-00 00:00:00'),
+(2, 'Literate (Without Educational ', 0, '0000-00-00 00:00:00'),
+(3, 'Matriculation/SSLC', 0, '0000-00-00 00:00:00'),
+(4, 'Pre- University', 0, '0000-00-00 00:00:00'),
+(5, 'ITI/Certificate', 0, '0000-00-00 00:00:00'),
+(6, 'Diploma in Engineering', 0, '0000-00-00 00:00:00'),
+(7, 'Graduate', 0, '0000-00-00 00:00:00'),
+(8, 'Post Graduate', 0, '0000-00-00 00:00:00'),
+(9, 'Others', 0, '0000-00-00 00:00:00'),
+(10, 'Primary', 0, '0000-00-00 00:00:00'),
+(11, 'Middle', 0, '0000-00-00 00:00:00'),
+(12, 'High', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_employmenttype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_employmenttype` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `ourbank_master_employmenttype`
+--
+
+INSERT INTO `ourbank_master_employmenttype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Self-Employed', 0, '0000-00-00 00:00:00'),
+(2, 'Employed', 0, '0000-00-00 00:00:00'),
+(3, 'Housewife/within house worker', 0, '0000-00-00 00:00:00'),
+(4, 'Unemployed', 0, '0000-00-00 00:00:00'),
+(5, 'Student', 0, '0000-00-00 00:00:00'),
+(6, 'Student out of school/discontinued', 0, '0000-00-00 00:00:00'),
+(7, 'Retired', 0, '0000-00-00 00:00:00'),
+(8, 'Disabled', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_entitlements`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_entitlements` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `ourbank_master_entitlements`
+--
+
+INSERT INTO `ourbank_master_entitlements` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Old Age pension', 0, '0000-00-00 00:00:00'),
+(2, 'Widow pension', 0, '0000-00-00 00:00:00'),
+(3, 'Physically handicapped pension', 0, '0000-00-00 00:00:00'),
+(4, 'Others', 0, '0000-00-00 00:00:00'),
+(5, 'None', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_expense`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_expense` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `ourbank_master_expense`
+--
+
+INSERT INTO `ourbank_master_expense` (`id`, `name`) VALUES
+(1, 'Festivals'),
+(2, 'Clothes'),
+(3, 'crops expense'),
+(4, 'Expense of the grossary'),
+(5, 'Expense of the vegetables'),
+(6, 'Expense of the transport'),
+(7, 'interest on loans'),
+(8, 'Educational expenses'),
+(9, 'Fuel'),
+(10, 'Habbits'),
+(11, 'Phone/Mobile'),
+(12, 'Others'),
+(13, 'Summer agriculture expense');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_familyexpense`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_familyexpense` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `ourbank_master_familyexpense`
+--
+
+INSERT INTO `ourbank_master_familyexpense` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Festivals', 0, '0000-00-00 00:00:00'),
+(2, 'Clothes', 0, '0000-00-00 00:00:00'),
+(3, 'crops expense', 0, '0000-00-00 00:00:00'),
+(4, 'Expense of the grossary', 0, '0000-00-00 00:00:00'),
+(5, 'Expense of the vegetables', 0, '0000-00-00 00:00:00'),
+(6, 'Expense of the transport', 0, '0000-00-00 00:00:00'),
+(7, 'interest on loans', 0, '0000-00-00 00:00:00'),
+(8, 'Educational expenses', 0, '0000-00-00 00:00:00'),
+(9, 'Fuel', 0, '0000-00-00 00:00:00'),
+(10, 'Habbits', 0, '0000-00-00 00:00:00'),
+(11, 'Phone/Mobile', 0, '0000-00-00 00:00:00'),
+(12, 'Others', 0, '0000-00-00 00:00:00'),
+(13, 'Summer agriculture expense', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_familyincome`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_familyincome` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `ourbank_master_familyincome`
+--
+
+INSERT INTO `ourbank_master_familyincome` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'rabi agricultural income', 0, '0000-00-00 00:00:00'),
+(2, 'kharif agricultural income', 0, '0000-00-00 00:00:00'),
+(3, 'summer agricultural income', 0, '0000-00-00 00:00:00'),
+(4, 'perrinial crops income', 0, '0000-00-00 00:00:00'),
+(5, 'diary/goat/sheep/poultry incom', 0, '0000-00-00 00:00:00'),
+(6, 'wages', 0, '0000-00-00 00:00:00'),
+(7, 'sub callings', 0, '0000-00-00 00:00:00'),
+(8, 'employment', 0, '0000-00-00 00:00:00'),
+(9, 'others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_familytype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_familytype` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `ourbank_master_familytype`
+--
+
+INSERT INTO `ourbank_master_familytype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Nuclear/Small Family', 0, '0000-00-00 00:00:00'),
+(2, 'Joint Family', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_frequencypayment`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_frequencypayment` (
+  `id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `value` smallint(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `ourbank_master_frequencypayment`
+--
+
+INSERT INTO `ourbank_master_frequencypayment` (`id`, `name`, `value`) VALUES
+(1, 'One time', 1),
+(2, 'Daily', 1),
+(3, 'Weekly', 7),
+(4, 'Monthly', 30),
+(5, 'Quarterly', 90),
+(6, 'Half Yearly', 180),
+(7, 'Yearly', 365),
+(8, 'Any time', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_fundertype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_fundertype` (
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `ourbank_master_fundertype`
+--
+
+INSERT INTO `ourbank_master_fundertype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Individual', 0, '0000-00-00 00:00:00'),
+(2, 'Organization', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_gender`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_gender` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `ourbank_master_gender`
+--
+
+INSERT INTO `ourbank_master_gender` (`id`, `name`) VALUES
+(1, 'Male'),
+(2, 'Female');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_hoblilist`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_hoblilist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `taluk_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=102 ;
+
+--
+-- Dumping data for table `ourbank_master_hoblilist`
+--
+
+INSERT INTO `ourbank_master_hoblilist` (`id`, `name`, `taluk_id`, `created_by`, `created_date`) VALUES
+(1, 'Alappanagudde', 0, 0, '0000-00-00 00:00:00'),
+(2, 'Ammanahatti', 0, 0, '0000-00-00 00:00:00'),
+(3, 'Amruthur', 0, 0, '0000-00-00 00:00:00'),
+(4, 'Beeraganahalli', 0, 0, '0000-00-00 00:00:00'),
+(5, 'Belligere', 0, 0, '0000-00-00 00:00:00'),
+(6, 'Benavara', 0, 0, '0000-00-00 00:00:00'),
+(7, 'Bettahalli', 0, 0, '0000-00-00 00:00:00'),
+(8, 'Bidarakattepalya ', 0, 0, '0000-00-00 00:00:00'),
+(9, 'Bilidevalaya', 0, 0, '0000-00-00 00:00:00'),
+(10, 'Bisinele', 0, 0, '0000-00-00 00:00:00'),
+(11, 'Boralinganapalya', 0, 0, '0000-00-00 00:00:00'),
+(12, 'Bydagere', 0, 0, '0000-00-00 00:00:00'),
+(13, 'Chandanahalli', 0, 0, '0000-00-00 00:00:00'),
+(14, 'Chikka Arjunahalli', 0, 0, '0000-00-00 00:00:00'),
+(15, 'Chottanahalli ', 0, 0, '0000-00-00 00:00:00'),
+(16, 'Choudarypalya', 0, 0, '0000-00-00 00:00:00'),
+(17, 'Devarakanasandra', 0, 0, '0000-00-00 00:00:00'),
+(18, 'Devarayanapalya', 0, 0, '0000-00-00 00:00:00'),
+(19, 'Doddakallahalli', 0, 0, '0000-00-00 00:00:00'),
+(20, 'Doddamadure', 0, 0, '0000-00-00 00:00:00'),
+(21, 'Dombarahatti', 0, 0, '0000-00-00 00:00:00'),
+(22, 'Gajjanapalya', 0, 0, '0000-00-00 00:00:00'),
+(23, 'Giriyappanapalya', 0, 0, '0000-00-00 00:00:00'),
+(24, 'Gollarahatti', 0, 0, '0000-00-00 00:00:00'),
+(25, 'Gowdagere', 0, 0, '0000-00-00 00:00:00'),
+(26, 'H.B.Shettihalli', 0, 0, '0000-00-00 00:00:00'),
+(27, 'Hadonahalli', 0, 0, '0000-00-00 00:00:00'),
+(28, 'Halagere', 0, 0, '0000-00-00 00:00:00'),
+(29, 'Hanchipura', 0, 0, '0000-00-00 00:00:00'),
+(30, 'Handalagere', 0, 0, '0000-00-00 00:00:00'),
+(31, 'Hanumapura', 0, 0, '0000-00-00 00:00:00'),
+(32, 'Heddigere', 0, 0, '0000-00-00 00:00:00'),
+(33, 'Helavarahatti', 0, 0, '0000-00-00 00:00:00'),
+(34, 'Holalagunda ', 0, 0, '0000-00-00 00:00:00'),
+(35, 'Hosahalli', 0, 0, '0000-00-00 00:00:00'),
+(36, 'Hosakere', 0, 0, '0000-00-00 00:00:00'),
+(37, 'Hosuru', 0, 0, '0000-00-00 00:00:00'),
+(38, 'Hulivana', 0, 0, '0000-00-00 00:00:00'),
+(39, 'Indiranagara', 0, 0, '0000-00-00 00:00:00'),
+(40, 'Jaladigere', 0, 0, '0000-00-00 00:00:00'),
+(41, 'Janatha Coloni', 0, 0, '0000-00-00 00:00:00'),
+(42, 'Jiddigere', 0, 0, '0000-00-00 00:00:00'),
+(43, 'Jinnaagara', 0, 0, '0000-00-00 00:00:00'),
+(44, 'Jivajihatti', 0, 0, '0000-00-00 00:00:00'),
+(45, 'Kadashettihalli', 0, 0, '0000-00-00 00:00:00'),
+(46, 'Kagganahalli', 0, 0, '0000-00-00 00:00:00'),
+(47, 'Kaggere', 0, 0, '0000-00-00 00:00:00'),
+(48, 'Kalasegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(49, 'Kanchagalapura', 0, 0, '0000-00-00 00:00:00'),
+(50, 'Kannaguni', 0, 0, '0000-00-00 00:00:00'),
+(51, 'Kantanahalli', 0, 0, '0000-00-00 00:00:00'),
+(52, 'Kattigehalli', 0, 0, '0000-00-00 00:00:00'),
+(53, 'KH halli', 0, 0, '0000-00-00 00:00:00'),
+(54, 'Kiranguru', 0, 0, '0000-00-00 00:00:00'),
+(55, 'Kittaghatta', 0, 0, '0000-00-00 00:00:00'),
+(56, 'Kodipalya', 0, 0, '0000-00-00 00:00:00'),
+(57, 'Koppa', 0, 0, '0000-00-00 00:00:00'),
+(58, 'Korati', 0, 0, '0000-00-00 00:00:00'),
+(59, 'Kottegere', 0, 0, '0000-00-00 00:00:00'),
+(60, 'Kuppe', 0, 0, '0000-00-00 00:00:00'),
+(61, 'kuvempunagar', 0, 0, '0000-00-00 00:00:00'),
+(62, 'Madihalli', 0, 0, '0000-00-00 00:00:00'),
+(63, 'Madihalli', 0, 0, '0000-00-00 00:00:00'),
+(64, 'Madurepalya', 0, 0, '0000-00-00 00:00:00'),
+(65, 'Mallapura', 0, 0, '0000-00-00 00:00:00'),
+(66, 'Mantya', 0, 0, '0000-00-00 00:00:00'),
+(67, 'Markonahalli', 0, 0, '0000-00-00 00:00:00'),
+(68, 'Megala Tenginmaradapalya', 0, 0, '0000-00-00 00:00:00'),
+(69, 'Megalaplya', 0, 0, '0000-00-00 00:00:00'),
+(70, 'Muttugadahalli', 0, 0, '0000-00-00 00:00:00'),
+(71, 'Muttugadahalli', 0, 0, '0000-00-00 00:00:00'),
+(72, 'Nagasandra', 0, 0, '0000-00-00 00:00:00'),
+(73, 'Nagegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(74, 'Paduvagere', 0, 0, '0000-00-00 00:00:00'),
+(75, 'Pallerayanahalli', 0, 0, '0000-00-00 00:00:00'),
+(76, 'Puttanapalya', 0, 0, '0000-00-00 00:00:00'),
+(77, 'Rangegoudanapalya', 0, 0, '0000-00-00 00:00:00'),
+(78, 'Renukanagara', 0, 0, '0000-00-00 00:00:00'),
+(79, 'Sanaba', 0, 0, '0000-00-00 00:00:00'),
+(80, 'Sanabagatta', 0, 0, '0000-00-00 00:00:00'),
+(81, 'Shanuboganahalli', 0, 0, '0000-00-00 00:00:00'),
+(82, 'Shattihalli', 0, 0, '0000-00-00 00:00:00'),
+(83, 'Shettibidu', 0, 0, '0000-00-00 00:00:00'),
+(84, 'Siddapura ', 0, 0, '0000-00-00 00:00:00'),
+(85, 'Singatihalli', 0, 0, '0000-00-00 00:00:00'),
+(86, 'Sondekoppa', 0, 0, '0000-00-00 00:00:00'),
+(87, 'Tenginamaradapalya', 0, 0, '0000-00-00 00:00:00'),
+(88, 'Thathayyanapalya', 0, 0, '0000-00-00 00:00:00'),
+(89, 'Thippur', 0, 0, '0000-00-00 00:00:00'),
+(90, 'Timmegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(91, 'Tippuru', 0, 0, '0000-00-00 00:00:00'),
+(92, 'Tubinakere', 0, 0, '0000-00-00 00:00:00'),
+(93, 'Turuganuru', 0, 0, '0000-00-00 00:00:00'),
+(94, 'Ungara', 0, 0, '0000-00-00 00:00:00'),
+(95, 'Urkehalli', 0, 0, '0000-00-00 00:00:00'),
+(96, 'Valagerepura', 0, 0, '0000-00-00 00:00:00'),
+(97, 'Venkategowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(98, 'Y.Hampapura', 0, 0, '0000-00-00 00:00:00'),
+(99, 'Yachanahalli', 0, 0, '0000-00-00 00:00:00'),
+(100, 'Yadavani', 0, 0, '0000-00-00 00:00:00'),
+(101, 'Yadiyur', 0, 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_housingtype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_housingtype` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `ourbank_master_housingtype`
+--
+
+INSERT INTO `ourbank_master_housingtype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Hut', 0, '0000-00-00 00:00:00'),
+(2, 'Sheet', 0, '0000-00-00 00:00:00'),
+(3, 'Tiled', 0, '0000-00-00 00:00:00'),
+(4, 'RCC', 0, '0000-00-00 00:00:00'),
+(5, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_income`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_income` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `ourbank_master_income`
+--
+
+INSERT INTO `ourbank_master_income` (`id`, `name`) VALUES
+(1, 'rabi agricultural income'),
+(2, 'kharif agricultural income'),
+(3, 'summer agricultural income'),
+(4, 'perrinial crops income'),
+(5, 'diary/goat/sheep/poultry incom'),
+(6, 'wages'),
+(7, 'sub callings'),
+(8, 'employment'),
+(9, 'others');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_instalstatus`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_instalstatus` (
+  `id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18446744073709551615 ;
+
+--
+-- Dumping data for table `ourbank_master_instalstatus`
+--
+
+INSERT INTO `ourbank_master_instalstatus` (`id`, `name`) VALUES
+(1, 'Open'),
+(2, 'Paid'),
+(3, 'Due'),
+(4, 'Next due'),
+(5, 'Over due'),
+(6, 'Hold'),
+(7, 'Closed');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_institutions`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_institutions` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `ourbank_master_institutions`
+--
+
+INSERT INTO `ourbank_master_institutions` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Grameena Welfare', 0, '0000-00-00 00:00:00'),
+(2, 'Health clinic', 0, '0000-00-00 00:00:00'),
+(3, 'Gubbi Women care society', 0, '0000-00-00 00:00:00'),
+(4, 'Govt Hospital Gubbi', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_kootas`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_kootas` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
+
+--
+-- Dumping data for table `ourbank_master_kootas`
+--
+
+INSERT INTO `ourbank_master_kootas` (`id`, `name`, `group_id`, `created_by`, `created_date`) VALUES
+(1, 'Bilidevalaya', 0, 0, '0000-00-00 00:00:00'),
+(2, 'Alappanagudde', 0, 0, '0000-00-00 00:00:00'),
+(3, 'Ammanahatti', 0, 0, '0000-00-00 00:00:00'),
+(4, 'Boralinganapalya', 0, 0, '0000-00-00 00:00:00'),
+(5, 'Choudarypalya', 0, 0, '0000-00-00 00:00:00'),
+(6, 'Doddamadure', 0, 0, '0000-00-00 00:00:00'),
+(7, 'Gowdagere', 0, 0, '0000-00-00 00:00:00'),
+(8, 'Hadonahalli', 0, 0, '0000-00-00 00:00:00'),
+(9, 'Holalagunda ', 0, 0, '0000-00-00 00:00:00'),
+(10, 'Hosahalli', 0, 0, '0000-00-00 00:00:00'),
+(11, 'Jaladigere', 0, 0, '0000-00-00 00:00:00'),
+(12, 'Kaggere', 0, 0, '0000-00-00 00:00:00'),
+(13, 'Kannaguni', 0, 0, '0000-00-00 00:00:00'),
+(14, 'Kattigehalli', 0, 0, '0000-00-00 00:00:00'),
+(15, 'Kittaghatta', 0, 0, '0000-00-00 00:00:00'),
+(16, 'Kodagihalli', 0, 0, '0000-00-00 00:00:00'),
+(17, 'Muttugadahalli', 0, 0, '0000-00-00 00:00:00'),
+(18, 'Siddapura ', 0, 0, '0000-00-00 00:00:00'),
+(19, 'Sondekoppa', 0, 0, '0000-00-00 00:00:00'),
+(20, 'Timmegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(21, 'Tubinakere', 0, 0, '0000-00-00 00:00:00'),
+(22, 'Urkehalli', 0, 0, '0000-00-00 00:00:00'),
+(23, 'Yadiyur', 0, 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_kvs`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_kvs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `koota_id` int(11) NOT NULL,
+  `koota` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `village` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `shg` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=402 ;
+
+--
+-- Dumping data for table `ourbank_master_kvs`
+--
+
+INSERT INTO `ourbank_master_kvs` (`id`, `koota_id`, `koota`, `village`, `shg`, `created_by`, `created_date`) VALUES
+(1, 0, '', 'Amruthur', 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(2, 0, '', 'Amruthur', 'Shri Veerabhadreshwar', 0, '0000-00-00 00:00:00'),
+(3, 0, '', 'Amruthur', 'Shri Anjaneya', 0, '0000-00-00 00:00:00'),
+(4, 0, '', 'Amruthur', 'Shri Kalabhairaveshwara', 0, '0000-00-00 00:00:00'),
+(5, 0, '', 'Amruthur', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(6, 0, '', 'Amruthur', 'Lalitha ', 0, '0000-00-00 00:00:00'),
+(7, 0, '', 'Amruthur', 'Umamaheshwari', 0, '0000-00-00 00:00:00'),
+(8, 0, '', 'Amruthur', 'Shri Annapurneshwari', 0, '0000-00-00 00:00:00'),
+(9, 0, '', 'Amruthur', 'Jaimaruti', 0, '0000-00-00 00:00:00'),
+(10, 0, '', 'Amruthur', 'Veerabhadreswara', 0, '0000-00-00 00:00:00'),
+(11, 0, '', 'Amruthur', 'Maruti JLG', 0, '0000-00-00 00:00:00'),
+(12, 0, '', 'Amruthur', 'Lakshmivenkateswara JLG', 0, '0000-00-00 00:00:00'),
+(13, 0, '', 'Amruthur', 'Ambabhavani', 0, '0000-00-00 00:00:00'),
+(14, 0, '', 'Amruthur', 'Bairaveswara', 0, '0000-00-00 00:00:00'),
+(15, 0, '', 'Amruthur', 'Vigneswara', 0, '0000-00-00 00:00:00'),
+(16, 0, '', 'Renukanagara', 'Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(17, 0, '', 'kuvempunagar', 'Chalapati', 0, '0000-00-00 00:00:00'),
+(18, 0, '', 'Indiranagara', 'Kalikamba', 0, '0000-00-00 00:00:00'),
+(19, 0, '', 'Indiranagara', 'Sri Jagadeshwari', 0, '0000-00-00 00:00:00'),
+(20, 0, '', 'Yachanahalli', 'Shri Maruthi', 0, '0000-00-00 00:00:00'),
+(21, 0, '', 'Shanuboganahalli', 'Sri Bairaveshwara', 0, '0000-00-00 00:00:00'),
+(22, 0, '', 'Shanuboganahalli', 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(23, 1, 'Bilidevalaya', 'Bilidevalaya', 'Jai Karnataka ', 0, '0000-00-00 00:00:00'),
+(24, 1, 'Bilidevalaya', 'Bilidevalaya', 'Ondematharam', 0, '0000-00-00 00:00:00'),
+(25, 1, 'Bilidevalaya', 'Bilidevalaya', 'Kenkeramma', 0, '0000-00-00 00:00:00'),
+(26, 1, 'Bilidevalaya', 'Bilidevalaya', 'Nurani', 0, '0000-00-00 00:00:00'),
+(27, 1, 'Bilidevalaya', 'Bilidevalaya', 'Suryodaya', 0, '0000-00-00 00:00:00'),
+(28, 1, 'Bilidevalaya', 'Bilidevalaya', 'Ambedkar', 0, '0000-00-00 00:00:00'),
+(29, 1, 'Bilidevalaya', 'Bilidevalaya', 'Surya', 0, '0000-00-00 00:00:00'),
+(30, 1, 'Bilidevalaya', 'Bilidevalaya', 'Vinayaka', 0, '0000-00-00 00:00:00'),
+(31, 1, 'Bilidevalaya', 'Bilidevalaya', 'Pakija', 0, '0000-00-00 00:00:00'),
+(32, 1, 'Bilidevalaya', 'Bilidevalaya', 'Subhash', 0, '0000-00-00 00:00:00'),
+(33, 1, 'Bilidevalaya', 'Bilidevalaya', 'Shri Sharada', 0, '0000-00-00 00:00:00'),
+(34, 1, 'Bilidevalaya', 'Bilidevalaya', 'Gagana', 0, '0000-00-00 00:00:00'),
+(35, 1, 'Bilidevalaya', 'Bilidevalaya', 'Shri Laxmi', 0, '0000-00-00 00:00:00'),
+(36, 1, 'Bilidevalaya', 'Bilidevalaya', 'Varalaxmi', 0, '0000-00-00 00:00:00'),
+(37, 1, 'Bilidevalaya', 'Bilidevalaya', 'Bismilla', 0, '0000-00-00 00:00:00'),
+(38, 1, 'Bilidevalaya', 'Bilidevalaya', 'yarub', 0, '0000-00-00 00:00:00'),
+(39, 1, 'Bilidevalaya', 'Bilidevalaya', 'Yallamma', 0, '0000-00-00 00:00:00'),
+(40, 2, 'Boralinganapalya', 'Boralinganapalya', 'Bismilla', 0, '0000-00-00 00:00:00'),
+(41, 2, 'Boralinganapalya', 'Boralinganapalya', 'Sri Maruthi', 0, '0000-00-00 00:00:00'),
+(42, 2, 'Boralinganapalya', 'Boralinganapalya', 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(43, 2, 'Boralinganapalya', 'Boralinganapalya', 'Shri Mulakattamma', 0, '0000-00-00 00:00:00'),
+(44, 2, 'Boralinganapalya', 'Boralinganapalya', 'Neralamma', 0, '0000-00-00 00:00:00'),
+(45, 2, 'Boralinganapalya', 'Boralinganapalya', 'Vinayaka', 0, '0000-00-00 00:00:00'),
+(46, 2, 'Boralinganapalya', 'Boralinganapalya', 'Jai Hanuman', 0, '0000-00-00 00:00:00'),
+(47, 2, 'Boralinganapalya', 'Boralinganapalya', 'Shri Raghavendra', 0, '0000-00-00 00:00:00'),
+(48, 2, 'Boralinganapalya', 'Boralinganapalya', 'Ilahi', 0, '0000-00-00 00:00:00'),
+(49, 2, 'Boralinganapalya', 'Boralinganapalya', 'Sri Ranganatha', 0, '0000-00-00 00:00:00'),
+(50, 2, 'Boralinganapalya', 'Boralinganapalya', 'Adhishakthi', 0, '0000-00-00 00:00:00'),
+(51, 2, 'Boralinganapalya', 'Boralinganapalya', 'Sri Jaibhuvaneshwari', 0, '0000-00-00 00:00:00'),
+(52, 2, 'Boralinganapalya', 'Boralinganapalya', 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(53, 2, 'Boralinganapalya', 'Boralinganapalya', 'Balaji', 0, '0000-00-00 00:00:00'),
+(54, 2, 'Boralinganapalya', 'Boralinganapalya', 'Gagana', 0, '0000-00-00 00:00:00'),
+(55, 3, 'Choudarypalya', 'Choudarypalya', 'Shri Manjunatha', 0, '0000-00-00 00:00:00'),
+(56, 3, 'Choudarypalya', 'Choudarypalya', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(57, 3, 'Choudarypalya', 'Choudarypalya', 'Sri Ranga', 0, '0000-00-00 00:00:00'),
+(58, 4, 'Muttugadahalli', 'Muttugadahalli', 'Shri Vighneshwara', 0, '0000-00-00 00:00:00'),
+(59, 4, 'Muttugadahalli', 'Muttugadahalli', 'Thirumala', 0, '0000-00-00 00:00:00'),
+(60, 5, 'Urkehalli', 'Urkehalli', 'Sri Ranganatha', 0, '0000-00-00 00:00:00'),
+(61, 5, 'Urkehalli', 'Urkehalli', 'Sri Laxmiranganathaswami', 0, '0000-00-00 00:00:00'),
+(62, 5, 'Urkehalli', 'Chottanahalli ', 'Maruthi', 0, '0000-00-00 00:00:00'),
+(63, 5, 'Urkehalli', 'Chottanahalli ', 'Shri Lakshmi', 0, '0000-00-00 00:00:00'),
+(64, 0, '', 'Jinnaagara', 'Sri Doddammadevi', 0, '0000-00-00 00:00:00'),
+(65, 0, '', 'Jinnaagara', 'Sri Vinayaka ', 0, '0000-00-00 00:00:00'),
+(66, 0, '', 'Jinnaagara', 'Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(67, 0, '', 'Jinnaagara', 'Akashaya', 0, '0000-00-00 00:00:00'),
+(68, 0, '', 'Jinnaagara', 'Bagatsingh', 0, '0000-00-00 00:00:00'),
+(69, 0, '', 'Jinnaagara', 'Sri Chaluvarayaswamy', 0, '0000-00-00 00:00:00'),
+(70, 0, '', 'Jinnaagara', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(71, 0, '', 'Jinnaagara', 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(72, 0, '', 'Jinnaagara', 'Guliraya', 0, '0000-00-00 00:00:00'),
+(73, 0, '', 'Jinnaagara', 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(74, 0, '', 'Jinnaagara', 'Shri Bhoomithayi', 0, '0000-00-00 00:00:00'),
+(75, 0, '', 'Jinnaagara', 'Sri Boredevaru', 0, '0000-00-00 00:00:00'),
+(76, 0, '', 'Jinnaagara', 'Vivekananda', 0, '0000-00-00 00:00:00'),
+(77, 0, '', 'Sanaba', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(78, 0, '', 'Sanaba', 'Sri Gaddehuchamma', 0, '0000-00-00 00:00:00'),
+(79, 0, '', 'Sanaba', 'Sri Huttadamayamma', 0, '0000-00-00 00:00:00'),
+(80, 0, '', 'Sanaba', 'Sri Cheluvarayaswamy', 0, '0000-00-00 00:00:00'),
+(81, 0, '', 'Sanaba', 'Gangaparameshwari', 0, '0000-00-00 00:00:00'),
+(82, 0, '', 'Sanaba', 'Sri Channakeshva', 0, '0000-00-00 00:00:00'),
+(83, 0, '', 'Sanaba', 'Shri Varadevi', 0, '0000-00-00 00:00:00'),
+(84, 0, '', 'Sanaba', 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(85, 0, '', 'Sanaba', 'Shri Laxmammadevi', 0, '0000-00-00 00:00:00'),
+(86, 0, '', 'Sanaba', 'Shri Chamundeshwari', 0, '0000-00-00 00:00:00'),
+(87, 0, '', 'Hosakere', 'Sri Kalabairaveshwara', 0, '0000-00-00 00:00:00'),
+(88, 0, '', 'Hosakere', 'Sri Gangadhareshwara', 0, '0000-00-00 00:00:00'),
+(89, 0, '', 'Hosakere', 'Sri Honnereluhuchamma', 0, '0000-00-00 00:00:00'),
+(90, 0, '', 'Hosakere', 'Sri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(91, 0, '', 'Hosakere', 'Sri Sharadambe', 0, '0000-00-00 00:00:00'),
+(92, 0, '', 'Hosakere', 'Sri Boredevara', 0, '0000-00-00 00:00:00'),
+(93, 0, '', 'Kuppe', 'Sri Kadagalingeshwara', 0, '0000-00-00 00:00:00'),
+(94, 0, '', 'Kuppe', 'Kempegowda', 0, '0000-00-00 00:00:00'),
+(95, 0, '', 'Kuppe', 'Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(96, 0, '', 'Belligere', 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(97, 0, '', 'Handalagere', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(98, 6, 'Kaggere', 'Kaggere', 'Dandinamma', 0, '0000-00-00 00:00:00'),
+(99, 6, 'Kaggere', 'Kaggere', 'Dandinamma adhti', 0, '0000-00-00 00:00:00'),
+(100, 6, 'Kaggere', 'Kaggere', 'Suryodaya', 0, '0000-00-00 00:00:00'),
+(101, 6, 'Kaggere', 'Kaggere', 'Shri Narashimhaswamy JLG', 0, '0000-00-00 00:00:00'),
+(102, 6, 'Kaggere', 'Kaggere', 'Pragathi JLG', 0, '0000-00-00 00:00:00'),
+(103, 6, 'Kaggere', 'Kaggere', 'Shri Laksmi JLG', 0, '0000-00-00 00:00:00'),
+(104, 6, 'Kaggere', 'Kaggere', 'Navodaya', 0, '0000-00-00 00:00:00'),
+(105, 6, 'Kaggere', 'Venkategowdanapalya', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(106, 6, 'Kaggere', 'Venkategowdanapalya', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(107, 7, 'Timmegowdanapalya', 'Timmegowdanapalya', 'Padmavathi', 0, '0000-00-00 00:00:00'),
+(108, 7, 'Timmegowdanapalya', 'Timmegowdanapalya', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(109, 7, 'Timmegowdanapalya', 'Timmegowdanapalya', 'Vigneshwara', 0, '0000-00-00 00:00:00'),
+(110, 7, 'Timmegowdanapalya', 'Timmegowdanapalya', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(111, 8, 'Gowdagere', 'Gowdagere', 'Chaluvarayaswamy', 0, '0000-00-00 00:00:00'),
+(112, 9, 'Kattigehalli', 'Kattigehalli', 'Shri Maruthi', 0, '0000-00-00 00:00:00'),
+(113, 9, 'Kattigehalli', 'Dombarahatti', 'Shri Kollapuradamma', 0, '0000-00-00 00:00:00'),
+(114, 9, 'Kattigehalli', 'Giriyappanapalya', 'Shri Kollapuradamma', 0, '0000-00-00 00:00:00'),
+(115, 9, 'Kattigehalli', 'Rangegoudanapalya', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(116, 0, '', 'KH halli', 'Gangadhareshwara', 0, '0000-00-00 00:00:00'),
+(117, 0, '', 'KH halli', 'Sri Rama', 0, '0000-00-00 00:00:00'),
+(118, 0, '', 'KH halli', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(119, 0, '', 'KH halli', 'Sri Beemrao', 0, '0000-00-00 00:00:00'),
+(120, 0, '', 'KH halli', 'Sri Channakeshava', 0, '0000-00-00 00:00:00'),
+(121, 0, '', 'KH halli', 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(122, 0, '', 'KH halli', 'Sri Kalabairaveshwara JLG', 0, '0000-00-00 00:00:00'),
+(123, 0, '', 'KH halli', 'Sri Kalabairaveshwara', 0, '0000-00-00 00:00:00'),
+(124, 0, '', 'KH halli', 'Shri Kodilakkamma', 0, '0000-00-00 00:00:00'),
+(125, 0, '', 'Korati', 'Basaveshwara', 0, '0000-00-00 00:00:00'),
+(126, 0, '', 'Puttanapalya', 'Sri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(127, 0, '', 'Puttanapalya', 'Sri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(128, 0, '', 'Puttanapalya', 'Veeranjaneya', 0, '0000-00-00 00:00:00'),
+(129, 0, '', 'Puttanapalya', 'Kalabhairaveshwara', 0, '0000-00-00 00:00:00'),
+(130, 0, '', 'Gajjanapalya', 'Shri Laxminarasimhaswami', 0, '0000-00-00 00:00:00'),
+(131, 0, '', 'Gajjanapalya', 'Shri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(132, 0, '', 'Halagere', 'Shri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(133, 0, '', 'Halagere', 'Vinayaka', 0, '0000-00-00 00:00:00'),
+(134, 0, '', 'Halagere', 'Laxmi Venkateshwara', 0, '0000-00-00 00:00:00'),
+(135, 0, '', 'Halagere', 'Kempegouda', 0, '0000-00-00 00:00:00'),
+(136, 0, '', 'Halagere', 'Huyyalamma', 0, '0000-00-00 00:00:00'),
+(137, 0, '', 'Halagere', 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(138, 0, '', 'Halagere', 'Ankanatheshwara', 0, '0000-00-00 00:00:00'),
+(139, 0, '', 'Sanabagatta', 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(140, 0, '', 'Sanabagatta', 'Gomathe', 0, '0000-00-00 00:00:00'),
+(141, 0, '', 'Sanabagatta', 'Huliyuramma', 0, '0000-00-00 00:00:00'),
+(142, 0, '', 'Sanabagatta', 'Jai Bhuvaneshwari', 0, '0000-00-00 00:00:00'),
+(143, 0, '', 'Sanabagatta', 'Bhumathe', 0, '0000-00-00 00:00:00'),
+(144, 0, '', 'Bydagere', 'Sri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(145, 0, '', 'Bydagere', 'Kalikhamba', 0, '0000-00-00 00:00:00'),
+(146, 0, '', 'Bydagere', 'Srinivasa', 0, '0000-00-00 00:00:00'),
+(147, 0, '', 'Bydagere', 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(148, 10, 'Kodagihalli', 'Mallapura', 'Shri Bandhamma', 0, '0000-00-00 00:00:00'),
+(149, 11, 'Tubinakere', 'Devarayanapalya', 'Sri Pattaladamma', 0, '0000-00-00 00:00:00'),
+(150, 11, 'Tubinakere', 'Tubinakere', 'Sri Annapurneshwari', 0, '0000-00-00 00:00:00'),
+(151, 11, 'Tubinakere', 'Tubinakere', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(152, 11, 'Tubinakere', 'Tubinakere', 'Sri Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(153, 11, 'Tubinakere', 'Tubinakere', 'Shri Bhuvaneshwari', 0, '0000-00-00 00:00:00'),
+(154, 11, 'Tubinakere', 'Tubinakere', 'Sri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(155, 11, 'Tubinakere', 'Tubinakere', 'Sri Mahadeshwara', 0, '0000-00-00 00:00:00'),
+(156, 11, 'Tubinakere', 'Tubinakere', 'Sri Sharadamba', 0, '0000-00-00 00:00:00'),
+(157, 12, 'Sondekoppa', 'Sondekoppa', 'Sri Chiranjeevi', 0, '0000-00-00 00:00:00'),
+(158, 12, 'Sondekoppa', 'Sondekoppa', 'Sri Jaimaruthi', 0, '0000-00-00 00:00:00'),
+(159, 12, 'Sondekoppa', 'Sondekoppa', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(160, 13, 'Hosahalli', 'Hosahalli', 'Shri Adishakti', 0, '0000-00-00 00:00:00'),
+(161, 14, 'Holalagunda ', 'Holalagunda ', 'Shri Siddhalingeshwara', 0, '0000-00-00 00:00:00'),
+(162, 14, 'Holalagunda ', 'Holalagunda ', 'Sri Umamaheshwari', 0, '0000-00-00 00:00:00'),
+(163, 14, 'Holalagunda ', 'Holalagunda ', 'Sri Bhagyalakshmi', 0, '0000-00-00 00:00:00'),
+(164, 14, 'Holalagunda ', 'Holalagunda ', 'Sri Nandhini', 0, '0000-00-00 00:00:00'),
+(165, 14, 'Holalagunda ', 'Holalagunda ', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(166, 14, 'Holalagunda ', 'Holalagunda ', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(167, 14, 'Holalagunda ', 'Madihalli', 'Shri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(168, 14, 'Holalagunda ', 'Madihalli', 'Shri Basaveshwara ', 0, '0000-00-00 00:00:00'),
+(169, 14, 'Holalagunda ', 'Bidarakattepalya ', 'Shri Pattaladamma ', 0, '0000-00-00 00:00:00'),
+(170, 0, '', 'Thippur', 'Shri Bettada Thimmappaswami', 0, '0000-00-00 00:00:00'),
+(171, 0, '', 'Koppa', 'Shri Anjaneyaswami', 0, '0000-00-00 00:00:00'),
+(172, 0, '', 'Gollarahatti', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(173, 0, '', 'Hulivana', 'Sri Bumithayi', 0, '0000-00-00 00:00:00'),
+(174, 0, '', 'Hulivana', 'Sri Devi', 0, '0000-00-00 00:00:00'),
+(175, 0, '', 'Hulivana', 'Sri Bhumithayi', 0, '0000-00-00 00:00:00'),
+(176, 0, '', 'Hulivana', 'Bhoodevi', 0, '0000-00-00 00:00:00'),
+(177, 0, '', 'Kantanahalli', 'Shri Bhuredevaru', 0, '0000-00-00 00:00:00'),
+(178, 0, '', 'Markonahalli', 'Sri Timmarayaswamy', 0, '0000-00-00 00:00:00'),
+(179, 0, '', 'Markonahalli', 'Subaschandrabos', 0, '0000-00-00 00:00:00'),
+(180, 0, '', 'Markonahalli', 'Sir.M Vishweshwaraiah', 0, '0000-00-00 00:00:00'),
+(181, 0, '', 'Markonahalli', 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(182, 0, '', 'Markonahalli', 'Sri Mayammadevi', 0, '0000-00-00 00:00:00'),
+(183, 0, '', 'Markonahalli', 'MPA', 0, '0000-00-00 00:00:00'),
+(184, 0, '', 'Markonahalli', 'Sri Siddeshwara', 0, '0000-00-00 00:00:00'),
+(185, 0, '', 'Markonahalli', 'Bargavi', 0, '0000-00-00 00:00:00'),
+(186, 0, '', 'Markonahalli', 'Sri Srinivasa', 0, '0000-00-00 00:00:00'),
+(187, 0, '', 'Markonahalli', 'Ambedkar', 0, '0000-00-00 00:00:00'),
+(188, 0, '', 'Markonahalli', 'Spoorthi', 0, '0000-00-00 00:00:00'),
+(189, 0, '', 'Markonahalli', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(190, 0, '', 'Tippuru', 'Sri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(191, 0, '', 'Tippuru', 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(192, 0, '', 'Tippuru', 'Anjaneya', 0, '0000-00-00 00:00:00'),
+(193, 0, '', 'Mantya', 'Sri Maruthi', 0, '0000-00-00 00:00:00'),
+(194, 0, '', 'Mantya', 'Sri Lakshidevi', 0, '0000-00-00 00:00:00'),
+(195, 0, '', 'Mantya', 'Sri Bhuvaneshwari', 0, '0000-00-00 00:00:00'),
+(196, 0, '', 'Mantya', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(197, 0, '', 'Mantya', 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(198, 0, '', 'Mantya', 'Sri Balaji', 0, '0000-00-00 00:00:00'),
+(199, 0, '', 'Mantya', 'Channakeshava', 0, '0000-00-00 00:00:00'),
+(200, 0, '', 'Mantya', 'Shri Adishakti', 0, '0000-00-00 00:00:00'),
+(201, 0, '', 'Kiranguru', 'Jaimaruthi', 0, '0000-00-00 00:00:00'),
+(202, 0, '', 'Hanumapura', 'Ambedkar', 0, '0000-00-00 00:00:00'),
+(203, 0, '', 'Kiranguru', 'Saraswati', 0, '0000-00-00 00:00:00'),
+(204, 0, '', 'Kiranguru', 'Shri Laxmi', 0, '0000-00-00 00:00:00'),
+(205, 0, '', 'Bisinele', 'Sitapathi', 0, '0000-00-00 00:00:00'),
+(206, 0, '', 'Bisinele', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(207, 0, '', 'Kadashettihalli', 'Shri Channakeshava', 0, '0000-00-00 00:00:00'),
+(208, 15, 'Alappanagudde', 'Alappanagudde', 'Jafar Sadhif', 0, '0000-00-00 00:00:00'),
+(209, 15, 'Alappanagudde', 'Alappanagudde', 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(210, 15, 'Alappanagudde', 'Alappanagudde', 'Gangotri', 0, '0000-00-00 00:00:00'),
+(211, 16, 'Kannaguni', 'Kalasegowdanapalya', 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(212, 16, 'Kannaguni', 'Kannaguni', 'Shri Ranganatha', 0, '0000-00-00 00:00:00'),
+(213, 16, 'Kannaguni', 'Kannaguni', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(214, 16, 'Kannaguni', 'Kannaguni', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(215, 16, 'Kannaguni', 'Nagegowdanapalya', 'Sri Rajeshwari', 0, '0000-00-00 00:00:00'),
+(216, 16, 'Kannaguni', 'Kodipalya', 'Mujameel', 0, '0000-00-00 00:00:00'),
+(217, 16, 'Kannaguni', 'Kodipalya', 'Sulthana', 0, '0000-00-00 00:00:00'),
+(218, 16, 'Kannaguni', 'Kodipalya', 'Shaphiya', 0, '0000-00-00 00:00:00'),
+(219, 16, 'Kannaguni', 'Kodipalya', 'Shri  Vinayaka', 0, '0000-00-00 00:00:00'),
+(220, 16, 'Kannaguni', 'Kodipalya', 'Shri Mahalaxmi', 0, '0000-00-00 00:00:00'),
+(221, 16, 'Kannaguni', 'Megalaplya', 'Sri Pattaladamma', 0, '0000-00-00 00:00:00'),
+(222, 16, 'Kannaguni', 'Nagegowdanapalya', 'Sri Rajeshwari', 0, '0000-00-00 00:00:00'),
+(223, 16, 'Kannaguni', 'Hadonahalli', 'Sri muttinammadevi', 0, '0000-00-00 00:00:00'),
+(224, 16, 'Kannaguni', 'Hadonahalli', 'Sri Ranganathaswamy JLG', 0, '0000-00-00 00:00:00'),
+(225, 16, 'Kannaguni', 'Hadonahalli', 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(226, 17, 'Siddapura ', 'Nagegowdanapalya', 'Sri Rajeshwari', 0, '0000-00-00 00:00:00'),
+(227, 17, 'Siddapura ', 'Nagegowdanapalya', 'Chamundeshwari', 0, '0000-00-00 00:00:00'),
+(228, 17, 'Siddapura ', 'Siddapura ', 'Tippu', 0, '0000-00-00 00:00:00'),
+(229, 17, 'Siddapura ', 'Siddapura ', 'Jai Bharat', 0, '0000-00-00 00:00:00'),
+(230, 17, 'Siddapura ', 'Siddapura ', 'Indian', 0, '0000-00-00 00:00:00'),
+(231, 18, 'Hadonahalli', 'Hadonahalli', 'Sri Timmarayaswamy', 0, '0000-00-00 00:00:00'),
+(232, 18, 'Hadonahalli', 'Hadonahalli', 'Sri muttinammadevi', 0, '0000-00-00 00:00:00'),
+(233, 18, 'Hadonahalli', 'Hadonahalli', 'Sri Ranganathaswamy JLG', 0, '0000-00-00 00:00:00'),
+(234, 18, 'Hadonahalli', 'Hadonahalli', 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(235, 0, '', 'Nagasandra', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(236, 0, '', 'Nagasandra', 'Sri Anjaneya', 0, '0000-00-00 00:00:00'),
+(237, 0, '', 'Nagasandra', 'Sri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(238, 0, '', 'Nagasandra', 'Sri Hattimaramma', 0, '0000-00-00 00:00:00'),
+(239, 0, '', 'Nagasandra', 'Sri Bairaveshwara', 0, '0000-00-00 00:00:00'),
+(240, 0, '', 'Nagasandra', 'Sri Varalakshmi', 0, '0000-00-00 00:00:00'),
+(241, 0, '', 'Nagasandra', 'Sri Lakshmiranganathaswamy', 0, '0000-00-00 00:00:00'),
+(242, 0, '', 'Nagasandra', 'Sri Kannikaparameshwari', 0, '0000-00-00 00:00:00'),
+(243, 0, '', 'Nagasandra', 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(244, 0, '', 'Nagasandra', 'Shri Bhairaveshwara', 0, '0000-00-00 00:00:00'),
+(245, 0, '', 'Nagasandra', 'Sowmya Shree', 0, '0000-00-00 00:00:00'),
+(246, 0, '', 'Nagasandra', 'Sri Kannadambe', 0, '0000-00-00 00:00:00'),
+(247, 0, '', 'Devarakanasandra', 'Shri Chaluvarayaswami', 0, '0000-00-00 00:00:00'),
+(248, 0, '', 'Kanchagalapura', 'Sri Malleshwaraswamy', 0, '0000-00-00 00:00:00'),
+(249, 0, '', 'Shettibidu', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(250, 0, '', 'Shettibidu', 'Sri Maruthi', 0, '0000-00-00 00:00:00'),
+(251, 0, '', 'Shettibidu', 'Pranathi', 0, '0000-00-00 00:00:00'),
+(252, 0, '', 'Hosuru', 'Sri Vijayalakshmi', 0, '0000-00-00 00:00:00'),
+(253, 0, '', 'Hosuru', 'Sri Gramadevathe', 0, '0000-00-00 00:00:00'),
+(254, 0, '', 'Jivajihatti', 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(255, 0, '', 'Helavarahatti', 'Savyasachi', 0, '0000-00-00 00:00:00'),
+(256, 0, '', 'Helavarahatti', 'Shri Renukamba', 0, '0000-00-00 00:00:00'),
+(257, 0, '', 'Helavarahatti', 'Sri Anjaneyaswamy', 0, '0000-00-00 00:00:00'),
+(258, 0, '', 'Tenginamaradapalya', 'Shri Kempammadevi', 0, '0000-00-00 00:00:00'),
+(259, 0, '', 'Jiddigere', 'Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(260, 0, '', 'Jiddigere', 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(261, 0, '', 'Jiddigere', 'Sri Bairaveshwara', 0, '0000-00-00 00:00:00'),
+(262, 0, '', 'Jiddigere', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(263, 0, '', 'Jiddigere', 'Shri Kempammadevi', 0, '0000-00-00 00:00:00'),
+(264, 0, '', 'Jiddigere', 'Sri Timmappaswamy', 0, '0000-00-00 00:00:00'),
+(265, 0, '', 'Megala Tenginmaradapalya', 'Shri Venkateshwar', 0, '0000-00-00 00:00:00'),
+(266, 0, '', 'Megala Tenginmaradapalya', 'Shri Marammadevi', 0, '0000-00-00 00:00:00'),
+(267, 0, '', 'Megala Tenginmaradapalya', 'Shri Nidhi', 0, '0000-00-00 00:00:00'),
+(268, 0, '', 'Heddigere', 'Sri Huchammadevi', 0, '0000-00-00 00:00:00'),
+(269, 0, '', 'Heddigere', 'Sri Anjaneyaswamy', 0, '0000-00-00 00:00:00'),
+(270, 0, '', 'Turuganuru', 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(271, 0, '', 'Turuganuru', 'Sri Anjaneyaswamy', 0, '0000-00-00 00:00:00'),
+(272, 0, '', 'Turuganuru', 'Sri Maruthi', 0, '0000-00-00 00:00:00'),
+(273, 0, '', 'Turuganuru', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(274, 0, '', 'Turuganuru', 'Sri Bettadaranganathaswamy', 0, '0000-00-00 00:00:00'),
+(275, 0, '', 'Kottegere', 'Shri Siddhalingeshwara', 0, '0000-00-00 00:00:00'),
+(276, 0, '', 'Kottegere', 'Shri Veereshwara ', 0, '0000-00-00 00:00:00'),
+(277, 0, '', 'Paduvagere', 'Sri Kollapurasamma', 0, '0000-00-00 00:00:00'),
+(278, 0, '', 'Paduvagere', 'Sri Anjaneyaswamy', 0, '0000-00-00 00:00:00'),
+(279, 0, '', 'Paduvagere', 'Sri Lakshminarasimhaswamy', 0, '0000-00-00 00:00:00'),
+(280, 0, '', 'Paduvagere', 'Sri Hattimaramma', 0, '0000-00-00 00:00:00'),
+(281, 0, '', 'Paduvagere', 'Sri  Rama', 0, '0000-00-00 00:00:00'),
+(282, 0, '', 'Paduvagere', 'Sri Vinaaka', 0, '0000-00-00 00:00:00'),
+(283, 0, '', 'Paduvagere', 'Sri Chowdamma', 0, '0000-00-00 00:00:00'),
+(284, 0, '', 'Paduvagere', 'Sri Channakeshva', 0, '0000-00-00 00:00:00'),
+(285, 0, '', 'Paduvagere', 'Sri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(286, 0, '', 'Paduvagere', 'Laxmidevi', 0, '0000-00-00 00:00:00'),
+(287, 0, '', 'Paduvagere', 'Sri Doddamma', 0, '0000-00-00 00:00:00'),
+(288, 0, '', 'Chikka Arjunahalli', 'Huchhammadevi', 0, '0000-00-00 00:00:00'),
+(289, 0, '', 'Bettahalli', 'Shri Laxmi-Venkateshwara', 0, '0000-00-00 00:00:00'),
+(290, 0, '', 'Doddakallahalli', 'Sri Ganapathi', 0, '0000-00-00 00:00:00'),
+(291, 0, '', 'Doddakallahalli', 'Chikkamma', 0, '0000-00-00 00:00:00'),
+(292, 0, '', 'Doddakallahalli', 'Dr.B R ambedkar', 0, '0000-00-00 00:00:00'),
+(293, 0, '', 'Doddakallahalli', 'Shri Durgeshwari', 0, '0000-00-00 00:00:00'),
+(294, 0, '', 'Doddakallahalli', 'Shri Shrinivasaswami', 0, '0000-00-00 00:00:00'),
+(295, 0, '', 'Doddakallahalli', 'Shri Anjaneyaswami', 0, '0000-00-00 00:00:00'),
+(296, 0, '', 'Doddakallahalli', 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(297, 0, '', 'Doddakallahalli', 'Parvathi', 0, '0000-00-00 00:00:00'),
+(298, 0, '', 'Doddakallahalli', 'Sri Siddalingeshwara', 0, '0000-00-00 00:00:00'),
+(299, 0, '', 'Doddakallahalli', 'Sharade', 0, '0000-00-00 00:00:00'),
+(300, 0, '', 'Valagerepura', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(301, 0, '', 'Valagerepura', 'Sri Basaweshwara', 0, '0000-00-00 00:00:00'),
+(302, 0, '', 'Valagerepura', 'Sri Anthashayana', 0, '0000-00-00 00:00:00'),
+(303, 0, '', 'Valagerepura', 'Sri Tirupathivenkateshwaraswamy', 0, '0000-00-00 00:00:00'),
+(304, 0, '', 'Valagerepura', 'Sri  Laxmidevi  ', 0, '0000-00-00 00:00:00'),
+(305, 0, '', 'Valagerepura', 'Sri Manjunatha', 0, '0000-00-00 00:00:00'),
+(306, 0, '', 'Valagerepura', 'Sri siddalingeshwara', 0, '0000-00-00 00:00:00'),
+(307, 0, '', 'Valagerepura', 'Sri Nanjundeshwara', 0, '0000-00-00 00:00:00'),
+(308, 0, '', 'Valagerepura', 'Sri Aravinamaramma', 0, '0000-00-00 00:00:00'),
+(309, 0, '', 'Valagerepura', 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(310, 0, '', 'Valagerepura', 'Madheshwara', 0, '0000-00-00 00:00:00'),
+(311, 0, '', 'Valagerepura', 'Mulakattamma', 0, '0000-00-00 00:00:00'),
+(312, 0, '', 'Valagerepura', 'Shri Bhairaveshwarswami', 0, '0000-00-00 00:00:00'),
+(313, 0, '', 'Valagerepura', 'Shri Laxminarasimhaswami', 0, '0000-00-00 00:00:00'),
+(314, 0, '', 'Valagerepura', 'Sharadambe', 0, '0000-00-00 00:00:00'),
+(315, 0, '', 'Valagerepura', 'Hanumantharaya', 0, '0000-00-00 00:00:00'),
+(316, 0, '', 'Valagerepura', 'Sri Aravinamaramma', 0, '0000-00-00 00:00:00'),
+(317, 0, '', 'Janatha Coloni', 'Bhagyalakshmi', 0, '0000-00-00 00:00:00'),
+(318, 0, '', 'Benavara', 'Dr.B R ambedkar', 0, '0000-00-00 00:00:00'),
+(319, 0, '', 'Benavara', 'Channakeshava', 0, '0000-00-00 00:00:00'),
+(320, 0, '', 'Benavara', 'Aravinamaramma', 0, '0000-00-00 00:00:00'),
+(321, 0, '', 'Benavara', 'Sri Pattaladamma', 0, '0000-00-00 00:00:00'),
+(322, 0, '', 'Bettahalli', 'Hanumantharaya', 0, '0000-00-00 00:00:00'),
+(323, 0, '', 'Yadavani', 'Sri Kalikhamba', 0, '0000-00-00 00:00:00'),
+(324, 0, '', 'Yadavani', 'Eshwara', 0, '0000-00-00 00:00:00'),
+(325, 0, '', 'Yadavani', 'Sri Vinayaka ', 0, '0000-00-00 00:00:00'),
+(326, 0, '', 'Yadavani', 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(327, 0, '', 'Yadavani', 'Sri Kuvempu', 0, '0000-00-00 00:00:00'),
+(328, 0, '', 'Yadavani', 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(329, 0, '', 'Yadavani', 'Aramba', 0, '0000-00-00 00:00:00'),
+(330, 0, '', 'Yadavani', 'Bhumithayi', 0, '0000-00-00 00:00:00'),
+(331, 0, '', 'Yadavani', 'Masthamma', 0, '0000-00-00 00:00:00'),
+(332, 0, '', 'Yadavani', 'Basaveshwara', 0, '0000-00-00 00:00:00'),
+(333, 0, '', 'Yadavani', 'Manchamma', 0, '0000-00-00 00:00:00'),
+(334, 0, '', 'Yadavani', 'Kalamma', 0, '0000-00-00 00:00:00'),
+(335, 0, '', 'Yadavani', 'Nanjundeshwara', 0, '0000-00-00 00:00:00'),
+(336, 0, '', 'Yadavani', 'Sinchana', 0, '0000-00-00 00:00:00'),
+(337, 0, '', 'Yadavani', 'Shri Laxmi', 0, '0000-00-00 00:00:00'),
+(338, 0, '', 'Yadavani', 'Huchhamma', 0, '0000-00-00 00:00:00'),
+(339, 0, '', 'Yadavani', 'Adarsha ', 0, '0000-00-00 00:00:00'),
+(340, 0, '', 'Kagganahalli', 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(341, 0, '', 'Kagganahalli', 'Shri Maruthi', 0, '0000-00-00 00:00:00'),
+(342, 0, '', 'Hanchipura', 'Da.ra Bendre', 0, '0000-00-00 00:00:00'),
+(343, 0, '', 'Hanchipura', 'Annapurneshwari', 0, '0000-00-00 00:00:00'),
+(344, 0, '', 'Hanchipura', 'Sri Vaibhavalakshmi', 0, '0000-00-00 00:00:00'),
+(345, 0, '', 'Hanchipura', 'Triveni Sangama', 0, '0000-00-00 00:00:00'),
+(346, 0, '', 'Hanchipura', 'Bettadatimmappa', 0, '0000-00-00 00:00:00'),
+(347, 0, '', 'Chandanahalli', 'Mailaralingeshwara', 0, '0000-00-00 00:00:00'),
+(348, 0, '', 'Ungara', 'Madeshwara', 0, '0000-00-00 00:00:00'),
+(349, 0, '', 'Ungara', 'Varadaraja', 0, '0000-00-00 00:00:00'),
+(350, 0, '', 'Ungara', 'Nanjundeshwara', 0, '0000-00-00 00:00:00'),
+(351, 0, '', 'Ungara', 'Vinayaka', 0, '0000-00-00 00:00:00'),
+(352, 0, '', 'Ungara', 'Tapaswiraya', 0, '0000-00-00 00:00:00'),
+(353, 0, '', 'Ungara', 'Sapthagiri', 0, '0000-00-00 00:00:00'),
+(354, 0, '', 'Ungara', 'Shri Muttinamma', 0, '0000-00-00 00:00:00'),
+(355, 0, '', 'Pallerayanahalli', 'Sri Varadappa', 0, '0000-00-00 00:00:00'),
+(356, 0, '', 'Pallerayanahalli', 'Chunchanagiriyappa', 0, '0000-00-00 00:00:00'),
+(357, 0, '', 'Pallerayanahalli', 'Sri Manchamma', 0, '0000-00-00 00:00:00'),
+(358, 0, '', 'Pallerayanahalli', 'Kalabhairava', 0, '0000-00-00 00:00:00'),
+(359, 0, '', 'Pallerayanahalli', 'Maramma', 0, '0000-00-00 00:00:00'),
+(360, 0, '', 'Ammanahatti', 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(361, 19, 'Yadiyur', 'Yadiyur', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(362, 19, 'Yadiyur', 'Yadiyur', 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(363, 19, 'Yadiyur', 'Yadiyur', 'Parvathi', 0, '0000-00-00 00:00:00'),
+(364, 19, 'Yadiyur', 'Beeraganahalli', 'Maheshwari', 0, '0000-00-00 00:00:00'),
+(365, 19, 'Yadiyur', 'Beeraganahalli', 'Sri Vigneshwara', 0, '0000-00-00 00:00:00'),
+(366, 19, 'Yadiyur', 'Beeraganahalli', 'Shri Vishweshwara', 0, '0000-00-00 00:00:00'),
+(367, 19, 'Yadiyur', 'Beeraganahalli', 'Bhargavi', 0, '0000-00-00 00:00:00'),
+(368, 19, 'Yadiyur', 'Beeraganahalli', 'Shri Maheshwari', 0, '0000-00-00 00:00:00'),
+(369, 19, 'Yadiyur', 'Beeraganahalli', 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(370, 20, 'Kittaghatta', 'Hosuru', 'Sri Siddalingeshwara', 0, '0000-00-00 00:00:00'),
+(371, 20, 'Kittaghatta', 'Shattihalli', 'Shri Manchammadevii', 0, '0000-00-00 00:00:00'),
+(372, 20, 'Kittaghatta', 'Hosuru', 'Shri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(373, 20, 'Kittaghatta', 'Y.Hampapura', 'Shri Maruthi', 0, '0000-00-00 00:00:00'),
+(374, 20, 'Kittaghatta', 'Y.Hampapura', 'Shri Mariyamma ', 0, '0000-00-00 00:00:00'),
+(375, 20, 'Kittaghatta', 'Kittaghatta', 'Shri Bhairaveshwara', 0, '0000-00-00 00:00:00'),
+(376, 21, 'Jaladigere', 'Jaladigere', 'Shri  Jaladigereyamma', 0, '0000-00-00 00:00:00'),
+(377, 21, 'Jaladigere', 'Jaladigere', 'Shri Chikkamma', 0, '0000-00-00 00:00:00'),
+(378, 21, 'Jaladigere', 'Jaladigere', 'Shri Adishakthi', 0, '0000-00-00 00:00:00'),
+(379, 21, 'Jaladigere', 'Jaladigere', 'Shri Sharada', 0, '0000-00-00 00:00:00'),
+(380, 21, 'Jaladigere', 'Jaladigere', 'Doddamma', 0, '0000-00-00 00:00:00'),
+(381, 21, 'Jaladigere', 'Jaladigere', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(382, 21, 'Jaladigere', 'Jaladigere', 'Shri Byatarayaswami', 0, '0000-00-00 00:00:00'),
+(383, 21, 'Jaladigere', 'Jaladigere', 'Shri Laxmi Venkateshwara', 0, '0000-00-00 00:00:00'),
+(384, 22, 'Doddamadure', 'Doddamadure', 'Sri Huchammadevi', 0, '0000-00-00 00:00:00'),
+(385, 22, 'Doddamadure', 'Doddamadure', 'Sri Mulukattammadevi', 0, '0000-00-00 00:00:00'),
+(386, 22, 'Doddamadure', 'Doddamadure', 'Sri Channakeshvaswamy', 0, '0000-00-00 00:00:00'),
+(387, 22, 'Doddamadure', 'Doddamadure', 'Sri Hattilakkamma', 0, '0000-00-00 00:00:00'),
+(388, 22, 'Doddamadure', 'Doddamadure', 'Sri Kempegowda', 0, '0000-00-00 00:00:00'),
+(389, 22, 'Doddamadure', 'Doddamadure', 'Sri Mallikarjunaswamy', 0, '0000-00-00 00:00:00'),
+(390, 22, 'Doddamadure', 'Doddamadure', 'Sri Hebbagilubairava', 0, '0000-00-00 00:00:00'),
+(391, 22, 'Doddamadure', 'Doddamadure', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(392, 22, 'Doddamadure', 'Madurepalya', 'Shri Vishwanatha', 0, '0000-00-00 00:00:00'),
+(393, 22, 'Doddamadure', 'Madurepalya', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(394, 22, 'Doddamadure', 'Doddamadure', 'Shri Saraswatidevi', 0, '0000-00-00 00:00:00'),
+(395, 22, 'Doddamadure', 'Doddamadure', 'Kamadhenu', 0, '0000-00-00 00:00:00'),
+(396, 23, 'Ammanahatti', 'H.B.Shettihalli', 'Shri Beereshwar', 0, '0000-00-00 00:00:00'),
+(397, 23, 'Ammanahatti', 'Thathayyanapalya', 'Venkateshwara', 0, '0000-00-00 00:00:00'),
+(398, 23, 'Ammanahatti', 'Ammanahatti', 'Sri Saraswathidevi', 0, '0000-00-00 00:00:00'),
+(399, 23, 'Ammanahatti', 'Singatihalli', 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(400, 23, 'Ammanahatti', 'Kodipalya', 'Shri Thirumala', 0, '0000-00-00 00:00:00'),
+(401, 23, 'Ammanahatti', 'Kodipalya', 'Shridevi', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_landacquisition`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_landacquisition` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `ourbank_master_landacquisition`
+--
+
+INSERT INTO `ourbank_master_landacquisition` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Ancesteral', 0, '0000-00-00 00:00:00'),
+(2, 'Self-earned', 0, '0000-00-00 00:00:00'),
+(3, 'Loans', 0, '0000-00-00 00:00:00'),
+(4, 'Grant ', 0, '0000-00-00 00:00:00'),
+(5, 'Gift', 0, '0000-00-00 00:00:00'),
+(6, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_landtypes`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_landtypes` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `ourbank_master_landtypes`
+--
+
+INSERT INTO `ourbank_master_landtypes` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Dry', 0, '0000-00-00 00:00:00'),
+(2, 'Wet', 0, '0000-00-00 00:00:00'),
+(3, 'Garden Land', 0, '0000-00-00 00:00:00'),
+(4, 'Uncultivated', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_ledgertypes`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_ledgertypes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `ourbank_master_ledgertypes`
+--
+
+INSERT INTO `ourbank_master_ledgertypes` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Income', 0, '0000-00-00 00:00:00'),
+(2, 'Expenditure', 0, '0000-00-00 00:00:00'),
+(3, 'Assets', 0, '0000-00-00 00:00:00'),
+(4, 'Liabilities', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_liveassets`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_liveassets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `ourbank_master_liveassets`
+--
+
+INSERT INTO `ourbank_master_liveassets` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Cross bed cows', 0, '0000-00-00 00:00:00'),
+(2, 'Local cows', 0, '0000-00-00 00:00:00'),
+(3, 'Buffaloes', 0, '0000-00-00 00:00:00'),
+(4, 'Bullocks', 0, '0000-00-00 00:00:00'),
+(5, 'Sheep/goats', 0, '0000-00-00 00:00:00'),
+(6, 'Poultry', 0, '0000-00-00 00:00:00'),
+(7, 'Pigs', 0, '0000-00-00 00:00:00'),
+(8, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_loanpurpose`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_loanpurpose` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `ourbank_master_loanpurpose`
+--
+
+INSERT INTO `ourbank_master_loanpurpose` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Personal', 0, '0000-00-00 00:00:00'),
+(2, 'Repaying high cost debt', 0, '0000-00-00 00:00:00'),
+(3, 'Family (education/marriage etc)', 0, '0000-00-00 00:00:00'),
+(4, 'To meet healthcare costs', 0, '0000-00-00 00:00:00'),
+(5, 'Agriculture improvement', 0, '0000-00-00 00:00:00'),
+(6, 'Starting business/Business improvement', 0, '0000-00-00 00:00:00'),
+(7, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_loansource`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_loansource` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `ourbank_master_loansource`
+--
+
+INSERT INTO `ourbank_master_loansource` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Friends & Family', 0, '0000-00-00 00:00:00'),
+(2, 'Chit Funds', 0, '0000-00-00 00:00:00'),
+(3, 'SHGs / CBOs', 0, '0000-00-00 00:00:00'),
+(4, 'Cooperative Banks', 0, '0000-00-00 00:00:00'),
+(5, 'Scheduled Banks', 0, '0000-00-00 00:00:00'),
+(6, 'Money Lenders', 0, '0000-00-00 00:00:00'),
+(7, 'MFI', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_maritalstatus`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_maritalstatus` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `ourbank_master_maritalstatus`
+--
+
+INSERT INTO `ourbank_master_maritalstatus` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Currently Married', 0, '0000-00-00 00:00:00'),
+(2, 'Unmarried', 0, '0000-00-00 00:00:00'),
+(3, 'Widow/widower', 0, '0000-00-00 00:00:00'),
+(4, 'Divorced', 0, '0000-00-00 00:00:00'),
+(5, 'Separated', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_membertypes`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_membertypes` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `type` varchar(30) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `ourbank_master_membertypes`
+--
+
+INSERT INTO `ourbank_master_membertypes` (`id`, `type`, `created_by`, `created_date`) VALUES
+(1, 'Individual', 0, '0000-00-00 00:00:00'),
+(2, 'Group', 0, '0000-00-00 00:00:00'),
+(3, 'Center', 0, '0000-00-00 00:00:00'),
+(4, 'All', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_nonliveassets`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_nonliveassets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `ourbank_master_nonliveassets`
+--
+
+INSERT INTO `ourbank_master_nonliveassets` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'House', 0, '0000-00-00 00:00:00'),
+(2, 'Cow shed', 0, '0000-00-00 00:00:00'),
+(3, 'Bullock cart', 0, '0000-00-00 00:00:00'),
+(4, 'Deposit', 0, '0000-00-00 00:00:00'),
+(5, 'Tractor/Tilter', 0, '0000-00-00 00:00:00'),
+(6, 'Car/Lorry', 0, '0000-00-00 00:00:00'),
+(7, 'Bycicle', 0, '0000-00-00 00:00:00'),
+(8, 'Bike', 0, '0000-00-00 00:00:00'),
+(9, 'Mobile', 0, '0000-00-00 00:00:00'),
+(10, 'TV', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_ownershiptype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_ownershiptype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `ourbank_master_ownershiptype`
+--
+
+INSERT INTO `ourbank_master_ownershiptype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'own', 0, '0000-00-00 00:00:00'),
+(2, 'tenant', 0, '0000-00-00 00:00:00'),
+(3, 'leased', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_paymenttypes`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_paymenttypes` (
+  `id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `ourbank_master_paymenttypes`
+--
+
+INSERT INTO `ourbank_master_paymenttypes` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Cash', 0, '0000-00-00 00:00:00'),
+(2, 'Cheque', 0, '0000-00-00 00:00:00'),
+(3, 'Voucher', 0, '0000-00-00 00:00:00'),
+(4, 'Draft', 0, '0000-00-00 00:00:00'),
+(5, 'E-transfer', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_povertytype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_povertytype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `ourbank_master_povertytype`
+--
+
+INSERT INTO `ourbank_master_povertytype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Homeless / Ordinary house', 0, '0000-00-00 00:00:00'),
+(2, 'Landless / marginal farmer', 0, '0000-00-00 00:00:00'),
+(3, 'Wage employed', 0, '0000-00-00 00:00:00'),
+(4, 'Managed by women', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_profession`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_profession` (
+  `id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `profession_ID` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `ourbank_master_profession`
+--
+
+INSERT INTO `ourbank_master_profession` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Farmer', 0, '0000-00-00 00:00:00'),
+(2, 'Teacher', 0, '0000-00-00 00:00:00'),
+(3, 'Business', 0, '0000-00-00 00:00:00'),
+(4, 'Carpenter', 0, '0000-00-00 00:00:00'),
+(5, 'Cobler', 0, '0000-00-00 00:00:00'),
+(6, 'Iron Smith', 0, '0000-00-00 00:00:00'),
+(7, 'Insurence Agent', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_realtionshiptype`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_realtionshiptype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+
+--
+-- Dumping data for table `ourbank_master_realtionshiptype`
+--
+
+INSERT INTO `ourbank_master_realtionshiptype` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Self', 0, '0000-00-00 00:00:00'),
+(2, 'Spouse', 0, '0000-00-00 00:00:00'),
+(3, 'Father', 0, '0000-00-00 00:00:00'),
+(4, 'Mother', 0, '0000-00-00 00:00:00'),
+(5, 'Son', 0, '0000-00-00 00:00:00'),
+(6, 'Daughter', 0, '0000-00-00 00:00:00'),
+(7, 'Brother', 0, '0000-00-00 00:00:00'),
+(8, 'Sister', 0, '0000-00-00 00:00:00'),
+(9, 'Daughter-in-law', 0, '0000-00-00 00:00:00'),
+(10, 'Son-in-law', 0, '0000-00-00 00:00:00'),
+(11, 'Father-in-law', 0, '0000-00-00 00:00:00'),
+(12, 'Mother-in-law', 0, '0000-00-00 00:00:00'),
+(13, 'Brother-in-law', 0, '0000-00-00 00:00:00'),
+(14, 'Sister-in-law', 0, '0000-00-00 00:00:00'),
+(15, 'Nephew', 0, '0000-00-00 00:00:00'),
+(16, 'Neice', 0, '0000-00-00 00:00:00'),
+(17, 'Grandson', 0, '0000-00-00 00:00:00'),
+(18, 'Granddaughter', 0, '0000-00-00 00:00:00'),
+(19, 'Grandfather', 0, '0000-00-00 00:00:00'),
+(20, 'Grandmother', 0, '0000-00-00 00:00:00'),
+(21, 'Uncle/Aunt', 0, '0000-00-00 00:00:00'),
+(22, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_servicesectors`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_servicesectors` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
+
+--
+-- Dumping data for table `ourbank_master_servicesectors`
+--
+
+INSERT INTO `ourbank_master_servicesectors` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Agriculture', 0, '0000-00-00 00:00:00'),
+(2, 'Retail', 0, '0000-00-00 00:00:00'),
+(3, 'Hospitality/hotel', 0, '0000-00-00 00:00:00'),
+(4, 'Forestry', 0, '0000-00-00 00:00:00'),
+(5, 'Fishery', 0, '0000-00-00 00:00:00'),
+(6, 'Industry/Manufacturing', 0, '0000-00-00 00:00:00'),
+(7, 'Construction', 0, '0000-00-00 00:00:00'),
+(8, 'Transportation', 0, '0000-00-00 00:00:00'),
+(9, 'IT Serivices', 0, '0000-00-00 00:00:00'),
+(10, 'Others', 0, '0000-00-00 00:00:00'),
+(11, 'housing', 0, '0000-00-00 00:00:00'),
+(12, 'house repair', 0, '0000-00-00 00:00:00'),
+(13, 'ration card', 0, '0000-00-00 00:00:00'),
+(14, 'widows pension', 0, '0000-00-00 00:00:00'),
+(15, 'oldage pension', 0, '0000-00-00 00:00:00'),
+(16, 'handycap pension', 0, '0000-00-00 00:00:00'),
+(17, 'toilets', 0, '0000-00-00 00:00:00'),
+(18, 'NREG card', 0, '0000-00-00 00:00:00'),
+(19, 'skill training', 0, '0000-00-00 00:00:00'),
+(20, 'external employment', 0, '0000-00-00 00:00:00'),
+(21, 'bank savings A/C', 0, '0000-00-00 00:00:00'),
+(22, 'inclusion to women SHG', 0, '0000-00-00 00:00:00'),
+(23, 'inclusion to farmers SHG', 0, '0000-00-00 00:00:00'),
+(24, 'life insurance', 0, '0000-00-00 00:00:00'),
+(25, 'health insurance', 0, '0000-00-00 00:00:00'),
+(26, 'animal insurance', 0, '0000-00-00 00:00:00'),
+(27, 'hostels for students', 0, '0000-00-00 00:00:00'),
+(28, 'special classes/tuition', 0, '0000-00-00 00:00:00'),
+(29, 'capital/credit', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_shgs`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_shgs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=402 ;
+
+--
+-- Dumping data for table `ourbank_master_shgs`
+--
+
+INSERT INTO `ourbank_master_shgs` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Adarsha ', 0, '0000-00-00 00:00:00'),
+(2, 'Adhishakthi', 0, '0000-00-00 00:00:00'),
+(3, 'Akashaya', 0, '0000-00-00 00:00:00'),
+(4, 'Ambabhavani', 0, '0000-00-00 00:00:00'),
+(5, 'Ambedkar', 0, '0000-00-00 00:00:00'),
+(6, 'Ambedkar', 0, '0000-00-00 00:00:00'),
+(7, 'Ambedkar', 0, '0000-00-00 00:00:00'),
+(8, 'Anjaneya', 0, '0000-00-00 00:00:00'),
+(9, 'Ankanatheshwara', 0, '0000-00-00 00:00:00'),
+(10, 'Annapurneshwari', 0, '0000-00-00 00:00:00'),
+(11, 'Aramba', 0, '0000-00-00 00:00:00'),
+(12, 'Aravinamaramma', 0, '0000-00-00 00:00:00'),
+(13, 'Bagatsingh', 0, '0000-00-00 00:00:00'),
+(14, 'Bairaveswara', 0, '0000-00-00 00:00:00'),
+(15, 'Balaji', 0, '0000-00-00 00:00:00'),
+(16, 'Bargavi', 0, '0000-00-00 00:00:00'),
+(17, 'Basaveshwara', 0, '0000-00-00 00:00:00'),
+(18, 'Basaveshwara', 0, '0000-00-00 00:00:00'),
+(19, 'Bettadatimmappa', 0, '0000-00-00 00:00:00'),
+(20, 'Bhagyalakshmi', 0, '0000-00-00 00:00:00'),
+(21, 'Bhargavi', 0, '0000-00-00 00:00:00'),
+(22, 'Bhoodevi', 0, '0000-00-00 00:00:00'),
+(23, 'Bhumathe', 0, '0000-00-00 00:00:00'),
+(24, 'Bhumithayi', 0, '0000-00-00 00:00:00'),
+(25, 'Bismilla', 0, '0000-00-00 00:00:00'),
+(26, 'Bismilla', 0, '0000-00-00 00:00:00'),
+(27, 'Chalapati', 0, '0000-00-00 00:00:00'),
+(28, 'Chaluvarayaswamy', 0, '0000-00-00 00:00:00'),
+(29, 'Chamundeshwari', 0, '0000-00-00 00:00:00'),
+(30, 'Channakeshava', 0, '0000-00-00 00:00:00'),
+(31, 'Channakeshava', 0, '0000-00-00 00:00:00'),
+(32, 'Chikkamma', 0, '0000-00-00 00:00:00'),
+(33, 'Chunchanagiriyappa', 0, '0000-00-00 00:00:00'),
+(34, 'Da.ra Bendre', 0, '0000-00-00 00:00:00'),
+(35, 'Dandinamma', 0, '0000-00-00 00:00:00'),
+(36, 'Dandinamma adhti', 0, '0000-00-00 00:00:00'),
+(37, 'Doddamma', 0, '0000-00-00 00:00:00'),
+(38, 'Dr.B R ambedkar', 0, '0000-00-00 00:00:00'),
+(39, 'Dr.B R ambedkar', 0, '0000-00-00 00:00:00'),
+(40, 'Eshwara', 0, '0000-00-00 00:00:00'),
+(41, 'Gagana', 0, '0000-00-00 00:00:00'),
+(42, 'Gagana', 0, '0000-00-00 00:00:00'),
+(43, 'Gangadhareshwara', 0, '0000-00-00 00:00:00'),
+(44, 'Gangaparameshwari', 0, '0000-00-00 00:00:00'),
+(45, 'Gangotri', 0, '0000-00-00 00:00:00'),
+(46, 'Gomathe', 0, '0000-00-00 00:00:00'),
+(47, 'Guliraya', 0, '0000-00-00 00:00:00'),
+(48, 'Hanumantharaya', 0, '0000-00-00 00:00:00'),
+(49, 'Hanumantharaya', 0, '0000-00-00 00:00:00'),
+(50, 'Huchhamma', 0, '0000-00-00 00:00:00'),
+(51, 'Huchhammadevi', 0, '0000-00-00 00:00:00'),
+(52, 'Huliyuramma', 0, '0000-00-00 00:00:00'),
+(53, 'Huyyalamma', 0, '0000-00-00 00:00:00'),
+(54, 'Ilahi', 0, '0000-00-00 00:00:00'),
+(55, 'Indian', 0, '0000-00-00 00:00:00'),
+(56, 'Jafar Sadhif', 0, '0000-00-00 00:00:00'),
+(57, 'Jai Bharat', 0, '0000-00-00 00:00:00'),
+(58, 'Jai Bhuvaneshwari', 0, '0000-00-00 00:00:00'),
+(59, 'Jai Hanuman', 0, '0000-00-00 00:00:00'),
+(60, 'Jai Karnataka ', 0, '0000-00-00 00:00:00'),
+(61, 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(62, 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(63, 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(64, 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(65, 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(66, 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(67, 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(68, 'Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(69, 'Jaimaruthi', 0, '0000-00-00 00:00:00'),
+(70, 'Jaimaruti', 0, '0000-00-00 00:00:00'),
+(71, 'Kalabhairava', 0, '0000-00-00 00:00:00'),
+(72, 'Kalabhairaveshwara', 0, '0000-00-00 00:00:00'),
+(73, 'Kalamma', 0, '0000-00-00 00:00:00'),
+(74, 'Kalikamba', 0, '0000-00-00 00:00:00'),
+(75, 'Kalikhamba', 0, '0000-00-00 00:00:00'),
+(76, 'Kamadhenu', 0, '0000-00-00 00:00:00'),
+(77, 'Kempegouda', 0, '0000-00-00 00:00:00'),
+(78, 'Kempegowda', 0, '0000-00-00 00:00:00'),
+(79, 'Kenkeramma', 0, '0000-00-00 00:00:00'),
+(80, 'Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(81, 'Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(82, 'Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(83, 'Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(84, 'Lakshmivenkateswara JLG', 0, '0000-00-00 00:00:00'),
+(85, 'Lalitha ', 0, '0000-00-00 00:00:00'),
+(86, 'Laxmi Venkateshwara', 0, '0000-00-00 00:00:00'),
+(87, 'Laxmidevi', 0, '0000-00-00 00:00:00'),
+(88, 'Madeshwara', 0, '0000-00-00 00:00:00'),
+(89, 'Madheshwara', 0, '0000-00-00 00:00:00'),
+(90, 'Maheshwari', 0, '0000-00-00 00:00:00'),
+(91, 'Mailaralingeshwara', 0, '0000-00-00 00:00:00'),
+(92, 'Manchamma', 0, '0000-00-00 00:00:00'),
+(93, 'Maramma', 0, '0000-00-00 00:00:00'),
+(94, 'Maruthi', 0, '0000-00-00 00:00:00'),
+(95, 'Maruti JLG', 0, '0000-00-00 00:00:00'),
+(96, 'Masthamma', 0, '0000-00-00 00:00:00'),
+(97, 'MPA', 0, '0000-00-00 00:00:00'),
+(98, 'Mujameel', 0, '0000-00-00 00:00:00'),
+(99, 'Mulakattamma', 0, '0000-00-00 00:00:00'),
+(100, 'Nanjundeshwara', 0, '0000-00-00 00:00:00'),
+(101, 'Nanjundeshwara', 0, '0000-00-00 00:00:00'),
+(102, 'Navodaya', 0, '0000-00-00 00:00:00'),
+(103, 'Neralamma', 0, '0000-00-00 00:00:00'),
+(104, 'Nurani', 0, '0000-00-00 00:00:00'),
+(105, 'Ondematharam', 0, '0000-00-00 00:00:00'),
+(106, 'Padmavathi', 0, '0000-00-00 00:00:00'),
+(107, 'Pakija', 0, '0000-00-00 00:00:00'),
+(108, 'Parvathi', 0, '0000-00-00 00:00:00'),
+(109, 'Parvathi', 0, '0000-00-00 00:00:00'),
+(110, 'Pragathi JLG', 0, '0000-00-00 00:00:00'),
+(111, 'Pranathi', 0, '0000-00-00 00:00:00'),
+(112, 'Sapthagiri', 0, '0000-00-00 00:00:00'),
+(113, 'Saraswati', 0, '0000-00-00 00:00:00'),
+(114, 'Savyasachi', 0, '0000-00-00 00:00:00'),
+(115, 'Shaphiya', 0, '0000-00-00 00:00:00'),
+(116, 'Sharadambe', 0, '0000-00-00 00:00:00'),
+(117, 'Sharade', 0, '0000-00-00 00:00:00'),
+(118, 'Shri  Jaladigereyamma', 0, '0000-00-00 00:00:00'),
+(119, 'Shri  Vinayaka', 0, '0000-00-00 00:00:00'),
+(120, 'Shri Adishakthi', 0, '0000-00-00 00:00:00'),
+(121, 'Shri Adishakti', 0, '0000-00-00 00:00:00'),
+(122, 'Shri Adishakti', 0, '0000-00-00 00:00:00'),
+(123, 'Shri Anjaneya', 0, '0000-00-00 00:00:00'),
+(124, 'Shri Anjaneyaswami', 0, '0000-00-00 00:00:00'),
+(125, 'Shri Anjaneyaswami', 0, '0000-00-00 00:00:00'),
+(126, 'Shri Annapurneshwari', 0, '0000-00-00 00:00:00'),
+(127, 'Shri Bandhamma', 0, '0000-00-00 00:00:00'),
+(128, 'Shri Basaveshwara ', 0, '0000-00-00 00:00:00'),
+(129, 'Shri Beereshwar', 0, '0000-00-00 00:00:00'),
+(130, 'Shri Bettada Thimmappaswami', 0, '0000-00-00 00:00:00'),
+(131, 'Shri Bhairaveshwara', 0, '0000-00-00 00:00:00'),
+(132, 'Shri Bhairaveshwara', 0, '0000-00-00 00:00:00'),
+(133, 'Shri Bhairaveshwarswami', 0, '0000-00-00 00:00:00'),
+(134, 'Shri Bhoomithayi', 0, '0000-00-00 00:00:00'),
+(135, 'Shri Bhuredevaru', 0, '0000-00-00 00:00:00'),
+(136, 'Shri Bhuvaneshwari', 0, '0000-00-00 00:00:00'),
+(137, 'Shri Byatarayaswami', 0, '0000-00-00 00:00:00'),
+(138, 'Shri Chaluvarayaswami', 0, '0000-00-00 00:00:00'),
+(139, 'Shri Chamundeshwari', 0, '0000-00-00 00:00:00'),
+(140, 'Shri Channakeshava', 0, '0000-00-00 00:00:00'),
+(141, 'Shri Chikkamma', 0, '0000-00-00 00:00:00'),
+(142, 'Shri Durgeshwari', 0, '0000-00-00 00:00:00'),
+(143, 'Shri Kalabhairaveshwara', 0, '0000-00-00 00:00:00'),
+(144, 'Shri Kempammadevi', 0, '0000-00-00 00:00:00'),
+(145, 'Shri Kempammadevi', 0, '0000-00-00 00:00:00'),
+(146, 'Shri Kodilakkamma', 0, '0000-00-00 00:00:00'),
+(147, 'Shri Kollapuradamma', 0, '0000-00-00 00:00:00'),
+(148, 'Shri Kollapuradamma', 0, '0000-00-00 00:00:00'),
+(149, 'Shri Lakshmi', 0, '0000-00-00 00:00:00'),
+(150, 'Shri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(151, 'Shri Laksmi JLG', 0, '0000-00-00 00:00:00'),
+(152, 'Shri Laxmammadevi', 0, '0000-00-00 00:00:00'),
+(153, 'Shri Laxmi', 0, '0000-00-00 00:00:00'),
+(154, 'Shri Laxmi', 0, '0000-00-00 00:00:00'),
+(155, 'Shri Laxmi', 0, '0000-00-00 00:00:00'),
+(156, 'Shri Laxmi Venkateshwara', 0, '0000-00-00 00:00:00'),
+(157, 'Shri Laxmi-Venkateshwara', 0, '0000-00-00 00:00:00'),
+(158, 'Shri Laxminarasimhaswami', 0, '0000-00-00 00:00:00'),
+(159, 'Shri Laxminarasimhaswami', 0, '0000-00-00 00:00:00'),
+(160, 'Shri Mahalaxmi', 0, '0000-00-00 00:00:00'),
+(161, 'Shri Maheshwari', 0, '0000-00-00 00:00:00'),
+(162, 'Shri Manchammadevii', 0, '0000-00-00 00:00:00'),
+(163, 'Shri Manjunatha', 0, '0000-00-00 00:00:00'),
+(164, 'Shri Marammadevi', 0, '0000-00-00 00:00:00'),
+(165, 'Shri Mariyamma ', 0, '0000-00-00 00:00:00'),
+(166, 'Shri Maruthi', 0, '0000-00-00 00:00:00'),
+(167, 'Shri Maruthi', 0, '0000-00-00 00:00:00'),
+(168, 'Shri Maruthi', 0, '0000-00-00 00:00:00'),
+(169, 'Shri Maruthi', 0, '0000-00-00 00:00:00'),
+(170, 'Shri Mulakattamma', 0, '0000-00-00 00:00:00'),
+(171, 'Shri Muttinamma', 0, '0000-00-00 00:00:00'),
+(172, 'Shri Narashimhaswamy JLG', 0, '0000-00-00 00:00:00'),
+(173, 'Shri Nidhi', 0, '0000-00-00 00:00:00'),
+(174, 'Shri Pattaladamma ', 0, '0000-00-00 00:00:00'),
+(175, 'Shri Raghavendra', 0, '0000-00-00 00:00:00'),
+(176, 'Shri Ranganatha', 0, '0000-00-00 00:00:00'),
+(177, 'Shri Renukamba', 0, '0000-00-00 00:00:00'),
+(178, 'Shri Saraswatidevi', 0, '0000-00-00 00:00:00'),
+(179, 'Shri Sharada', 0, '0000-00-00 00:00:00'),
+(180, 'Shri Sharada', 0, '0000-00-00 00:00:00'),
+(181, 'Shri Shrinivasaswami', 0, '0000-00-00 00:00:00'),
+(182, 'Shri Siddhalingeshwara', 0, '0000-00-00 00:00:00'),
+(183, 'Shri Siddhalingeshwara', 0, '0000-00-00 00:00:00'),
+(184, 'Shri Thirumala', 0, '0000-00-00 00:00:00'),
+(185, 'Shri Varadevi', 0, '0000-00-00 00:00:00'),
+(186, 'Shri Veerabhadreshwar', 0, '0000-00-00 00:00:00'),
+(187, 'Shri Veereshwara ', 0, '0000-00-00 00:00:00'),
+(188, 'Shri Venkateshwar', 0, '0000-00-00 00:00:00'),
+(189, 'Shri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(190, 'Shri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(191, 'Shri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(192, 'Shri Vighneshwara', 0, '0000-00-00 00:00:00'),
+(193, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(194, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(195, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(196, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(197, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(198, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(199, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(200, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(201, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(202, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(203, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(204, 'Shri Vinayaka', 0, '0000-00-00 00:00:00'),
+(205, 'Shri Vishwanatha', 0, '0000-00-00 00:00:00'),
+(206, 'Shri Vishweshwara', 0, '0000-00-00 00:00:00'),
+(207, 'Shridevi', 0, '0000-00-00 00:00:00'),
+(208, 'Sinchana', 0, '0000-00-00 00:00:00'),
+(209, 'Sir.M Vishweshwaraiah', 0, '0000-00-00 00:00:00'),
+(210, 'Sitapathi', 0, '0000-00-00 00:00:00'),
+(211, 'Sowmya Shree', 0, '0000-00-00 00:00:00'),
+(212, 'Spoorthi', 0, '0000-00-00 00:00:00'),
+(213, 'Sri  Laxmidevi  ', 0, '0000-00-00 00:00:00'),
+(214, 'Sri  Rama', 0, '0000-00-00 00:00:00'),
+(215, 'Sri Anjaneya', 0, '0000-00-00 00:00:00'),
+(216, 'Sri Anjaneyaswamy', 0, '0000-00-00 00:00:00'),
+(217, 'Sri Anjaneyaswamy', 0, '0000-00-00 00:00:00'),
+(218, 'Sri Anjaneyaswamy', 0, '0000-00-00 00:00:00'),
+(219, 'Sri Anjaneyaswamy', 0, '0000-00-00 00:00:00'),
+(220, 'Sri Annapurneshwari', 0, '0000-00-00 00:00:00'),
+(221, 'Sri Anthashayana', 0, '0000-00-00 00:00:00'),
+(222, 'Sri Aravinamaramma', 0, '0000-00-00 00:00:00'),
+(223, 'Sri Aravinamaramma', 0, '0000-00-00 00:00:00'),
+(224, 'Sri Bairaveshwara', 0, '0000-00-00 00:00:00'),
+(225, 'Sri Bairaveshwara', 0, '0000-00-00 00:00:00'),
+(226, 'Sri Bairaveshwara', 0, '0000-00-00 00:00:00'),
+(227, 'Sri Balaji', 0, '0000-00-00 00:00:00'),
+(228, 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(229, 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(230, 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(231, 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(232, 'Sri Basaveshwara', 0, '0000-00-00 00:00:00'),
+(233, 'Sri Basaweshwara', 0, '0000-00-00 00:00:00'),
+(234, 'Sri Beemrao', 0, '0000-00-00 00:00:00'),
+(235, 'Sri Bettadaranganathaswamy', 0, '0000-00-00 00:00:00'),
+(236, 'Sri Bhagyalakshmi', 0, '0000-00-00 00:00:00'),
+(237, 'Sri Bhumithayi', 0, '0000-00-00 00:00:00'),
+(238, 'Sri Bhuvaneshwari', 0, '0000-00-00 00:00:00'),
+(239, 'Sri Boredevara', 0, '0000-00-00 00:00:00'),
+(240, 'Sri Boredevaru', 0, '0000-00-00 00:00:00'),
+(241, 'Sri Bumithayi', 0, '0000-00-00 00:00:00'),
+(242, 'Sri Chaluvarayaswamy', 0, '0000-00-00 00:00:00'),
+(243, 'Sri Channakeshava', 0, '0000-00-00 00:00:00'),
+(244, 'Sri Channakeshva', 0, '0000-00-00 00:00:00'),
+(245, 'Sri Channakeshva', 0, '0000-00-00 00:00:00'),
+(246, 'Sri Channakeshvaswamy', 0, '0000-00-00 00:00:00'),
+(247, 'Sri Cheluvarayaswamy', 0, '0000-00-00 00:00:00'),
+(248, 'Sri Chiranjeevi', 0, '0000-00-00 00:00:00'),
+(249, 'Sri Chowdamma', 0, '0000-00-00 00:00:00'),
+(250, 'Sri Devi', 0, '0000-00-00 00:00:00'),
+(251, 'Sri Doddamma', 0, '0000-00-00 00:00:00'),
+(252, 'Sri Doddammadevi', 0, '0000-00-00 00:00:00'),
+(253, 'Sri Gaddehuchamma', 0, '0000-00-00 00:00:00'),
+(254, 'Sri Ganapathi', 0, '0000-00-00 00:00:00'),
+(255, 'Sri Gangadhareshwara', 0, '0000-00-00 00:00:00'),
+(256, 'Sri Gramadevathe', 0, '0000-00-00 00:00:00'),
+(257, 'Sri Hattilakkamma', 0, '0000-00-00 00:00:00'),
+(258, 'Sri Hattimaramma', 0, '0000-00-00 00:00:00'),
+(259, 'Sri Hattimaramma', 0, '0000-00-00 00:00:00'),
+(260, 'Sri Hebbagilubairava', 0, '0000-00-00 00:00:00'),
+(261, 'Sri Honnereluhuchamma', 0, '0000-00-00 00:00:00'),
+(262, 'Sri Huchammadevi', 0, '0000-00-00 00:00:00'),
+(263, 'Sri Huchammadevi', 0, '0000-00-00 00:00:00'),
+(264, 'Sri Huttadamayamma', 0, '0000-00-00 00:00:00'),
+(265, 'Sri Jagadeshwari', 0, '0000-00-00 00:00:00'),
+(266, 'Sri Jai Maruthi', 0, '0000-00-00 00:00:00'),
+(267, 'Sri Jaibhuvaneshwari', 0, '0000-00-00 00:00:00'),
+(268, 'Sri Jaimaruthi', 0, '0000-00-00 00:00:00'),
+(269, 'Sri Kadagalingeshwara', 0, '0000-00-00 00:00:00'),
+(270, 'Sri Kalabairaveshwara', 0, '0000-00-00 00:00:00'),
+(271, 'Sri Kalabairaveshwara', 0, '0000-00-00 00:00:00'),
+(272, 'Sri Kalabairaveshwara JLG', 0, '0000-00-00 00:00:00'),
+(273, 'Sri Kalikhamba', 0, '0000-00-00 00:00:00'),
+(274, 'Sri Kannadambe', 0, '0000-00-00 00:00:00'),
+(275, 'Sri Kannikaparameshwari', 0, '0000-00-00 00:00:00'),
+(276, 'Sri Kempegowda', 0, '0000-00-00 00:00:00'),
+(277, 'Sri Kollapurasamma', 0, '0000-00-00 00:00:00'),
+(278, 'Sri Kuvempu', 0, '0000-00-00 00:00:00'),
+(279, 'Sri Lakshidevi', 0, '0000-00-00 00:00:00'),
+(280, 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(281, 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(282, 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(283, 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(284, 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(285, 'Sri Lakshmi', 0, '0000-00-00 00:00:00'),
+(286, 'Sri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(287, 'Sri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(288, 'Sri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(289, 'Sri Lakshmidevi', 0, '0000-00-00 00:00:00'),
+(290, 'Sri Lakshminarasimhaswamy', 0, '0000-00-00 00:00:00'),
+(291, 'Sri Lakshmiranganathaswamy', 0, '0000-00-00 00:00:00'),
+(292, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(293, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(294, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(295, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(296, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(297, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(298, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(299, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(300, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(301, 'Sri Lakshmivenkateshwara', 0, '0000-00-00 00:00:00'),
+(302, 'Sri Laxmiranganathaswami', 0, '0000-00-00 00:00:00'),
+(303, 'Sri Mahadeshwara', 0, '0000-00-00 00:00:00'),
+(304, 'Sri Malleshwaraswamy', 0, '0000-00-00 00:00:00'),
+(305, 'Sri Mallikarjunaswamy', 0, '0000-00-00 00:00:00'),
+(306, 'Sri Manchamma', 0, '0000-00-00 00:00:00'),
+(307, 'Sri Manjunatha', 0, '0000-00-00 00:00:00'),
+(308, 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(309, 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(310, 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(311, 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(312, 'Sri Maramma', 0, '0000-00-00 00:00:00'),
+(313, 'Sri Maruthi', 0, '0000-00-00 00:00:00'),
+(314, 'Sri Maruthi', 0, '0000-00-00 00:00:00'),
+(315, 'Sri Maruthi', 0, '0000-00-00 00:00:00'),
+(316, 'Sri Maruthi', 0, '0000-00-00 00:00:00'),
+(317, 'Sri Mayammadevi', 0, '0000-00-00 00:00:00'),
+(318, 'Sri Mulukattammadevi', 0, '0000-00-00 00:00:00'),
+(319, 'Sri muttinammadevi', 0, '0000-00-00 00:00:00'),
+(320, 'Sri muttinammadevi', 0, '0000-00-00 00:00:00'),
+(321, 'Sri Nandhini', 0, '0000-00-00 00:00:00'),
+(322, 'Sri Nanjundeshwara', 0, '0000-00-00 00:00:00'),
+(323, 'Sri Pattaladamma', 0, '0000-00-00 00:00:00'),
+(324, 'Sri Pattaladamma', 0, '0000-00-00 00:00:00'),
+(325, 'Sri Pattaladamma', 0, '0000-00-00 00:00:00'),
+(326, 'Sri Rajeshwari', 0, '0000-00-00 00:00:00'),
+(327, 'Sri Rajeshwari', 0, '0000-00-00 00:00:00'),
+(328, 'Sri Rajeshwari', 0, '0000-00-00 00:00:00'),
+(329, 'Sri Rama', 0, '0000-00-00 00:00:00'),
+(330, 'Sri Ranga', 0, '0000-00-00 00:00:00'),
+(331, 'Sri Ranganatha', 0, '0000-00-00 00:00:00'),
+(332, 'Sri Ranganatha', 0, '0000-00-00 00:00:00'),
+(333, 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(334, 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(335, 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(336, 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(337, 'Sri Ranganathaswamy', 0, '0000-00-00 00:00:00'),
+(338, 'Sri Ranganathaswamy JLG', 0, '0000-00-00 00:00:00'),
+(339, 'Sri Ranganathaswamy JLG', 0, '0000-00-00 00:00:00'),
+(340, 'Sri Saraswathidevi', 0, '0000-00-00 00:00:00'),
+(341, 'Sri Sharadamba', 0, '0000-00-00 00:00:00'),
+(342, 'Sri Sharadambe', 0, '0000-00-00 00:00:00'),
+(343, 'Sri Siddalingeshwara', 0, '0000-00-00 00:00:00'),
+(344, 'Sri siddalingeshwara', 0, '0000-00-00 00:00:00'),
+(345, 'Sri Siddalingeshwara', 0, '0000-00-00 00:00:00'),
+(346, 'Sri Siddeshwara', 0, '0000-00-00 00:00:00'),
+(347, 'Sri Srinivasa', 0, '0000-00-00 00:00:00'),
+(348, 'Sri Timmappaswamy', 0, '0000-00-00 00:00:00'),
+(349, 'Sri Timmarayaswamy', 0, '0000-00-00 00:00:00'),
+(350, 'Sri Timmarayaswamy', 0, '0000-00-00 00:00:00'),
+(351, 'Sri Tirupathivenkateshwaraswam', 0, '0000-00-00 00:00:00'),
+(352, 'Sri Umamaheshwari', 0, '0000-00-00 00:00:00'),
+(353, 'Sri Vaibhavalakshmi', 0, '0000-00-00 00:00:00'),
+(354, 'Sri Varadappa', 0, '0000-00-00 00:00:00'),
+(355, 'Sri Varalakshmi', 0, '0000-00-00 00:00:00'),
+(356, 'Sri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(357, 'Sri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(358, 'Sri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(359, 'Sri Venkateshwara', 0, '0000-00-00 00:00:00'),
+(360, 'Sri Vigneshwara', 0, '0000-00-00 00:00:00'),
+(361, 'Sri Vijayalakshmi', 0, '0000-00-00 00:00:00'),
+(362, 'Sri Vinaaka', 0, '0000-00-00 00:00:00'),
+(363, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(364, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(365, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(366, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(367, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(368, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(369, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(370, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(371, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(372, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(373, 'Sri Vinayaka', 0, '0000-00-00 00:00:00'),
+(374, 'Sri Vinayaka ', 0, '0000-00-00 00:00:00'),
+(375, 'Sri Vinayaka ', 0, '0000-00-00 00:00:00'),
+(376, 'Srinivasa', 0, '0000-00-00 00:00:00'),
+(377, 'Subaschandrabos', 0, '0000-00-00 00:00:00'),
+(378, 'Subhash', 0, '0000-00-00 00:00:00'),
+(379, 'Sulthana', 0, '0000-00-00 00:00:00'),
+(380, 'Surya', 0, '0000-00-00 00:00:00'),
+(381, 'Suryodaya', 0, '0000-00-00 00:00:00'),
+(382, 'Suryodaya', 0, '0000-00-00 00:00:00'),
+(383, 'Tapaswiraya', 0, '0000-00-00 00:00:00'),
+(384, 'Thirumala', 0, '0000-00-00 00:00:00'),
+(385, 'Tippu', 0, '0000-00-00 00:00:00'),
+(386, 'Triveni Sangama', 0, '0000-00-00 00:00:00'),
+(387, 'Umamaheshwari', 0, '0000-00-00 00:00:00'),
+(388, 'Varadaraja', 0, '0000-00-00 00:00:00'),
+(389, 'Varalaxmi', 0, '0000-00-00 00:00:00'),
+(390, 'Veerabhadreswara', 0, '0000-00-00 00:00:00'),
+(391, 'Veeranjaneya', 0, '0000-00-00 00:00:00'),
+(392, 'Venkateshwara', 0, '0000-00-00 00:00:00'),
+(393, 'Vigneshwara', 0, '0000-00-00 00:00:00'),
+(394, 'Vigneswara', 0, '0000-00-00 00:00:00'),
+(395, 'Vinayaka', 0, '0000-00-00 00:00:00'),
+(396, 'Vinayaka', 0, '0000-00-00 00:00:00'),
+(397, 'Vinayaka', 0, '0000-00-00 00:00:00'),
+(398, 'Vinayaka', 0, '0000-00-00 00:00:00'),
+(399, 'Vivekananda', 0, '0000-00-00 00:00:00'),
+(400, 'Yallamma', 0, '0000-00-00 00:00:00'),
+(401, 'yarub', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_skills`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_skills` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+
+--
+-- Dumping data for table `ourbank_master_skills`
+--
+
+INSERT INTO `ourbank_master_skills` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Farm Worker', 0, '0000-00-00 00:00:00'),
+(2, 'Non-farm worker', 0, '0000-00-00 00:00:00'),
+(3, 'Fishermen', 0, '0000-00-00 00:00:00'),
+(4, 'Weaver', 0, '0000-00-00 00:00:00'),
+(5, 'Mechanic', 0, '0000-00-00 00:00:00'),
+(6, 'Carpenter', 0, '0000-00-00 00:00:00'),
+(7, 'Mason', 0, '0000-00-00 00:00:00'),
+(8, 'Blacksmith', 0, '0000-00-00 00:00:00'),
+(9, 'Tailor', 0, '0000-00-00 00:00:00'),
+(10, 'Teacher', 0, '0000-00-00 00:00:00'),
+(11, 'Government Employee', 0, '0000-00-00 00:00:00'),
+(12, 'Private sector employee', 0, '0000-00-00 00:00:00'),
+(13, 'Driver', 0, '0000-00-00 00:00:00'),
+(14, 'Business/Trade', 0, '0000-00-00 00:00:00'),
+(15, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_sourceofincome`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_sourceofincome` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `ourbank_master_sourceofincome`
+--
+
+INSERT INTO `ourbank_master_sourceofincome` (`id`, `name`, `created_by`, `created_date`) VALUES
+(1, 'Daily Wage', 0, '0000-00-00 00:00:00'),
+(2, 'Cultivation', 0, '0000-00-00 00:00:00'),
+(3, 'Salary', 0, '0000-00-00 00:00:00'),
+(4, 'Others', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_taluklist`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_taluklist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `district_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=102 ;
+
+--
+-- Dumping data for table `ourbank_master_taluklist`
+--
+
+INSERT INTO `ourbank_master_taluklist` (`id`, `name`, `district_id`, `created_by`, `created_date`) VALUES
+(1, 'Alappanagudde', 0, 0, '0000-00-00 00:00:00'),
+(2, 'Ammanahatti', 0, 0, '0000-00-00 00:00:00'),
+(3, 'Amruthur', 0, 0, '0000-00-00 00:00:00'),
+(4, 'Beeraganahalli', 0, 0, '0000-00-00 00:00:00'),
+(5, 'Belligere', 0, 0, '0000-00-00 00:00:00'),
+(6, 'Benavara', 0, 0, '0000-00-00 00:00:00'),
+(7, 'Bettahalli', 0, 0, '0000-00-00 00:00:00'),
+(8, 'Bidarakattepalya ', 0, 0, '0000-00-00 00:00:00'),
+(9, 'Bilidevalaya', 0, 0, '0000-00-00 00:00:00'),
+(10, 'Bisinele', 0, 0, '0000-00-00 00:00:00'),
+(11, 'Boralinganapalya', 0, 0, '0000-00-00 00:00:00'),
+(12, 'Bydagere', 0, 0, '0000-00-00 00:00:00'),
+(13, 'Chandanahalli', 0, 0, '0000-00-00 00:00:00'),
+(14, 'Chikka Arjunahalli', 0, 0, '0000-00-00 00:00:00'),
+(15, 'Chottanahalli ', 0, 0, '0000-00-00 00:00:00'),
+(16, 'Choudarypalya', 0, 0, '0000-00-00 00:00:00'),
+(17, 'Devarakanasandra', 0, 0, '0000-00-00 00:00:00'),
+(18, 'Devarayanapalya', 0, 0, '0000-00-00 00:00:00'),
+(19, 'Doddakallahalli', 0, 0, '0000-00-00 00:00:00'),
+(20, 'Doddamadure', 0, 0, '0000-00-00 00:00:00'),
+(21, 'Dombarahatti', 0, 0, '0000-00-00 00:00:00'),
+(22, 'Gajjanapalya', 0, 0, '0000-00-00 00:00:00'),
+(23, 'Giriyappanapalya', 0, 0, '0000-00-00 00:00:00'),
+(24, 'Gollarahatti', 0, 0, '0000-00-00 00:00:00'),
+(25, 'Gowdagere', 0, 0, '0000-00-00 00:00:00'),
+(26, 'H.B.Shettihalli', 0, 0, '0000-00-00 00:00:00'),
+(27, 'Hadonahalli', 0, 0, '0000-00-00 00:00:00'),
+(28, 'Halagere', 0, 0, '0000-00-00 00:00:00'),
+(29, 'Hanchipura', 0, 0, '0000-00-00 00:00:00'),
+(30, 'Handalagere', 0, 0, '0000-00-00 00:00:00'),
+(31, 'Hanumapura', 0, 0, '0000-00-00 00:00:00'),
+(32, 'Heddigere', 0, 0, '0000-00-00 00:00:00'),
+(33, 'Helavarahatti', 0, 0, '0000-00-00 00:00:00'),
+(34, 'Holalagunda ', 0, 0, '0000-00-00 00:00:00'),
+(35, 'Hosahalli', 0, 0, '0000-00-00 00:00:00'),
+(36, 'Hosakere', 0, 0, '0000-00-00 00:00:00'),
+(37, 'Hosuru', 0, 0, '0000-00-00 00:00:00'),
+(38, 'Hulivana', 0, 0, '0000-00-00 00:00:00'),
+(39, 'Indiranagara', 0, 0, '0000-00-00 00:00:00'),
+(40, 'Jaladigere', 0, 0, '0000-00-00 00:00:00'),
+(41, 'Janatha Coloni', 0, 0, '0000-00-00 00:00:00'),
+(42, 'Jiddigere', 0, 0, '0000-00-00 00:00:00'),
+(43, 'Jinnaagara', 0, 0, '0000-00-00 00:00:00'),
+(44, 'Jivajihatti', 0, 0, '0000-00-00 00:00:00'),
+(45, 'Kadashettihalli', 0, 0, '0000-00-00 00:00:00'),
+(46, 'Kagganahalli', 0, 0, '0000-00-00 00:00:00'),
+(47, 'Kaggere', 0, 0, '0000-00-00 00:00:00'),
+(48, 'Kalasegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(49, 'Kanchagalapura', 0, 0, '0000-00-00 00:00:00'),
+(50, 'Kannaguni', 0, 0, '0000-00-00 00:00:00'),
+(51, 'Kantanahalli', 0, 0, '0000-00-00 00:00:00'),
+(52, 'Kattigehalli', 0, 0, '0000-00-00 00:00:00'),
+(53, 'KH halli', 0, 0, '0000-00-00 00:00:00'),
+(54, 'Kiranguru', 0, 0, '0000-00-00 00:00:00'),
+(55, 'Kittaghatta', 0, 0, '0000-00-00 00:00:00'),
+(56, 'Kodipalya', 0, 0, '0000-00-00 00:00:00'),
+(57, 'Koppa', 0, 0, '0000-00-00 00:00:00'),
+(58, 'Korati', 0, 0, '0000-00-00 00:00:00'),
+(59, 'Kottegere', 0, 0, '0000-00-00 00:00:00'),
+(60, 'Kuppe', 0, 0, '0000-00-00 00:00:00'),
+(61, 'kuvempunagar', 0, 0, '0000-00-00 00:00:00'),
+(62, 'Madihalli', 0, 0, '0000-00-00 00:00:00'),
+(63, 'Madihalli', 0, 0, '0000-00-00 00:00:00'),
+(64, 'Madurepalya', 0, 0, '0000-00-00 00:00:00'),
+(65, 'Mallapura', 0, 0, '0000-00-00 00:00:00'),
+(66, 'Mantya', 0, 0, '0000-00-00 00:00:00'),
+(67, 'Markonahalli', 0, 0, '0000-00-00 00:00:00'),
+(68, 'Megala Tenginmaradapalya', 0, 0, '0000-00-00 00:00:00'),
+(69, 'Megalaplya', 0, 0, '0000-00-00 00:00:00'),
+(70, 'Muttugadahalli', 0, 0, '0000-00-00 00:00:00'),
+(71, 'Muttugadahalli', 0, 0, '0000-00-00 00:00:00'),
+(72, 'Nagasandra', 0, 0, '0000-00-00 00:00:00'),
+(73, 'Nagegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(74, 'Paduvagere', 0, 0, '0000-00-00 00:00:00'),
+(75, 'Pallerayanahalli', 0, 0, '0000-00-00 00:00:00'),
+(76, 'Puttanapalya', 0, 0, '0000-00-00 00:00:00'),
+(77, 'Rangegoudanapalya', 0, 0, '0000-00-00 00:00:00'),
+(78, 'Renukanagara', 0, 0, '0000-00-00 00:00:00'),
+(79, 'Sanaba', 0, 0, '0000-00-00 00:00:00'),
+(80, 'Sanabagatta', 0, 0, '0000-00-00 00:00:00'),
+(81, 'Shanuboganahalli', 0, 0, '0000-00-00 00:00:00'),
+(82, 'Shattihalli', 0, 0, '0000-00-00 00:00:00'),
+(83, 'Shettibidu', 0, 0, '0000-00-00 00:00:00'),
+(84, 'Siddapura ', 0, 0, '0000-00-00 00:00:00'),
+(85, 'Singatihalli', 0, 0, '0000-00-00 00:00:00'),
+(86, 'Sondekoppa', 0, 0, '0000-00-00 00:00:00'),
+(87, 'Tenginamaradapalya', 0, 0, '0000-00-00 00:00:00'),
+(88, 'Thathayyanapalya', 0, 0, '0000-00-00 00:00:00'),
+(89, 'Thippur', 0, 0, '0000-00-00 00:00:00'),
+(90, 'Timmegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(91, 'Tippuru', 0, 0, '0000-00-00 00:00:00'),
+(92, 'Tubinakere', 0, 0, '0000-00-00 00:00:00'),
+(93, 'Turuganuru', 0, 0, '0000-00-00 00:00:00'),
+(94, 'Ungara', 0, 0, '0000-00-00 00:00:00'),
+(95, 'Urkehalli', 0, 0, '0000-00-00 00:00:00'),
+(96, 'Valagerepura', 0, 0, '0000-00-00 00:00:00'),
+(97, 'Venkategowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(98, 'Y.Hampapura', 0, 0, '0000-00-00 00:00:00'),
+(99, 'Yachanahalli', 0, 0, '0000-00-00 00:00:00'),
+(100, 'Yadavani', 0, 0, '0000-00-00 00:00:00'),
+(101, 'Yadiyur', 0, 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_village`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_village` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `village_id` int(11) NOT NULL,
+  `hobli_id` int(11) NOT NULL,
+  `taluk_id` int(11) NOT NULL,
+  `district_id` int(11) NOT NULL,
+  `state_id` tinyint(4) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `ourbank_master_village`
+--
+
+INSERT INTO `ourbank_master_village` (`id`, `village_id`, `hobli_id`, `taluk_id`, `district_id`, `state_id`, `created_by`, `created_date`) VALUES
+(1, 102, 0, 84, 89, 0, 1, '2011-02-09 13:15:26'),
+(2, 104, 0, 85, 101, 0, 1, '2011-02-09 13:24:33'),
+(3, 105, 0, 92, 86, 0, 1, '2011-02-09 13:25:25'),
+(4, 106, 0, 85, 98, 0, 1, '2011-02-09 13:25:47'),
+(5, 107, 0, 84, 99, 0, 1, '2011-02-09 13:26:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ourbank_master_villagelist`
+--
+
+CREATE TABLE IF NOT EXISTS `ourbank_master_villagelist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `hobli_id` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=108 ;
+
+--
+-- Dumping data for table `ourbank_master_villagelist`
+--
+
+INSERT INTO `ourbank_master_villagelist` (`id`, `name`, `hobli_id`, `created_by`, `created_date`) VALUES
+(1, 'Alappanagudde', 0, 0, '0000-00-00 00:00:00'),
+(2, 'Ammanahatti', 0, 0, '0000-00-00 00:00:00'),
+(3, 'Amruthur', 0, 0, '0000-00-00 00:00:00'),
+(4, 'Beeraganahalli', 0, 0, '0000-00-00 00:00:00'),
+(5, 'Belligere', 0, 0, '0000-00-00 00:00:00'),
+(6, 'Benavara', 0, 0, '0000-00-00 00:00:00'),
+(7, 'Bettahalli', 0, 0, '0000-00-00 00:00:00'),
+(8, 'Bidarakattepalya ', 0, 0, '0000-00-00 00:00:00'),
+(9, 'Bilidevalaya', 0, 0, '0000-00-00 00:00:00'),
+(10, 'Bisinele', 0, 0, '0000-00-00 00:00:00'),
+(11, 'Boralinganapalya', 0, 0, '0000-00-00 00:00:00'),
+(12, 'Bydagere', 0, 0, '0000-00-00 00:00:00'),
+(13, 'Chandanahalli', 0, 0, '0000-00-00 00:00:00'),
+(14, 'Chikka Arjunahalli', 0, 0, '0000-00-00 00:00:00'),
+(15, 'Chottanahalli ', 0, 0, '0000-00-00 00:00:00'),
+(16, 'Choudarypalya', 0, 0, '0000-00-00 00:00:00'),
+(17, 'Devarakanasandra', 0, 0, '0000-00-00 00:00:00'),
+(18, 'Devarayanapalya', 0, 0, '0000-00-00 00:00:00'),
+(19, 'Doddakallahalli', 0, 0, '0000-00-00 00:00:00'),
+(20, 'Doddamadure', 0, 0, '0000-00-00 00:00:00'),
+(21, 'Dombarahatti', 0, 0, '0000-00-00 00:00:00'),
+(22, 'Gajjanapalya', 0, 0, '0000-00-00 00:00:00'),
+(23, 'Giriyappanapalya', 0, 0, '0000-00-00 00:00:00'),
+(24, 'Gollarahatti', 0, 0, '0000-00-00 00:00:00'),
+(25, 'Gowdagere', 0, 0, '0000-00-00 00:00:00'),
+(26, 'H.B.Shettihalli', 0, 0, '0000-00-00 00:00:00'),
+(27, 'Hadonahalli', 0, 0, '0000-00-00 00:00:00'),
+(28, 'Halagere', 0, 0, '0000-00-00 00:00:00'),
+(29, 'Hanchipura', 0, 0, '0000-00-00 00:00:00'),
+(30, 'Handalagere', 0, 0, '0000-00-00 00:00:00'),
+(31, 'Hanumapura', 0, 0, '0000-00-00 00:00:00'),
+(32, 'Heddigere', 0, 0, '0000-00-00 00:00:00'),
+(33, 'Helavarahatti', 0, 0, '0000-00-00 00:00:00'),
+(34, 'Holalagunda ', 0, 0, '0000-00-00 00:00:00'),
+(35, 'Hosahalli', 0, 0, '0000-00-00 00:00:00'),
+(36, 'Hosakere', 0, 0, '0000-00-00 00:00:00'),
+(37, 'Hosuru', 0, 0, '0000-00-00 00:00:00'),
+(38, 'Hulivana', 0, 0, '0000-00-00 00:00:00'),
+(39, 'Indiranagara', 0, 0, '0000-00-00 00:00:00'),
+(40, 'Jaladigere', 0, 0, '0000-00-00 00:00:00'),
+(41, 'Janatha Coloni', 0, 0, '0000-00-00 00:00:00'),
+(42, 'Jiddigere', 0, 0, '0000-00-00 00:00:00'),
+(43, 'Jinnaagara', 0, 0, '0000-00-00 00:00:00'),
+(44, 'Jivajihatti', 0, 0, '0000-00-00 00:00:00'),
+(45, 'Kadashettihalli', 0, 0, '0000-00-00 00:00:00'),
+(46, 'Kagganahalli', 0, 0, '0000-00-00 00:00:00'),
+(47, 'Kaggere', 0, 0, '0000-00-00 00:00:00'),
+(48, 'Kalasegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(49, 'Kanchagalapura', 0, 0, '0000-00-00 00:00:00'),
+(50, 'Kannaguni', 0, 0, '0000-00-00 00:00:00'),
+(51, 'Kantanahalli', 0, 0, '0000-00-00 00:00:00'),
+(52, 'Kattigehalli', 0, 0, '0000-00-00 00:00:00'),
+(53, 'KH halli', 0, 0, '0000-00-00 00:00:00'),
+(54, 'Kiranguru', 0, 0, '0000-00-00 00:00:00'),
+(55, 'Kittaghatta', 0, 0, '0000-00-00 00:00:00'),
+(56, 'Kodipalya', 0, 0, '0000-00-00 00:00:00'),
+(57, 'Koppa', 0, 0, '0000-00-00 00:00:00'),
+(58, 'Korati', 0, 0, '0000-00-00 00:00:00'),
+(59, 'Kottegere', 0, 0, '0000-00-00 00:00:00'),
+(60, 'Kuppe', 0, 0, '0000-00-00 00:00:00'),
+(61, 'kuvempunagar', 0, 0, '0000-00-00 00:00:00'),
+(62, 'Madihalli', 0, 0, '0000-00-00 00:00:00'),
+(63, 'Madihalli', 0, 0, '0000-00-00 00:00:00'),
+(64, 'Madurepalya', 0, 0, '0000-00-00 00:00:00'),
+(65, 'Mallapura', 0, 0, '0000-00-00 00:00:00'),
+(66, 'Mantya', 0, 0, '0000-00-00 00:00:00'),
+(67, 'Markonahalli', 0, 0, '0000-00-00 00:00:00'),
+(68, 'Megala Tenginmaradapalya', 0, 0, '0000-00-00 00:00:00'),
+(69, 'Megalaplya', 0, 0, '0000-00-00 00:00:00'),
+(70, 'Muttugadahalli', 0, 0, '0000-00-00 00:00:00'),
+(71, 'Muttugadahalli', 0, 0, '0000-00-00 00:00:00'),
+(72, 'Nagasandra', 0, 0, '0000-00-00 00:00:00'),
+(73, 'Nagegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(74, 'Paduvagere', 0, 0, '0000-00-00 00:00:00'),
+(75, 'Pallerayanahalli', 0, 0, '0000-00-00 00:00:00'),
+(76, 'Puttanapalya', 0, 0, '0000-00-00 00:00:00'),
+(77, 'Rangegoudanapalya', 0, 0, '0000-00-00 00:00:00'),
+(78, 'Renukanagara', 0, 0, '0000-00-00 00:00:00'),
+(79, 'Sanaba', 0, 0, '0000-00-00 00:00:00'),
+(80, 'Sanabagatta', 0, 0, '0000-00-00 00:00:00'),
+(81, 'Shanuboganahalli', 0, 0, '0000-00-00 00:00:00'),
+(82, 'Shattihalli', 0, 0, '0000-00-00 00:00:00'),
+(83, 'Shettibidu', 0, 0, '0000-00-00 00:00:00'),
+(84, 'Siddapura ', 0, 0, '0000-00-00 00:00:00'),
+(85, 'Singatihalli', 0, 0, '0000-00-00 00:00:00'),
+(86, 'Sondekoppa', 0, 0, '0000-00-00 00:00:00'),
+(87, 'Tenginamaradapalya', 0, 0, '0000-00-00 00:00:00'),
+(88, 'Thathayyanapalya', 0, 0, '0000-00-00 00:00:00'),
+(89, 'Thippur', 0, 0, '0000-00-00 00:00:00'),
+(90, 'Timmegowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(91, 'Tippuru', 0, 0, '0000-00-00 00:00:00'),
+(92, 'Tubinakere', 0, 0, '0000-00-00 00:00:00'),
+(93, 'Turuganuru', 0, 0, '0000-00-00 00:00:00'),
+(94, 'Ungara', 0, 0, '0000-00-00 00:00:00'),
+(95, 'Urkehalli', 0, 0, '0000-00-00 00:00:00'),
+(96, 'Valagerepura', 0, 0, '0000-00-00 00:00:00'),
+(97, 'Venkategowdanapalya', 0, 0, '0000-00-00 00:00:00'),
+(98, 'Y.Hampapura', 0, 0, '0000-00-00 00:00:00'),
+(99, 'Yachanahalli', 0, 0, '0000-00-00 00:00:00'),
+(100, 'Yadavani', 0, 0, '0000-00-00 00:00:00'),
+(101, 'Yadiyur', 0, 0, '0000-00-00 00:00:00'),
+(102, 'village1', 0, 1, '2011-02-09 13:15:26'),
+(103, 'village2', 0, 1, '2011-02-09 13:18:07'),
+(104, 'village1', 0, 1, '2011-02-09 13:24:33'),
+(105, 'village2', 0, 1, '2011-02-09 13:25:25'),
+(106, 'village3', 0, 1, '2011-02-09 13:25:47'),
+(107, 'village4', 0, 1, '2011-02-09 13:26:08');
 CREATE TABLE IF NOT EXISTS `address` (
   `submodule_id` tinyint(4) NOT NULL,
   `id` mediumint(9) NOT NULL,
