@@ -50,7 +50,8 @@ class Bank_IndexController extends Zend_Controller_Action
         if ($this->_request->isPost() && $this->_request->getPost('Search')) {
             $bank = new Bank_Model_Bank();
             $page = $this->_getParam('page',1);
-                $paginator = Zend_Paginator::factory($bank->search($this->_request->getPost('field2')));
+            $paginator = Zend_Paginator::factory($bank->search($this->_request->getPost('field2')));
+            $this->view->errormsg="Record not found";
         } else {
             $this->view->title=$this->view->translate('Bank');
 	    //session
@@ -62,13 +63,15 @@ class Bank_IndexController extends Zend_Controller_Action
             }
             $bank = new Bank_Model_Bank();
             $page = $this->_getParam('page',1);
-                $paginator = Zend_Paginator::factory($this->view->adm->viewRecord("ob_bank","id","DESC"));
-
+            $paginator = Zend_Paginator::factory($this->view->adm->viewRecord("ob_bank","id","DESC"));
+            if(!$paginator){
+                $this->view->errormsg="Record not found";
+            }
         }
                 //paginator
-            $paginator->setItemCountPerPage($this->view->adm->paginator());
-            $paginator->setCurrentPageNumber($page);
-            $this->view->paginator = $paginator;
+                $paginator->setItemCountPerPage($this->view->adm->paginator());
+                $paginator->setCurrentPageNumber($page);
+                $this->view->paginator = $paginator;
     }
     
     public function addbankAction() 
@@ -82,7 +85,7 @@ class Bank_IndexController extends Zend_Controller_Action
             $form = new Bank_Form_Bank();
             $this->view->form = $form;
 	    //new bank form instance
-            $this->view->submitform = new Bank_Form_Submit();	
+//             $this->view->submitform = new Bank_Form_Submit();	
             if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
                 if ($this->_request->isPost()) {
                     $formData = $this->_request->getPost();
@@ -108,7 +111,7 @@ class Bank_IndexController extends Zend_Controller_Action
             $form = new Bank_Form_Bank();
             $this->view->form = $form;
             $this->view->submitform = new Bank_Form_Submit();
-            if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            if ($this->_request->isPost() && $this->_request->getPost('update')) {
                 if ($this->_request->isPost()) {
                     $formData = $this->_request->getPost();
                     if ($form->isValid($formData)) { 
@@ -149,7 +152,7 @@ class Bank_IndexController extends Zend_Controller_Action
             $this->view->form = $form;
             $this->view->submitform = new Bank_Form_Submit();
 	    //form poster data
-            if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+            if ($this->_request->isPost() && $this->_request->getPost('Delete')) {
                 $id=$this->_request->getParam("id");
 		//adm delete instance
                 $this->view->adm->deleteAction("ob_bank","bank",$id);
