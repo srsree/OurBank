@@ -1,0 +1,31 @@
+
+
+
+<div class="register">
+	<div class="profile_tab"> 
+<fieldset>
+<legend>Dates Add</legend>
+		<table style="float:left">
+			<tr>
+				<td colspan="5" class="td_border">Dates Add</td>
+			</tr>
+			<TR >
+				<TD class="label" align="right" width="40%">Begin Date<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->datesform->begindate;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Close Date<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->datesform->closedate;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">Applicable To<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->datesform->applicableto;?><SPAN style="color:red"></SPAN></TD></SPAN></TD>
+			</TR>
+			<TR >
+				<TD class="label" align="right" width="40%">aaa</TD>
+				<TD ><?php echo $this->datesform->Submit;?></TD>
+			</TR>
+		</table>
+</fieldset>
+</div>
+</div>

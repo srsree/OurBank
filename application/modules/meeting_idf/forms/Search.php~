@@ -1,0 +1,11 @@
+<?php
+class Meeting_Form_Search extends Zend_Form {
+    public function init() {
+		$formfield = new App_Form_Field();
+		$search_weekdays = $formfield->field('Select','search_weekdays','','','','','','','','','','','','');
+		$search_meeting_name = $formfield->field('Text','search_meeting_name','','','','','','','','','','','','');
+		$search_meeting_place = $formfield->field('Text','search_meeting_place','','','','','','','','','','','','');
+		$search_group_name = $formfield->field('Text','search_group_name','','','','','','','','','','');
+	        $this->addElements(array($search_weekdays,$search_meeting_name,$search_meeting_place,$search_group_name));
+    }
+}

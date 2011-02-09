@@ -1,0 +1,40 @@
+<?php
+	class Meeting_Form_Meeting extends Zend_Form {
+
+	public function init() {
+	}
+
+        public function __construct($path) {
+		parent::__construct($path);
+
+		$formfield = new App_Form_Field ();
+// 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$decorator,$value
+
+		$meeting_name = $formfield->field('Text','meeting_name','','','mand','',true,'','','','','',1,0);
+		$group_head = $formfield->field('Text','group_head','','','mand','',true,'','','','','',1,0);
+		$hiddenId=new Zend_Form_Element_Hidden('group_head_id');
+		$meeting_place = $formfield->field('Text','meeting_place','','','mand','',true,'','','','','',1,0);
+		$meeting_time = $formfield->field('Text','meeting_time','','','mand','',true,'','','','','',1,0);
+
+		$institute_bank_id = new Zend_Form_Element_Select('institute_bank_id');
+		$institute_bank_id->addMultiOption('','Select...');
+		$institute_bank_id->setAttrib('class', 'txt_put');
+		$institute_bank_id->setAttrib('onchange', 'getGroups(this.value,"'.$path.'")');
+		$institute_bank_id->addValidators(array(array('NotEmpty')));
+
+		$group_name = new Zend_Form_Element_Select('group_name');
+		$group_name->addMultiOption('','Select...');
+		$group_name->setAttrib('class', 'txt_put');
+		$group_name->setAttrib('onchange', 'getHeadName(this.value,"'.$path.'")');
+		$group_name->setRequired(true)
+				->setRegisterInArrayValidator(false)
+				->addValidators(array(array('NotEmpty')));
+		
+		$meeting_day = $formfield->field('Select','meeting_day','','','mand','',true,'','','','','',1,0);
+		$submit = $formfield->field('Submit','Submit','','','','Submit','','','','','','',1,0);
+		$Back = $formfield->field('Submit','Back','','','','Back','','','','','','',1,0);
+
+
+		$this->addElements( array ($meeting_name,$group_head,$meeting_place,$meeting_time,$institute_bank_id,$group_name,$meeting_day,$Back,$hiddenId,$submit));
+	}
+}

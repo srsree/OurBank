@@ -1,0 +1,29 @@
+
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/meeting.js"></script>
+
+<div id = "searchDiv">
+<fieldset>
+<legend>Add meeting</legend>
+	<form action="<?php echo $this->baseUrl();?>/meeting/index/meetingadd" method="POST">
+		<table class="fieldsets">
+			
+			<?php echo $this->meetingForm->meeting_name;?>
+			<?php echo $this->meetingForm->institute_bank_id;?>
+			<div id="groupDiv"><?php echo $this->meetingForm->group_name;?></div><?php echo $this->startMsg;?>
+			<?php echo $this->meetingForm->group_head;?><?php echo $this->endMsg;?>
+			<?php echo $this->meetingForm->meeting_place;?>
+			<?php echo $this->meetingForm->meeting_time;?>
+			<?php echo $this->meetingForm->meeting_day;?>
+		</table>
+		</table>
+		<div class="btnhouse">
+			<div class="ltbtns">
+			<?php echo $this->meetingForm->Submit;?>
+			</div>
+			<div class="rtbtns">
+			<a href="<?php echo $this->baseUrl();?>/meetingindex"><?php echo $this->meetingForm->Back;?></a>
+			</div>
+		</div>
+	</form>
+</fieldset>
+</div>
