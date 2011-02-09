@@ -25,10 +25,13 @@
             	<TD  ><label for="fld1" class="mand"><?php echo $this->translate("Remarks"); ?></label></TD>
 		    	<TD  ><?php echo $this->form->remarks;?></TD>					
 			</TR>
+                        <TR>
+                        <TD><font color="Red">Do you want to delete</font></TD>
+                        </TR>
 		</table>
 		<div class="btnhouse">
 	   		<div class="ltbtns">
-				<?php echo $this->submitform->Submit;?>
+				<input type = "submit" name = "Delete" value = "<?php echo $this->translate('Delete');?>">
 	   		</div>
 	   		<div class="rtbtns">
 				<a href="<?php echo $this->baseUrl();?>/institution"><input type = "button" name = "Back" value = "<?php echo $this->translate('Back'); ?>"></a>
