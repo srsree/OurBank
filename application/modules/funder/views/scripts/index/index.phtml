@@ -37,13 +37,12 @@
                                     <td ><? echo $this->form->name;?></td>
                                 </tr>
                                 <tr>
-                                    <td class="label"><?php echo $this->translate("Funder type:"); ?></td>
-                                    <td ><? echo $this->form->type;?></td>
-                                </tr>
-                                <tr> 	<!--button object -->
-                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                    <td class="label"><br><?php echo $this->translate("Funder type:"); ?></td>
+                                    <td ><br><? echo $this->form->type;?></td>
                                 </tr>
                         </table>
+<!--button object -->
+                                    <input type="submit" name="Search" id="Submit" value="Search">
                     </form>	
             </div>
     </fieldset> 
@@ -60,7 +59,7 @@
         <th><?php echo $this->translate("Funder type"); ?></th>
 
     </tr>
-    <?php if (count($this->paginator)): ?>
+    <?php if (count($this->paginator)) { ?>
     <?php foreach ($this->paginator as $funder): ?>
     <tr>
         <td><a href="<?php echo $this->baseUrl()."/fundercommonview/index/commonview/id/".$funder['id']; ?>">
@@ -69,11 +68,14 @@
         <td><?php echo $this->escape($funder['fundertype']); ?></td>
 
     <?php endforeach; ?>
-    <?php endif; ?>
+    
     </tr>
     <tr>
         <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
         '/partials/my_pagination_control.phtml'); ?></div></td>
     </tr>
 </table>
+<?php } else { 
+        echo "<font color=red>".$this->errormsg."</font>";
+    } ?>
 
