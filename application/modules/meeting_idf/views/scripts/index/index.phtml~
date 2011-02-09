@@ -1,0 +1,52 @@
+
+<div id="searchDiv">
+    <fieldset>
+        <legend>Search</legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/meeting/index" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td class="label">Meeting Day:</td>
+                                    <td ><? echo $this->form->field1;?></td>
+                                    <td class="label">Meeting Name:</td>
+                                    <td ><? echo $this->form->field2;?></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">Meeting Place:</td>
+                                    <td ><? echo $this->form->field3;?></td>
+                                    <td class="label">Group Name:</td>
+                                    <td ><? echo $this->form->field4;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                </tr>
+                        </table>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+<fieldset>
+	<legend>Credit Line</legend>
+	<table id="hor-minimalist-b" summary="">
+		<tr class="tdbrownheading">
+		<th>Meeting Name</th>
+		<th>Group name</th>
+		</tr>
+
+		<?php if (count($this->paginator)): ?>
+		<?php foreach ($this->paginator as $meeting ): ?>
+		<tr>
+			<td><a href="<?php echo $this->baseUrl()."/meetingcommonview/index/index/meeting_id/".$meeting['meeting_id']; ?>"><?php echo $this->escape($meeting['meeting_name']);?></a></td>
+			<td><?php echo $this->escape($meeting['group_id']); ?></td>
+		<?php endforeach; ?>
+		<?php endif; ?>
+		
+		<tr>
+		<td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+						'/partials/my_pagination_control.phtml'); ?></div></td>
+		</tr>
+		</tr>
+	</table>
+</fieldset>

@@ -1,0 +1,202 @@
+<?php
+class Meeting_IndexController extends Zend_Controller_Action {
+
+
+	public function init() {
+		$this->view->pageTitle='Meeting';
+		
+		$sessionName = new Zend_Session_Namespace('ourbank');
+		$userid=$this->view->createdby = $sessionName->primaryuserid;
+		$login=new App_Model_Users();
+		$loginname=$login->username($userid);
+		foreach($loginname as $loginname) {
+			$this->view->username=$loginname['username'];
+			$this->view->id=$loginname['id'];
+			$this->view->primaryrole=$loginname['grantname'];
+		}
+	}
+
+	public function indexAction(){
+		$this->view->pageTitle='Meetings';
+	}
+
+	public function meetingaddAction()  { 
+		//Acl
+// 		$acl = new App_Model_Acl();
+// 		$access = new App_Model_Access();
+// 		$role = $access->getRole($this->view->id);
+// 		
+// 		$accessid = $access->accessRights('Meeting',$role,"meetingaddAction");
+// 		$checkaccess = $acl->isAllowed($role,'Meeting',$accessid);
+// 		if(($role) && ($checkaccess != NULL)) {
+
+		//add
+		$path = $this->view->baseUrl();
+		$this->view->title = "New Meeting";
+		$this->view->pageTitle='Meetings';
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+
+		$meetingForm = new Meeting_Form_Meeting($path);
+		$this->view->meetingForm = $meetingForm;
+
+		$meeting = new Meeting_Model_Meeting();
+		$office = $meeting->getOffice();
+		foreach($office as $office) {
+			$meetingForm->institute_bank_id->addMultiOption($office['Institute_bank_id'],$office['Institute_bank_name']);
+		}
+
+		$days = $meeting->getDays();
+		foreach($days as $days) {
+			$meetingForm->meeting_day->addMultiOption($days['day_value'],$days['day_value']);
+		}
+	
+		if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+			$formData = $this->_request->getPost();
+			if ($meetingForm->isValid($formData)) {
+				$meeting = new Meeting_Model_Meeting();
+
+				$meeting_id = $meeting->insertMeetingID(array('meeting_id' => ''));
+				$result = $meeting->addmeetings($meetingForm->getValues(),$meeting_id,$office);
+				$this->_redirect('meetingindex/index');
+			}
+		}
+// 		} else {
+// 		$this->_redirect('index/index');
+// 		}
+	}
+
+	public function meetingeditAction() {
+		//Acl
+// 		$acl = new App_Model_Acl();
+// 		$access = new App_Model_Access();
+// 		$role = $access->getRole($this->view->id);
+// 		
+// 		$accessid = $access->accessRights('Meeting',$role,"meetingeditAction");
+// 		$checkaccess = $acl->isAllowed($role,'Meeting',$accessid);
+// 		if(($role) && ($checkaccess != NULL)) {
+
+		//edit
+		$this->view->pageTitle='Meetings';
+		$path = $this->view->baseUrl();
+		$this->view->title = "Edit Meeting";
+		$storage = new Zend_Auth_Storage_Session();
+		$data = $storage->read();
+		if(!$data){
+			$this->_redirect('index/login');
+		}
+		$this->view->meeting_id=$meeting_id = $this->_getParam('meeting_id');
+
+		$meetingForm = new Meeting_Form_Meeting($path);
+		$this->view->meetingForm = $meetingForm;
+
+		$meeting = new Meeting_Model_Meeting();
+		$office = $meeting->getOffice();
+		foreach($office as $office) {
+			$meetingForm->institute_bank_id->addMultiOption($office['Institute_bank_id'],$office['Institute_bank_name']);
+		}
+		
+		$days = $meeting->getDays();
+		foreach($days as $days) {
+			$meetingForm->meeting_day->addMultiOption($days['day_value'],$days['days_name']);
+		}
+
+		$fetchMeetingDetails=$meeting->fetchMeetingdetailsForID($meeting_id);
+		foreach($fetchMeetingDetails as $meetings1) {}
+		echo "<script>getGroups('".$meetings1['institute_bank_id']."','".$path."');</script>";
+		
+		foreach($fetchMeetingDetails as $meetings) {
+			$this->view->meetingForm->meeting_name->setValue($meetings['meeting_name']);
+			$this->view->meetingForm->institute_bank_id->setValue($meetings['institute_bank_id']);
+			$this->view->meetingForm->group_head->setValue($meetings['grouphead_name']);
+			$this->view->meetingForm->meeting_place->setValue($meetings['meeting_place']);
+			$this->view->meetingForm->meeting_time->setValue($meetings['meeting_time']);
+			$this->view->meetingForm->meeting_day->setValue($meetings['meeting_day']);
+		}
+		$this->view->meetingForm->group_name->setValue($meetings['group_id']);
+
+		if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+			$formData = $this->_request->getPost();
+			$this->view->meeting_id=$meeting_id = $this->_getParam('meeting_id');
+
+				if ($meetingForm->isValid($formData)) {
+					$meeting = new Meeting_Model_Meeting();
+
+					$data=array('recordstatus_id'=>2);
+					$meeting->updateMeeting($meeting_id,$data);
+
+					$meeting->addmeetings($formData,$meeting_id);
+					$this->_redirect('meetingindex/index');
+				}	
+			}
+// 		} else {
+// 		$this->_redirect('index/index');
+// 		}
+		}
+
+	public function meetingviewAction() {
+	}
+
+	public function meetingdeleteAction() {
+		//Acl
+// 		$acl = new App_Model_Acl();
+// 		$access = new App_Model_Access();
+// 		$role = $access->getRole($this->view->id);
+// 		
+// 		$accessid = $access->accessRights('Meeting',$role,"meetingdeleteAction");
+// 		$checkaccess = $acl->isAllowed($role,'Meeting',$accessid);
+// 		if(($role) && ($checkaccess != NULL)) {
+
+		//delete
+		$this->view->meeting_id=$meeting_id = $this->_getParam('meeting_id');
+
+		$deleteForm=new Meeting_Form_Delete();
+		$this->view->deleteForm=$deleteForm;
+		if($this->_request->isPost() && $this->_request->getPost('Delete')) {
+			$formData = $this->_request->getPost();
+			if ($deleteForm->isValid($formData)) {
+				$meeting = new Meeting_Model_Meeting();
+				$meeting->deleteMeeting($meeting_id);
+				$meeting->Insert_Deleted_Info($formData,$meeting_id);
+				$this->_redirect('meetingindex/index');
+			}
+		}
+// 		} else {
+// 		$this->_redirect('index/index');
+// 		}
+	}
+
+	public function fetchgroupsAction() {
+		$this->_helper->layout->disableLayout();
+
+		$path = $this->view->baseUrl();
+		$meetingForm = new Meeting_Form_Meeting($path);
+		$this->view->meetingForm = $meetingForm;
+		
+		$bank_id=$this->_request->getParam('bank_id');
+		$meeting = new Meeting_Model_Meeting();
+		$office=$meeting->fetchGroupnames($bank_id);
+
+		foreach($office as $office) {
+			$meetingForm->group_name->addMultiOption($office['group_id'],$office['group_name']);
+		}
+	}
+
+	public function fetchheadnameAction() {
+		$this->_helper->layout->disableLayout();
+
+		$path = $this->view->baseUrl();
+		$meetingForm = new Meeting_Form_Meeting($path);
+		$this->view->meetingForm = $meetingForm;
+		
+		$group_id=$this->_request->getParam('group_id');
+		$meeting = new Meeting_Model_Meeting();
+		$headname=$meeting->fetchHeadName($group_id);
+		foreach($headname as $headname1){
+		}
+		$this->view->headname=$headname1['member_name'];
+	}
+}

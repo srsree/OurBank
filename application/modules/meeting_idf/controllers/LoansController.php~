@@ -1,0 +1,327 @@
+<?php
+class Management_LoansController extends Zend_Controller_Action{
+
+    public function init() {
+        $this->view->pageTitle='Loans';
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
+
+    }
+
+
+    public function indexAction() {
+        $storage = new Zend_Auth_Storage_Session();
+        $data = $storage->read();
+        if(!$data){
+            $this->_redirect('index/login');
+         }
+        $this->view->title = "Loans";
+
+        $searchForm = new Management_Form_Search();
+        $this->view->form = $searchForm;
+
+        $loan = new Management_Model_Loan();
+        $result = $loan->getLoan();
+
+        $page = $this->_getParam('page',1);
+        $paginator = Zend_Paginator::factory($result);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setCurrentPageNumber($page);
+        $this->view->paginator = $paginator;
+
+         if ($this->_request->isPost() && $this->_request->getPost('Search')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($searchForm->isValid($formData)) {
+                    $loan = new Management_Model_Loan();
+                    $result = $loan->searchLoan($searchForm->getValues());
+
+                    $page = $this->_getParam('page',1);
+                    $paginator = Zend_Paginator::factory($result);
+                    $paginator->setItemCountPerPage(5);
+                    $paginator->setCurrentPageNumber($page);
+                    $this->view->paginator = $paginator;
+                }
+            }
+        }
+    }
+
+    public function loansviewAction() {
+        $this->view->title = "View Loan";
+
+        $offerproductupdate_id = (int)$this->_getParam('id');
+
+        $loan = new Management_Model_Loan();
+        $result = $loan->viewLoan($offerproductupdate_id);
+        $this->view->loan = $result;
+
+        $loan = new Management_Model_Loan();
+        $offerproduct_id = $loan->getofferproductid($offerproductupdate_id);
+        foreach($offerproduct_id as $offerproduct_id) {
+                $offerproduct_id = $offerproduct_id['offerproduct_id'];
+        }
+
+
+        $interest = new Management_Model_Loan();
+        $result = $interest->viewLoan3($offerproduct_id);
+        $this->view->interest = $result;
+    }
+
+    public function loansaddAction() {
+        $this->view->title = "New Loan";
+        $loanForm = new Management_Form_Loan();
+        $this->view->form = $loanForm;
+
+        $systemDate = date('Y-m-d');
+        $this->view->form->begindate->setValue($systemDate);
+
+
+        $product = new Management_Model_Product();
+        $product = $product->fetchAllProductNames();
+        foreach($product as $product) {
+                $loanForm->product_id->addMultiOption($product['product_id'], 
+                                                  $product['productname']);
+        }
+
+        $membertype = new Management_Model_Membertype();
+        $membertype_id = $membertype->getMembertypeDetails();
+        foreach($membertype_id as $membertype_id) {
+                $loanForm->applicableto->addMultiOption($membertype_id['membertype_id'], 
+                                                        $membertype_id['membertype']);
+        }
+
+        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+           $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+              $formData = $this->_request->getPost();
+                if ($loanForm->isValid($formData)) {
+
+                        $dbAdapter = Zend_Db_Table::getDefaultAdapter();
+                        $data['offerproduct_id'] = '';
+                        $dbAdapter->insert('ourbank_productsoffering', $data);
+                        $offerproduct_id = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsoffering',
+                                                                                            'offerproduct_id');
+
+                        $createdby = $this->view->createdby;
+                        $productdetails = new Management_Model_Loan();
+                        $result = $productdetails->addProductDetails($loanForm->getValues(),$offerproduct_id,$createdby);
+                        $offerproductupdate_id  = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsofferdetails',
+                                                                         'offerproductupdate_id');
+
+
+                        $productloandetails = new Management_Model_Productsloan();
+                        $result = $productloandetails->Addproductsloan($loanForm->getValues(),$offerproductupdate_id);
+
+                        $From = $this->_request->getParam('from'); 
+                        $To = $this->_request->getParam('to'); 
+                        $Rate = $this->_request->getParam('rate'); 
+                        $period_ofrange_description = $From.-$To;
+
+                        $interestLoans = new Management_Model_Interest();
+                        $result = $interestLoans->Addinterestdetails($From,$To,
+                                                                     $Rate,$period_ofrange_description,
+                                                                     $offerproduct_id);
+
+
+                    $memberCount = $this->_request->getParam('memberCount');
+                    for ($i = 1;$i<=$memberCount; $i++) {
+                         $From = $this->_request->getParam('from'.$i); 
+                         $To = $this->_request->getParam('to'.$i); 
+                         $Rate = $this->_request->getParam('rate'.$i); 
+                         $period_ofrange_description = $From.-$To;
+
+                        $fMember = $productdetails->insertRow5(array('Interestperiod_id' => '',
+                                                                     'period_id' =>$i+1,
+                                                                     'period_ofrange_monthfrom' => $From,
+                                                                     'period_ofrange_monthto'=> $To,
+                                                                     'period_ofrange_description'=> $period_ofrange_description,
+                                                                     'offerproduct_id' => $offerproduct_id,
+                                                                     'Interest' => $Rate,
+                                                                     'intereststatus_id' => 3));
+
+
+
+                }
+                         $this->_redirect('management/loans');
+               }
+            }
+        }
+    }
+
+    public function loanseditAction() {
+        $this->view->title = "Edit Loan";
+        $offerproductupdate_id = (int)$this->_getParam('id');
+        $this->view->offerproductupdate_id = $offerproductupdate_id;
+
+        $loan = new Management_Model_Loan();
+        $offerproduct_id = $loan->getofferproductid($offerproductupdate_id);
+        foreach($offerproduct_id as $offerproduct_id) {
+                $offerproduct_id = $offerproduct_id['offerproduct_id'];
+        }
+
+
+        $loanForm = new Management_Form_Loan();
+        $this->view->form = $loanForm;
+
+        $membertype = new Management_Model_Membertype();
+        $membertype_id = $membertype->getMembertypeDetails();
+        foreach($membertype_id as $membertype_id) {
+                $loanForm->applicableto->addMultiOption($membertype_id['membertype_id'], 
+                                                        $membertype_id['membertype']);
+        }
+
+        $product = new Management_Model_Product();
+        $product = $product->fetchAllProductNames();
+        foreach($product as $product) {
+                $loanForm->product_id->addMultiOption($product['product_id'], 
+                                                  $product['productname']);
+        }
+
+        $loan = new Management_Model_Loan();
+        $result = $loan->viewLoan($offerproductupdate_id);
+        $this->view->loan = $result;
+        foreach($this->view->loan as $loan) {
+            $this->view->form->offerproductupdate_id->setValue($loan['offerproductupdate_id']);
+            $this->view->form->product_id->setValue($loan['product_id']);
+            $this->view->form->offerproductname->setValue($loan['offerproductname']);
+            $this->view->form->offerproductshortname->setValue($loan['offerproductshortname']);
+            $this->view->form->offerproduct_description->setValue($loan['offerproduct_description']);
+            $this->view->form->begindate->setValue($loan['begindate']);
+            $this->view->form->closedate->setValue($loan['closedate']);
+            $this->view->form->applicableto->setValue($loan['applicableto']);
+            $this->view->form->minmumloanamount->setValue($loan['minmumloanamount']);
+            $this->view->form->maximunloanamount->setValue($loan['maximunloanamount']);
+            $this->view->form->minimumfrequency->setValue($loan['minimumfrequency']);
+            $this->view->form->maximumfrequency->setValue($loan['maximumfrequency']);
+            $this->view->form->penal_Interest->setValue($loan['penal_Interest']);
+            $this->view->form->graceperiodnumber->setValue($loan['graceperiodnumber']);
+            $offerproduct_id = $loan['offerproduct_id'];
+        }
+
+        $interest = new Management_Model_Interest();
+        $interestdeatils = $interest->Getinterestdetail($offerproduct_id);
+        $this->view->interest1 = $interestdeatils;
+
+        $loanForm->offerproductname->removeValidator('Db_NoRecordExists');
+        $loanForm->offerproductshortname->removeValidator('Db_NoRecordExists');
+        if ($this->_request->isPost() && $this->_request->getPost('Update')) {
+            $formData = $this->_request->getPost();
+            if ($this->_request->isPost()) {
+                $formData = $this->_request->getPost();
+                if ($loanForm->isValid($formData)) {
+
+                    $loan = new Management_Model_Loan();
+                    $loan->updateLoan($offerproductupdate_id);
+
+
+                    $offerproduct_id = $loan->getofferproductid($offerproductupdate_id);
+                    foreach($offerproduct_id as $offerproduct_id) {
+                             $offerproduct_id = $offerproduct_id['offerproduct_id'];
+                    }
+
+                    $Interest = new Management_Model_Interest();
+                    $Interest->updateInterest($offerproduct_id);
+
+                    $result = $loan->editLoan($loanForm->getValues(),$offerproduct_id);
+                    $offerproductupdate_id  = Zend_Db_Table::getDefaultAdapter()->lastInsertId('ourbank_productsofferdetails',
+                                                                     'offerproductupdate_id');
+
+                    $productloan = new Management_Model_Productsloan();
+                    $result = $productloan->editproductloan($loanForm->getValues(),$offerproductupdate_id);
+
+                    $count1 = $this->_request->getParam('count1');
+                    for ($i = 1;$i <= $count1; $i++) {
+                         $period_ofrange_monthfrom = $this->_request->getParam('period_ofrange_monthfrom'.$i); 
+                         $period_ofrange_monthto = $this->_request->getParam('period_ofrange_monthto'.$i);
+                         $Interest = $this->_request->getParam('Interest'.$i);
+                         $period_ofrange_description = $period_ofrange_monthfrom.-$period_ofrange_monthto;
+
+                         $loan->insertRow5(array('Interestperiod_id' => '',
+                                                 'period_id' => $i+1,
+                                                 'period_ofrange_monthfrom' => $period_ofrange_monthfrom,
+                                                 'period_ofrange_monthto' => $period_ofrange_monthto,
+                                                 'period_ofrange_description' => $period_ofrange_description,
+                                                 'offerproduct_id' => $offerproduct_id,
+                                                 'Interest' => $Interest,
+                                                 'intereststatus_id'=> 3));
+
+
+
+                    }
+
+                    $memberCount = $this->_request->getParam('memberCount');
+                    for ($i = 1;$i<=$memberCount; $i++) {
+                         $From = $this->_request->getParam('from'.$i); 
+                         $To = $this->_request->getParam('to'.$i); 
+                         $Rate = $this->_request->getParam('rate'.$i); 
+                         $period_ofrange_description = $From.-$To;
+
+                         $loan->insertRow5(array('Interestperiod_id' => '',
+                                                   'period_id' =>$i+1,
+                                                   'period_ofrange_monthfrom' => $From,
+                                                   'period_ofrange_monthto'=> $To,
+                                                   'period_ofrange_description'=> $period_ofrange_description,
+                                                   'offerproduct_id' => $offerproduct_id,
+                                                   'Interest' => $Rate,
+                                                   'intereststatus_id' => 3));
+                }
+
+
+                     $this->_redirect('management/loans');
+            }
+        }
+
+    }
+        $this->view->form = $loanForm;
+        $this->view->form->Submit->setName('Update');	
+}
+
+    public function loansdeleteAction() {
+        $this->view->title = "Delete Loan";
+        $offerproductupdate_id = $this->_getParam('id');
+        $this->view->offerproductupdate_id = $offerproductupdate_id;
+
+        $loan = new Management_Model_Loan();
+        $result = $loan->viewLoan($offerproductupdate_id);
+        $this->view->loan = $result;
+
+        $interest = new Management_Model_Loan();
+        $result = $interest->viewLoan3($offerproductupdate_id);
+        $this->view->interest = $result;
+
+        echo $this->view->render('loans/loansview.phtml');
+
+        $loan = new Management_Model_Loan();
+        $result = $loan->viewLoan($offerproductupdate_id);
+        $this->view->loans = $result;
+
+        $deleteform = new Management_Form_Delete();
+        $this->view->deleteform = $deleteform;
+
+        if ($this->_request->isPost() && $this->_request->getPost('Yes')) {
+            $formData = $this->_request->getPost();
+            if ($deleteform->isValid($formData)) {
+
+                $remarks = $deleteform->getvalue('remarks');
+
+                $offerproductupdate_id = $this->_getParam('id');
+
+                $interest = new Management_Model_Loan();
+                $result = $interest->getofferproductid($offerproductupdate_id);
+                foreach($result as $loan) {
+                        $offerproduct_id = $loan['offerproduct_id'];
+                }
+
+                $loan = new Management_Model_Loan();
+                $loan->deleteLoans($offerproductupdate_id,$remarks);
+
+                $loan = new Management_Model_Interest();
+                $loan->deleteInterests($offerproduct_id);
+
+                $this->_redirect('management/loans');
+
+           }
+      }
+    }
+}
