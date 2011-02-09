@@ -4,12 +4,11 @@ $(document).ready(function() {
     $("#begindate").datepicker({"dateFormat":"dd/mm/yy"});
     $("#closedate").datepicker({"dateFormat":"dd/mm/yy"});
 }); 
-
 function addFormField() {
 	current++;
 	var id = document.getElementById("id").value;
 
-	$("#interestperiods").append("<tr id='row" + id + "'><td><label for='memberName" + id + "'><input type='text' size='3' name='memberName"+current+"' id='memberName" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='To" + id + "'><input type='text' size='3' name='To"+current+"' id='To" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='Rate" + id + "'><input type='text' size='3' name='Rate"+current+"' id='Rate" + id + "' class = 'txt_put'><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='/ourbankM/public/images/delete.gif'  border=0 width='16' height='16'></a></td>&nbsp;&nbsp;</tr>");
+	$("#interestperiods").append("<tr id='row" + id + "'><td><label for='memberName" + id + "'><input type='text' size='3' name='memberName"+current+"' id='memberName" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='To" + id + "'><input type='text' size='3' name='To"+current+"' id='To" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='Rate" + id + "'><input type='text' size='3' name='Rate"+current+"' id='Rate" + id + "' class = 'txt_put'><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='/ourbank/public/images/delete.gif'  border=0 width='16' height='16'></a></td>&nbsp;&nbsp;</tr>");
 	document.myform.memberCount.value = id;	
 	id =( id - 1) + 2;
 	document.getElementById("id").value = id;
@@ -61,11 +60,11 @@ function removeFormField(id) {
 				<th colspan="2">Interest and terms</th>
 			</tr>
 			<tr > 
-				<td>Minimum fixed amount:<span class="reqMark">*</span></td>
+				<td>Minimum Recurring amount:<span class="reqMark">*</span></td>
 				<td ><?php echo $this->form->minimum_deposit_amount;?></td>
 			</tr>
 			<tr> 
-				<td >Maximum fixed amount:<span class="reqMark">*</span></td>
+				<td >Maximum Recurring amount:<span class="reqMark">*</span></td>
 				<td ><?php echo $this->form->maximum_deposit_amount;?></td>
 			</tr>
 			<tr>
@@ -89,7 +88,7 @@ function removeFormField(id) {
                         <tr>
 				<td >From (years)</td><td >To (years)</td><td >Rate of interest</td>
 				
-			</tr><br/>
+			</tr>
 			<tr>
 				<td><input type='text' size='3' name='interestfrom' id='interestfrom' value="" class = 'txt_put'></td>
 				<td><input type='text' size='3' name='interestto' id='interestto' value="" class = 'txt_put'></td>
