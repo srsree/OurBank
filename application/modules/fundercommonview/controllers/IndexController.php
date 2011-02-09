@@ -63,7 +63,7 @@ class Fundercommonview_IndexController extends Zend_Controller_Action
             $module=$this->view->funder->getmodule('Funder');
             foreach($module as $module_id){ }
             $this->view->mod_id=$module_id['parent'];
-            $this->view->sub_id=$module_id['module_id'];
+            $this->view->sub_id=$module_id['module_id'];file:///var/www/ourbankM/application/modules/fundercommonview/controllers/IndexController.php
 //         }else {$this->_redirect('index/index');}
     } 
 }	
