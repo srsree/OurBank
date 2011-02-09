@@ -18,20 +18,20 @@
 !-->
 
 <form name="addform" action="<?php echo $this->baseUrl();?>/bank/index/addbank" method="POST">
-	<fieldset>
+    <fieldset>
     	<legend><?php echo $this->translate("Add bank"); ?></legend> 
     	<table class="fieldsets"> 
             <?php echo $this->form;?>
         </table>
         <div class="btnhouse">
 	    	<div class="ltbtns">
-				<?php echo $this->submitform->Submit;?>
-	   		</div>
-	   		<div class="rtbtns">
-				<a href="<?php echo $this->baseUrl();?>/bank"><input type = "button" name = "Back" value = "<?php echo $this->translate('Back'); ?>"></a>
-	   		</div>
+			<input type = "submit" name = "Submit" value = "<?php echo $this->translate('Submit');?>">
+	   	</div>
+                <div class="rtbtns">
+                        <a href="<?php echo $this->baseUrl();?>/bank"><input type = "button" name = "Back" value = "<?php echo $this->translate('Back'); ?>"></a>
+                </div>
         </div>
-	</fieldset>
+    </fieldset>
 </form>
 
 
