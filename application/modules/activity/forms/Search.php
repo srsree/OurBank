@@ -26,8 +26,8 @@ class Activity_Form_Search extends Zend_Form
 		$formfield = new App_Form_Field ();
 		$vtype=array('Alpha');
                 // send parameters to display respective form fields (first parameter is a needed form field)
-		$activity = $formfield->field('Text','activity','','','','Activity',false,$vtype,'','','','',1,'');
-		$category = $formfield->field('Select','sector','','','','Sector',false,'','','','','',1,'');
+		$activity = $formfield->field('Text','activity','','','','Activity:',false,$vtype,'','','','',1,'');
+		$category = $formfield->field('Select','sector','','','','Sector:',false,'','','','','',1,'');
                 $category->setRegisterInArrayValidator(false);
 		$this->addElements(array($activity,$category));
 	}
