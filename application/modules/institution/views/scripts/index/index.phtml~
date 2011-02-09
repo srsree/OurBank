@@ -1,4 +1,4 @@
-<!--
+e<!--
 ############################################################################
 #  This file is part of OurBank.
 ############################################################################
@@ -21,7 +21,7 @@
     <fieldset>
     <legend>Search</legend>
     	<div class="search" style="margin-left:20px;">
-        	<form action="<?php echo $this->baseUrl();?>/institution/index/index" mthod="POST">
+        	<form action="<?php echo $this->baseUrl();?>/institution/index/index" method="POST">
             	<table id = "fieldsets">
                 	<tr>
                     	<td class="label"><?php echo $this->translate('Institution name:'); ?></td>

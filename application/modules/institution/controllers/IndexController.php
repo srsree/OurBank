@@ -49,7 +49,7 @@ class Institution_IndexController extends Zend_Controller_Action
                     $institution = new Institution_Model_Institution();
                     $page = $this->_getParam('page',1);
                     $paginator = Zend_Paginator::factory($institution->searchRecord($this->_request->getPost('field2')));
-                    $this->view->errormsg="Record not found";
+                    $this->view->errormsg="Record not found..Try again..";
                     } else {
             $this->view->title=$this->view->translate('Institution');
 	    //session
@@ -62,7 +62,7 @@ class Institution_IndexController extends Zend_Controller_Action
             $page = $this->_getParam('page',1);
 	    	$paginator = Zend_Paginator::factory($this->view->adm->viewRecord("ob_institution","id","DESC"));
                 if(!$paginator){
-                $this->view->errormsg="Record not found";
+                $this->view->errormsg="Record not found..Try again..";
         }
 
     }
