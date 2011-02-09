@@ -100,7 +100,7 @@ class Contactdetails_IndexController extends Zend_Controller_Action{
         {$path1=$module_view['module_description'].'commonview';}
         $path1= $this->view->path1=strtolower($path1);
 //update contact details
-        if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+        if ($this->_request->isPost() && $this->_request->getPost('Update')) {
 	    	if ($this->_request->isPost()) {
  				$formData = $this->_request->getPost();
  				if ($form->isValid($formData)) { 
