@@ -17,12 +17,12 @@
 ############################################################################
 !-->
 
+<fieldset style="width:759px;float:left">
+
 <div style="width:480px;float:left"> 
 
-
-<fieldset>
-	<legend>Delete category</legend>
-			<TABLE id="hor-minimalist-b">
+    <TABLE id="hor-minimalist-b">
+        <tr><Th>Delete category</Th><th></th><th></th><th><th></th></tr>
         <?php foreach($this->categorydetails as $category) {  ?>
 
 				<TR>
@@ -39,21 +39,16 @@
 					<TD><?php echo $category['description'];?></TD>
 					<TD></TD>
 				</TR>
-				<TR>
-					<TD><a href="<?php echo $this->baseUrl(); ?>/category">
-					<input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
+				<tr>
+                                <TD></TD><TD></TD>
 					<TD></TD>
 					<TD></TD>
-					<TD></TD>
-					<TD></TD>
-				</TR>
+					<TD></TD></tr>
 			</TABLE>
-</fieldset>
-
+<TABLE id="hor-minimalist-b">
+<tr><Th>Confirm Delete</th></tr>
 <?php } ?>
-
-<fieldset>
-	<legend>Confirm Delete</legend>
+	
 			<div class="cont-rgt-data">
 				<form action="<?php echo $this->baseUrl();?>/category/index/categorydelete/id/<?php echo $this->id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
 				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
@@ -62,9 +57,16 @@
 						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
 									</table>
 					</tr>
-							<input type="submit" name="DELETE" id="Submit" value="DELETE">			
+							<td><input type="submit" name="Delete" id="Submit" value="Delete"></td>			
 
-						<input name="submit" type="submit"  value="No" ></a></TD>
+						
+					<TD><a href="<?php echo $this->baseUrl(); ?>/category">
+					<input name="submit" type="submit" class="No" value="No"></a></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+					<TD></TD>
+				</TR></TD>
 					</TR>
 				</form>
 			
