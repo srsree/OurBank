@@ -55,7 +55,7 @@
                                 <tr>
                                                <td class="label">Category name:</td>
 							<td ><? echo $this->form->name;?></td>
-							<td class="label">category description:</td>
+							<td class="label"><label name="mand">Category description:</label></td>
 							<td ><? echo $this->form->description;?></td>
                                 </tr>
                                
@@ -67,7 +67,7 @@
             </div>
     </fieldset> 
 </div>  
-    <fieldset>
+    
       
 <table id="hor-minimalist-b">
     <tr>
@@ -76,16 +76,22 @@
         <th>Created Date</th>
        
     </tr>
-        <?php if (count($this->paginator)): ?>
+
+        <?php  $convertdate = new App_Model_dateConvertor();
+        if (count($this->paginator)) {?>
         <?php foreach ($this->paginator as $category ): ?>
     <tr>
         <td><a href="<?php echo $this->baseUrl()."/category/index/categoryview/id/".$category['id']; ?>">
                      <?php echo $this->escape($category['name']); ?></a></td>
     <td><?php echo $this->escape($category['description']);?></td>
-    <td><?php echo $this->escape($category['created_date']);?></div></td>
+    <td><?php echo $convertdate->phpnormalformat($category['created_date']);?></div></td>
     
                 <?php endforeach; ?>
-                <?php endif; ?>
+              <td><font color="red">
+                                    <?php } else { echo $this->errormsg; } ?>
+                    </font>
+              </TD>
+
     </tr>
     <tr>
         <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
@@ -94,4 +100,3 @@
 </table>
 <br>
 
-</fieldset>
