@@ -65,9 +65,13 @@ class Category_IndexController extends Zend_Controller_Action
 			if ($this->_request->isPost()){
 				if ($searchForm->isValid($this->_request->getPost())){
 					$result = $category->SearchCategory($searchForm->getValues());
+                                         $this->view->errormsg="Record not found";
 //pagination for the search result
 					$page = $this->_getParam('page',1);
 					$paginator = Zend_Paginator::factory($result);
+                                         if(!$paginator){
+                                            $this->view->errormsg="Record not found";
+            }
 					$paginator->setItemCountPerPage(5);
 					$paginator->setCurrentPageNumber($page);
 					$this->view->paginator = $paginator;
@@ -115,7 +119,7 @@ class Category_IndexController extends Zend_Controller_Action
 //editing the record
 					$previousdata = $this->view->adm->editRecord("ourbank_category",$id);
 //updating the previous data
-					$this->view->adm->updateLog("ourbank_category_log",$previousdata,1);
+					$this->view->adm->updateLog("ourbank_category_log",$previousdata[0],1);
 					//update 					
 					$this->view->adm->updateRecord("ourbank_category",$id,$categoryForm->getValues());
 					$this->_redirect('category/index/');
@@ -144,7 +148,7 @@ class Category_IndexController extends Zend_Controller_Action
 // 				$this->view->sectorname =  $Sectordetails['name'];
 // 			}
 //delete action
-		if($this->_request->isPost() && $this->_request->getPost('DELETE')) {
+		if($this->_request->isPost() && $this->_request->getPost('Delete')) {
 		$formdata = $this->_request->getPost();
 				if ($delform->isValid($formdata)) { 
 //deleting  record
