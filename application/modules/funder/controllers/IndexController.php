@@ -66,6 +66,7 @@ class Funder_IndexController extends Zend_Controller_Action
         {
 	
         $formData = $this->_request->getPost();
+        $this->view->errormsg="Record not found....Try again...";
 		// form data validate
             if ($searchForm->isValid($formData)) 
             {
@@ -73,16 +74,19 @@ class Funder_IndexController extends Zend_Controller_Action
                 $result = $funder->searchDetails($searchForm->getValues());
                 $page = $this->_getParam('page',1);
                 $paginator = Zend_Paginator::factory($result);
-
-		//assign to the view object
-                $this->view->paginator = $paginator;
+                $this->view->paginator = $paginator;   //assign to the view object
+                if(!$paginator)
+        {          $this->view->errormsg="Record not found....Try again...";
+        }
             } 
         }
 	// for pagination
         $paginator->setItemCountPerPage($this->view->adm->paginator());
         $paginator->setCurrentPageNumber($page);
         $this->view->paginator = $paginator;
-    }
+        
+    
+}
 }
 
 
