@@ -39,7 +39,7 @@
         $office_id = $formfield->field('Select','office_id','','','mand','Office name *',true,'','','','','',1,0);
         $holidayfrom = $formfield->field('Text','holiday_from','','','mand','Holiday from *',true,'','','','','',1,0);
         $holidayto = $formfield->field('Text','holiday_upto','','','mand','Holiday upto *',true,'','','','','',1,0);
-        $repaymentdate = $formfield->field('Text','repayment_date','','','mand','Repayment date *',true,'','','','','',1,0);
+        $repaymentdate = $formfield->field('Text','repayment_date','','','mand','Repayment Date *',true,'','','','','',1,0);
        
 
         
