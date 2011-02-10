@@ -17,12 +17,11 @@
 ############################################################################
 !-->
 
-<fieldset>
-<legend><?php echo $this->translate("Edit OfficeHierarchy"); ?></legend>
 	<div class="cont-rgt-data">
 			<form action="<?php  echo $this->baseUrl();?>/officehierarchy/index/edit" method="POST" name="joe">
 
 	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+                <tr><Th colspan="3"><b><?php echo $this->translate("Edit OfficeHierarchy"); ?></b></Th></tr>
 		<tr class="tdbrownheading">
   			<tr class="tdbrownheading">
 				<th width="33%"><?php echo $this->translate("Office level"); ?></th>
@@ -57,13 +56,13 @@
 	</table>
 
 	<table id="hor-minimalist-b" summary="Employee Pay Sheet">
-		<tr><TD colspan="5">			<div style="float:left"><?echo $this->form1->Edit;?></div>
-			<div style="float:left"><a href="<?php echo $this->baseUrl();?>"><input name="submit" type="submit" class="officebutton" 
-				value="<?php echo $this->translate('cancel'); ?>"></a></div></td>
+		<tr><TD colspan="5">			<div style="float:left"></div>
+			<div style="float:left"><a href="<?php echo $this->baseUrl();?>"><input name="submit" type="submit" class="officebutton" value="confirm">
+                    <input name="submit" type="submit" class="officebutton" value="<?php echo $this->translate('cancel'); ?>"></a></div></td>
     	</tr>
    	</table>
 	</form>
 	</div>
 <CENTER class="updateerror"><?php echo $this->officeTypeExisted; ?></CENTER>
 <CENTER class="updateerror"><?php echo $this->updatEerror; ?></CENTER>
-</filedset>
+
