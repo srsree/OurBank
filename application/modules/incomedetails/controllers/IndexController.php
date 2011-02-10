@@ -27,8 +27,10 @@ class Incomedetails_IndexController extends Zend_Controller_Action
 //it is create session and implement ACL concept...
         $this->view->pageTitle=$this->view->translate('Income details');
         $globalsession = new App_Model_Users();
-        $this->view->globalvalue = $globalsession->getSession();
-        $this->view->createdby = $this->view->globalvalue[0]['id'];
+//         $this->view->globalvalue = $globalsession->getSession();
+//         $this->view->createdby = $this->view->globalvalue[0]['id'];
+        $sessionName = new Zend_Session_Namespace('ourbank');
+        $this->view->createdby = $sessionName->primaryuserid;
         $this->view->username = $this->view->globalvalue[0]['username'];
 //         if (($this->view->globalvalue[0]['id'] == 0)) {
 //             $this->_redirect('index/logout');
