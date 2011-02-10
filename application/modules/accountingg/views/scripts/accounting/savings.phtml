@@ -52,7 +52,7 @@ function calculateTotalAmount() {
                         <TD><?php foreach($this->Savingfee as $fee ) { ?> 
                         <input type = text name = "fee2" value = "<?php echo $fee->feevalue;?>" 
                                readonly = "true" class="txt_put">
-                        <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                        <?php $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
                         <?php } ?>
                         <input type = "hidden" name = "feeTotal" id = "feeTotal" 
                                value = "<?php echo $this->feeTotal;?>" readonly = "" class="txt_put"></TD>
@@ -70,7 +70,7 @@ function calculateTotalAmount() {
                         <TD>Members</TD>
                         <TD><?php echo $this->savingsForm->memberfirstname;?><br>
                             <?php echo $this->error1; ?></TD>
-                    </TR><? } ?>
+                    </TR><?php } ?>
                 </table>
                 <br>
                 <table>
@@ -112,7 +112,7 @@ function calculateTotalAmount() {
                         <TD> Fee </TD>
                         <TD><?php foreach($this->Savingfee as $fee ) { ?> 
                         <input type = text name = "fee2" value = "<?php echo $fee->feevalue;?>" readonly = "true" class="txt_put">
-                        <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                        <?php $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
                         <?php } ?>
                         <input type = "hidden" name = "feeTotal" id = "feeTotal" value = "<?php echo $this->feeTotal;?>" 
                                readonly = "" class="txt_put"></TD>
@@ -131,7 +131,7 @@ function calculateTotalAmount() {
                         <TD>Members</TD>
                         <TD><?php echo $this->savingsForm->memberfirstname;?><br>
                             <?php echo $this->error1; ?></TD>
-                    </TR><? } ?>
+                    </TR><?php } ?>
                     <TR>
                         <TD></TD>
                         <TD><?php echo $this->message;?></TD>

@@ -17,15 +17,15 @@
 ############################################################################
 !-->
 
-<form action="<?php echo $this->baseUrl();?>/category/index/categoryedit/id/<? echo $this->id; ?>" method="POST">
+<form action="<?php echo $this->baseUrl();?>/product/index/productedit/id/<?php echo $this->id; ?>" method="POST">
 
-<fieldset>
-	<legend>edit category Information</legend>
-		<table id="hor-minimalist-b"> 
-		<TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/product/index/productdelete/id/<? echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
+
+	<table id="hor-minimalist-b"> 
+            <tr><Th>Edit Category Information</Th><th><a href="<?php echo $this->baseUrl();?>/product/index/productdelete/id/<?php echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif"  align="right" width="16" height="16"></a></th></tr>
+		
 		<?php echo $this->form;?>
 		</table>
-	<input type="submit" name="Update" id="Submit" value="Update">                 
+	<input type="submit" name="Update" value="Update">                 
 	<a href="<?php echo $this->baseUrl();?>/fee"><?php echo $this->form->Back;?></a>
-</fieldset>
+
 </form>

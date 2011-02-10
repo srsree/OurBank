@@ -18,14 +18,9 @@
 !-->
 
 <form action="<?php echo $this->baseUrl();?>/membername/index/editmembername/id/<?php echo $this->memberid; ?>" method="POST">
-<fieldset>
-<legend><?php echo $this->translate("Member details"); ?></legend>
-<div class="btnhouse">
-<div class="rtbtns">
-    <td><a href="<?php echo $this->baseUrl();?>/membername/index/deletemember/id/<?php echo $this->memberid; ?>/sub_id/<?php echo $this->sub_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></td>
-	</div>
-</div>
-    <table class="fieldsets">
+    <fieldset>
+    <table id="hor-minimalist-b">
+    <tr><Th colspan="3"><?php echo $this->translate("Member details"); ?><a href="<?php echo $this->baseUrl();?>/membername/index/deletemember/id/<?php echo $this->memberid; ?>/sub_id/<?php echo $this->sub_id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" align="right" width="16" height="16"></a></Th></tr>
     <?php echo $this->form; ?>
     </table>
     <div class="btnhouse">
@@ -34,6 +29,5 @@
         </div>
     <div class="rtbtns">
         <a href="<?php echo $this->baseUrl();?>/individualcommonview/index/commonview/id/<?php echo $this->memberid; ?>"><input type="submit" name="back" id="back" value="<?php echo $this->translate("Back"); ?>"></a>
-    </div>
-</fieldset>
+    </div></div></fieldset>
 </form>

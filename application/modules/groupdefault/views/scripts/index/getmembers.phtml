@@ -21,26 +21,26 @@
    $head = $this->grouphead;   ?>
       <TABLE BORDER WIDTH=50% class="fieldsets">
 	 <tr><th>Group members</th><th> Group head</th></tr>
-            <? foreach($this->assignMembers as $members) {?>
+            <?php foreach($this->assignMembers as $members) {?>
             <TR>
                 <td width="25%">
-                    <input type="checkbox"  name="member_id[]" id = "member_id[]"  checked="true"  value="<?php echo $members["id"];?>" ><? echo $members["member_name"];?>
+                    <input type="checkbox"  name="member_id[]" id = "member_id[]"  checked="true"  value="<?php echo $members["id"];?>" ><?php echo $members["member_name"];?>
                 </td>
                 <td width="25%">
-                    <input type="radio" name="memberhead"   id="memberhead" <? if($head == $members["id"]) { ?> checked="true" <? } ?> value="<?php echo $members["id"];?>">
+                    <input type="radio" name="memberhead"   id="memberhead" <?php if($head == $members["id"]) { ?> checked="true" <?php } ?> value="<?php echo $members["id"];?>">
                 </td>
             </TR>
-		<? }?>
-		 <? foreach($this->members as $members) {?>
+		<?php }?>
+		 <?php foreach($this->members as $members) {?>
             <TR>
                 <td width="25%">
-                    <input type="checkbox"  name="member_id[]" id = "member_id[]"    value="<?php echo $members["id"];?>" ><? echo $members["member_name"];?>
+                    <input type="checkbox"  name="member_id[]" id = "member_id[]"    value="<?php echo $members["id"];?>" ><?php echo $members["member_name"];?>
                 </td>
                 <td width="25%">
                      <input type="radio" name="memberhead"   id="memberhead"  value="<?php echo $members["id"];?>">
                 </td>
  		</TR>
-		<? }?>
+		<?php }?>
             </table>
 	    <?php }    
  else {

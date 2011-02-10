@@ -48,7 +48,7 @@ echo $txt;
 		$folio += $txt;
 		?> %</td>
         <?php endforeach; ?>
-	</tr><tr><td><b>Total</b></td><td><?php echo $acc; ?></td><td>R$ <? $Lamtv = sprintf("%4.2f",$Lamt); echo $Lamtv; ?></td><td><? $foliov = sprintf("%4.2f",$folio);echo $foliov; ?> %</td>
+	</tr><tr><td><b>Total</b></td><td><?php echo $acc; ?></td><td>R$ <?php $Lamtv = sprintf("%4.2f",$Lamt); echo $Lamtv; ?></td><td><?php $foliov = sprintf("%4.2f",$folio);echo $foliov; ?> %</td>
         <?php   }?>
 
    

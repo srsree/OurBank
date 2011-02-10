@@ -32,7 +32,7 @@
                                           <td><?php  echo $this->form->bank;?></td>
 				</tr>
                                 <tr>
-					<td colspan="4" align="center"><? echo $this->form->Search;?></td>
+					<td colspan="4" align="center"><?php echo $this->form->Search;?></td>
 				</tr>
                                 <tr><div><?php echo $this->fromerr; echo $this->toerr; echo $this->dateerr;?></div></tr>
 			</form>
@@ -48,8 +48,8 @@
 		    <td align="right" id="reportth"><?php echo $this->translate("Outstanding Amount"); ?></td>
 	        </tr>
 		<?php foreach($this->disbursed as $disbursed){?>
-		<td><? echo $disbursed['name']; ?></td>
-		<td align="right"><? echo $disbursed['disbursed']; ?></td>
+		<td><?php echo $disbursed['name']; ?></td>
+		<td align="right"><?php echo $disbursed['disbursed']; ?></td>
                 <?php $flag1=1; foreach($this->paid as $paid) {
                             if($disbursed['name']==$paid['name']) {?><td align="right"><?php echo $paid['paid']; ?></td><?php 
                         $flag1=0; } 
@@ -67,7 +67,7 @@
                     <input type="hidden" name="field2" value="<?php echo $this->field2;?>">
                     <input type="hidden" name="field3" value="<?php echo $this->field3;?>"></div>
 </form>
-<div class="reportdiv"><a href="<?php echo $this->baseUrl();?>/activityoutstanding/index/chart/fdate/<? echo $this->field1; ?>/todate/<? echo $this->field2; ?>/bank_id/<? echo $this->field3; ?>">      <input type="submit" value="Graph"  id="reportbutton"></td></a></div>
+<div class="reportdiv"><a href="<?php echo $this->baseUrl();?>/activityoutstanding/index/chart/fdate/<?php echo $this->field1; ?>/todate/<?php echo $this->field2; ?>/bank_id/<?php echo $this->field3; ?>">      <input type="submit" value="Graph"  id="reportbutton"></td></a></div>
 <?php } ?>
 
 

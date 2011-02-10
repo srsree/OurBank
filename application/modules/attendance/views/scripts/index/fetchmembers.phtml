@@ -18,10 +18,10 @@
 !-->
 
 <?php if($this->members) { ?>
-           <? foreach($this->members as $members) { ?>
+           <?php foreach($this->members as $members) { ?>
            	<br>
-                <input type="checkbox" name="member_id[]" id = "selector" value="<?php echo $members["id"];?>"><? echo $members["member_name"];?>
-           <? } ?>
+                <input type="checkbox" name="member_id[]" id = "selector" value="<?php echo $members["id"];?>"><?php echo $members["member_name"];?>
+           <?php } ?>
 <?php } else {
        echo "<font color='RED'>No Members in the branch you seleted</font>";
 } ?>

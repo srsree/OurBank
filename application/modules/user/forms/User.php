@@ -39,7 +39,7 @@
 		
 	
         $name = $formfield->field('Text','name','','','mand','Name',true,'','','','','',1,0);
-        $officebranch = $formfield->field('Select','bank_id','','','mand','Bank type',true,'','','','','',1,0);
+        $officebranch = $formfield->field('Select','bank_id','','','mand','Bank name',true,'','','','','',1,0);
         $gender = $formfield->field('Select','gender','','','mand','Gender',true,'','','','','',1,0);
         $designation = $formfield->field('Select','designation','','','mand','Designation',true,'','','','','',1,0);
         $grant_id = $formfield->field('Select','grant_id','','','mand','Granted as',true,'','','','','',1,0);

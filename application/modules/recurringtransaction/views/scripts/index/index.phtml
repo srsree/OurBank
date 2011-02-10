@@ -53,7 +53,7 @@
                 </table>
             </div>
 </fieldset>
-<? }?>
+<?php }?>
 <?php if ($this->membertype_ID==1 ) { ?>
 
             <div class="cont-rgt-data">
@@ -68,7 +68,7 @@
                </table>
             </div>
 
-<? } ?>
+<?php } ?>
 <?php if ($this->membertype_ID==1 || $this->membertype_ID==2 ) { ?>
 
         <div class="cont-rgt-data">
@@ -78,8 +78,8 @@
                     <?php foreach($this->accountIDFetch as $arrayroles2)  { ?>
 <TR><TD><a href="<?php echo $this->baseUrl();?>/recurringtransaction/index/recurring/accountId/<?php echo base64_encode($arrayroles2['account_id']);?>/productId/<?php echo base64_encode($arrayroles2['product_id']);?>"><?php echo $arrayroles2['account_number'];?></a></TD>
                 <TD><?php echo $this->offerproductname;?></TD></TR>
-                <? } ?>
+                <?php } ?>
         </table>
     </div>
 
-<? } ?>
+<?php } ?>

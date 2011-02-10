@@ -5,7 +5,7 @@
     function addPerson() {
         current++;
         var id = document.getElementById("id").value;
-        $("#FamilyInformation").append("<tr id=row"+id+"><td><label for='from" + id + "'><input type='text' size='4' name='from"+current+"' id='from" + id + "' class = 'txt_put'></td><td><label for='to" + id + "'><input type='text' size='4' name='to"+current+"' id='to" + id + "' class = 'txt_put'></td><td><label for='rate" + id + "'><input type='text' size='4' name='rate"+current+"' id='rate" + id + "' class = 'txt_put'><td><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='<? echo $this->baseUrl(); ?>/images/delete.gif'  border=0 width='16' height='16'></td><br></a></td></tr>");
+        $("#FamilyInformation").append("<tr id=row"+id+"><td><label for='from" + id + "'><input type='text' size='4' name='from"+current+"' id='from" + id + "' class = 'txt_put'></td><td><label for='to" + id + "'><input type='text' size='4' name='to"+current+"' id='to" + id + "' class = 'txt_put'></td><td><label for='rate" + id + "'><input type='text' size='4' name='rate"+current+"' id='rate" + id + "' class = 'txt_put'><td><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='<?php echo $this->baseUrl(); ?>/images/delete.gif'  border=0 width='16' height='16'></td><br></a></td></tr>");
 
         document.myform.memberCount.value = id;
         id = (id - 1) + 2;
@@ -70,20 +70,20 @@
                         </tr>
                         <tr> 
                             <TD ><label for="fld1" class="mand">Close date</TD>
-                            <td><? echo $this->form->closedate;?>
+                            <td><?php echo $this->form->closedate;?>
                             </td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr> 
                             <TD ><label for="fld1" class="mand">Applicable to</TD>
-                            <td><? echo $this->form->applicableto;?></td>
+                            <td><?php echo $this->form->applicableto;?></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr> 
                             <TD ><label for="fld1" class="mand">Glsubcode</TD>
-                            <td><? echo $this->form->glsubcode_id;?></td>
+                            <td><?php echo $this->form->glsubcode_id;?></td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -97,15 +97,15 @@
 
                         <tr> 
                             <TD ><label for="fld1" class="mand">Minimum loan amount</TD>
-                            <td><? echo $this->form->minmumloanamount;?></td>
+                            <td><?php echo $this->form->minmumloanamount;?></td>
                             <TD ><label for="fld1" class="mand">Minimum frequency</TD>
-                            <td><? echo $this->form->minimumfrequency;?></td>
+                            <td><?php echo $this->form->minimumfrequency;?></td>
                         </tr>
                         <tr> 
                             <TD ><label for="fld1" class="mand">Maximum loan amount</TD>
-                            <td><? echo $this->form->maximunloanamount;?></td>
+                            <td><?php echo $this->form->maximunloanamount;?></td>
                             <TD ><label for="fld1" class="mand">Maximum frequency</TD>
-                            <td><? echo $this->form->maximumfrequency;?></td>
+                            <td><?php echo $this->form->maximumfrequency;?></td>
                         </tr>
 
                         <TR>
@@ -117,15 +117,15 @@
 
                         <tr> 
                             <TD ><label for="fld1" class="mand">Penal Fee(%)</TD>
-                            <td><? echo $this->form->penal_Interest;?></td>
+                            <td><?php echo $this->form->penal_Interest;?></td>
                             <TD ><label for="fld1">Interest type</TD>
-                            <td><? echo $this->form->interesttype_id;?></td>
+                            <td><?php echo $this->form->interesttype_id;?></td>
                         </tr>
                         <tr> 
                             <TD ><label for="fld1" class="mand">Penal glsubcode</TD>
-                            <td><? echo $this->form->fee_glsubcode_id;?></td>
+                            <td><?php echo $this->form->fee_glsubcode_id;?></td>
                             <TD ><label for="fld1">Interest glsubcode</TD>
-                            <td><? echo $this->form->interest_glsubcode_id;?></td>
+                            <td><?php echo $this->form->interest_glsubcode_id;?></td>
                         </tr>
 
                         <TR>
@@ -137,7 +137,7 @@
 
                         <tr> 
                             <TD ><label for="fld1" class="mand">Grace period</TD>
-                            <td><? echo $this->form->graceperiodnumber;?>[days]</td>
+                            <td><?php echo $this->form->graceperiodnumber;?>[days]</td>
                             <td><input type="hidden" id="id" value="1">
                             <input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" />
                             <table>

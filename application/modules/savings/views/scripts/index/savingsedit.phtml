@@ -10,7 +10,7 @@
                     <table id="hor-minimalist-b"> 
                            <tr><Th colspan="4">Edit savings<img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16" align="right"></Th></tr>
                             <tr>
-                                <th colspan="3">Product information</th><th><a href="<?php echo $this->baseUrl();?>/savings/index/savingsdelete/id/<? echo base64_encode($this->offerid);?>"></a></th>
+                                <th colspan="3">Product information</th><th><a href="<?php echo $this->baseUrl();?>/savings/index/savingsdelete/id/<?php echo base64_encode($this->offerid);?>"></a></th>
                             </tr>
                         <TR>
                                 <TD>Product type<span class="reqMark">*</span></TD>
@@ -44,18 +44,18 @@
                         <?php if($this->shortname !='ps') {  ?>
                         <tr > 
                             <td>Closed date<span class="reqMark">*</span><B style='color:red'>dd/mm/yyyy</b></td>
-                            <td ><? echo $this->form->closedate;?></td>
+                            <td ><?php echo $this->form->closedate;?></td>
                             <td></td><td></td>
 					</tr>
 					<?php } ?>
 					<tr > 
 						<td>Applicable to<span class="reqMark">*</span></td>
-						<td ><? echo $this->form->applicableto;?></td>
+						<td ><?php echo $this->form->applicableto;?></td>
 <td></td><td></td>
 					</TR>
 					<tr > 
 						<td>GL subcode<span class="reqMark">*</span></td>
-						<td ><? echo $this->form->glsubcode_id;?></td>
+						<td ><?php echo $this->form->glsubcode_id;?></td>
 <td></td><td></td>
 					</TR>
 					<?php if($this->shortname=='ps') { ?>
@@ -64,12 +64,12 @@
 						</tr>
 						<tr> 
 							<td>Initial deposit<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->minmumdeposit;?></td>
+							<td ><?php echo $this->form->minmumdeposit;?></td>
 <td></td><td></td>
 						</tr>
 						<tr > 
 							<td>Frequency of deposit<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->frequencyofdeposit;?></td>
+							<td ><?php echo $this->form->frequencyofdeposit;?></td>
 <td></td><td></td>
 						</tr>
 						<tr>
@@ -77,18 +77,18 @@
 						</tr>
 						<tr > 
 							<td>Interest cal period<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->Int_timefrequency_id;?></td>
+							<td ><?php echo $this->form->Int_timefrequency_id;?></td>
 <td></td><td></td>
 						</tr>
 
 						<tr > 
 							<td>Interest on calculation<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->frequencyofinterestupdating;?></td>
+							<td ><?php echo $this->form->frequencyofinterestupdating;?></td>
 <td></td><td></td>
 						</tr>
 						<tr > 
 							<td>Minimum bal for interest<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->minimumbalanceforinterest;?></td>
+							<td ><?php echo $this->form->minimumbalanceforinterest;?></td>
 <td></td><td></td>
 						</tr>
 					<?php } ?>
@@ -108,7 +108,7 @@
 						</tr>
 						<tr >
 							<td>Frequency of deposit<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->frequency_of_deposit;?></td>
+							<td ><?php echo $this->form->frequency_of_deposit;?></td>
 <td></td><td></td>
 						</tr>
 						<tr >
@@ -133,7 +133,7 @@
 						</tr>
 						<tr > 
 							<td>Frequency of deposit<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->frequency_of_deposit;?></td>
+							<td ><?php echo $this->form->frequency_of_deposit;?></td>
 <td></td><td></td>
 						</tr>
 						<tr > 

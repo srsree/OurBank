@@ -4,7 +4,7 @@
     function addPerson() {
     current++;
     var id = document.getElementById("id").value;
-     $("#FamilyInformation").append("<tr id=row"+id+"><td><label for='from" + id + "'><input type='text' size='4' name='period_ofrange_monthfrom"+id+"' id='from" + id + "' class = 'txt_put'></td><td><label for='to" + id + "'><input type='text' size='4' name='period_ofrange_monthto"+id+"' id='to" + id + "' class = 'txt_put'></td><td><label for='rate" + id + "'><input type='text' size='4' name='Interest"+id+"' id='rate" + id + "' class = 'txt_put'><td><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='<? echo $this->baseUrl(); ?>/images/delete.gif'  border=0 width='16' height='16'></a></td></tr>");
+     $("#FamilyInformation").append("<tr id=row"+id+"><td><label for='from" + id + "'><input type='text' size='4' name='period_ofrange_monthfrom"+id+"' id='from" + id + "' class = 'txt_put'></td><td><label for='to" + id + "'><input type='text' size='4' name='period_ofrange_monthto"+id+"' id='to" + id + "' class = 'txt_put'></td><td><label for='rate" + id + "'><input type='text' size='4' name='Interest"+id+"' id='rate" + id + "' class = 'txt_put'><td><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='<?php echo $this->baseUrl(); ?>/images/delete.gif'  border=0 width='16' height='16'></a></td></tr>");
 
     document.myform.memberCount.value = id;   
     id = (id - 1) + 2;
@@ -113,9 +113,9 @@
                 </TR>
                     <tr> 
                         <TD >Penal glsubcode</TD>
-                        <td><? echo $this->form->fee_glsubcode_id;?></td>
+                        <td><?php echo $this->form->fee_glsubcode_id;?></td>
                         <TD >Interest glsubcode</TD>
-                        <td><? echo $this->form->interest_glsubcode_id;?></td>
+                        <td><?php echo $this->form->interest_glsubcode_id;?></td>
                     </tr>
                 <TR>
                     <TH>GracePeriod</TH>
@@ -141,7 +141,7 @@
                         <?php $count1++; ?>
                         <input type = "hidden" name = "count1" value = " <?php echo $count1; ?>">
                         <input type = "hidden" name = "Interestperiod_id1<?php echo $count1?>" value = " <?php echo $loan->Interestperiod_id; ?>">
-                            <tr id="row<? echo $count1;?>">
+                            <tr id="row<?php echo $count1;?>">
                             <td><input name ="period_ofrange_monthfrom<?php echo $count1?>" type="text" 
                                         value="<?php echo $loan['period_ofrange_monthfrom'];?>" size="4" class="txt_put">
                             </td>
@@ -151,9 +151,9 @@
                             <td><input name ="Interest<?php echo $count1?>" type="text" 
                                         value="<?php echo $loan['Interest'];?>" size="4" class="txt_put">
                             </td>
-                            <td><? if($count1>1) { ?>
-                                <a href='#' onClick='removeFormField("#row<?php echo $count1?>"); return false;'> <img src='<? echo $this->baseUrl(); ?>/images/delete.gif'  border=0 width='16' height='16'><br></a> 
-                                <? } ?></td>
+                            <td><?php if($count1>1) { ?>
+                                <a href='#' onClick='removeFormField("#row<?php echo $count1?>"); return false;'> <img src='<?php echo $this->baseUrl(); ?>/images/delete.gif'  border=0 width='16' height='16'><br></a> 
+                                <?php } ?></td>
                             </tr>
                 <?php } ?>
                     <input type="text" id="id" value="<?php echo $count1+=1;?>">

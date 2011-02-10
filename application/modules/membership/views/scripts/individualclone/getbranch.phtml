@@ -19,10 +19,10 @@
 
 <select name='subOffice1'  id="subOffice1" class="txt_put">
 <option value=''>Select one</option>
-<? foreach($this->branchs as $branch) 
+<?php foreach($this->branchs as $branch) 
 					{ ?>
 
-<option value=<?php echo $branch["office_id"];?>><? echo $branch["office_name"];?></option>
-<? } ?>
+<option value=<?php echo $branch["office_id"];?>><?php echo $branch["office_name"];?></option>
+<?php } ?>
 </select><b class="star">*</b>
 <?php //var_dump(); ?>

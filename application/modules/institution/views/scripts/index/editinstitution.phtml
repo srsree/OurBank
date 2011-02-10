@@ -18,9 +18,9 @@
 !-->
 
 <form name="editform" action="<?php echo $this->baseUrl();?>/institution/index/editinstitution" method="POST">
-	<fieldset>
-    	<legend><?php echo $this->translate('Edit institution'); ?><a href="<?php echo $this->baseUrl();?>/institution/index/deleteinstitution/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20" align="right"></a></legend> 
-    	<table class="fieldsets"> 
+<fieldset>
+    	<table id="hor-minimalist-b"> 
+<tr><Th colspan="2"><b><?php echo $this->translate('Edit institution'); ?></b><a href="<?php echo $this->baseUrl();?>/institution/index/deleteinstitution/id/<?php echo $this->id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="20" height="20" align="right"></a></Th></tr>
             <?php echo $this->form;?>
         </table>
         <div class="btnhouse">
@@ -32,6 +32,6 @@
 	   		</div>
         </div>
 		<input type="hidden" name="id" value="<?php echo $this->id;?>">
-	</fieldset>
+</fieldset>	
 </form>
 

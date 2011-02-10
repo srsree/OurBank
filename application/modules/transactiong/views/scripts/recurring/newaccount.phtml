@@ -81,12 +81,12 @@ function getXMLHTTP() { //fuction to return the xml http object
 					<TD width="20%">Name</TD>
 					<TD width="20"><?php echo $this->groupname;?></TD>
 				</TR>
-				<? }?>
+				<?php }?>
 				<?php if ($this->memberfirstname ) { ?>
 				<TR class="tdbrown">
 					<TD width="20%">Name</TD>
 					<TD width="20"><?php echo $this->memberfirstname;?></TD>
-				<? }?>
+				<?php }?>
 				<?php foreach($this->recurringAccountDetails as $productRecurringDetails) : ?>
 				<TR>
 					<td width="40%"><b class="star">Producttype:</b></td>
@@ -221,7 +221,7 @@ function getXMLHTTP() { //fuction to return the xml http object
                         <TR class="tdbrown">
                             <TD width="40%">addMembers</TD>
                             <TD width="60%"><?php echo $this->form2->memberfirstname;?></TD>
-                        </TR><? } ?>
+                        </TR><?php } ?>
                 </table>
                 <table>
                     <tr>
@@ -271,7 +271,7 @@ function getXMLHTTP() { //fuction to return the xml http object
                          <TR class="tdbrown">
                              <TD width="40%">addMembers</TD>
                              <TD width="60%"><?php echo $this->form2->memberfirstname;?></TD>
-                         </TR><? } ?> -->
+                         </TR><?php } ?> -->
                 </table>
                 <table>
                     <TR>

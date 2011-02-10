@@ -51,8 +51,8 @@
 </table>
 
 </fieldset>
-<form action="<?php echo $this->baseUrl();?>/meetingreport/index/pdfgeneration/field1/<? echo $this->institute_bank_id;?>/field2/<? echo $this->group_id;?>/field3/<? echo $this->fromDate;?>/field4/<? echo $this->toDate;?>" method="POST"
-onClick="window.open('<?php echo $this->baseUrl();?>/meetingreport/index/reportdisplay/file/meeting<? echo date('Y-m-d');?>.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+<form action="<?php echo $this->baseUrl();?>/meetingreport/index/pdfgeneration/field1/<?php echo $this->institute_bank_id;?>/field2/<?php echo $this->group_id;?>/field3/<?php echo $this->fromDate;?>/field4/<?php echo $this->toDate;?>" method="POST"
+onClick="window.open('<?php echo $this->baseUrl();?>/meetingreport/index/reportdisplay/file/meeting<?php echo date('Y-m-d');?>.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
 
            <BR> <input type="submit" value="<?php echo $this->translate('PDF'); ?>" id="submit">
 </form>

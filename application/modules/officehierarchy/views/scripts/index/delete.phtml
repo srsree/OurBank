@@ -17,7 +17,7 @@
 ############################################################################
 !-->
 
-<form action="<?php  echo $this->baseUrl();?>/officehierarchy/index/delete/officeTypeId/<? echo $this->deleteid ?>" method="POST" name="joe" id="signupForm" class="cmxform">
+<form action="<?php  echo $this->baseUrl();?>/officehierarchy/index/delete/officeTypeId/<?php echo $this->deleteid ?>" method="POST" name="joe" id="signupForm" class="cmxform">
 <table id="hor-minimalist-b" summary="Employee Pay Sheet">
     <tr>
     <Th ><p><B style="color:red">	<?php echo $this->translate("Are you sure you want to delete"); ?> </b>&nbsp;&nbsp;<B style="color:red">"<?php echo $this->escape($this->officeTypeName);?>" <?php echo $this->translate("Level"); ?></b></Th>

@@ -80,7 +80,10 @@ die($select->__toString($select));
 		return $result->toArray();
 	}
 
-
+                public function mysqlformat($nformat) {
+                    $ndate = new Zend_Date($nformat, 'dd/mm/yyyy');
+                   
+                }
 	
 	
 

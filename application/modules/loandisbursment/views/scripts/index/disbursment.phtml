@@ -25,49 +25,49 @@
             <?php if($this->type=='3') { ?>
             <TR>
                 <td>Group name</td>
-                <TD><? echo $memberdetails['group_name']; ?></TD>
+                <TD><?php echo $memberdetails['group_name']; ?></TD>
             </TR>
             <?php } else { ?>
             <TR>
                 <td> Name</td>
-                <TD><? echo $memberdetails['member_name']; ?></TD>
+                <TD><?php echo $memberdetails['member_name']; ?></TD>
             </TR>
             <?php } ?>
             <TR>
                 <td>Branch</td>
-                <TD><? echo $memberdetails['bank_name']; ?></TD>
+                <TD><?php echo $memberdetails['bank_name']; ?></TD>
             </TR>
             <TR>
             <td>Member code</td>
             <?php if($this->type=='3') { ?>
-                <TD><? echo $memberdetails['groupcode']; ?></TD>
+                <TD><?php echo $memberdetails['groupcode']; ?></TD>
             <?php } else { ?>
-                <TD><? echo $memberdetails['membercode']; ?></TD>
+                <TD><?php echo $memberdetails['membercode']; ?></TD>
             <?php } ?>
             </TR>
             <TR>
                 <td> Account code</td>
-                <td><? echo $memberdetails['account_number']; ?></TD>
+                <td><?php echo $memberdetails['account_number']; ?></TD>
             </TR>
             <TR>
                 <td>Sector name:</b></td>
-                <TD><? echo $memberdetails['sector_name']; ?></TD>
+                <TD><?php echo $memberdetails['sector_name']; ?></TD>
             </TR>
             <TR>
                 <td>Activity name</b></td>
-                <td><? echo $memberdetails['activity_name']; ?></TD>
+                <td><?php echo $memberdetails['activity_name']; ?></TD>
             </TR>
             <TR>
                 <td>Loan amount R$</b></td>
-                <td><? echo $memberdetails['loan_amount']; ?></TD>
+                <td><?php echo $memberdetails['loan_amount']; ?></TD>
             </TR>
             <TR>
                 <td>Fee amount R$</b></td>
-                <td><? echo $memberdetails['fee']; ?></TD>
+                <td><?php echo $memberdetails['fee']; ?></TD>
             </TR>
             <TR>
                 <td>Interest rate %</td>
-                <TD><? echo $memberdetails['loan_interest']; ?></TD>
+                <TD><?php echo $memberdetails['loan_interest']; ?></TD>
             </TR>
             <TR>
                 <td>Billet R$</td>
@@ -75,11 +75,11 @@
             </TR>
             <TR>
             <td>Installments</td>
-                <TD><? echo $memberdetails['loan_installments']; ?></TD>
+                <TD><?php echo $memberdetails['loan_installments']; ?></TD>
             </TR>
             <TR>
                 <td>Sanctioned date</b></td>
-                <td><? echo $convertdate->phpnormalformat($memberdetails['loansanctioned_date']); ?></TD>
+                <td><?php echo $convertdate->phpnormalformat($memberdetails['loansanctioned_date']); ?></TD>
             </TR>
         </table> 
     <?php } ?>

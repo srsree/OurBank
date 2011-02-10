@@ -25,7 +25,7 @@
                     <form action="<?php echo $this->baseUrl();?>/activityaccounts" method="POST">
                             <table width="100%">
                                 <tr>
-                                    <td width="50%"><?php echo $this->translate("Bank name:"); ?><? echo $this->form->bank;?></td>
+                                    <td width="50%"><?php echo $this->translate("Bank name:"); ?><?php echo $this->form->bank;?></td>
                                     <td width="50%"><input id="Search" type="submit" name="Search" value="Search"></td><TD width="50%"></TD>
                                 </tr>
                         </table>
@@ -50,5 +50,5 @@
 <form action="<?php echo $this->baseUrl();?>/activityaccounts/index/pdftransaction" method="POST">
 <div class="reportdiv">      <input type="submit" value="PDF"  id="reportbutton"><input type="hidden" name="bank" value="<?php echo $this->act_id; ?>"></div>
 </form>
-<div class="reportdiv"><a href="<?php echo $this->baseUrl();?>/activityaccounts/index/chart/act_id/<? echo $this->act_id; ?>"><input type="submit" value="Graph"  id="reportbutton"></td></a></div>
+<div class="reportdiv"><a href="<?php echo $this->baseUrl();?>/activityaccounts/index/chart/act_id/<?php echo $this->act_id; ?>"><input type="submit" value="Graph"  id="reportbutton"></td></a></div>
 <?php } ?>

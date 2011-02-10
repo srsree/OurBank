@@ -36,7 +36,7 @@
 					<td><?php  echo $this->form->month." -"; echo $this->form->year; ?></td>
 				</tr>	
                                 <tr>
-					<td colspan="4" align="center"><? echo $this->form->Search;?></td>
+					<td colspan="4" align="center"><?php echo $this->form->Search;?></td>
 
 				</tr>
                                 <tr><div><?php 
@@ -49,9 +49,9 @@
 </form>
 <?php if($this->clientView){ ?>
 	    <table id="hor-minimalist-b" >
-		<tr><td><?php echo $this->translate("Bank Name:"); ?></td><?php if(!$this->bankname) { ?><td>All Banks</td> <? } else { ?><td><?php echo $this->bankname; } ?></td></tr>
-		<tr><td><?php echo $this->translate("Activity Name:"); ?></td><?php if(!$this->activityname) { ?><td>All Activity</td> <? } else { ?><td><?php echo $this->activityname; } ?></td></tr>
-		<tr><td><?php echo $this->translate("Credit line  Name:"); ?></td><?php if(!$this->creditid) { ?><td>All Credit line</td> <? } else { ?><td><?php echo $this->creditname; } ?></td></tr>
+		<tr><td><?php echo $this->translate("Bank Name:"); ?></td><?php if(!$this->bankname) { ?><td>All Banks</td> <?php } else { ?><td><?php echo $this->bankname; } ?></td></tr>
+		<tr><td><?php echo $this->translate("Activity Name:"); ?></td><?php if(!$this->activityname) { ?><td>All Activity</td> <?php } else { ?><td><?php echo $this->activityname; } ?></td></tr>
+		<tr><td><?php echo $this->translate("Credit line  Name:"); ?></td><?php if(!$this->creditid) { ?><td>All Credit line</td> <?php } else { ?><td><?php echo $this->creditname; } ?></td></tr>
                 <tr><td>Month and year</td><td><?php echo $this->month."-".$this->year; ?></td></tr>
             	</table>
             <TABLE id="hor-minimalist-b" >

@@ -2,7 +2,7 @@
     <fieldset>
 	<table id="hor-minimalist-b">
 		<th  width="40%">Member code</th><th width="40%">Member name</th><th width="40%">Number of accounts</th>
-			<? if (count($this->loancount)): ?>
+			<?php if (count($this->loancount)): ?>
 			<?php foreach ($this->loancount as $loandetails ): ?>
 		<tr>
 		<td><?php echo $this->escape($loandetails['membercode']); ?></td>

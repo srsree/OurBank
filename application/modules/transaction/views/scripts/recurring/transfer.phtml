@@ -28,12 +28,12 @@
 					<TD width="20%">Name</TD>
 					<TD width="20"><?php echo $this->groupname;?></TD>
 				</TR>
-				<? }?>
+				<?php }?>
 				<?php if ($this->memberfirstname ) { ?>
 				<TR class="tdbrown">
 					<TD width="20%">Name</TD>
 					<TD width="20"><?php echo $this->memberfirstname;?></TD>
-				<? }?>
+				<?php }?>
 				<?php foreach($this->recurringAccountDetails as $productRecurringDetails) : ?>
 				<TR>
 					<td width="40%"><b class="star">Producttype:</b></td>
@@ -140,12 +140,12 @@
                                 <td><?php  echo $this->transferForm->account_number;?></td>
                             </tr>
                             <tr>
-                                <td class="label"><? echo $this->transferForm->Confirm;?></td>
+                                <td class="label"><?php echo $this->transferForm->Confirm;?></td>
 								<td><a href="<?php echo $this->baseUrl();?>">
                         		<input name="submit" type="submit"  value="back" tabindex="25"></a></TD>
                             </tr>
                             <tr>
-                                <td colspan="4"><B style="color:red"><? echo $this->noaccounts;?></B></td>
+                                <td colspan="4"><B style="color:red"><?php echo $this->noaccounts;?></B></td>
                             </tr>
                         </table>
                     </form>
@@ -170,7 +170,7 @@
                                 <td><?php  echo $this->account_number;?></td>
                             </tr>
                             <tr>
-                                <td class="label"><? echo $this->transferForm->Transfer;?></td>
+                                <td class="label"><?php echo $this->transferForm->Transfer;?></td>
 								<td><a href="<?php echo $this->baseUrl();?>/transaction/recurring/transfer/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">
 					<input name="submit" type="submit" value="back"></a></td>
                             </tr>
@@ -179,5 +179,5 @@
         </fieldset>
 		<?php } ?>
 </div>
-<? } else { ?><B style="color:red"><? echo $this->noaccount; ?><a href="<?php echo $this->baseUrl();?>/transaction/recurring">
-<input name="submit" type="submit"  value="back" tabindex="25"></a> <? } ?></B>
+<?php } else { ?><B style="color:red"><?php echo $this->noaccount; ?><a href="<?php echo $this->baseUrl();?>/transaction/recurring">
+<input name="submit" type="submit"  value="back" tabindex="25"></a> <?php } ?></B>

@@ -26,13 +26,13 @@
                             <table width="100%">
                                 <tr>
                                     <td class="label">Credit Line:</td>
-                                    <td ><? echo $this->form->field1;?></td>
+                                    <td ><?php echo $this->form->field1;?></td>
                                     <td class="label">Bank Name:</td>
-                                    <td ><div id="groupDiv"><? echo $this->form->field2;?></div></td>
+                                    <td ><div id="groupDiv"><?php echo $this->form->field2;?></div></td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                                    <td colspan="4" align="center"><?php echo $this->form->Search;?></td>
                                 </tr>
                         </table>
                     </form>	
@@ -47,12 +47,12 @@
 
 
 
-<? if($this->check) { ?>
+<?php if($this->check) { ?>
 <fieldset>
         <legend>Loan Disbursement</legend>
 	<h3>
 		<font color=red>Creditline Name :</font> <?php echo $this->creditline_name;?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<font color=red>Amount : </font> <? echo $this->creditline_portfolio;?>
+		<font color=red>Amount : </font> <?php echo $this->creditline_portfolio;?>
 	</h3>
 
 
@@ -71,7 +71,7 @@
 	<?php endif; ?>
     	</tr>
 	<tr>
-		<TD>Total</TD><TD><? echo $totalDisbursed; ?></TD><TD></TD>
+		<TD>Total</TD><TD><?php echo $totalDisbursed; ?></TD><TD></TD>
 	</tr>
     <tr>
 		<td colspan="6" align="right">
@@ -84,6 +84,6 @@
 </table>
 
 </fieldset>
-<? } ?>
+<?php } ?>
 
 

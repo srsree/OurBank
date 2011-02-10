@@ -18,12 +18,12 @@
 !-->  
 <div id = "searchDiv">
 <fieldset>
-    <legend><?php echo $this->translate('Edit sector'); ?></legend>
+    <legend><?php echo $this->translate('Edit sector');?><a href="<?php echo $this->baseUrl();?>/sectors/index/sectordelete/id/<?php echo $this->id;?>">
+                    <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 align="right" width="16" height="16"></a></legend>
         <form action="<?php echo $this->baseUrl();?>/sectors/index/sectoredit/id/<?echo $this->id; ?>" method="POST"  name= "myform">
             <div class="btnhouse">
                 <div class="rtbtns">
-                    <a href="<?php echo $this->baseUrl();?>/sectors/index/sectordelete/id/<? echo $this->id;?>">
-                    <img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a>
+                    
                 </div>
             </div>
 
