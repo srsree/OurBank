@@ -21,6 +21,6 @@
 
 <?php
 
-class Summarymfi_Bootstrap extends Zend_Application_Module_Bootstrap
+class Summarymfib_Bootstrap extends Zend_Application_Module_Bootstrap
 {
 }

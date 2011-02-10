@@ -21,7 +21,7 @@
 
 <?php
 
-class Meeting_Bootstrap extends Zend_Application_Module_Bootstrap
+class Meetingidf_Bootstrap extends Zend_Application_Module_Bootstrap
 {
 
 //     function _initView()
