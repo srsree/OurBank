@@ -40,7 +40,7 @@ function getXMLHTTP() {
     }
 
 function getState(subOfficeId) {
-    var strURL="<?PHP echo $this->baseUrl();?>/officehierarchy/index/inlineedit?subOfficeId="+subOfficeId; alert(strURL);
+    var strURL="<?PHP echo $this->baseUrl();?>/officehierarchy/index/inlineedit?subOfficeId="+subOfficeId; 
     var req = getXMLHTTP();
         if (req) {
             $('#addofficehierarchy').hide();	
