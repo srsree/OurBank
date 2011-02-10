@@ -24,7 +24,7 @@
         	<form action="<?php echo $this->baseUrl();?>/institution/index/index" mthod="POST">
             	<table id = "fieldsets">
                 	<tr>
-                    	<td class="label"><?php echo $this->translate('Institution name:'); ?></td>
+                    	<td class="label"><br><?php echo $this->translate('Institution name:'); ?></td>
                         <td ><? echo $this->form->field2;?></td>
                         <td class="label"></td>
                        </tr>
@@ -40,7 +40,7 @@
 <?php if (count($this->paginator)){ ?>
 	<table id="hor-minimalist-b" summary="">
     	<tr class="tdbrownheading">
-			<th><?php echo $this->translate('Institution name:'); ?></th>
+			<th><?php echo $this->translate('Institution name'); ?></th>
 			<th><?php echo $this->translate('Active'); ?></td>
 		</tr>
     	<?php foreach ($this->paginator as $institution ): ?>
