@@ -74,9 +74,9 @@ public function viewAction()
 			$fee = new Fee_Model_Fee;
 			$this->view->feedetails=$fee->getFee($id);
 
-			$membertype = $this->view->adm->viewRecord("ourbank_membertypes","id","DESC");
+			$membertype = $this->view->adm->viewRecord("ourbank_master_membertypes","id","DESC");
 			foreach($membertype as $membertype){
-				$form->membertype->addMultiOption($membertype['id'],$membertype['type']);
+				$form->membertype->addMultiOption($membertype['id'],$membertype['name']);
 			}
 // 		} else {
 //             $this->_redirect('index/error');
@@ -91,9 +91,9 @@ public function viewAction()
 			$form = new Fee_Form_Fee();
 			$this->view->form=$form;
 			$appliesTo = new Feecommon_Model_Feecommon();
-			$membertype = $this->view->adm->viewRecord("ourbank_membertypes","id","DESC");
+			$membertype = $this->view->adm->viewRecord("ourbank_master_membertypes","id","DESC");
 			foreach($membertype as $membertype){
-				$form->membertype_id->addMultiOption($membertype['id'],$membertype['type']);
+				$form->membertype_id->addMultiOption($membertype['id'],$membertype['name']);
 			}
 			$glcode = $this->view->adm->viewRecord("ourbank_glsubcode","id","DESC");
 			foreach($glcode as $glcode){
@@ -121,9 +121,9 @@ public function viewAction()
 // 		if (($checkaccess != NULL)) {
 			$form = new Fee_Form_Fee();
 			$this->view->form=$form;
-			$membertype = $this->view->adm->viewRecord("ourbank_membertypes","id","DESC");
+			$membertype = $this->view->adm->viewRecord("ourbank_master_membertypes","id","DESC");
 			foreach($membertype as $membertype){
-				$form->membertype_id->addMultiOption($membertype['id'],$membertype['type']);
+				$form->membertype_id->addMultiOption($membertype['id'],$membertype['name']);
 			}
 			$glcode = $this->view->adm->viewRecord("ourbank_glsubcode","id","DESC");
 			foreach($glcode as $glcode){
@@ -165,9 +165,9 @@ public function viewAction()
 		$this->view->mod_id=$modId;
 		$this->view->sub_id=$subId;
 		$individualcommon=new Feecommon_Model_Feecommon;
-$userdetails=new User_Model_User();
-		$user_details=$userdetails->getuser($id);		$this->view->feedetails=$user_details;
- 		$delform=new Userdetails_Form_Delete();
+		$fee = new Fee_Model_Fee;
+			$this->view->feedetails=$fee->getFee($id);
+ 		$delform=new Fee_Form_Delete();
 		$this->view->delete=$delform;
 		if ($this->_request->isPost() && $this->_request->getPost('Submit')){
 			$formdata = $this->_request->getPost();
@@ -179,3 +179,4 @@ $userdetails=new User_Model_User();
 		}
 	}
 }
+
