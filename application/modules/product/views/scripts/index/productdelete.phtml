@@ -16,14 +16,15 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ############################################################################
 !-->
-
+<fieldset style="width:759px;float:left">
 
 <div style="width:480px;float:left"> 
 
-<fieldset>
-	<legend>Delete Category</legend>
+
+	
 	<div class="cont-rgt-data">
 			<TABLE id="hor-minimalist-b">
+            <tr><Th>Delete Category</Th><th></th><th></th><th></th><th></th></tr>
         <?php foreach($this->productdetails as $category) {  ?>
 
 				<TR>
@@ -57,24 +58,21 @@
 			</TABLE>
 <?php } ?>
 
-</fieldset>
-
-
-<fieldset>
-	<legend>confirm Delete</legend>
+	
 			<div class="cont-rgt-data">
 				<form action="<?php echo $this->baseUrl();?>/product/index/productdelete/id/<?php echo $this->id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
 				<table id="hor-minimalist-b" summary="Employee Pay Sheet">
-					<TR>
+					<TR><Th>confirm Delete</Th><th></th></tr>
 						<TD  width="35%" align="right" ><label>Remarks<span class="reqMark">*</span></label></TD>
 						<TD  width="65%"  align="left" ><?php echo $this->deleteform->remarks;?></TD>
 					</TR>
+                                <tr><TD><font color="Red">Do you want to Delete</font></TD></tr>
 				</table>
 
-													<input type="submit" name="DELETE" id="Submit" value="DELETE">			
+													<input type="submit" name="Delete" id="Submit" value="Delete">			
 
 						<input name="submit" type="submit"  value="No" ></a></TD>
 				</form>
 			
-</fieldset>
-		</div>
+
+		</div></fieldset>
