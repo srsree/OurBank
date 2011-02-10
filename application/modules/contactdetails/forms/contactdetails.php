@@ -38,9 +38,11 @@ class Contactdetails_Form_contactdetails extends Zend_Form
         //create a contact details form elements
         $vtype=array('Digits');
 	$formfield = new App_Form_Field ();
-        $contactPerson = $formfield->field('Text','contact_person','','','mand','Contact person',true,'','','','','',1,0);
+        $contactPerson = $formfield->field('Text','contact_person','','','mand','Contact person *',true,'','','','','',1,0);
         $telephone = $formfield->field('Text','telephone','','','mand','Telephone number',true,$vtype,'','','','',1,0);
 	$mobile = $formfield->field('Text','mobile','','','mand','mobile',true,$vtype,1,15,'','',1,0);
+        $mobile->addValidator('StringLength', false, array(10, 11));
+ 
         $email = $formfield->field('Text','email','','','mand','Email',true,'','','','','',1,0);
         //hidden feilds
         $id = $formfield->field('Hidden','id','','','','',false,'','','','','',0,$id);
@@ -49,7 +51,7 @@ class Contactdetails_Form_contactdetails extends Zend_Form
         $createdBy = $formfield->field('Hidden','created_by','','','','',false,'','','','','',0,1);
         $createdDate = $formfield->field('Hidden','created_date','','','','',false,'','','','','',0,date("y/m/d H:i:s"));
         $recordstatusId = $formfield->field('Hidden','recordstatus_id','','','','',false,'','','','','',0,3);
-
+        
         $this->addElements(array($id,$contactPerson,$telephone,$mobile,$email,$subId,$createdBy,$createdDate));
     }
 }
