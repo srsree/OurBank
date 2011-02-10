@@ -57,10 +57,8 @@ class Expense_IndexController extends Zend_Controller_Action
 // //set the value of member name and sex
         for($i=1;$i<=$number;$i++){
         foreach($count_expense as $count_expense1){
-            $a='expense'.$i;
             $b='source_id'.$i;
-           $addForm->$a->setValue($count_expense1['name']);
-           $addForm->$b->setValue($count_expense1['id']);
+            $addForm->$b->setValue($count_expense1['id']);
             $i++;
          }
         }
@@ -109,10 +107,8 @@ class Expense_IndexController extends Zend_Controller_Action
 
         for($i=1;$i<=$number;$i++){
         foreach($count_expense as $count_expense1){
-           $a='expense'.$i;
            $b='source_id'.$i;
-          $addForm->$a->setValue($count_expense1['name']);
-          $addForm->$b->setValue($count_expense1['id']);
+           $addForm->$b->setValue($count_expense1['id']);
             $i++;
          }
         }
