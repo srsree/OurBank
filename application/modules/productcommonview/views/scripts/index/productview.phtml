@@ -53,7 +53,8 @@
 					foreach($this->productdetails as $edit_id) { ?>
 <tr>
 						<th class = "firsttd">product Details</th>
-						<th class = "secondtd"></th>	
+						<th class = "secondtd"></th>
+                                                <th class = "third"></th>	
 <th></th>
 <th class = "thirdtd"><a href="<?php echo $this->baseUrl();?>/product/index/productedit/id/<?php echo $edit_id['id'];?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="20" height="20"></a></th>
 </tr>
@@ -88,12 +89,12 @@
                     <TD></TD>
                 </TR>
                 <TR>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD  align="right"></TD>
                     <TD><a href="<?php echo $this->baseUrl(); ?>/product">
                                 <input name="submit" type="submit" class="officebutton" value="Back"></a></TD>
-                    <TD></TD>
-                    <TD></TD>
-                    <TD></TD>
-                    <TD></TD>
               </TR>
         </TABLE>
 <?php } ?>
