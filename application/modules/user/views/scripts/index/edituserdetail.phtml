@@ -20,14 +20,14 @@
 
 
 <fieldset>
-	<legend>Edit user information</legend>
+<!--  delete button  !-->
+	<legend>Edit user information <a href="<?php echo $this->baseUrl();?>/user/index/delete/id/<?php echo $this->id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" align="right" border=0 width="16" height="16"></a></legend>
 <!-- edit form action  !-->
 	<form action="<?php echo $this->baseUrl();?>/user/index/edituserdetail/id/<?php echo $this->id; ?>" method="POST">
 		<table class="fieldsets">
-		<TR>
-<!--  delete button  !-->
-		<TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/user/index/delete/id/<?php echo $this->id; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
-	</TR>
+		
+
+		
 			<?php echo $this->form->fee_id;?>
 			<?php echo $this->form;?>
 
@@ -36,7 +36,7 @@
 	<div class="btnhouse">
 			<div class="ltbtns">
 <!-- update button  !-->
-			<input type="submit" name="Update" id="Submit" value="Update">  			</div>
+			<input type="submit" name="Update" id="Update" value="Update">  			</div>
 			<div class="rtbtns">
 <!-- back button !-->
 			<a href="<?php echo $this->baseUrl();?>/user/index/commonview/id/<?php echo $this->user_id; ?>"><?php echo $this->form->Back;?></a>
