@@ -28,40 +28,48 @@
 			<?php foreach($this->userdetails as $funder_view){?>
                           
 			<tr>
-				<td class = "firsttd">User name:</td>
-				<td class = "secondtd"><?php echo $funder_view['username'];?></td>
-				<td class = "thirdtd"></td>
+				<td >User name:</td>
+				<td ><?php echo $funder_view['username'];?></td>
+				<td ></td>
 			</tr>
 			<tr>
-				<td class = "firsttd">Bank:</td>
-				<td class = "secondtd"><?php echo $funder_view['bankname'];?></td>
-				<td class = "thirdtd"></td>
+				<td >Bank name:</td>
+				<td ><?php echo $funder_view['name'];?></td>
+				<td ></td>
 			</tr>
 			<tr>
-				<td class = "firsttd">Gender:</td>
-				<td class = "secondtd"><?php echo $funder_view['sex'];?></td>
-				<td class = "thirdtd"></td>
+				<td >Gender:</td>
+				<td ><?php echo $funder_view['sex'];?></td>
+				<td ></td>
 
 			</tr>
 			<tr>
-				<td class = "firsttd">Designation:</td>
-				<td class = "secondtd"><?php echo $funder_view['name'];?></td>
-				<td class = "thirdtd"></td>
+				<td >Designation:</td>
+				<td ><?php echo $funder_view['designation_name'];?></td>
+				<td ></td>
 
 			</tr>
 			<tr>
-				<td class = "firsttd">Granted as:</td>
-				<td class = "secondtd"><?php echo $funder_view['grant'];?></td>
-				<td class = "thirdtd"></td>                  
-			<?php } ?>
-<!-- delete confirmation !-->
+				<td >Granted as:</td>
+				<td ><?php echo $funder_view['grant'];?></td>
+				<td ></td> 
+                        </tr>                 
+			
+
 			<tr>
-				<td><font color="red">Do you want to delete</font><?php echo $this->delete; ?></td>
+                                <td >Remarks<span>*</span></td>
+                                <td ><?php echo $this->deleteform->remarks;?></td>
+                                <td ></td>  
+                        </tr>
+                        <tr>
+                                <td><font color="red">Do you want to delete</font></td>
+				<td ></td>
+                                <td ></td>  
 			</tr> 
-
+<?php } ?>
 			
 		</table>
-				<input type="submit" name="DELETE" id="Submit" value="DELETE">			
+				<input type="submit" name="Delete" id="Delete" value="Delete">			
 
 <a href="<?php echo $this->baseUrl();?>/user/index/edituserdetail/id/<?php echo $this->user_id ?>"><input type="button" name="no" value="No"></a>
 

@@ -65,12 +65,18 @@ class Fixedaccount_IndexController extends Zend_Controller_Action
         $path=$this->view->baseUrl();
         $fixedForm = new Fixedaccount_Form_Fixed($path);
         $this->view->fixedForm = $fixedForm;
-        $productId = base64_decode($this->_request->getParam('Id'));
-        $memberId = base64_decode($this->_request->getParam('memberId'));
-        $membercode = base64_decode($this->_request->getParam('code'));
-        $fixedForm->Id->setValue(base64_encode($productId));
-        $fixedForm->memberId->setValue(base64_encode($memberId));
-        $fixedForm->code->setValue(base64_encode($membercode));
+        if($this->_request->isPost()){
+            $productId = ($this->_request->getPost('Id'));
+            $memberId = ($this->_request->getPost('memberId'));
+            $membercode = ($this->_request->getPost('code'));
+        } else {
+            $productId = base64_decode($this->_request->getParam('Id'));
+            $memberId = base64_decode($this->_request->getParam('memberId'));
+            $membercode = base64_decode($this->_request->getParam('code'));
+        }
+        $fixedForm->Id->setValue(($productId));
+        $fixedForm->memberId->setValue(($memberId));
+        $fixedForm->code->setValue(($membercode));
 
         if(substr($membercode,4,1)=='2') {
             $this->view->gp_members=$this->view->accounts->fetchmembers($memberId);

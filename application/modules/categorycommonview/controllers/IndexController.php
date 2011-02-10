@@ -25,13 +25,7 @@ class Categorycommonview_IndexController extends Zend_Controller_Action
 	public function init() 
 	{
 		$this->view->pageTitle='Category';
-//         $globalsession = new App_Model_Users();
-//         $this->view->globalvalue = $globalsession->getSession();
-// 		$this->view->createdby = $this->view->globalvalue[0]['id'];
-// 		$this->view->username = $this->view->globalvalue[0]['username'];
-//         if (($this->view->globalvalue[0]['id'] == 0)) {
-//              $this->_redirect('index/logout');
-//         }
+
 		$this->view->adm = new App_Model_Adm();   	
 	}
 

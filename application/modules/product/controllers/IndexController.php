@@ -32,7 +32,9 @@ class Product_IndexController extends Zend_Controller_Action
 //         if (($this->view->globalvalue[0]['id'] == 0)) {
 //              $this->_redirect('index/logout');
 //         }
-		$this->view->adm = new App_Model_Adm();   	
+		  $this->view->adm = new App_Model_Adm();
+                  $this->view->dateconvert = new App_Model_dateConvertor();
+               	
 	}
 
 	public function indexAction() 
@@ -63,13 +65,17 @@ $institution = $this->view->adm->viewRecord("ourbank_category","id","DESC");
 		$paginator = Zend_Paginator::factory($result);
 		$paginator->setItemCountPerPage(5);
 		$paginator->setCurrentPageNumber($page);
-
 		$this->view->paginator = $paginator;
 		if ($this->_request->isPost() && $this->_request->getPost('Search')){
-			if ($this->_request->isPost()){
+			        $this->view->errormsg="Record not found.. Try agin...";
+                                if ($this->_request->isPost()){
 				if ($searchForm->isValid($this->_request->getPost())){
 					$result = $product->SearchProduct($searchForm->getValues());
 					$page = $this->_getParam('page',1);
+                                        
+                                        if(!$paginator){
+                                            $this->view->errormsg="Record not found.. Try agin...";
+                                        }
 					$paginator = Zend_Paginator::factory($result);
 					$paginator->setItemCountPerPage(5);
 					$paginator->setCurrentPageNumber($page);
@@ -100,32 +106,35 @@ $categoryname = $this->view->adm->viewRecord("ourbank_category","id","DESC");
 	}
 	
 	public function producteditAction() 
-	{
-			$productForm = new Product_Form_Product();
-			$this->view->form = $productForm;
-			$id=$this->_getParam('id');
-						$this->view->id = $id;
+        {
+                $productForm = new Product_Form_Product();
+                $this->view->form = $productForm;
+                $id=$this->_getParam('id');
+                $this->view->id = $id;
 
-			$productname = $this->view->adm->viewRecord("ourbank_category","id","DESC");
-			foreach($productname as $productname){
-				$productForm->category_id->addMultiOption($productname['id'],$productname['name']);
-			}
-			$product = new Product_Model_Product;
-			$productdetails = $product->getProduct($id);
-			$productForm->populate($productdetails[0]);
-			if ($this->_request->isPost() && $this->_request->getPost('Update')) {  
-				$id = $this->_getParam('id');
-				$formData = $this->_request->getPost();
-				//print_r($formData);
-				if ($productForm->isValid($formData)) { 
-					$previousdata = $this->view->adm->editRecord("ourbank_product",$id);
-					$this->view->adm->updateLog("ourbank_product_log",$previousdata,1);
-					//update 					
-					$this->view->adm->updateRecord("ourbank_product",$id,$productForm->getValues());
-					$this->_redirect('product/index/');
-				}
- 			}
-    }		
+                $productname = $this->view->adm->viewRecord("ourbank_category","id","DESC");
+                foreach($productname as $productname){
+                        $productForm->category_id->addMultiOption($productname['id'],$productname['name']);
+                }
+                $product = new Product_Model_Product;
+                $productdetails = $product->getProduct($id);
+
+
+                $productForm->populate($productdetails[0]);
+                if ($this->_request->isPost() && $this->_request->getPost('Update')) {  
+                    echo $id = $this->_getParam('id');
+                    $formData = $this->_request->getPost();
+//                     //print_r($formData);
+                    if ($productForm->isValid($formData)) {
+                        $previousdata = $this->view->adm->editRecord("ourbank_product",$id);
+//                 echo "<pre>"; print_r($previousdata);
+                        $this->view->adm->updateLog("ourbank_product_log",$previousdata[0],1);
+                        //update 					
+                        $this->view->adm->updateRecord("ourbank_product",$id,$productForm->getValues());
+                        $this->_redirect('product/index/');
+                    }
+                }
+         }		
 
 	public function productdeleteAction() 
 	{
@@ -138,7 +147,7 @@ $categoryname = $this->view->adm->viewRecord("ourbank_category","id","DESC");
 			$product= new Product_Model_Product;
 			$this->view->productdetails=$product->getProduct($id);
 // 			}
-			if($this->_request->isPost() && $this->_request->getPost('DELETE')) {
+			if($this->_request->isPost() && $this->_request->getPost('Delete')) {
 			$formdata = $this->_request->getPost();
 				if ($delform->isValid($formdata)) { 
  $redirect = $this->view->adm->deleteRecord("ourbank_product",$id);

@@ -56,6 +56,7 @@ class Individual_IndexController extends Zend_Controller_Action
         }
         $page = $this->_getParam('page',1);
         $paginator = Zend_Paginator::factory($result);
+        $this->view->errormsg="Record not found.. Try again..";
 //searching member list
         if ($this->_request->isPost() && $this->_request->getPost('Search')) 
         {
@@ -65,6 +66,9 @@ class Individual_IndexController extends Zend_Controller_Action
                 $result = $individual->searchDetails($searchForm->getValues());
                 $page = $this->_getParam('page',1);
                 $paginator = Zend_Paginator::factory($result);
+                 if(!$paginator){
+                $this->view->errormsg="Record not found.. Try again..";
+            }
                 $this->view->paginator = $paginator;
                 } 
         }

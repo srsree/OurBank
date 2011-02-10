@@ -90,325 +90,325 @@ div0.style.display='block';
 
  ?>
 
- <h3><legend>List of <? echo substr($this->tableName,8); ?></legend></h3>
+ <h3><legend>List of <?php echo substr($this->tableName,8); ?></legend></h3>
 
 <?php foreach($this->tblcontent as $tblcontent) { 
 //print_r($tblcontent);    
 ?>
 <tr class="tdbrown">
 
-<? switch ($this->tableName) { ?>
-<?  case "ourbank_master_gender" : ?> 
+<?php switch ($this->tableName) { ?>
+<?php  case "ourbank_master_gender" : ?> 
 <td>  <?php echo $tblcontent['sex']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_accountype" : ?> 
+<?php  case "ourbank_master_accountype" : ?> 
 <td width="30">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_bank" : ?> 
+<?php  case "ourbank_master_bank" : ?> 
 <td width="30">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_castetype" : ?> 
+<?php  case "ourbank_master_castetype" : ?> 
 <td width="30">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_cbopromoter" : ?> 
+<?php  case "ourbank_master_cbopromoter" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_cbos" : ?> 
+<?php  case "ourbank_master_cbos" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_cookingfuel" : ?> 
+<?php  case "ourbank_master_cookingfuel" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_countrylist" : ?> 
+<?php  case "ourbank_master_countrylist" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_currency" : ?> 
+<?php  case "ourbank_master_currency" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
 
-<?  case "ourbank_master_diseasetypes" : ?> 
+<?php  case "ourbank_master_diseasetypes" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_districtlist" : ?> 
+<?php  case "ourbank_master_districtlist" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_educationtype" : ?> 
+<?php  case "ourbank_master_educationtype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_employmenttype" : ?> 
+<?php  case "ourbank_master_employmenttype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_accountype" : ?> 
+<?php  case "ourbank_accountype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_businesstype" : ?> 
+<?php  case "ourbank_master_businesstype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_crop" : ?> 
+<?php  case "ourbank_master_crop" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_entitlements" : ?> 
+<?php  case "ourbank_master_entitlements" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_expense" : ?> 
+<?php  case "ourbank_master_expense" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_familyexpense" : ?> 
+<?php  case "ourbank_master_familyexpense" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
 
-<?  case "ourbank_master_familyincome" : ?> 
+<?php  case "ourbank_master_familyincome" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_familytype" : ?> 
+<?php  case "ourbank_master_familytype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_fundertype" : ?> 
+<?php  case "ourbank_master_fundertype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_hoblilist" : ?> 
+<?php  case "ourbank_master_hoblilist" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_housingtype" : ?> 
+<?php  case "ourbank_master_housingtype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_income" : ?> 
+<?php  case "ourbank_master_income" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_instalstatus" : ?> 
+<?php  case "ourbank_master_instalstatus" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_institutions" : ?> 
+<?php  case "ourbank_master_institutions" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_kootas" : ?> 
+<?php  case "ourbank_master_kootas" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_kvs" : ?> 
+<?php  case "ourbank_master_kvs" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_landacquisition" : ?> 
+<?php  case "ourbank_master_landacquisition" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_landtypes" : ?> 
+<?php  case "ourbank_master_landtypes" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_ledgertypes" : ?> 
+<?php  case "ourbank_master_ledgertypes" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_liveassets" : ?> 
+<?php  case "ourbank_master_liveassets" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_loanpurpose" : ?> 
+<?php  case "ourbank_master_loanpurpose" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_loansource" : ?> 
+<?php  case "ourbank_master_loansource" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_maritalstatus" : ?> 
+<?php  case "ourbank_master_maritalstatus" : ?> 
 <td width="80"> <a href="<?php echo $this->baseUrl()."/settings/dropdown/commonview/id/".$tblcontent['id']; ?>/ff/<?php echo $this->tableName ?>">
         <?php echo $this->escape($tblcontent['name']); ?></a></td>
 
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
 
 
 
 
-<?  case "ourbank_master_membertypes" : ?> 
+<?php  case "ourbank_master_membertypes" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_nonliveassets" : ?> 
+<?php  case "ourbank_master_nonliveassets" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_ownershiptype" : ?> 
+<?php  case "ourbank_master_ownershiptype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_paymenttypes" : ?> 
+<?php  case "ourbank_master_paymenttypes" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_povertytype" : ?> 
+<?php  case "ourbank_master_povertytype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_profession" : ?> 
+<?php  case "ourbank_master_profession" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
 
 
 
 
-<?  case "ourbank_master_realtionshiptype" : ?> 
+<?php  case "ourbank_master_realtionshiptype" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_servicesectors" : ?> 
+<?php  case "ourbank_master_servicesectors" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_shgs" : ?> 
+<?php  case "ourbank_master_shgs" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_skills" : ?> 
+<?php  case "ourbank_master_skills" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_sourceofincome" : ?> 
+<?php  case "ourbank_master_sourceofincome" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_taluklist" : ?> 
+<?php  case "ourbank_master_taluklist" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_villages" : ?> 
+<?php  case "ourbank_master_villages" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_master_villagelist" : ?> 
+<?php  case "ourbank_master_villagelist" : ?> 
 <td width="80">  <?php echo $tblcontent['name']; ?></td>
 <input type = "hidden" name = "pK" value = "id">
 <input type = "hidden" name = "attribute" value = "name">
-<? break; ?>
+<?php break; ?>
 
 <?php } ?>
 </tr>

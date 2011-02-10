@@ -22,7 +22,7 @@
 
  $totalCashCredit=0;$totalCashDebit=0;	$totalTrnsferCashcredit=0;$totalTrnsferCashDebit=0; ?>
 
-<h5 style="text-align:right;"><? echo $this->resultshow; ?></h5>
+<h5 style="text-align:right;"><?php echo $this->resultshow; ?></h5>
 <h5 style="text-align:right"> <font color="red">*</font> <?php echo $this->translate("Amount in"); ?> <font color="red"><?php echo $this->translate("Rs"); ?></font></h5>
 <div style="float: left; width: 370px">
 	<h5>Credit</h5>
@@ -34,14 +34,14 @@
 		<TH class="label"><?php echo $this->translate("Transfer"); ?></TH>
 		<TH class="label"><?php echo $this->translate("Total"); ?></TH>
 		 </TR>
-		<? $transferFlagCr = 0; $matchedProductsCr=array();$unmatchedProductsCr=array();
+		<?php $transferFlagCr = 0; $matchedProductsCr=array();$unmatchedProductsCr=array();
 		if($this->savingsCredit) {
 		foreach($this->savingsCredit as $savingsCredit) { ?>
 			<TR>
-			<TD><? echo $savingsCredit['name']; ?></TD>
-			<TD><? echo $savingsCredit['glcode']; ?></TD>
+			<TD><?php echo $savingsCredit['name']; ?></TD>
+			<TD><?php echo $savingsCredit['glcode']; ?></TD>
 			<TD class="label"><?php echo sprintf("%4.2f", $savingsCredit['amount_to_bank'])?></TD>
-			<? if($this->TransfersavingsCredit) { $transferFlagCr=1;$flag1=0;
+			<?php if($this->TransfersavingsCredit) { $transferFlagCr=1;$flag1=0;
 
 				foreach($this->TransfersavingsCredit as $tsc) {
 					if($savingsCredit['name']==$tsc['name']) {
@@ -62,7 +62,7 @@
 				echo "<TD class=label>0.00</TD><TD class=label>".sprintf("%4.2f", $savingsCredit['amount_to_bank'])."</TD></TR>";
 			}
 			?>
-			<? $totalCashCredit+=$savingsCredit['amount_to_bank'];
+			<?php $totalCashCredit+=$savingsCredit['amount_to_bank'];
 		}
 		}
 		$unmatchedProductsCr=array_diff($unmatchedProductsCr,$matchedProductsCr);
@@ -82,12 +82,12 @@
 
 		if($transferFlagCr==0) {
 		foreach($this->TransfersavingsCredit as $tsc) { ?>
-			<TR><TD><? echo $tsc['name']; ?></TD>
-			<TD><? echo $tsc['glcode']; ?></TD>
+			<TR><TD><?php echo $tsc['name']; ?></TD>
+			<TD><?php echo $tsc['glcode']; ?></TD>
 			<TD></TD>
-			<TD class="label"><? echo sprintf("%4.2f", $tsc['amount_to_bank']);
+			<TD class="label"><?php echo sprintf("%4.2f", $tsc['amount_to_bank']);
 				$totalTrnsferCashcredit+= $tsc['amount_to_bank'];?></TD>
-			<TD class="label"><? echo sprintf("%4.2f", $tsc['amount_to_bank']); ?></TD>	
+			<TD class="label"><?php echo sprintf("%4.2f", $tsc['amount_to_bank']); ?></TD>	
 			</TR>
 				<?
 			}
@@ -97,22 +97,22 @@
 				for($j=0;$j<count($this->TransfersavingsCredit);$j++) {
 					if($tsc['name']==$unmatchedProductsCr[$j] && $unmatchedProductsCr[$j]!=$matchedProductsCr[$j]) {  ?>
 						<TR>
-							<TD><? echo $tsc['name']; ?></TD>
-							<TD><? echo $tsc['glcode']; ?></TD>
+							<TD><?php echo $tsc['name']; ?></TD>
+							<TD><?php echo $tsc['glcode']; ?></TD>
 							<TD></TD>
-							<TD class="label"><? echo sprintf("%4.2f", $tsc['amount_to_bank']); 
-							$totalTrnsferCashcredit+= $tsc['amount_to_bank'];?></TD>	<td class="label"><? echo sprintf("%4.2f", $tsc['amount_to_bank']);?></td>
+							<TD class="label"><?php echo sprintf("%4.2f", $tsc['amount_to_bank']); 
+							$totalTrnsferCashcredit+= $tsc['amount_to_bank'];?></TD>	<td class="label"><?php echo sprintf("%4.2f", $tsc['amount_to_bank']);?></td>
 						</TR>
-					<? }
+					<?php }
 				}
 			}
 			}
 		}
  		?>
 		
-		<TR><TD></TD><TD><b><?php echo $this->translate("Total"); ?></b></TD><TD class="label"><b><? echo sprintf("%4.2f", $totalCashCredit); ?></b></TD><TD></TD><td></td></TR>
-		<TR><TD></TD><TD><?php echo $this->translate("Opening balance"); ?></TD><TD class="label"><b><? if($this->openingbalance) echo sprintf("%4.2f", $this->openingbalance); else echo "0.00"; ?></b></TD><TD></TD><td></td></TR>
-		<TR><TD></TD><TD><b><?php echo $this->translate("Total"); ?></b></TD><TD class="label"><b><?  $CreditTotal=$totalCashCredit+$this->openingbalance;echo sprintf("%4.2f", $CreditTotal); ?> </b></TD><TD class="label"> <b><? echo sprintf("%4.2f", $totalTrnsferCashcredit);?></b></TD><TD class="label"> <b><? echo sprintf("%4.2f", $totalTrnsferCashcredit);?></b></TD></TR>
+		<TR><TD></TD><TD><b><?php echo $this->translate("Total"); ?></b></TD><TD class="label"><b><?php echo sprintf("%4.2f", $totalCashCredit); ?></b></TD><TD></TD><td></td></TR>
+		<TR><TD></TD><TD><?php echo $this->translate("Opening balance"); ?></TD><TD class="label"><b><?php if($this->openingbalance) echo sprintf("%4.2f", $this->openingbalance); else echo "0.00"; ?></b></TD><TD></TD><td></td></TR>
+		<TR><TD></TD><TD><b><?php echo $this->translate("Total"); ?></b></TD><TD class="label"><b><?php  $CreditTotal=$totalCashCredit+$this->openingbalance;echo sprintf("%4.2f", $CreditTotal); ?> </b></TD><TD class="label"> <b><?php echo sprintf("%4.2f", $totalTrnsferCashcredit);?></b></TD><TD class="label"> <b><?php echo sprintf("%4.2f", $totalTrnsferCashcredit);?></b></TD></TR>
 
 		</table>
 		
@@ -129,13 +129,13 @@
 		<TH class="label"><?php echo $this->translate("Transfer"); ?></TH>
 		<TH class="label"><?php echo $this->translate("Total"); ?></TH>
 		</TR>
-		<? $transferFlagDr = 0; $matchedProductsDr=array(); $unmatchedProductsDr=array();if($this->savingsDebit) {
+		<?php $transferFlagDr = 0; $matchedProductsDr=array(); $unmatchedProductsDr=array();if($this->savingsDebit) {
 		foreach($this->savingsDebit as $savingsDebit) { ?>
 			<TR>
-			<TD><? echo $savingsDebit['name']; ?></TD>
-			<TD><? echo $savingsDebit['glcode']; ?></TD>
-			<TD class="label"><? echo $savingsDebit['amount_from_bank']; ?></TD>
-			<? if($this->TransfersavingsDebit) { $transferFlagDr=1;$flag2=0;
+			<TD><?php echo $savingsDebit['name']; ?></TD>
+			<TD><?php echo $savingsDebit['glcode']; ?></TD>
+			<TD class="label"><?php echo $savingsDebit['amount_from_bank']; ?></TD>
+			<?php if($this->TransfersavingsDebit) { $transferFlagDr=1;$flag2=0;
 				foreach($this->TransfersavingsDebit as $tsd) {
 					if($savingsDebit['name']==$tsd['name']) {
 						echo "<TD class=label>".$tsd['amount_from_bank']."</TD><td class=label>".sprintf("%4.2f", ($savingsDebit['amount_from_bank']+$tsd['amount_from_bank']))."</td></TR>";$flag2=1;
@@ -153,7 +153,7 @@
 			}
 			?>
 		
-			<? $totalCashDebit+=$savingsDebit['amount_from_bank'];
+			<?php $totalCashDebit+=$savingsDebit['amount_from_bank'];
 		}
 	}
 $unmatchedProductsDr=array_diff($unmatchedProductsDr,$matchedProductsDr);
@@ -174,12 +174,12 @@ $unmatchedProductsDr = array_unique($unmatchedProductsDr);
 
 		if($transferFlagDr==0){
 			foreach($this->TransfersavingsDebit as $tsd) { ?>
-				<TR><TD><? echo $tsd['name']; ?></TD>
-				<TD><? echo $tsd['glcode']; ?></TD>
+				<TR><TD><?php echo $tsd['name']; ?></TD>
+				<TD><?php echo $tsd['glcode']; ?></TD>
 				<TD></TD>
-				<TD class="label"><? echo $tsd['amount_from_bank']; 
+				<TD class="label"><?php echo $tsd['amount_from_bank']; 
 					$totalTrnsferCashDebit+=$tsd['amount_from_bank'];?></TD>	
-				<td><? echo $tsd['amount_from_bank']; ?></td>
+				<td><?php echo $tsd['amount_from_bank']; ?></td>
 				</TR>
 			<?
 			}
@@ -189,27 +189,27 @@ $unmatchedProductsDr = array_unique($unmatchedProductsDr);
 			
 				if($tsd['name']==$unmatchedProductsDr[$i] && $unmatchedProductsDr[$i]!=$matchedProductsDr[$i]) {  ?>
 					<TR>
-					<TD><? echo $tsd['name']; ?></TD>
-					<TD><? echo $tsd['glcode']; ?></TD>
+					<TD><?php echo $tsd['name']; ?></TD>
+					<TD><?php echo $tsd['glcode']; ?></TD>
 					<TD></TD>
-					<TD class="label"><? echo $tsd['amount_from_bank']; 
+					<TD class="label"><?php echo $tsd['amount_from_bank']; 
 						$totalTrnsferCashDebit+= $tsd['amount_from_bank'];?></TD>	
-					<td class="label"><? echo $tsd['amount_from_bank']; ?></td>
+					<td class="label"><?php echo $tsd['amount_from_bank']; ?></td>
 					</TR>
-				<?  }
+				<?php  }
 			}$i++;
 			}
 		}
 
  		?>
-		<TR> <TD></TD> <TD><b><?php echo $this->translate("Total"); ?></b></TD> <TD class="label"><b><? echo sprintf("%4.2f", $totalCashDebit); ?> </b></TD> <TD></TD><TD></TD></TR>
-		<TR> <TD></TD> <TD><?php echo $this->translate("Closing balance"); ?></TD> <TD class="label"><b><?  $closingbalance=$CreditTotal-$totalCashDebit; echo sprintf("%4.2f", $closingbalance); ?></b></TD> <TD></TD> <TD></TD></TR>
-		<TR> <TD></TD> <TD><b><?php echo $this->translate("Total"); ?></b></TD> <TD class="label"><b><?  $TotalDebit=$closingbalance+$totalCashDebit; echo sprintf("%4.2f", $TotalDebit);?> </b></TD> <TD class="label"><b><? echo sprintf("%4.2f", $totalTrnsferCashDebit); ?></b></TD> <TD class="label"><b><? echo sprintf("%4.2f", $totalTrnsferCashDebit); ?></b></TD></TR>
+		<TR> <TD></TD> <TD><b><?php echo $this->translate("Total"); ?></b></TD> <TD class="label"><b><?php echo sprintf("%4.2f", $totalCashDebit); ?> </b></TD> <TD></TD><TD></TD></TR>
+		<TR> <TD></TD> <TD><?php echo $this->translate("Closing balance"); ?></TD> <TD class="label"><b><?php  $closingbalance=$CreditTotal-$totalCashDebit; echo sprintf("%4.2f", $closingbalance); ?></b></TD> <TD></TD> <TD></TD></TR>
+		<TR> <TD></TD> <TD><b><?php echo $this->translate("Total"); ?></b></TD> <TD class="label"><b><?php  $TotalDebit=$closingbalance+$totalCashDebit; echo sprintf("%4.2f", $TotalDebit);?> </b></TD> <TD class="label"><b><?php echo sprintf("%4.2f", $totalTrnsferCashDebit); ?></b></TD> <TD class="label"><b><?php echo sprintf("%4.2f", $totalTrnsferCashDebit); ?></b></TD></TR>
 		 </table>
 	</div>
 <div style="float: left; width: 800px">
 <form action="<?php echo $this->baseUrl();?>/daybook/index/pdftransaction/field1/<?php echo $this->fromdate;?>" method="POST"
-onClick="window.open('<?php echo $this->baseUrl();?>/daybook/index/reportdisplay/file/daybook-<? echo date('Y-m-d');?>.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
+onClick="window.open('<?php echo $this->baseUrl();?>/daybook/index/reportdisplay/file/daybook-<?php echo date('Y-m-d');?>.pdf','mywindow','width=1000,height=700,left=100,top=100,screenX=800,screenY=600')">
            <BR> <input type="submit" value="<?php echo $this->translate('PDF'); ?>" id="submit">
 </form>
 </div>

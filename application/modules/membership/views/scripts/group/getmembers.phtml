@@ -20,11 +20,11 @@
 <?php if($this->members) { ?>
 
         <table id="hor-minimalist-b">
-            <? foreach($this->members as $members) { ?>
+            <?php foreach($this->members as $members) { ?>
             <TR>
-                 <td><input type="checkbox" name="member_id[]" id = "selector" value="<?php echo $members["member_id"];?>"><? echo $members["memberfirstname"];?>
+                 <td><input type="checkbox" name="member_id[]" id = "selector" value="<?php echo $members["member_id"];?>"><?php echo $members["memberfirstname"];?>
             </TR>
-	    <? } ?>
+	    <?php } ?>
         </table>
 
 <?php } else {

@@ -137,7 +137,7 @@
                             <?php foreach($this->ledger as $ledger) : ?>
                                 <tr >
                                     <td >
-                                    <a href = "javascript:check('01',<?php echo $ledger->id;?>),getSubproduct('<? echo $this->baseUrl();?>',<?php echo $ledger->lid;?>),getSubLedger('<? echo $this->baseUrl();?>',<?php echo $ledger->id;?>);"><?php echo $ledger->glcode;?>
+                                    <a href = "javascript:check('01',<?php echo $ledger->id;?>),getSubproduct('<?php echo $this->baseUrl();?>',<?php echo $ledger->lid;?>),getSubLedger('<?php echo $this->baseUrl();?>',<?php echo $ledger->id;?>);"><?php echo $ledger->glcode;?>
                                     </a>
                                     </td>
                                         <td ><?php echo $ledger->header;?></td>

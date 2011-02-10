@@ -1,0 +1,113 @@
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script> 
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#begindate").datepicker({"dateFormat":"dd/mm/yy"});
+    $("#closedate").datepicker({"dateFormat":"dd/mm/yy"});
+}); 
+
+function addFormField() {
+	current++;
+	var id = document.getElementById("id").value;
+
+	$("#interestperiods").append("<tr id='row" + id + "'><td><label for='memberName" + id + "'><input type='text' size='3' name='memberName"+current+"' id='memberName" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='To" + id + "'><input type='text' size='3' name='To"+current+"' id='To" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='Rate" + id + "'><input type='text' size='3' name='Rate"+current+"' id='Rate" + id + "' class = 'txt_put'><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='/ourbank/public/images/delete.gif'  border=0 width='16' height='16'></a></td>&nbsp;&nbsp;</tr>");
+	document.myform.memberCount.value = id;	
+	id =( id - 1) + 2;
+	document.getElementById("id").value = id;
+}
+
+function removeFormField(id) {
+	$(id).remove();
+}
+</script>
+<div class="searchDiv">
+	<table id="hor-minimalist-b">
+			<tr>
+                        <th colspan="2">Product information</th>
+                        </tr>
+			<TR >
+				<TD>Product name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->form->offerproductname;?><?php echo $this->form->currentdates;?><?php echo $this->errorofferproductname; ?></TD>
+			</TR>
+			<tr>
+				<TD  >Short name<span class="reqMark">*</span></TD>
+				<TD ><?php echo $this->form->offerproductshortname;?></TD>
+			</TR>
+			<TR >
+				<TD >Description<span class="reqMark">*</span></TD>
+				<TD><?php echo $this->form->offerproduct_description;?></TD>
+			</TR>
+			<tr>
+				<th colspan="2">Dates</th> 
+			</tr>
+			<tr> 
+				<td >Begin date:<span class="reqMark">*</span><B style='color:red'>dd/mm/yyyy</b></td>
+				<td ><?php echo $this->form->begindate;?></td>
+			</tr>
+
+			<tr> 
+				<td >Closed date:<span class="reqMark">*</span><B 	style='color:red'>dd/mm/yyyy</b></td>
+				<td><?php echo $this->form->closedate;?></td>
+			</tr>
+
+			<tr> 
+				<td >Applicable to:<span class="reqMark">*</span></td>
+				<td ><?php echo $this->form->applicableto;?></td>
+			</tr>
+			<tr> 
+				<td >GL subcode:<span class="reqMark">*</span></td>
+				<td ><?php echo $this->form->glsubcode_id;?></td>
+			</tr>
+			<tr>
+				<th colspan="2">Interest and terms</th>
+			</tr>
+			<tr > 
+				<td>Minimum fixed amount:<span class="reqMark">*</span></td>
+				<td ><?php echo $this->form->minimum_deposit_amount;?></td>
+			</tr>
+			<tr> 
+				<td >Maximum fixed amount:<span class="reqMark">*</span></td>
+				<td ><?php echo $this->form->maximum_deposit_amount;?></td>
+			</tr>
+			<tr>
+				<td >Frequency of deposit:<span class="reqMark">*</span></td>
+				<td ><? echo $this->form->frequency_of_deposit;?></td>
+			</tr>
+			<tr>
+				<td >Penal interest:<span class="reqMark">(%)*</span></td>
+				<td ><?php echo $this->form->penal_Interest;?></td>
+			</tr>
+                        <tr>
+				<td >Penal glsubcode:<span class="reqMark">*</span></td>
+				<td ><?php echo $this->form->feeglcode;?></td>
+			</tr>
+			<tr>
+                            <th colspan="2">Periods and rates</th> 
+			</tr>
+		<input type="hidden" id="id" value="1">
+		<input type="hidden" name="memberCount" id="memberCount" value=""  class="textfield" />	
+			<table>
+                        <tr>
+				<td >From (years)</td><td >To (years)</td><td >Rate of interest</td>
+				
+			</tr><br/>
+			<tr>
+				<td><input type='text' size='3' name='interestfrom' id='interestfrom' value="" class = 'txt_put'></td>
+				<td><input type='text' size='3' name='interestto' id='interestto' value="" class = 'txt_put'></td>
+                                <td><input type='text' size='3' name='interestrate' id='interestrate' value="" class = 'txt_put'></td>
+				
+			</tr>
+
+				
+			</table>
+	                <table id="interestperiods"></table>
+				<input type="button" onClick="addFormField(); return false;" value="Add interest">
+			<table>
+				<tr>
+					<td ><font color="Red" size="2" ><b><?php echo $this->errorproductname; ?></b></font></td>
+				</tr>
+				<tr>
+					<td colspan="5" class="td_border"></td>
+				</tr>
+			</table>
+			
+</div>

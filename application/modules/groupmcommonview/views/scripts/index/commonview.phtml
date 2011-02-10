@@ -27,7 +27,7 @@
 				<th class="thirdtd"><a href="<?php echo $this->baseUrl();?>/groupmdefault/index/editgroup/id/<?php echo $this->groupid; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a></th> 
 			</tr>
                        
-                          <? foreach($this->groupname as $groups){}?>
+                          <?php foreach($this->groupname as $groups){}?>
 
 
 	<tr>
@@ -55,7 +55,7 @@
 	
 
     
-                   <? foreach($this->groupmembers as $groupmem){ ?>
+                   <?php foreach($this->groupmembers as $groupmem){ ?>
 
 			<tr>
 				<td class = "firsttd"></td>
@@ -69,7 +69,7 @@
 				<th class = "secondtd"></th>
 				<th class = "secondtd"><a href="<?php echo $this->baseUrl();?>/address/index/edit/id/<?php echo $this->groupid; ?>/subId/<?php 
 				echo $this->sub_id;?>/modId/<?php echo $this->mod_id;?>"><img src="<?php echo $this->baseUrl(); ?>/images/edit.gif" border=0 width="16" height="16"></a>   </th>
-			</tr><? } else { ?>
+			</tr><?php } else { ?>
                               
                        <th class = "firsttd">Address information</th>
                        <th class = "secondtd"></th>

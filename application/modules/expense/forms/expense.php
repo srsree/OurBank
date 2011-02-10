@@ -33,14 +33,9 @@ class Expense_Form_expense extends Zend_Form {
         $formfield = new App_Form_Field ();
 
        for($i=1;$i<=$number;$i++) {
-
         $value = $formfield->field('Text','value'.$i,'','','','',true,'','','','','',0,0);
-        $expense = $formfield->field('Text','expense'.$i,'','','','',true,'','','','','',0,0);
-        $expense->setAttrib('readonly','');
-	
         $source_id = $formfield->field('Hidden','source_id'.$i,'','','','','','','','','','',0,0);
-	$record_id = $formfield->field('Hidden','record_id'.$i,'','','','','','','','','','',0,0);
-        $this->addElements(array($value,$expense,$source_id,$record_id));
+        $this->addElements(array($value,$source_id));
 	}
     }
 

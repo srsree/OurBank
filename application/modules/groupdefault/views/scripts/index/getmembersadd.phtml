@@ -20,16 +20,16 @@
 <?php if($this->members) { ?>
     <table BORDER WIDTH=50% class="fieldsets">
         <tr><th bgcolor="Silver" align="center" ><b>Group members</b></th><th bgcolor="Silver" align="center"><b>Group head</b></th></tr>
-        <? foreach($this->members as $members) { ?>
+        <?php foreach($this->members as $members) { ?>
         <TR>
             <td width="25%">
-                <input type="checkbox" name="member_id[]" id="selector" value="<?php echo $members["id"];?>"><? echo $members["member_name"];?>
+                <input type="checkbox" name="member_id[]" id="selector" value="<?php echo $members["id"];?>"><?php echo $members["member_name"];?>
             </td>
             <td width="25%">
                 <input type="radio" name="memberhead"   id="memberhead" value="<?php echo $members["id"];?>">
             </td>
         </TR>
-        <? } ?>
+        <?php } ?>
     </table>
 <?php } else {
         echo "<font color='RED'>No Members in the branch you seleted</font>";

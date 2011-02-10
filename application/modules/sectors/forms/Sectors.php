@@ -24,6 +24,7 @@ class Sectors_Form_Sectors extends Zend_Form
                 $formfield = new App_Form_Field ();
                 // send parameters to get form fields as a form field(first parameter is type of input field)
                 $name = $formfield->field('Text','name','','','mand','Sector',true,'','','','','',1,'');
+                $name->addValidators(array(array('stringLength', false, array(1,30))));
                 $name->addValidator('Alpha',true,array('allowWhiteSpace'=>true));
                 $id = $formfield->field('Hidden','id','','','','',false,'','','','','',0,'');
                 $description = $formfield->field('Textarea','description','','','mand','Description',true,'','','',3,18,1,0);

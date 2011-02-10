@@ -107,7 +107,7 @@ function calculateMatureAmount() {
                         <TD><?php foreach($this->Savingfee as $fee ) { ?> 
                         <input type = text name = "fee2" value = "<?php echo $fee->feevalue;?>" 
                                readonly = "true" class="txt_put">
-                        <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                        <?php $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
                         <?php } ?>
                         <input type = "hidden" name = "feeTotal" id = "feeTotal" 
                                value = "<?php echo $this->feeTotal;?>" readonly = "" class="txt_put"></TD>
@@ -130,7 +130,7 @@ function calculateMatureAmount() {
                         <TD>Members</TD>
                         <TD><?php echo $this->recuringForm->memberfirstname;?><br>
                             <?php echo $this->error1; ?></TD>
-                    </TR><? } ?>
+                    </TR><?php } ?>
                 </table>
                 <br>
                 <table>
@@ -183,7 +183,7 @@ function calculateMatureAmount() {
                         <TD><?php foreach($this->Savingfee as $fee ) { ?> 
                         <input type = text name = "fee2" value = "<?php echo $fee->feevalue;?>" 
                                readonly = "true" class="txt_put">
-                        <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                        <?php $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
                         <?php } ?>
                         <input type = "hidden" name = "feeTotal" id = "feeTotal" 
                                value = "<?php echo $this->feeTotal;?>" readonly = "" class="txt_put"></TD>
@@ -213,7 +213,7 @@ function calculateMatureAmount() {
                         <input type = 'hidden' name = 'memberfirstname[]' value= '<?php echo $memberfirstname;?>'>
                             <?php } ?>
                             <?php echo $this->error1; ?></TD>
-                    </TR><? } ?>
+                    </TR><?php } ?>
                 </table>
                 <br>
                 <table>

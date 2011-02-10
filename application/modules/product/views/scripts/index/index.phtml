@@ -54,15 +54,15 @@
                             <table width="100%">
                                 <tr>
                                                <td class="label">Product name:</td>
-							<td ><? echo $this->form->name;?></td>
+							<td ><?php echo $this->form->name;?></td>
 							<td class="label">product description:</td>
-							<td ><? echo $this->form->description;?></td>
+							<td ><?php echo $this->form->description;?></td>
 </tr>
 <tr>
 							<td class="label">Short name:</td>
-							<td ><? echo $this->form->shortname;?></td>
+							<td ><br><?php echo $this->form->shortname;?></td>
 <td class="label">Category:</td>
-							<td ><? echo $this->form->category_id;?></td>
+							<td ><br><?php echo $this->form->category_id;?></td>
                                 </tr>
                                
                                
@@ -73,11 +73,11 @@
             </div>
     </fieldset> 
 </div>  
-    <fieldset>
+    
       
 <table id="hor-minimalist-b">
     <tr>
-
+        
         <th>Product Name</th>
         <th>Category Name</th>
         <th>Product Description</td>
@@ -85,18 +85,22 @@
 		<th>Created date</th>
 
     </tr>
-        <?php if (count($this->paginator)): ?>
-        <?php foreach ($this->paginator as $product ): ?>
+        <?php $convertdate = new App_Model_dateConvertor();
+if (count($this->paginator)){ ?>
+        <?php foreach ($this->paginator as $product ) { ?>
     <tr>
         <td><a href="<?php echo $this->baseUrl()."/productcommonview/index/productview/id/".$product['id']; ?>">
                      <?php echo $this->escape($product['name']); ?></a></td>
     <td><?php echo $this->escape($product['categoryname']);?></td>
     <td><?php echo $this->escape($product['description']);?></td>
-     <td><?php echo $this->escape($product['shortname']);?></div></td>
-    <td><?php echo $this->escape($product['created_date']);?></div></td>
+     <td><?php echo  $this->escape($product['shortname']);?></div></td>
+    <td><?php echo $convertdate->phpnormalformat($product['created_date']);?></div></td>
 
-                <?php endforeach; ?>
-                <?php endif; ?>
+                <?php } ?>
+                <?php } else { 
+        echo "<font color=red>".$this->errormsg."</font>";
+    } ?>
+
     </tr>
     <tr>
         <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
@@ -105,4 +109,3 @@
 </table>
 <br>
 
-</fieldset>

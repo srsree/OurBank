@@ -7,7 +7,7 @@ function addFormField() {
 	current++;
 	var id = document.getElementById("id").value;
 
-	$("#interestperiods").append("<tr id='row" + id + "'><td><label for='memberName" + id + "'><input type='text' size='3' name='memberName"+current+"' id='memberName" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='To" + id + "'><input type='text' size='3' name='To"+current+"' id='To" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='Rate" + id + "'><input type='text' size='3' name='Rate"+current+"' id='Rate" + id + "' class = 'txt_put'><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='/ourbank/public/images/delete.gif'  border=0 width='16' height='16'></a></td>&nbsp;&nbsp;</tr>");
+	$("#interestperiods").append("<tr id='row" + id + "'><td><label for='memberName" + id + "'><input type='text' size='3' name='memberName"+current+"' id='memberName" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='To" + id + "'><input type='text' size='3' name='To"+current+"' id='To" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='Rate" + id + "'><input type='text' size='3' name='Rate"+current+"' id='Rate" + id + "' class = 'txt_put'><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='/ourbankM/public/images/delete.gif'  border=0 width='16' height='16'></a></td>&nbsp;&nbsp;</tr>");
 	document.myform.memberCount.value = id;	
 	id =( id - 1) + 2;
 	document.getElementById("id").value = id;
@@ -58,11 +58,11 @@ function removeFormField(id) {
 			</tr>
 			<tr> 
 				<td>Initial deposit<span class="reqMark">*</span></td>
-				<td ><? echo $this->form->minmumdeposit;?></td>
+				<td ><?php echo $this->form->minmumdeposit;?></td>
 			</tr>
 			<tr > 
 				<td>Frequency of deposit<span class="reqMark">*</span></td>
-				<td ><? echo $this->form->frequencyofdeposit;?></td>
+				<td ><?php echo $this->form->frequencyofdeposit;?></td>
 			</tr>
                          <tr>
 				<td >Penal glsubcode:<span class="reqMark">*</span></td>
@@ -74,15 +74,15 @@ function removeFormField(id) {
 
 			<tr>
 				<td>Interest cal period<span class="reqMark">*</span></td>
-				<td ><? echo $this->form->Int_timefrequency_id;?></td>
+				<td ><?php echo $this->form->Int_timefrequency_id;?></td>
 			</tr>
 			<tr>
 				<td>Interest on calculation<span class="reqMark">*</span></td>
-				<td ><? echo $this->form->frequencyofinterestupdating;?></td>
+				<td ><?php echo $this->form->frequencyofinterestupdating;?></td>
 			</tr>
 			<tr> 
 				<td>Minimumbalance for interest<span class="reqMark">*</span></td>
-				<td ><? echo $this->form->minimumbalanceforinterest;?></td>
+				<td ><?php echo $this->form->minimumbalanceforinterest;?></td>
 			</tr>
 
 			<tr>

@@ -38,9 +38,9 @@ $(document).ready(function() {
                             <table width="100%">
                                 <tr>
                                     <td class="label"><?php echo $this->translate("Meeting name"); ?></td>
-                                    <td ><? echo $this->form->search_meeting_name_att;?></td>
+                                    <td ><?php echo $this->form->search_meeting_name_att;?></td>
                                     <td class="label"><?php echo $this->translate("Meeting date"); ?>:</td>
-                                    <td ><? echo $this->form->search_meeting_date;?></td>
+                                    <td ><?php echo $this->form->search_meeting_date;?></td>
                                 </tr>
 
                         </table>
@@ -64,7 +64,7 @@ $(document).ready(function() {
 		<?php foreach ($this->paginator as $attendance ): ?>
 	<tr>
 		
-		<td><a href="<?php echo $this->baseUrl();?>/attendancecommonview/index/index/attendance_id/<? echo$attendance['attid']; ?>"><?php echo $this->escape($attendance['name']);?></a></td>
+		<td><a href="<?php echo $this->baseUrl();?>/attendancecommonview/index/index/attendance_id/<?php echo$attendance['attid']; ?>"><?php echo $this->escape($attendance['name']);?></a></td>
 		<td><?php echo $this->escape($convertdate->phpnormalformat($attendance['meeting_date'])); ?></td>
 			<?php endforeach; ?>
 			<?php endif; ?>

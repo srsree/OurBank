@@ -8,7 +8,7 @@ function addFormField() {
 	current++;
 	var id = document.getElementById("id").value;
 
-	$("#interestperiods").append("<tr id='row" + id + "'><td><label for='memberName" + id + "'><input type='text' size='3' name='memberName"+current+"' id='memberName" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='To" + id + "'><input type='text' size='3' name='To"+current+"' id='To" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='Rate" + id + "'><input type='text' size='3' name='Rate"+current+"' id='Rate" + id + "' class = 'txt_put'><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='/ourbank/public/images/delete.gif'  border=0 width='16' height='16'></a></td>&nbsp;&nbsp;</tr>");
+	$("#interestperiods").append("<tr id='row" + id + "'><td><label for='memberName" + id + "'><input type='text' size='3' name='memberName"+current+"' id='memberName" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='To" + id + "'><input type='text' size='3' name='To"+current+"' id='To" + id + "' class = 'txt_put'></td>&nbsp;&nbsp;<td><label for='Rate" + id + "'><input type='text' size='3' name='Rate"+current+"' id='Rate" + id + "' class = 'txt_put'><a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'><img src='/ourbankM/public/images/delete.gif'  border=0 width='16' height='16'></a></td>&nbsp;&nbsp;</tr>");
 	document.myform.memberCount.value = id;	
 	id =( id - 1) + 2;
 	document.getElementById("id").value = id;
@@ -69,7 +69,7 @@ function removeFormField(id) {
 			</tr>
 			<tr>
 				<td >Frequency of deposit:<span class="reqMark">*</span></td>
-				<td ><? echo $this->form->frequency_of_deposit;?></td>
+				<td ><?php echo $this->form->frequency_of_deposit;?></td>
 			</tr>
 			<tr>
 				<td >Penal interest:<span class="reqMark">(%)*</span></td>

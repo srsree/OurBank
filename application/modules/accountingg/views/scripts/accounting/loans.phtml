@@ -79,10 +79,10 @@ function calculateTotalAmount() {
             <table id="hor-minimalist-b">
                 <TR>
                    <td> MemberCode:</td>
-                   <TD><? echo $this->membercode; ?></TD>
+                   <TD><?php echo $this->membercode; ?></TD>
                </TR>
                <TR>
-                    <td><? echo $this->label; ?></td>
+                    <td><?php echo $this->label; ?></td>
                     <TD><?php echo $this->groupname;echo $this->memberfirstname;?></TD>
                </TR>
                <TR>
@@ -157,7 +157,7 @@ function calculateTotalAmount() {
                             <TD>Fee</TD>
                             <TD><?php foreach($this->Loanfee as $fee) { ?>
                                 <input type="text" name = "fee" value="<?php echo $fee->feevalue; ?>" size="8" class = "txt_put" readonly="true">
-                                <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                                <?php $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
                                  <?php } ?></TD>
                              <input type = "hidden" name = "feeTotal" value = "<?php echo $this->feeTotal;?>"><br>
 
@@ -186,7 +186,7 @@ function calculateTotalAmount() {
                             <TD>AddMembers<span class="reqMark">*</span></TD>
                             <TD><?php echo $this->loan->memberfirstname;?></TD>
                         </TR>
-                    <? } ?>
+                    <?php } ?>
                 </table>
                 <table>
                     <TR>
@@ -222,7 +222,7 @@ function calculateTotalAmount() {
                             <TD>Fee</TD>
                             <TD><?php foreach($this->Loanfee as $fee) { ?>
                                 <input type="text" name = "fee" value="<?php echo $fee->feevalue; ?>" size="8" class = "txt_put" readonly="true">
-                                <? $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
+                                <?php $this->feeTotal = $this->feeTotal +  $fee->feevalue; ?>
                                  <?php } ?></TD>
                              <input type = "hidden" name = "feeTotal" value = "<?php echo $this->feeTotal;?>"><br>
                         </TR> 
@@ -248,7 +248,7 @@ function calculateTotalAmount() {
                             <TD>AddMembers<span class="reqMark">*</span></TD>
                             <TD><?php echo $this->loan->memberfirstname;?></TD>
                         </TR>
-                    <? } ?>
+                    <?php } ?>
                 </table>
                 <table>
                     <TR>

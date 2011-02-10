@@ -25,20 +25,21 @@
     <th></th>
 </tr>
 <?php  
-for($i=1;$i<=$this->number;$i++) {
-    $a='expense'.$i;
-    $b='value'.$i;
-    $c='source_id'.$i;
+foreach($this->expense_details as $expense){
+ $b='value'.$expense['id'];
+ $c='source_id'.$expense['id'];
 ?>
 <tr>
-    <td><?php echo $this->form->$a; ?></td>
-    <td><?php echo $this->form->$b; ?></td>
-    <td><?php echo $this->form->$c; ?></td>
+<TD> <label><?php echo $expense['name'];?></label> </TD>
+<td><?php echo $this->form->$b; ?></td>
+<td><?php echo $this->form->$c; ?></td>
+</tr>
+<?php
+}
+?>
 <input type="hidden" name="subId" value="<?php echo $this->submoduleid; ?>">
-</tr> 
-<?php }?>
 <tr><td><input type="submit" id="submit" name="submit" value="<?php echo $this->translate("Submit"); ?>"></td>
-<td><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a></td>
+<td><a href="<?php echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<?php echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a></td>
 </tr>
 </table>
 

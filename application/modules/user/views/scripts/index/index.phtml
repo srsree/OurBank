@@ -23,20 +23,20 @@
 <div id="searchDiv">
     <fieldset>
         <legend>Search</legend>
-		<div class="search" style="margin-left:20px;">
+		<div class="search" style="margin-left:20px;" id = "fieldsets">
 			<form action="<?php echo $this->baseUrl();?>/user" method="POST">
 				<table width="100%">
 					<tr>
-						<td class="label">User name:</td>
-						<td ><? echo $this->form->name;?></td>
-						<td class="label">designation:</td>
-						<td ><? echo $this->form->designation;?></td>
+						<td class="label">Username:</td>
+						<td ><?php echo $this->form->name;?></td>
+						<td class="label">Designation:</td>
+						<td ><?php echo $this->form->designation;?></td>
 					</tr>
 					<tr>					
-						<td class="label">bank name:</td>
-						<td ><? echo $this->form->bank;?></td>
+						<td class="label">Bank name:</td>
+						<td ><?php echo $this->form->bank;?></td>
 						<td class="label">Granted:</td>
-						<td ><? echo $this->form->grant_id;?></td>
+						<td ><?php echo $this->form->grant_id;?></td>
 					</tr>
 				</table>
 <!-- search button  !-->
@@ -48,11 +48,11 @@
 <!-- search result display !-->
 <table id="hor-minimalist-b">
 	<tr>
-		<th>User name </th>
+		<th>Username </th>
 		<th>Designation</td>
-		<th>Office name</td>
+		<th>Bank name</td>
 
- 		<th>Gendre</td>
+ 		<th>Gender</td>
  		<th>Granted as</td>
 	</tr>
  	    <?php if (count($this->paginator)): ?>
@@ -65,7 +65,7 @@
        <td><?php echo $this->escape($userdetail['name']);?></td>
        <td><?php echo $this->escape($userdetail['sex']);?></td>
        <td><?php echo $this->escape($userdetail['grant']);?></td>
-           		 </tr>
+ </tr>
 		<?php endforeach; ?>
 		<?php endif; ?>
 	<tr>

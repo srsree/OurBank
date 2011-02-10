@@ -26,12 +26,12 @@
                 <TD width="20%">Name</TD>
                 <TD width="20"><?php echo $this->groupname;?></TD>
             </TR>
-            <? } ?>
+            <?php } ?>
             <?php if ($this->memberfirstname ) { ?>
             <TR class="tdbrown">
                 <TD width="20%">Name</TD>
                 <TD width="20"><?php echo $this->memberfirstname;?></TD>
-            <? } ?>
+            <?php } ?>
             <?php foreach($this->recurringAccountDetails as $productRecurringDetails) { ?>
             <TR>
                 <td width="40%"><b class="star">Producttype:</b></td>
@@ -111,7 +111,7 @@
             <TR>
                 <td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/recurringtransaction/index/newaccount/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">Account renewal</a></TD>
             </TR>
-            <? } ?>
+            <?php } ?>
             <tr>
                 <td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/recurringtransaction/index/status/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>">Account status</a></TD>
             </TR>

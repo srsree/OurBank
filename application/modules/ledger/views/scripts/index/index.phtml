@@ -67,7 +67,7 @@
                         <td><?php  echo $this->form1->field4;?></td>
                     </tr>
                     <tr>
-                        <td colspan="4" align="justify"><? echo $this->form1->Search;?></td>
+                        <td colspan="4" align="justify"><?php echo $this->form1->Search;?></td>
                     </tr>
                 </form>
             </table>
@@ -104,7 +104,7 @@
                         </table>
 
                         <?php foreach($this->subledger as $subledger) { ?>
-                            <? if ($ledger->id == $subledger->glcode_id) { ?>
+                            <?php if ($ledger->id == $subledger->glcode_id) { ?>
                                 <table id="hor-minimalist-b" width="80%">
                                     <tr>
                                         <td width="60">&nbsp;</td>

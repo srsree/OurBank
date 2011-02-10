@@ -219,8 +219,7 @@ class Officehierarchy_IndexController extends Zend_Controller_Action{
                 $this->view->form1->officeLevel->setRequired(true)
                      ->addValidators(array(array('NotEmpty'),array('stringLength', false, array(1, 2)),array('Digits') ));
         }
-//         else{ echo "Choose low level hierarchy";}
-//             }
+
 
 	//get confirmation and update
             if ($this->_request->isPost() && $this->_request->getPost('Confirm')) {
