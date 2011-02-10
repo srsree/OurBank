@@ -29,15 +29,15 @@
 		$vtype=array('Alpha','StringLength');
 		$formfield = new App_Form_Field ();
 // 	$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
-	        $category_id = $formfield->field('Select','category_id','','','mand','Category name',true,'','','','','',1,0);
-		$producttype = $formfield->field('Text','name','','','mand','Product type',true,'','','','','',1,0);
-		$shortname = $formfield->field('Text','shortname','','','mand','short name',true,'','','','','',1,0);
-		$shortname->setAttrib('readonly',true);
-        	$productdescription = $formfield->field('Text','description','','','mand','Description',true,'','','','','',1,0);
+	        $category_id = $formfield->field('Select','category_id','','','mand','Category name *',true,'','','','','',1,0);
+		$producttype = $formfield->field('Text','name','','','mand','Product type *',true,'','','','','',1,0);
+		$shortname = $formfield->field('Text','shortname','','','mand','short name *',true,'','','','','',1,0);
+
+        	$productdescription = $formfield->field('Text','description','','','mand','Description *',true,'','','','','',1,0);
 		// Hidden Feilds 
 		$id = $formfield->field('Hidden','id','','','','',false,'','','','','',0,0);
 		$createdBy = $formfield->field('Hidden','created_by','','','','',false,'','','','','',0,1);
-		$createdDate = $formfield->field('Hidden','created_date','','','','',false,'','','','','',0,date("y/m/d H:i:s"));
+		$createdDate = $formfield->field('Hidden','created_date','','','','',false,'','','','','',1,0);
 
 					
             $this->addElements(array($category_id,$id,$producttype,$shortname,$productdescription,
