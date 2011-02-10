@@ -33,7 +33,7 @@ class User_Model_User extends Zend_Db_Table {
 			->where('c.id like "%" ? "%"',$post['bank'])
 			->where('e.id like "%" ? "%"',$post['grant_id'])
 			->join(array('b'=>'ob_designation'),'a.designation = b.designation_id')
- 			->join(array('c'=>'ob_institution'),'a.bank_id = c.id')
+ 			->join(array('c'=>'ob_bank'),'a.bank_id = c.id')
  			->join(array('d'=>'gender'),'a.gender = d.id')
  			->join(array('e'=>'ob_grant'),'a.grant_id = e.id',array('name as grant'));
 			//die($select->__toString());		
@@ -48,7 +48,7 @@ public function getUser($id) {
                 ->where('a.id='.$id)
 
  			->join(array('b'=>'ob_designation'),'a.designation = b.designation_id')
- 			->join(array('c'=>'ob_institution'),'a.bank_id = c.id')
+ 			->join(array('c'=>'ob_bank'),'a.bank_id = c.id')
  			->join(array('d'=>'gender'),'a.gender = d.id')
  			->join(array('e'=>'ob_grant'),'a.grant_id = e.id',array('name as grant'));
 
@@ -63,7 +63,7 @@ public function getUserDetails() {
 			->setIntegrityCheck(false)  
 			->join(array('a' => 'ourbank_user'),array('id'),array('name as username','id as userid'))
 			 ->join(array('b'=>'ob_designation'),'a.designation = b.designation_id')
- ->join(array('c'=>'ob_institution'),'a.bank_id = c.id')
+ ->join(array('c'=>'ob_bank'),'a.bank_id = c.id')
  ->join(array('d'=>'gender'),'a.gender = d.id')
  ->join(array('e'=>'ob_grant'),'a.grant_id = e.id',array('name as grant'));
 
