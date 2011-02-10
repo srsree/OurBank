@@ -30,8 +30,8 @@ class  Membername_Form_membername extends Zend_Form {
         $office = $formfield->field('Select','office','','','mand','Bank name',true,'','','','','',1,0);
         $memberfirstname = $formfield->field('Text','memberfirstname','','','mand','Member name',true,'','','','','',1,0);
         $gender_id = $formfield->field('Select','gender_id','','','mand','Gender',true,'','','','','',1,0);
-        $dateofbirth = $formfield->field('Text','memberdateofbirth','','','mand','Date of Brith',true,'','','','','',1,0);
-	$mobile = $formfield->field('Text','mobile','','','mand','mobile',true,$vtype,1,15,'','',1,0);
+        $dateofbirth = $formfield->field('Text','memberdateofbirth','','','mand','Date of Birth',true,'','','','','',1,0);
+	$mobile = $formfield->field('Text','mobile','','','mand','Mobile',true,$vtype,1,15,'','',1,0);
 
         $this->addElements(array($office,$memberfirstname,$gender_id,$dateofbirth,$mobile));
 
