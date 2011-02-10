@@ -202,11 +202,11 @@ function officehierarchy() {
     </form>
     </div>
 </fieldset>
-        <? } else { ?>	
+        <?php } else { ?>	
 <!--        <table>
             <tr>
                 <td width="85%"></td>
-                <td><a href="<? //php echo $this->baseUrl();?>/index/officehierarchy"> Office hierarchy strcture</a><br /></td>
+                <td><a href="<?php //php echo $this->baseUrl();?>/index/officehierarchy"> Office hierarchy strcture</a><br /></td>
             </tr>
         </table>-->
 
@@ -219,7 +219,7 @@ function officehierarchy() {
                         <th width="33%"><?php echo $this->translate('officeTypeCode'); ?></th>
                     </tr>
                     <?php echo $this->form1->officeNo;  ?>
-                        <? $i=1; foreach($this->officeHierarchySelect as $eacharraysent) { 
+                        <?php $i=1; foreach($this->officeHierarchySelect as $eacharraysent) { 
                            $a='officeType'.$i;
                            $b='officeCode'.$i;
                            $c='id'.$i;

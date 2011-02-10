@@ -26,8 +26,8 @@
 		    <td align="right" id="reportth"><?php echo $this->translate("Outstanding Amount"); ?></td>
 	        </tr>
 		<?php foreach($this->disbursed as $disbursed){?>
-		<td><? echo $disbursed['name']; ?></td>
-		<td align="right"><? echo $disbursed['disbursed']; ?></td>
+		<td><?php echo $disbursed['name']; ?></td>
+		<td align="right"><?php echo $disbursed['disbursed']; ?></td>
                 <?php $flag1=1; foreach($this->paid as $paid) {
                             if($disbursed['name']==$paid['name']) {?><td align="right"><?php echo $paid['paid']; ?></td><?php 
                         $flag1=0; } 

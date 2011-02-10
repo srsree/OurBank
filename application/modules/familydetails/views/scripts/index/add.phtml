@@ -27,7 +27,7 @@
         }
     }
 </script>
-<table id="hor-minimalist-b"><TR><TD><?php echo $this->translate("Enter number of family member"); ?></TD><TD><input type="text" name="number" id="number"     onkeyup="fn('<? echo $this->baseUrl();?>',<? echo $this->id; ?>)"></TD></TR></table>
+<table id="hor-minimalist-b"><TR><TD><?php echo $this->translate("Enter number of family member"); ?></TD><TD><input type="text" name="number" id="number"     onkeyup="fn('<?php echo $this->baseUrl();?>',<?php echo $this->id; ?>)"></TD></TR></table>
 
 <form action="<?php echo $this->baseUrl();?>/familydetails/index/add/id/<?php echo $this->id; ?>" method="POST"> 
     <div id="familymember"></div>

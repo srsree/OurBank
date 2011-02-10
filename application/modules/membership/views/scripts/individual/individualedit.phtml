@@ -144,7 +144,7 @@
                              <?php if (!$this->confirmation) { ?>
                                 <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                            <td width="20%"><?php echo $this->form->memberfirstname1;?></td>
                         </tr>
 			</table>
                                 <fieldset>
@@ -212,7 +212,7 @@
 	           <div class="profile_tab">
   			<table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                            <td width="20%"><?php echo $this->form->memberfirstname1;?></td>
                         </tr>
 			</table>
 			 <input type="hidden" id="id" value="1">
@@ -244,7 +244,7 @@
 					<?php echo $memberFamilyDetails->sex; ?>
 					</OPTION>
 					<?php foreach($this->familygender  as $g) { ?>
-					<? if($memberFamilyDetails->gender_id != $g->gender_id ) {?>
+					<?php if($memberFamilyDetails->gender_id != $g->gender_id ) {?>
 					<OPTION value="<?php echo $g->gender_id; ?>">
 					<?php echo $g->sex; ?>
 					</OPTION>
@@ -263,7 +263,7 @@
 					<?php echo $memberFamilyDetails->relationship; ?>
 					</OPTION>
 					<?php foreach($this->familyrelationship  as $g) { ?>
-					<? if($memberFamilyDetails->relationship_ID != $g->relationship_ID ) {?>
+					<?php if($memberFamilyDetails->relationship_ID != $g->relationship_ID ) {?>
 					<OPTION value="<?php echo $g->relationship_ID; ?>">
 					<?php echo $g->relationship; ?>
 					</OPTION>
@@ -279,7 +279,7 @@
 					<?php echo $memberFamilyDetails->memberphysicalstatusdescription; ?>
 					</OPTION>
 					<?php foreach($this->familyphysicalstatus_id  as $g) { ?>
-					<? if($memberFamilyDetails->memberphysicalstatus_id != $g->memberphysicalstatus_id ) {?>
+					<?php if($memberFamilyDetails->memberphysicalstatus_id != $g->memberphysicalstatus_id ) {?>
 					<OPTION value="<?php echo $g->memberphysicalstatus_id; ?>">
 					<?php echo $g->memberphysicalstatusdescription; ?>
 					</OPTION>
@@ -295,7 +295,7 @@
 					<?php echo $memberFamilyDetails->membermaritalstatusdescription; ?>
 					</OPTION>
 					<?php foreach($this->familymembermaritalstatus_id  as $g) { ?>
-					<? if($memberFamilyDetails->membermaritalstatus_id != $g->membermaritalstatus_id ) {?>
+					<?php if($memberFamilyDetails->membermaritalstatus_id != $g->membermaritalstatus_id ) {?>
 					<OPTION value="<?php echo $g->membermaritalstatus_id; ?>">
 					<?php echo $g->membermaritalstatusdescription; ?>
 					</OPTION>
@@ -330,7 +330,7 @@
 	                   <div class="profile_tab">
               <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                            <td width="20%"><?php echo $this->form->memberfirstname1;?></td>
                         </tr>
 			</table>
 			<TABLE  id="myTable2">
@@ -355,7 +355,7 @@
 					<?php echo $memberFamilyDetails->health_problem; ?>
 					</OPTION>
 					<?php foreach($this->familyhealth_problem  as $g) { ?>
-					<? if($memberFamilyDetails->healthproblem_id != $g->healthproblem_id ) {?>
+					<?php if($memberFamilyDetails->healthproblem_id != $g->healthproblem_id ) {?>
 					<OPTION value="<?php echo $g->healthproblem_id; ?>">
 					<?php echo $g->health_problem; ?>
 					</OPTION>
@@ -369,7 +369,7 @@
 					<?php echo $memberFamilyDetails->under_treatmentstatus; ?>
 					</OPTION>
 					<?php foreach($this->healthundertreatment  as $g) { ?>
-					<? if($memberFamilyDetails->under_treatment != $g->under_treatment ) {?>
+					<?php if($memberFamilyDetails->under_treatment != $g->under_treatment ) {?>
 					<OPTION value="<?php echo $g->under_treatment; ?>">
 					<?php echo $g->under_treatmentstatus; ?>
 					</OPTION>
@@ -383,7 +383,7 @@
 					<?php echo $memberFamilyDetails->clinical_accessabilitystatus; ?>
 					</OPTION>
 					<?php foreach($this->clinicalaccessability  as $g) { ?>
-					<? if($memberFamilyDetails->clinical_accessability != $g->clinical_accessability ) {?>
+					<?php if($memberFamilyDetails->clinical_accessability != $g->clinical_accessability ) {?>
 					<OPTION value="<?php echo $g->clinical_accessability; ?>">
 					<?php echo $g->clinical_accessabilitystatus; ?>
 					</OPTION>
@@ -412,7 +412,7 @@
            <div class="profile_tab">
                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                            <td width="20%"><?php echo $this->form->memberfirstname1;?></td>
                         </tr>
 			</table>
 			<TABLE  id="myTable3">
@@ -434,7 +434,7 @@
 					<?php echo $memberFamilyDetails->earningsstatus; ?>
 					</OPTION>
 					<?php foreach($this->familyearning  as $g) { ?>
-					<? if($memberFamilyDetails->earnings != $g->earnings ) {?>
+					<?php if($memberFamilyDetails->earnings != $g->earnings ) {?>
 					<OPTION value="<?php echo $g->earnings; ?>">
 					<?php echo $g->earningsstatus; ?>
 					</OPTION>
@@ -448,7 +448,7 @@
 					<?php echo $memberFamilyDetails->profession; ?>
 					</OPTION>
 					<?php foreach($this->profession  as $g) { ?>
-					<? if($memberFamilyDetails->profession_ID!= $g->profession_ID) {?>
+					<?php if($memberFamilyDetails->profession_ID!= $g->profession_ID) {?>
 					<OPTION value="<?php echo $g->profession_ID; ?>">
 					<?php echo $g->profession; ?>
 					</OPTION>
@@ -462,7 +462,7 @@
 					<?php echo $memberFamilyDetails->mfi_benefitsstatus; ?>
 					</OPTION>
 					<?php foreach($this->fmfibenefits  as $g) { ?>
-					<? if($memberFamilyDetails->mfi_benefits != $g->mfi_benefits ) {?>
+					<?php if($memberFamilyDetails->mfi_benefits != $g->mfi_benefits ) {?>
 					<OPTION value="<?php echo $g->mfi_benefits; ?>">
 					<?php echo $g->mfi_benefitsstatus; ?>
 					</OPTION>
@@ -491,7 +491,7 @@
 	                       <div class="profile_tab">
                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td width="20%"><? echo $this->form->memberfirstname1;?></td>
+                            <td width="20%"><?php echo $this->form->memberfirstname1;?></td>
                         </tr>
 			</table>
 			<TABLE  id="myTable4">
@@ -511,7 +511,7 @@
 					<?php echo $memberFamilyDetails->qualificationdetails; ?>
 					</OPTION>
 					<?php foreach($this->qualificationdetails  as $g) { ?>
-					<? if($memberFamilyDetails->qualification != $g->qualification ) {?>
+					<?php if($memberFamilyDetails->qualification != $g->qualification ) {?>
 					<OPTION value="<?php echo $g->qualification; ?>">
 					<?php echo $g->qualificationdetails; ?>
 					</OPTION>
@@ -525,7 +525,7 @@
 					<?php echo $memberFamilyDetails->school_locationstatus; ?>
 					</OPTION>
 					<?php foreach($this->schoollocation  as $g) { ?>
-					<? if($memberFamilyDetails->school_location != $g->school_location ) {?>
+					<?php if($memberFamilyDetails->school_location != $g->school_location ) {?>
 					<OPTION value="<?php echo $g->school_location; ?>">
 					<?php echo $g->school_locationstatus; ?>
 					</OPTION>
@@ -539,7 +539,7 @@
 					<?php echo $memberFamilyDetails->transporation_for_schoolstatus; ?>
 					</OPTION>
 					<?php foreach($this->transporationforschool  as $g) { ?>
-					<? if($memberFamilyDetails->transporation_for_school!= $g->transporation_for_school) {?>
+					<?php if($memberFamilyDetails->transporation_for_school!= $g->transporation_for_school) {?>
 					<OPTION value="<?php echo $g->transporation_for_school; ?>">
 					<?php echo $g->transporation_for_schoolstatus; ?>
 					</OPTION>

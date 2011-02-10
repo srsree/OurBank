@@ -70,14 +70,14 @@ function getInterests(path,interest) {
 
 <div style="float:left;width:380px"> 
     <table id="hor-minimalist-s" summary="Employee Pay Sheet">
-        <? foreach ($this->account as $account) { ?>
+        <?php foreach ($this->account as $account) { ?>
             <TR>
                 <TH>Member details</TH>
                 <TH></TH>
             </TR>
             <TR>
                 <TD>Member code:</td>
-                <TD><? echo $account->code; ?></TD>
+                <TD><?php echo $account->code; ?></TD>
             </TR>
             <TR>
                 <TD>Name:</td>
@@ -151,7 +151,7 @@ function getInterests(path,interest) {
             } ?></TD>
 
         </TR>
-            <? } ?>
+            <?php } ?>
         <TR>
             <TD><?php echo $this->fixedForm->Submit; ?></TD>
             <TD><?php echo $this->fixedForm->Back; ?></td>

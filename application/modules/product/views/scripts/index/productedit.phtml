@@ -17,11 +17,11 @@
 ############################################################################
 !-->
 
-<form action="<?php echo $this->baseUrl();?>/product/index/productedit/id/<? echo $this->id; ?>" method="POST">
+<form action="<?php echo $this->baseUrl();?>/product/index/productedit/id/<?php echo $this->id; ?>" method="POST">
 
 
 	<table id="hor-minimalist-b"> 
-            <tr><Th>Edit Category Information</Th><th><a href="<?php echo $this->baseUrl();?>/product/index/productdelete/id/<? echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif"  align="right" width="16" height="16"></a></th></tr>
+            <tr><Th>Edit Category Information</Th><th><a href="<?php echo $this->baseUrl();?>/product/index/productdelete/id/<?php echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif"  align="right" width="16" height="16"></a></th></tr>
 		
 		<?php echo $this->form;?>
 		</table>

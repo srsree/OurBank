@@ -71,7 +71,7 @@ $(document).ready(
                     <?php echo $editAsset["name"]; ?>
                     </OPTION>
                     <?php foreach ($this->liveasset_details as $assetdetails) { ?>
-                        <? if($editAsset["name"] != $assetdetails["name"] ) {?>
+                        <?php if($editAsset["name"] != $assetdetails["name"] ) {?>
                            <option value="<?php echo $assetdetails['id']?>"><?php echo $assetdetails['name']?></option>
                     <?php } } ?>
                 </select>    
@@ -85,6 +85,6 @@ $(document).ready(
        <?php } ?>
         </table>  
 
-        <input type="button" id="tmpAddRow" name="Add" value="<?php echo $this->translate("Add"); ?>"><input type="submit" id="submit" name="Submit" value="<?php echo $this->translate("Submit"); ?>"><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a>
+        <input type="button" id="tmpAddRow" name="Add" value="<?php echo $this->translate("Add"); ?>"><input type="submit" id="submit" name="Submit" value="<?php echo $this->translate("Submit"); ?>"><a href="<?php echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<?php echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a>
     </form>
 </div>

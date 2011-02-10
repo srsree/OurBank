@@ -43,18 +43,18 @@
 			</TR>
 		
 
-		<?  $baseUrl= $this->baseUrl(); $rowID=1; 
+		<?php  $baseUrl= $this->baseUrl(); $rowID=1; 
 		foreach($this->interest_details as $interest_details) { $rowID++; ?>
 
-			<TR id="row1<? echo $rowID;?>">
-				<TD><input size="10" id="S_rangeID" type='text' name='start_range[]' value="<? echo $interest_details['start_range'];?>" ></TD>
-				<TD><input size="10" id="e_rangeID" type='text' name='end_range[]' value="<? echo $interest_details['end_range'];?>"></TD>
-				<TD><input size="10" id="interestID" type='text' name='interest[]' value="<? echo $interest_details['rate'];?>"></TD>
-				<TD><input size="10" id="feeID" type='text' name='fee[]' value="<? echo $interest_details['fee'];?>"></TD>
-				<TD><input size="10" id="balletID" type='text' name='interest_ballet[]' value="<? echo $interest_details['ballet'];?>"> 
-				<a href='#' onClick="removeFormField('#row1<? echo $rowID;?>'); return false;" ><img src='<? echo $baseUrl;?>/images/delete.gif'  border=0 width='16' height='16'></a></td>
+			<TR id="row1<?php echo $rowID;?>">
+				<TD><input size="10" id="S_rangeID" type='text' name='start_range[]' value="<?php echo $interest_details['start_range'];?>" ></TD>
+				<TD><input size="10" id="e_rangeID" type='text' name='end_range[]' value="<?php echo $interest_details['end_range'];?>"></TD>
+				<TD><input size="10" id="interestID" type='text' name='interest[]' value="<?php echo $interest_details['rate'];?>"></TD>
+				<TD><input size="10" id="feeID" type='text' name='fee[]' value="<?php echo $interest_details['fee'];?>"></TD>
+				<TD><input size="10" id="balletID" type='text' name='interest_ballet[]' value="<?php echo $interest_details['ballet'];?>"> 
+				<a href='#' onClick="removeFormField('#row1<?php echo $rowID;?>'); return false;" ><img src='<?php echo $baseUrl;?>/images/delete.gif'  border=0 width='16' height='16'></a></td>
 			</TR>
-		<? } ?>
+		<?php } ?>
 		</table>
 		<font id="interest_ranges"></font> <!-- Loads additional rows for "interest" -->
 

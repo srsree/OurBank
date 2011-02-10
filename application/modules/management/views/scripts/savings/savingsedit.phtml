@@ -58,12 +58,12 @@
 					<?php if($this->productshortname !='ps') { ?>
 					<tr > 
 						<td class="txt_rgt" align="right">Closed date<span class="reqMark">*</span><B style='color:red'>yyyy-mm-dd</b></td>
-						<td ><? echo $this->form->closedate;?></td>
+						<td ><?php echo $this->form->closedate;?></td>
 					</tr>
 					<?php } ?>
 					<tr > 
 						<td class="txt_rgt" align="right">Applicable to<span class="reqMark">*</span></td>
-						<td ><? echo $this->form->applicableto;?></td>
+						<td ><?php echo $this->form->applicableto;?></td>
 					</TR>
 					<?php if($this->productshortname=='ps') { ?>
 						<tr>
@@ -71,27 +71,27 @@
 						</tr>
 						<tr> 
 							<td class="txt_rgt" align="right">Initial deposit<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->minmumdeposit;?></td>
+							<td ><?php echo $this->form->minmumdeposit;?></td>
 						</tr>
 						<tr > 
 							<td class="txt_rgt" align="right">Freequency of deposit<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->frequencyofdeposit;?></td>
+							<td ><?php echo $this->form->frequencyofdeposit;?></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="td_border1">Installments</td>
 						</tr>
 						<tr > 
 							<td class="txt_rgt" align="right">Interest cal period<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->Int_timefrequency_id;?></td>
+							<td ><?php echo $this->form->Int_timefrequency_id;?></td>
 						</tr>
 
 						<tr > 
 							<td class="txt_rgt" align="right">Interest on calculation<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->frequencyofinterestupdating;?></td>
+							<td ><?php echo $this->form->frequencyofinterestupdating;?></td>
 						</tr>
 						<tr > 
 							<td class="txt_rgt" align="right">Minimum bal for interest<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->minimumbalanceforinterest;?></td>
+							<td ><?php echo $this->form->minimumbalanceforinterest;?></td>
 						</tr>
 					<?php } ?>
 					<?php if($this->productshortname=='fd') { ?>
@@ -108,7 +108,7 @@
 						</tr>
 						<tr >
 							<td class="txt_rgt" align="right">Freequency of deposit<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->frequency_of_deposit;?></td>
+							<td ><?php echo $this->form->frequency_of_deposit;?></td>
 						</tr>
 						<tr >
 							<td class="txt_rgt" align="right">Penal interest<span class="reqMark">*</span></td>
@@ -129,7 +129,7 @@
 						</tr>
 						<tr > 
 							<td class="txt_rgt" align="right">Freequency of deposit<span class="reqMark">*</span></td>
-							<td ><? echo $this->form->frequency_of_deposit;?></td>
+							<td ><?php echo $this->form->frequency_of_deposit;?></td>
 						</tr>
 						<tr > 
 							<td class="txt_rgt" align="right">Penal interest<span class="reqMark">*</span></td>

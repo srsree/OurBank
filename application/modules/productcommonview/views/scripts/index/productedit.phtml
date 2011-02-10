@@ -17,12 +17,12 @@
 ############################################################################
 !-->
 
-<form action="<?php echo $this->baseUrl();?>/product/index/productedit/id/<? echo $this->id; ?>" method="POST">
+<form action="<?php echo $this->baseUrl();?>/product/index/productedit/id/<?php echo $this->id; ?>" method="POST">
 
 			<fieldset>
 				<legend>edit product Information</legend>
             <table id="hor-minimalist-b"> 
-							<TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/category/index/categorydelete/id/<? echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
+							<TD colspan="2" align="right"><a href="<?php echo $this->baseUrl();?>/category/index/categorydelete/id/<?php echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 width="16" height="16"></a></TD>
 						<?php echo $this->form;?>
 
 

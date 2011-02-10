@@ -99,7 +99,7 @@
             <?php if($this->status_id == 1 || $this->status_id == 3) { ?>
             <TR><td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/fixedtransaction/index/transferfunds/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>/memberId/<?php echo base64_encode($this->memberid);?>">Close account and tranfer amount</a></TD>
             </TR>
-            <? } ?>
+            <?php } ?>
             <TR><td colspan="2"><a href="<?php echo $this->baseUrl(); ?>/fixedtransaction/index/status/accountId/<?php echo base64_encode($this->accountid);?>/productId/<?php echo base64_encode($this->productid);?>/memberId/<?php echo base64_encode($this->memberid);?>">Account status</a></TD>
             </TR>
         </table>

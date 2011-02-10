@@ -17,12 +17,12 @@
 ############################################################################
 !-->
 
-<form action="<?php echo $this->baseUrl();?>/holiday/index/holidayedit/id/<? echo $this->id; ?>" method="POST">
+<form action="<?php echo $this->baseUrl();?>/holiday/index/holidayedit/id/<?php echo $this->id; ?>" method="POST">
  	<div id="container-1">
 		<div class="profile_tab">
 		<fieldset>
 			<table id="hor-minimalist-b">	
-                                                <tr><Th>Edit category Information</Th><th><a href="<?php echo $this->baseUrl();?>/holiday/index/holidaydelete/id/<? echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 align="right" width="16" height="16"></a></th></tr>
+                                                <tr><Th>Edit category Information</Th><th><a href="<?php echo $this->baseUrl();?>/holiday/index/holidaydelete/id/<?php echo $this->id; ?>" method="POST"><img src="<?php echo $this->baseUrl(); ?>/images/delete.gif" border=0 align="right" width="16" height="16"></a></th></tr>
 						
 						<?php echo $this->form;?>
 

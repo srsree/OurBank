@@ -54,79 +54,79 @@ div0.style.display='block';
 <?php if($this->table == 10) { ?>
 <form id="Form1" action ="<?php echo $this->baseUrl();?>/index/index" method="POST">
 <fieldset>
-<legend>List of <? echo substr($this->tableName,8); ?></legend>
+<legend>List of <?php echo substr($this->tableName,8); ?></legend>
 <TABLE id="hor-minimalist-b" summary="">
 
 <?php foreach($this->tblcontent as $tblcontent) { ?>
 <tr class="tdbrown">
-<? switch ($this->tableName) { ?>
-<?  case "ourbank_gender" : ?> 
+<?php switch ($this->tableName) { ?>
+<?php  case "ourbank_gender" : ?> 
                                 
 <td width="80">  <?php echo $tblcontent->sex;?></td>
 <input type = "hidden" name = "pK" value = "gender_id">
 <input type = "hidden" name = "attribute" value = "sex">
                                
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_membermaritalstatus" : ?> 
+<?php  case "ourbank_membermaritalstatus" : ?> 
 <td width="80">  <?php echo $tblcontent->membermaritalstatusdescription;?></td>
 <input type = "hidden" name = "pK" value = "membermaritalstatus_id">
 <input type = "hidden" name = "attribute" value = "membermaritalstatusdescription">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_membertypes" : ?> 
+<?php  case "ourbank_membertypes" : ?> 
 <td width="80">  <?php echo $tblcontent->membertype;?></td>
 <input type = "hidden" name = "pK" value = "membertype_id">
 <input type = "hidden" name = "attribute" value = "membertype">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_currency" : ?> 
+<?php  case "ourbank_currency" : ?> 
 <td width="80">  <?php echo $tblcontent->currencyname;?></td>
 <input type = "hidden" name = "pK" value = "currency_id">
 <input type = "hidden" name = "attribute" value = "currencyname">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_feefrequency" : ?> 
+<?php  case "ourbank_feefrequency" : ?> 
 <td width="80">  <?php echo $tblcontent->feefrequencytype;?></td>
 <input type = "hidden" name = "pK" value = "feefrequency_id">
 <input type = "hidden" name = "attribute" value = "feefrequencytype">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_frequencyofpayment" : ?> 
+<?php  case "ourbank_frequencyofpayment" : ?> 
 <td width="80">  <?php echo $tblcontent->timefrequencytype;?></td>
 <input type = "hidden" name = "pK" value = "timefrequncy_id">
 <input type = "hidden" name = "attribute" value = "timefrequencytype">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_interesttypes" : ?> 
+<?php  case "ourbank_interesttypes" : ?> 
 <td width="80">  <?php echo $tblcontent->description;?></td>
 <input type = "hidden" name = "pK" value = "interesttype_id">
 <input type = "hidden" name = "attribute" value = "  	description">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_graceperiods" : ?> 
+<?php  case "ourbank_graceperiods" : ?> 
 <td width="80">  <?php echo $tblcontent->graceperiodtype;?></td>
 <input type = "hidden" name = "pK" value = "graceperiod_id">
 <input type = "hidden" name = "attribute" value = "graceperiodtype">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_holidayrepayment" : ?> 
+<?php  case "ourbank_holidayrepayment" : ?> 
 <td width="80">  <?php echo $tblcontent->repaymentdescription;?></td>
 <input type = "hidden" name = "pK" value = "holidayrepayment_id">
 <input type = "hidden" name = "attribute" value = "repaymentdescription">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_paymenttypes" : ?> 
+<?php  case "ourbank_paymenttypes" : ?> 
 <td width="80">  <?php echo $tblcontent->paymenttype_description;?></td>
 <input type = "hidden" name = "pK" value = "paymenttype_id">
 <input type = "hidden" name = "attribute" value = "paymenttype_description">
-<? break; ?>
+<?php break; ?>
 
-<?  case "ourbank_transaction_type" : ?> 
+<?php  case "ourbank_transaction_type" : ?> 
 <td width="80">  <?php echo $tblcontent->transaction_type;?></td>
 <input type = "hidden" name = "pK" value = "transactiontype_id">
 <input type = "hidden" name = "attribute" value = "transaction_type">
-<? break; ?>
+<?php break; ?>
 
 
 

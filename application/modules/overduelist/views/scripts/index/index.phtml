@@ -45,13 +45,13 @@
                 <TABLE id="hor-minimalist-b">
                  <tr>
 						<td class="label">Branch:</td>
-						<td ><? echo $this->form->bank_id;?></td>
+						<td ><?php echo $this->form->bank_id;?></td>
 						<td class="label">Loan officer:</td>
-						<td ><? echo $this->form->loanofficer;?></td>
+						<td ><?php echo $this->form->loanofficer;?></td>
 					</tr>
 					<tr>					
 						<td class="label">Date:</td>
-						<td ><? echo $this->form->dater;?></td>
+						<td ><?php echo $this->form->dater;?></td>
 						
 					</tr>
                    
@@ -67,8 +67,8 @@
 <fieldset>
     <legend>Loans</legend>
  	<h5 align="right"><?php echo $this->translate('As of '); echo "<font color='#039'>".$this->date1."</font>"; ?></h5>
- 	<?php if($this->bankname){?><h3 align="right"><?php echo $this->translate('Bank name '); echo "<font color='#039'>".$this->bankname."</font>"; ?></h3><? } ?>
- 	<?php if($this->officername){?><h5 align="right"><?php echo $this->translate('Loan officer '); echo "<font color='#039'>".$this->officername."</font>"; ?></h5><? } ?>
+ 	<?php if($this->bankname){?><h3 align="right"><?php echo $this->translate('Bank name '); echo "<font color='#039'>".$this->bankname."</font>"; ?></h3><?php } ?>
+ 	<?php if($this->officername){?><h5 align="right"><?php echo $this->translate('Loan officer '); echo "<font color='#039'>".$this->officername."</font>"; ?></h5><?php } ?>
        <br>
        <h5 style="text-align:right"><?php echo $this->translate('* Amount in '); ?><font color="red"><?php echo $this->translate('Rs'); ?></font></h5>
             <TABLE id="hor-minimalist-b" summary="">

@@ -62,10 +62,10 @@ for($i=1;$i<=$this->family_number;$i++) {
 </tr> 
 <?php  } ?>
 <table id="familymember"></table>
-<TR><TD><?php echo $this->translate("Additional number of family member"); ?></TD><TD><input type="text" name="number" id="number" onkeyup="fn('<? echo $this->baseUrl();?>',<? echo $this->family_number; ?>)"></TD><td></td><td></td><td></td><td></td></TR>
+<TR><TD><?php echo $this->translate("Additional number of family member"); ?></TD><TD><input type="text" name="number" id="number" onkeyup="fn('<?php echo $this->baseUrl();?>',<?php echo $this->family_number; ?>)"></TD><td></td><td></td><td></td><td></td></TR>
 
 <tr><td><input type="submit" id="submit" name="submit" value="<?php echo $this->translate("Submit"); ?>"></td>
-<td><a href="<? echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<? echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a></td>
+<td><a href="<?php echo $this->baseUrl();?>/individualmcommonview/index/commonview/id/<?php echo $this->memberid ?>"><input type="button" id="submit" name="submit" value="<?php echo $this->translate("Back"); ?>"></a></td>
 </tr>
 </table>
 

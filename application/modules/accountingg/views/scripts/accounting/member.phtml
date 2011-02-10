@@ -23,10 +23,10 @@
             <div class="cont-rgt-data">
                 <table id="hor-minimalist-b">
                     <TR>
-                        <td>Membercode:</td><TD><? echo $this->membercode; ?></TD>
+                        <td>Membercode:</td><TD><?php echo $this->membercode; ?></TD>
                     </TR>
                     <TR>
-                        <td><? echo $this->label; ?></td>
+                        <td><?php echo $this->label; ?></td>
                         <td><?php echo $this->groupname; echo $this->memberfirstname;?></TD>
                     </TR>
                     <TR>
@@ -80,14 +80,14 @@
                         <TD><?php echo $arrayroles2->account_number;?></TD>
                         <TD><?php echo $arrayroles2->offerproductname;?></TD>
                     </TR>
-                    <? } } ?>
+                    <?php } } ?>
                             <?php  if($this->Type == 2) { ?>
                             <?php foreach($this->account1 as $arrayroles2)  { ?>
                     <TR>
                         <TD><?php echo $arrayroles2->account_number;?></TD>
                         <TD><?php echo $arrayroles2->offerproductname;?></TD>
                     </TR>
-                    <? }} ?>
+                    <?php }} ?>
                 </table>
               </div>
     </fieldset>

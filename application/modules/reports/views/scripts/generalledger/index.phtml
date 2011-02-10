@@ -41,7 +41,7 @@ if(!$this->ledgedatlist) { ?>
                 <td><?php  echo $this->form->field3;?></td>
             </tr>
             <tr>
-                <td colspan="4" align="center"><? echo $this->form->Search;?></td>
+                <td colspan="4" align="center"><?php echo $this->form->Search;?></td>
 
             </tr>
         </table>
@@ -73,7 +73,7 @@ if(!$this->ledgedatlist) { ?>
 			
 			    <TD><?php echo $ledger["productname"];?></td>
                 <td></td>
-                <td><? echo "OPENING BALANCE"; ?></td>
+                <td><?php echo "OPENING BALANCE"; ?></td>
                 <td width = "150"><?php echo sprintf("%4.2f",$ledger["capitaltobank"]+$ledger["capitalfrombank"]);?></td></td>
 
 
@@ -97,7 +97,7 @@ if(!$this->ledgedatlist) { ?>
 			    <TD></TD>
                 <td></td>
 				            <td></td>
-                <td><? echo "CLOSING BALANCE"; ?></td>
+                <td><?php echo "CLOSING BALANCE"; ?></td>
                 <td width = "150"><?php echo  sprintf("%4.2f",$led- $ledger["amount_from_bank"]);?></td></td>
 
             </tr>

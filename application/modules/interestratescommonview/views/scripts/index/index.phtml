@@ -34,12 +34,12 @@
 			<?php $a='';?>
 			<?php foreach ($this->fetchinterest as $interest ){ ?>
 			<tr>
-			<? if($a!=$interest['id']) { ?>
+			<?php if($a!=$interest['id']) { ?>
 			
 				<td><?php echo $this->escape($interest['name']);?></td>
 				<td><?php echo $this->escape($interest['creditline_name']);?></td>
 				<td></td>
-			<? } else {
+			<?php } else {
 				echo "<td></td><td></td><td></td>";
 			} ?>
 				
