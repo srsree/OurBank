@@ -61,5 +61,6 @@
         </tr>
 
     </table>  
-<?php } else {echo $this->translate("<font color='RED'>Records not found try again...</font>");} ?>
-
+<?php } else { 
+        echo "<font color=red>".$this->errormsg."</font>";
+    } ?>
