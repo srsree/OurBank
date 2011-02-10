@@ -59,7 +59,7 @@ class User_Indexcontroller extends Zend_Controller_Action
 			}
 //listing office
 		$user = new User_Model_User();
-		$bankname = $this->view->adm->viewRecord("ob_institution","id","DESC");
+		$bankname = $this->view->adm->viewRecord("ob_bank","id","DESC");
 		foreach($bankname as $bankname){
 			$searchForm->bank->addMultiOption($bankname['id'],$bankname['description']);
 			}
@@ -101,7 +101,7 @@ class User_Indexcontroller extends Zend_Controller_Action
 				$addForm->designation->addMultiOption($designation['designation_id'],$designation['designation_name']);
 			}
 //listing institution
-		$bankname = $this->view->adm->viewRecord("ob_institution","id","DESC");
+		$bankname = $this->view->adm->viewRecord("ob_bank","id","DESC");
 		foreach($bankname as $bankname){
 			$addForm->bank_id->addMultiOption($bankname['id'],$bankname['description']);
 			}
@@ -127,16 +127,16 @@ class User_Indexcontroller extends Zend_Controller_Action
 //edit action
  	public function edituserdetailAction() 
 	{
-//calling the form
-	$addForm = new User_Form_User();
-	$this->view->form=$addForm;
-//listing designation
-$designation = $this->view->adm->viewRecord("ob_designation","designation_id","DESC");
+                //calling the form
+                $addForm = new User_Form_User();
+                $this->view->form=$addForm;
+                //listing designation
+                $designation = $this->view->adm->viewRecord("ob_designation","designation_id","DESC");
 			foreach($designation as $designation){
 				$addForm->designation->addMultiOption($designation['designation_id'],$designation['designation_name']);
 			}
-//;isting institution
-			$bankname = $this->view->adm->viewRecord("ob_institution","id","DESC");
+                //;isting institution
+                        $bankname = $this->view->adm->viewRecord("ob_bank","id","DESC");
 			foreach($bankname as $bankname){
 				$addForm->bank_id->addMultiOption($bankname['id'],$bankname['description']);
 			}
@@ -150,34 +150,33 @@ $designation = $this->view->adm->viewRecord("ob_designation","designation_id","D
 			foreach($gender as $gender){
 				$addForm->gender->addMultiOption($gender['id'],$gender['sex']);
 			}
-$this->view->title = "Edit User";
-		//Acl
-//         $access = new App_Model_Access();
-//         $checkaccess = $access->accessRights('User',$this->view->globalvalue[0]['name'],'edituserdetail');
-//        	if (($checkaccess != NULL)) {
-//getting the id
+                        $this->view->title = "Edit User";
+                                        //Acl
+                        //         $access = new App_Model_Access();
+                        //         $checkaccess = $access->accessRights('User',$this->view->globalvalue[0]['name'],'edituserdetail');
+                        //        	if (($checkaccess != NULL)) {
+                        //getting the id
 			$id = $this->_getParam('id');
 			$this->view->id = $id;
-//displaying datas to be edited 
-$userdetails = $this->view->adm->editRecord("ourbank_user",$id);
+                        //displaying datas to be edited 
+                        $userdetails = $this->view->adm->editRecord("ourbank_user",$id);
 			$addForm->populate($userdetails[0]);
-//submit action
-if ($this->_request->isPost() && $this->_request->getPost('Submit')) {  
+                        //submit action
+                        if ($this->_request->isPost() && $this->_request->getPost('Update')) {  
 				$id = $this->_getParam('id');
-				$formData = $this->_request->getPost();{
-if ($addForm->isValid($formData)) { 
-//editing record
-					$previousdata = $this->view->adm->editRecord("ourbank_user",$id);
-
-					$this->view->adm->updateLog("ourbank_user_log",$previousdata,1);
-//update 					
-					$this->view->adm->updateRecord("ourbank_user",$id,$addForm->getValues());
-					$this->_redirect('user/index');
+				$formData = $this->_request->getPost();
+                                if ($addForm->isValid($formData)) {
+                                 //editing record
+                                    $previousdata = $this->view->adm->editRecord("ourbank_user",$id);
+                                    echo  "<pre>"; print_r($previousdata);
+                                    $this->view->adm->updateLog("ourbank_user_log",$previousdata[0],$id);
+                                    $this->view->adm->updateRecord("ourbank_user",$id,$addForm->getValues());
+//                                     $this->_redirect('user/index');
 				}
-// } else {
-//            $this->_redirect('index/index');
+                             // } else {
+                                //            $this->_redirect('index/index');
  		
-   			}}}
+   			}}
  	public function commonviewAction() 
  	{
 
@@ -211,14 +210,14 @@ $this->view->title = "View user";
  	public function deleteAction() 
 
  	{
-		$delform = new Category_Form_Delete();
+		$delform = new User_Form_Delete();
 		$this->view->deleteform = $delform;
 			$userdetails=new User_Model_User();
 			$id = (int)$this->_getParam('id');
 			$this->view->id = $id;
 			$user_details=$userdetails->getuser($id); 
 			$this->view->userdetails = $user_details;
-			if ($this->_request->isPost() && $this->_request->getPost('DELETE')) {  
+			if ($this->_request->isPost() && $this->_request->getPost('Delete')) {  
 			$redirect = $this->view->adm->deleteRecord("ourbank_user",$id);
 			$this->_redirect('/user');
 }
