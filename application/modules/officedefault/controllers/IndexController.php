@@ -208,7 +208,7 @@ class Officedefault_IndexController extends Zend_Controller_Action{
         $officeForm->populate($edit_office[0]);
         
 	//check and load poster data
-                if ($this->_request->isPost() && $this->_request->getPost('Submit')) {
+                if ($this->_request->isPost() && $this->_request->getPost('Update')) {
             $formData = $this->_request->getPost(); 
             if($officeForm->isValid($formData)){ 
 		//assign poster values to variable and send to model
@@ -233,12 +233,7 @@ $this->_redirect('/officecommonview/index/commonview/id/'.$office_id);
     //delete action
     public function deleteofficeAction()
     {
-        //Acl
-        //$access = new App_Model_Access();
-        //$checkaccess = $access->accessRights('Individual',$this->view->globalvalue[0]['name'],'editmembernameAction');
-        //if (($checkaccess != NULL)) {
-        //delete action
-    
+
 	//get poster id
         $id=$this->_request->getParam('id');	  
         $this->view->memberid=$id;
@@ -273,17 +268,6 @@ $this->_redirect('/officecommonview/index/commonview/id/'.$office_id);
         //             $this->_redirect('index/index');
         // 	}
     
-    public function treestructureAction() 
-    {
-        $treeobj = new Officedefault_Model_officedefault();
-        $branch = $treeobj->getBranch();
-        $alloffice = $treeobj->fetchoffice();
-        if(count($alloffice)) {
-            if($alloffice[0]['parentoffice_id'] == '0'){
-                $this->view->rootname = $alloffice[0]['name'];
-            }
-        }
-    }
 
     }
 
