@@ -171,13 +171,13 @@ class Officedefault_Model_officedefault extends Zend_Db_Table_Abstract {
           return $result;
         }
 
-        public function fetchofficesub($input)
+        public function fetchoffictypename($input)
         {
           $select = $this->select()
                 ->setIntegrityCheck(false)  
-                ->join(array('a' => 'ourbank_office'),array('a.id'))
-//                 ->where('a.officetype_id !=3')
-                ->where('a.parentoffice_id = ?',$input);
+                ->join(array('a' => 'ourbank_officehierarchy'),array('a.id'),array('a.type'))
+                ->where('a.id = ?',$input);
+         // die($select->__toString($select));
           $result = $this->fetchAll($select);
           return $result->toArray();
         }

@@ -131,6 +131,7 @@ class Officedefault_IndexController extends Zend_Controller_Action{
             }
         $this->_redirect('/officecommonview/index/commonview/id/'.$lastid);
 		}
+        else { echo "Adding wrong hierarchy level";}
 		}
         }
         }
@@ -156,12 +157,12 @@ class Officedefault_IndexController extends Zend_Controller_Action{
             $officetypeId=$officetypeIds1->id;
         }
         if($officetypeId==1) { 
-            $this->view->selectedSuboffice = $subOffice->subofficeFromUrl($officetypeId);
+//            $this->view->selectedSuboffice = $subOffice->subofficeFromUrl($officetypeId);
             $this->view->officetypename = $subOffice->officetypename($officetypeId);
         } 
         else {
             $this->view->selectedSuboffice = $subOffice->subofficeFromUrl($officetypeId);
-            $this->view->officetypename = $subOffice->officetypename($officetypeId);
+//           $this->view->officetypename = $subOffice->officetypename($officetypeId);
         }
 	//fetch selected sub office and id
         if($this->view->selectedSuboffice) {
@@ -171,9 +172,11 @@ class Officedefault_IndexController extends Zend_Controller_Action{
         }
         else
         { 
-        foreach($this->view->officetypename as $officetype) { 
-        $officeForm->parentoffice_id->addMultiOption($officetype->id,$officetype->type);
-        }
+            if($officetypeId==1){
+                foreach($this->view->officetypename as $officetype) { 
+                $officeForm->parentoffice_id->addMultiOption($officetype->id,$officetype->type);
+            }
+            }
         }
     }
 	//edit office
