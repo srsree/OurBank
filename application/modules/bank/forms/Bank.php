@@ -37,7 +37,7 @@ class Bank_Form_Bank extends Zend_Form
         $id = $formfield->field('Hidden','id','','','','',false,'','','','','',0,0);
         $createdBy = $formfield->field('Hidden','created_by','','','','',false,'','','','','',0,1);
         $createdDate = $formfield->field('Hidden','created_date','','','','',false,'','','','','',0,date("y/m/d H:i:s"));
-        $status = $formfield->field('Checkbox','status','','','','Active',false,'','','','','',1,0);
+        $status = $formfield->field('Checkbox','status','','','mand','Active',false,'','','','','',1,0);
 
 	//add element to form
         $this->addElements(array($name,$code,$description,$id,$createdBy,$createdDate,$status));
