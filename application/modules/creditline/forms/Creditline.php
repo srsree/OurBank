@@ -32,7 +32,7 @@ class Creditline_Form_Creditline extends Zend_Form
 		$fieldname='name';
 
 		$creditlinename = $formfield->field('Text','name',$table,$fieldname,'mand','Name',true,'','','','','',1,0);
-		$protfoliovalue = $formfield->field('Text','portfolio','','','mand','Protfolio value - R$1',true,$vtype,'','','','',1,0);
+		$protfoliovalue = $formfield->field('Text','portfolio','','','mand','Protfolio value - R$',true,$vtype,'','','','',1,0);
 		$creditlinefrom = $formfield->field('Text','start_date','','','mand','Start Date',true,'','','','','',1,0);
 		$creditlineto = $formfield->field('Text','end_date','','','mand','End Date',true,'','','','','',1,0);
 		$status = $formfield->field('Checkbox','status','','','mand','Active','','','','','','',1,0);
