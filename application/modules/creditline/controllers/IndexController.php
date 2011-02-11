@@ -95,6 +95,7 @@ class Creditline_IndexController extends Zend_Controller_Action
 			$formdata2=array('id'=>$creditlinedetails['id'],'name'=>$creditlinedetails['name'],'portfolio'=>$creditlinedetails['portfolio'],'start_date'=>$creditlinedetails['start_date'],'end_date'=>$creditlinedetails['end_date'],'status'=>$creditlinedetails['status'],'created_by'=>$creditlinedetails['created_by'],'created_date'=>$creditlinedetails['created_date']);
 
 		}
+                $form->name->removeValidator('Db_NoRecordExists');
 
 		if ($this->_request->isPost() && $this->_request->getPost('Update')) {
 			$id = $this->_getParam('id');

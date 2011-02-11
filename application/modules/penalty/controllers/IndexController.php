@@ -95,7 +95,7 @@ class Penalty_IndexController extends Zend_Controller_Action{
 
                 $formdata2=array('id'=>$fetchpenalty1['id'],'name'=>$fetchpenalty1['name'],'creditline_id'=>$fetchpenalty1['creditline_id'],'penalty_per_delay'=>$fetchpenalty1['penalty_per_delay'],'interest_of_delay'=>$fetchpenalty1['interest_of_delay'],'status'=>$fetchpenalty1['status'],'created_by'=>$fetchpenalty1['created_by'],'created_date'=>$fetchpenalty1['created_date']);
             }
-    
+            $form->penaltyname->removeValidator('Db_NoRecordExists');
             if($this->_request->isPost() && $this->_request->getPost('Update')) {
                 $id = $this->_getParam('penalty_id');
                 $formData = $this->_request->getPost();
