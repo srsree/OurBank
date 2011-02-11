@@ -19,9 +19,10 @@
 */
 ?>
 
-<?php
-class Individualmcommonview_Model_individualmcommon extends Zend_Db_Table {
-      protected $_name = 'ourbank_member';
+<?php 
+class Individualmcommonview_Model_individualmcommonview extends Zend_Db_Table 
+{
+    protected $_name = 'ourbank_member';
 
     //get member details
     public function getmember($id)
@@ -101,8 +102,4 @@ class Individualmcommonview_Model_individualmcommon extends Zend_Db_Table {
        $result=$this->fetchAll($select);
        return $result->toArray();
     }
-
-
-
-
 }
