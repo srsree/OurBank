@@ -38,7 +38,7 @@
 		return xmlhttp;
 	}
 
-	function getMembers(meeting_ID,path,a) {	
+	function getMembers1(meeting_ID,path,a) {	
 		var strURL=path+"/attendance/index/fetchmembers?meeting_ID="+meeting_ID;
 		if(meeting_ID!=''){
 		var req = getXMLHTTP();
