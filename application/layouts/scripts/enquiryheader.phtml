@@ -35,15 +35,7 @@ $(document).ready(function() {
 });
 </script>
 </head> 
-
-
-
-    <div id="ourbanklogo">
-      <h1><a href="#" title="OurBank">OurBank</a></h1>
-    </div>
-    <div id="welcomebar"><span class="welcomusr">Welcome <a href="#"><?php echo $this->username;?></a></span> <span class="longdate"><?php echo date("r");?></span><span class="signout"><a href="<?php  echo $this->baseUrl();?>/index/logout">signout</a></span>
-    </div>
-
+<?php echo $this->render('header.phtml'); ?>
     <div id="navigation">
       <div id="mainmenu">
         <ul>

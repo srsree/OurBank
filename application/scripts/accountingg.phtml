@@ -28,14 +28,48 @@
 <body>
 <div id="container">
 
-    <div id="header"><?php echo $this->render('accountheader.phtml'); ?></div>
+    <div id="header"><?php echo $this->render('accountheaderg.phtml'); ?></div>
 
   <div id="leftnavig">
 
-    <h4><a href="#">Accounting</a></h4>
+
+        <?php if($this->pageTitle == "Accounting") { ?>
+	<h4><a href="#">Accounting</a></h4>
         <ul>
-	   <li class="selected"><a href="<?php echo $this->baseUrl();?>/account">Loans</a></li>
-        </ul>
+           <li ><a href="<?php echo $this->baseUrl();?>/savingaccount">Personal savings</a></li>
+           <li ><a href="<?php echo $this->baseUrl();?>/fixedaccount">Fixed savings</a></li>
+	   	   <li ><a href="<?php echo $this->baseUrl();?>/recurringaccount">Recurring savings</a></li>
+	   	   <li ><a href="<?php echo $this->baseUrl();?>/loanaccount">Loan a/c</a></li>
+
+	</ul>
+	<?php } ?>
+        <?php if($this->pageTitle == "Savings") { ?>
+		<h4><a href="#">Accounting</a></h4>
+		<ul>
+                    <li ><a href="<?php echo $this->baseUrl();?>/savingaccount">Personal savings</a></li>
+                </ul>
+	<?php } ?>
+
+        <?php if($this->pageTitle == "Fixed") { ?>
+		<h4><a href="#">Accounting</a></h4>
+		<ul>
+                    <li ><a href="<?php echo $this->baseUrl();?>/fixedaccount">Fixed savings</a></li>
+                </ul>
+	<?php } ?>
+
+        <?php if($this->pageTitle == "Recurring") { ?>
+		<h4><a href="#">Accounting</a></h4>
+		<ul>
+                    <li ><a href="<?php echo $this->baseUrl();?>/recurringaccount">Recurring savings</a></li>
+                </ul>
+	<?php } ?>
+
+	<?php if($this->pageTitle == "Loans") { ?>
+		<h4><a href="#">Accounting</a></h4>
+		<ul>
+                    <li ><a href="<?php echo $this->baseUrl();?>/loanaccount">Loan a/c</a></li>
+                </ul>
+	<?php } ?>
   </div>
 
     <div id="pagecontent">
@@ -43,10 +77,10 @@
         <?php echo $this->layout()->content; ?>
     </div>
 
-
   <div id="footer">
-    <?php echo $this->render('footer.phtml'); ?>
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
   </div>
+</div>
 </BODY>
 
 </html>

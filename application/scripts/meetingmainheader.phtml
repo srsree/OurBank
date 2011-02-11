@@ -20,35 +20,52 @@
 <head>
 <link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/reset-min.css" />
 <link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/styles.css" />
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker.js"></script>
+<script type="text/javascript" src="<?php  echo $this->baseUrl();?>/js/datepicker1.js"></script>
+ <link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/js/themes/base/ui.all.css" />
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#holidayfrom").datepicker({});
-    $("#holidayupto").datepicker({});
-    $("#repayment_date").datepicker({});
-    $("#begindate").datepicker({"dateFormat":"yy-mm-dd"});
-    $("#closedate").datepicker({"dateFormat":"yy-mm-dd"});
-    $("#begindate33").datepicker({"dateFormat":"yy-mm-dd"});
-    $("#fund_beginingdate").datepicker({"dateFormat":"yy-mm-dd"});
-    $("#fund_closingdate").datepicker({"dateFormat":"yy-mm-dd"});
-    $("#date1").datepicker({});
-    $("#loanAccountdate").datepicker({"dateFormat":"yy-mm-dd"});
+	$("#meeting_date").datepicker({"dateFormat":"dd/mm/yy"});
 });
 </script>
 </head> 
-<?php echo $this->render('header.phtml'); ?>
+
+    <div id="ourbanklogo">
+      <h1><a href="#" title="OurBank">OurBank</a></h1>
+    </div>
+    <div id="welcomebar"><span class="welcomusr">Welcome <a href="#"><?php echo $this->username;?></a></span> <span class="longdate"><?php echo date("r");?></span><span class="signout"><a href="<?php  echo $this->baseUrl();?>/index/logout">signout</a></span>
+    </div>
+
     <div id="navigation">
       <div id="mainmenu">
-        <ul>
+         <ul>
 	<li><a href="<?php  echo $this->baseUrl();?>/creditlinemain"><span>Creditline</span></a></li>
-	<li ><a href="<?php  echo $this->baseUrl();?>/accountingg"><span>Accounting</span></a></li>
+	<li><a href="<?php  echo $this->baseUrl();?>/accountingg"><span>Accounting</span></a></li>
 	<li><a href="<?php  echo $this->baseUrl();?>/transactiong"><span>Transaction</span></a></li>
 	<li><a href="<?php  echo $this->baseUrl();?>/reports"><span>Reports</span></a></li>        
-	<li><a href="<?php  echo $this->baseUrl();?>/meetingmain"><span>Meeting</span></a></li>
-    <li><a href="<?php  echo $this->baseUrl();?>/membership"><span>Membership</span></a></li>
+	<li  class="selected"><a href="<?php  echo $this->baseUrl();?>/meetingmain"><span>Meeting</span></a></li>
+        <li><a href="<?php  echo $this->baseUrl();?>/membership"><span>Membership</span></a></li>
 	<li><a href="<?php  echo $this->baseUrl();?>/management"><span>Management</span></a></li>
-    <li><a href="<?php  echo $this->baseUrl();?>/settings"><span>Setting</span></a></li>
+    <!--    <li><a href="<?php  echo $this->baseUrl();?>/settings"><span>Setting</span></a></li>-->
         </ul>
       </div>
+      <div id="submenu">
+        <ul>
+	   <?php if($this->pageTitle == "Meetings") { ?>
+	   	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/meetingindex">Meeting</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/meetingindex">Meeting</a></li>
+	   <?php } ?>
+		
+	   <?php if($this->pageTitle == "Attendance") { ?>
+	   	<li class="selected"><a href="<?php  echo $this->baseUrl();?>/attendanceindex">Attendance</a></li>
+	   <?php } else { ?>
+	   	<li><a href="<?php  echo $this->baseUrl();?>/attendanceindex">Attendance</a></li>
+	   <?php } ?>
+		
+	</ul>
+      </div>
     </div>
+
 
 

@@ -17,19 +17,37 @@
 ############################################################################
 !-->
 
-<form name="form1" action="<?php echo $this->baseUrl();?>/fundings/index/addfundings" method="POST">
-<fieldset>
-    <legend>Add fundings</legend> 
-        <TABLE class="fieldsets"> 
-            <?php echo $this->form;?>
-        </TABLE>
-        <div class="btnhouse">
-	   <div class="ltbtns">
-		<input type = "submit" name = "Submit" value = "Submit">
-	   </div>
-	   <div class="rtbtns">
-		<a href="<?php echo $this->baseUrl();?>/fundings"><input type = "button" name = "Back" value = "Back"></a>
-	   </div>
-        </div>
-</fieldset>
-</form>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title><?php echo $this->escape($this->title); ?></title>
+
+
+</head>
+<body>
+<div id="container">
+
+    <div id="header"><?php echo $this->render('accountheader.phtml'); ?></div>
+
+  <div id="leftnavig">
+
+    <h4><a href="#">Accounting</a></h4>
+        <ul>
+	   <li class="selected"><a href="<?php echo $this->baseUrl();?>/account">Loans</a></li>
+        </ul>
+  </div>
+
+    <div id="pagecontent">
+        <h3><?php echo $this->pageTitle;?></h3>
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+  <div id="footer">
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
+  </div>
+</div>
+</BODY>
+
+</html>
+

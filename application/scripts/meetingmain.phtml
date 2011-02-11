@@ -31,16 +31,33 @@
 
 <body>
 <div id="container">
-    <div id="header"><?php echo $this->render('settingsheader.phtml'); ?></div>
-
+    <div id="header"><?php echo $this->render('meetingmainheader.phtml'); ?></div>
 
   <div id="leftnavig">
 
-    <h4><a href="#">Settings</a></h4>
-     <ul>
-		 <li><a href="<?php  echo $this->baseUrl();?>/settings/dropdown">Dropdown</a></li>
-    
-     </ul>
+	<?php if($this->pageTitle == "Community Meetings") { ?>
+	<h4><a href="#">Meeting</a></h4>
+        <ul>
+		<li><a href="<?php  echo $this->baseUrl();?>/meetingindex">Meeting</a></li>
+		<li><a href="<?php  echo $this->baseUrl();?>/attendanceindex">Attendance</a></li>
+	</ul>
+	<?php } ?>
+	<?php if($this->pageTitle == "Meetings") { ?>
+		<h4><a href="#">Meeting</a></h4>
+		<ul>
+		<li><a href="<?php  echo $this->baseUrl();?>/meetingindex"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16"> Search</a></li>
+		<li><a href="<?php  echo $this->baseUrl();?>/meeting/index/meetingadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Meeting add</a></li>
+		</ul>
+	<?php } ?>
+	
+	<?php if($this->pageTitle == "Attendance") { ?>
+		<h4><a href="#">Attendance</a></h4>
+		<ul>
+		<li><a href="<?php  echo $this->baseUrl();?>/attendanceindex"><img src="<?php echo $this->baseUrl(); ?>/images/Button-search-64.png" border=0 width="16" height="16"> Search</a></li>
+		<li><a href="<?php  echo $this->baseUrl();?>/attendance/index/attendanceadd"><img src="<?php echo $this->baseUrl(); ?>/images/add.gif" border=0 width="16" height="16"> Attendance add</a></li>
+		</ul>
+	<?php } ?>
+   
   </div>
 
     <div id="pagecontent">
@@ -48,9 +65,8 @@
         <?php echo $this->layout()->content; ?>
     </div>
 
-
   <div id="footer">
-    <?php echo $this->render('footer.phtml'); ?>
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
   </div>
 </div>
 </BODY>

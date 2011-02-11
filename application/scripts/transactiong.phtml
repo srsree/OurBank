@@ -28,48 +28,55 @@
 <body>
 <div id="container">
 
-    <div id="header"><?php echo $this->render('accountheaderg.phtml'); ?></div>
+    <div id="header"><?php echo $this->render('transactionheaderg.phtml'); ?></div>
 
   <div id="leftnavig">
 
 
-        <?php if($this->pageTitle == "Accounting") { ?>
-	<h4><a href="#">Accounting</a></h4>
+        <?php if($this->pageTitle == "Transaction") { ?>
+	<h4><a href="#">Transaction</a></h4>
         <ul>
-           <li ><a href="<?php echo $this->baseUrl();?>/savingaccount">Personal savings</a></li>
-           <li ><a href="<?php echo $this->baseUrl();?>/fixedaccount">Fixed savings</a></li>
-	   	   <li ><a href="<?php echo $this->baseUrl();?>/recurringaccount">Recurring savings</a></li>
-	   	   <li ><a href="<?php echo $this->baseUrl();?>/loanaccount">Loan a/c</a></li>
-
+           <li ><a href="<?php echo $this->baseUrl();?>/savingswithdrawal">Savings</a></li>
+           <li ><a href="<?php echo $this->baseUrl();?>/fixedtransaction">Fixed savings</a></li>
+	   <li ><a href="<?php echo $this->baseUrl();?>/recurringtransaction">Recurring savings</a></li>
+	   <li ><a href="<?php echo $this->baseUrl();?>/loandisbursmentg">Loans</a></li>
 	</ul>
 	<?php } ?>
-        <?php if($this->pageTitle == "Savings") { ?>
-		<h4><a href="#">Accounting</a></h4>
+        <?php if($this->type == "savings") { ?>
+		<h4><a href="#">Transaction</a></h4>
 		<ul>
-                    <li ><a href="<?php echo $this->baseUrl();?>/savingaccount">Personal savings</a></li>
+            <li><a href="<?php echo $this->baseUrl();?>/savingswithdrawal">Saving withdrawal</a></li>
+            <li><a href="<?php echo $this->baseUrl();?>/savingsdeposit">Saving deposit</a></li>
+            <li><a href="<?php echo $this->baseUrl();?>/psdetails">Saving details</a></li>
+                </ul>
+	<?php } ?>
+	<?php if($this->type == "loans") { ?>
+	<h4><a href="#">Transaction</a></h4>
+	<ul>
+            <li><a href="<?php echo $this->baseUrl();?>/loandisbursmentg">Loan disbursment </a></li>
+            <li><a href="<?php echo $this->baseUrl();?>/loanrepaymentg">Loan repayment </a></li>
+            <li><a href="<?php echo $this->baseUrl();?>/loandetailsg">Loan details </a></li>
+       </ul>
                 </ul>
 	<?php } ?>
 
-        <?php if($this->pageTitle == "Fixed") { ?>
-		<h4><a href="#">Accounting</a></h4>
-		<ul>
-                    <li ><a href="<?php echo $this->baseUrl();?>/fixedaccount">Fixed savings</a></li>
+        <?php if($this->type == "recurring") { ?>
+	<h4><a href="#">Transaction</a></h4>
+	<ul>
+	   <li ><a href="<?php echo $this->baseUrl();?>/recurringtransaction">Recurring transaction</a></li>
+       </ul>
                 </ul>
 	<?php } ?>
 
-        <?php if($this->pageTitle == "Recurring") { ?>
-		<h4><a href="#">Accounting</a></h4>
-		<ul>
-                    <li ><a href="<?php echo $this->baseUrl();?>/recurringaccount">Recurring savings</a></li>
+        <?php if($this->type == "fixed") { ?>
+	<h4><a href="#">Transaction</a></h4>
+	<ul>
+            <li ><a href="<?php echo $this->baseUrl();?>/fixedtransaction">Fixed transaction</a></li>
+       </ul>
                 </ul>
 	<?php } ?>
 
-	<?php if($this->pageTitle == "Loans") { ?>
-		<h4><a href="#">Accounting</a></h4>
-		<ul>
-                    <li ><a href="<?php echo $this->baseUrl();?>/loanaccount">Loan a/c</a></li>
-                </ul>
-	<?php } ?>
+
   </div>
 
     <div id="pagecontent">
@@ -77,9 +84,8 @@
         <?php echo $this->layout()->content; ?>
     </div>
 
-
   <div id="footer">
-    <?php echo $this->render('footer.phtml'); ?>
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
   </div>
 </div>
 </BODY>

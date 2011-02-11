@@ -1,6 +1,0 @@
-<?=$this->ajaxLink(
-                                                        "Home", "/admin/index/hello",
-                                                        array('update' => '#contentJ',
-                                          'noscript' => false,
-                                          'method' => 'POST'));
-                                                        ?> 

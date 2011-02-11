@@ -17,41 +17,41 @@
 ############################################################################
 !-->
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <head>
 <title><?php echo $this->escape($this->title); ?></title>
-<link href="<?php  echo $this->baseUrl();?>/css/reset-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php  echo $this->baseUrl();?>/css/styles.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/site.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/reset.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/style2.css" />
+<link rel="stylesheet" type="text/css"  href="<?php  echo $this->baseUrl();?>/css/wforms.css" />
 </head>
+
 
 <body>
 <div id="container">
+    <div id="header"><?php echo $this->render('settingsheader.phtml'); ?></div>
 
-    <div id="header"><?php echo $this->render('defaultheader.phtml'); ?></div>
 
-
-    <div id="pagetitle">
-        <h2><?php echo $this->pageTitle;?></h2>
-    </div>
   <div id="leftnavig">
-    <h4><a href="#">Home</a></h4>
-    <ul>
-      <li><a href="<?php  echo $this->baseUrl();?>/index/address"> Contact us</a></li>
-      <li><a href="#">Site map</a></li>
-      <li><a href="#">Site news</a></li>
-      <li><a href="#">Learning centre</a></li>
-    </ul>
+
+    <h4><a href="#">Settings</a></h4>
+     <ul>
+		 <li><a href="<?php  echo $this->baseUrl();?>/settings/dropdown">Dropdown</a></li>
+    
+     </ul>
   </div>
 
     <div id="pagecontent">
+        <h3><?php echo $this->pageTitle;?></h3>
         <?php echo $this->layout()->content; ?>
     </div>
 
-
   <div id="footer">
-    <?php echo $this->render('footer.phtml'); ?>
+    <div id="copytxt"> Mahiti Infotech Pvt. Ltd., <a href="#">Terms &amp; Conditions</a></div>
   </div>
 </div>
 </BODY>
 </html>
+
