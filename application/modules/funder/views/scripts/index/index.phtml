@@ -32,13 +32,13 @@
                             <table width="100%">
                                 <tr>
                                     <td class="label"><?php echo $this->translate("Funder code:"); ?></td>
-                                    <td ><? echo $this->form->code;?></td>
+                                    <td ><?php echo $this->form->code;?></td>
                                     <td class="label"><?php echo $this->translate("Funder name:"); ?></td>
-                                    <td ><? echo $this->form->name;?></td>
+                                    <td ><?php echo $this->form->name;?></td>
                                 </tr>
                                 <tr>
                                     <td class="label"><br><?php echo $this->translate("Funder type:"); ?></td>
-                                    <td ><br><? echo $this->form->type;?></td>
+                                    <td ><br><?php echo $this->form->type;?></td>
                                 </tr>
                         </table>
 <!--button object -->
@@ -46,12 +46,12 @@
                     </form>	
             </div>
     </fieldset> 
-</div>
+</div> 
 
 <!--
  *  view list of funder details and filtered search details
 -->
-<?php if (count($this->paginator)) { ?>
+
 <table id="hor-minimalist-b">
     <tr>
         <th><?php echo $this->translate("Funder code"); ?></th>
@@ -59,7 +59,7 @@
         <th><?php echo $this->translate("Funder type"); ?></th>
 
     </tr>
-    
+    <?php if (count($this->paginator)) { ?>
     <?php foreach ($this->paginator as $funder): ?>
     <tr>
         <td><a href="<?php echo $this->baseUrl()."/fundercommonview/index/commonview/id/".$funder['id']; ?>">
@@ -68,7 +68,7 @@
         <td><?php echo $this->escape($funder['fundertype']); ?></td>
 
     <?php endforeach; ?>
-
+    
     </tr>
     <tr>
         <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
