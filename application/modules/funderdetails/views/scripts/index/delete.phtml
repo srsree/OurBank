@@ -23,15 +23,16 @@
 
 
 <fieldset>
-	<legend>Funder Details</legend>
+	
 			<div class="cont-rgt-data">
 				<form action="<?php echo $this->baseUrl();?>/funderdetails/index/delete/id/<?php echo $this->funderid; ?>/modId/<?php echo $this->mod_id; ?>/subId/<?php echo $this->sub_id; ?>" method="POST" name="joe" id="signupForm" class="cmxform">
-				<table id="hor-minimalist-b">
+				<table id="hor-minimalist-b" class="fieldsets">
+                                       <tr><Th colspan="2"><b>Funder Details</b></Th></tr> 
 					<TR>
-						<TD  width="35%" align="right">Remarks<span>*</span></TD>
-						<TD width="65%"  align="left" ><?php echo $this->delete1->remarks;?></TD>
-                                                </TR>
-                                        <tr><td><font color="red">Do you want to Delete</font></td></tr>
+						<TD><label class="mand">Remarks</TD>
+						<TD  width="65%"  align="left" ><?php echo $this->delete1->remarks;?></TD>
+                                           </TR>
+                                        <tr><td><font color="red">Do you want to Delete?</font></td></tr>
 					
 				</table>
 						<TR><TD><input type="submit" name="Delete" id="Delete" value="Delete">			
