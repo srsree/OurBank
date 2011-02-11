@@ -24,7 +24,7 @@ class Individual_IndexController extends Zend_Controller_Action
 {
     public function init()
     {
-        $this->view->pageTitle = "Individual member";
+        $this->view->pageTitle = $this->view->translate("Individual member");
         $globalsession = new App_Model_Users();
 //         $this->view->globalvalue = $globalsession->getSession();
 //                 $this->view->username = $this->view->globalvalue[0]['username'];
@@ -38,7 +38,7 @@ class Individual_IndexController extends Zend_Controller_Action
 //Individual member list and searching options
     public function indexAction()
     {
-        $this->view->title = "Individual member";
+        $this->view->title = $this->view->translate("Individual member");
 //Load searching form
         $searchForm = new Individual_Form_Search();
         $this->view->form = $searchForm;
@@ -56,6 +56,7 @@ class Individual_IndexController extends Zend_Controller_Action
         }
         $page = $this->_getParam('page',1);
         $paginator = Zend_Paginator::factory($result);
+        $this->view->errormsg="Record not found";
 //searching member list
         if ($this->_request->isPost() && $this->_request->getPost('Search')) 
         {
@@ -65,6 +66,9 @@ class Individual_IndexController extends Zend_Controller_Action
                 $result = $individual->searchDetails($searchForm->getValues());
                 $page = $this->_getParam('page',1);
                 $paginator = Zend_Paginator::factory($result);
+                 if(!$paginator){
+                $this->view->errormsg="Record not found";
+            }
                 $this->view->paginator = $paginator;
                 } 
         }
