@@ -1,0 +1,66 @@
+<!--
+############################################################################
+#  This file is part of OurBank.
+############################################################################
+#  OurBank is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+############################################################################
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+############################################################################
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
+!-->
+
+<div id="searchDiv">
+    <fieldset>
+        <legend><?php echo $this->translate("Search"); ?></legend>
+            <div class="search" style="margin-left:20px;">
+                    <form action="<?php echo $this->baseUrl();?>/individual" method="POST">
+                            <table width="100%">
+                                <tr>
+                                    <td><?php echo $this->translate("Member code:"); ?></td><td ><?php echo $this->form->code;?></td>
+                                    <td><?php echo $this->translate("Member name:"); ?></td><td ><?php echo $this->form->name;?></td>
+                                </tr>
+                                <tr>
+                                    <td><br><?php echo $this->translate("Branch name:"); ?></td><td><br><?php echo $this->form->office;?></td>
+                                    <td><br><?php echo $this->translate("Gender:"); ?></td><td><br><?php echo $this->form->gender_id;?></td>
+                                </tr>
+                               
+                        </table><?php echo $this->form->Search;?>
+                    </form>	
+            </div>
+    </fieldset> 
+</div> 
+
+<?php if (count($this->paginator)){ ?>
+    <table id="hor-minimalist-b">
+        <tr>
+            <th><?php echo $this->translate("Member code"); ?></th>
+            <th><?php echo $this->translate("Member name"); ?></th>
+            <th><?php echo $this->translate("Bank name"); ?></td>
+            <th><?php echo $this->translate("Gener"); ?></td>
+        </tr>
+        <?php foreach ($this->paginator as $individual){ ?>
+        <tr>
+            <td><a href="<?php echo $this->baseUrl()."/individualcommonview/index/commonview/id/".$individual['id']; ?>">
+                        <?php echo $this->escape($individual['membercode']); ?></a></td>
+            <td><?php echo $this->escape($individual['member_name']);?></td>
+            <td><?php echo $this->escape($individual['name']);?></td>
+            <td><?php echo $this->escape($individual['sex']);?></td>
+        <?php } ?>
+        </tr>
+        <tr>
+            <td colspan="8" align="right"><div class="pagination"><?php echo $this->paginationControl($this->paginator,'Sliding',
+                                        '/partials/my_pagination_control.phtml'); ?></div></td>
+        </tr>
+
+    </table>  
+<?php } else { 
+        echo "<font color=red>".$this->errormsg."</font>";
+    } ?>

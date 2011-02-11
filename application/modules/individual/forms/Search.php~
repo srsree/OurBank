@@ -22,10 +22,10 @@
 <?php
 class Individual_Form_Search extends Zend_Dojo_Form {
     public function init() {
-        //create individual form elements
+
          //$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
         $formfield = new App_Form_Field ();
-        $code = $formfield->field('Text','code','','mand','','Membercode','','','','','','',0,0);
+        $code = $formfield->field('Text','code','','','','Membercode','','','','','','',0,0);
         $name = $formfield->field('Text','name','','','','Member name','','','','','','',0,0);
         $office = $formfield->field('Select','office','','','','Bank name','','','','','','',0,0);
         $gender_id = $formfield->field('Select','gender_id','','','','Gender','','','','','','',0,0);
