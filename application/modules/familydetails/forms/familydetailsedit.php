@@ -31,6 +31,7 @@ class Familydetails_Form_familydetailsedit extends Zend_Form {
 	$j=$count+$number;
         //$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
         $formfield = new App_Form_Field ();
+        $vtype=array('Digits');
 	 for($i=$k;$i<=$j;$i++) {
         $name = $formfield->field('Text','name'.$i,'','','','',true,'','','','','',0,0);
         $age = $formfield->field('Text','age'.$i,'','','','',true,'','','','','',0,0);

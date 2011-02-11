@@ -107,7 +107,7 @@ class Interestrates_IndexController extends Zend_Controller_Action{
             $this->view->InterestratesForm->status->setValue($fetchinterest1['status']);
         }
         $this->view->interest_details=$fetchinterest2; //for phtml page "Interest" rows
-
+        $InterestratesForm->interestname->removeValidator('Db_NoRecordExists');
         if($this->_request->isPost() && $this->_request->getPost('Update')) {
             $interest_id = $this->_request->getParam('interest_id');
             $formData = $this->_request->getPost();

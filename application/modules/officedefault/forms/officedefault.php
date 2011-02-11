@@ -58,7 +58,7 @@ class Officedefault_Form_officedefault extends Zend_Form{
         $officetype_id->setAttrib('onchange', 'getInterests(this.value,"'.$path.'")');
 
         $parentoffice_id = new Zend_Form_Element_Select('parentoffice_id');
-	$parentoffice_id->addMultiOption('','firstSelectOfficeType'.'...');
+	$parentoffice_id->addMultiOption('','First select officetype'.'...');
 	$parentoffice_id->setAttrib('class','selectbutton');
         $parentoffice_id->setRegisterInArrayValidator(false);
 

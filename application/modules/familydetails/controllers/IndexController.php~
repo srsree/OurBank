@@ -100,7 +100,7 @@ class Familydetails_IndexController extends Zend_Controller_Action
         }
         foreach($relationship as $relationship1){ 
         $relation_id = "relationship".$i;
-        $addForm->relationship->addMultiOption($relationship1['id'],$relationship1['relationship']);
+        $addForm->$relation_id->addMultiOption($relationship1['id'],$relationship1['relationship']);
         }
         foreach($physical as $physical1){ 
         $physical_id = "physicalstatus".$i;
@@ -188,6 +188,7 @@ class Familydetails_IndexController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
         $number=$this->_request->getParam('id');
 	$this->view->number=$number;
+        if($_isNumber($number)){
         $addForm = new Familydetails_Form_familydetails($number);
         $this->view->form=$addForm;
         $gender = $this->view->adm->viewRecord("gender","id","DESC");
@@ -220,6 +221,8 @@ class Familydetails_IndexController extends Zend_Controller_Action
         $addForm->name1->setAttrib('readonly','');
         $addForm->gender1->setValue($member[0]['gender']);
         $addForm->gender1->setAttrib('readonly','');
+    } else { echo "Enter only digits";
+        }
     }
 
 //This getfamilymemberAction is used to loan family form when calling the ajax function from the edit action

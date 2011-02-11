@@ -103,7 +103,7 @@ class Graceperiod_IndexController extends Zend_Controller_Action{
 
 			$formdata2=array('id'=>$viewgracedetails['id'],'name'=>$viewgracedetails['name'],'days'=>$viewgracedetails['days'],'creditline_id'=>$viewgracedetails['creditline_id'],'status'=>$viewgracedetails['status'],'created_by'=>$viewgracedetails['created_by'],'created_date'=>$viewgracedetails['created_date']);
 		}
-
+                $form->name->removeValidator('Db_NoRecordExists');
 		if ($this->_request->isPost() && $this->_request->getPost('Update')) {  
 
 			$id=$this->view->id=$this->_request->getParam('graceperiod_id');

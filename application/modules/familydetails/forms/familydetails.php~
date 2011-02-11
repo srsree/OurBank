@@ -29,10 +29,15 @@ class Familydetails_Form_familydetails extends Zend_Form {
          parent::__construct($number);
         //$fieldtype,$fieldname,$table,$columnname,$cssname,$labelname,$required,$validationtype,$min,$max,$rows,$cols,$decorator,$value
         $formfield = new App_Form_Field ();
+        $vtype=array('Digits');
 	 for($i=1;$i<=$number;$i++) {
         $name = $formfield->field('Text','name'.$i,'','','','','','','','','','',0,0);
         $age = $formfield->field('Text','age'.$i,'','','','','','','','','','',0,0);
-        $gender = $formfield->field('Select','gender'.$i,'','','','','','','','','','',0,0);
+
+        $gender = new Zend_Form_Element_Select('gender'.$i);
+        $gender->removeDecorator('DtDdWrapper'); 
+        $gender->removeDecorator('HtmlTag');
+        $gender->removeDecorator('label');
 
         $relation = new Zend_Form_Element_Select('relationship'.$i);
         $relation->removeDecorator('DtDdWrapper'); 
@@ -48,9 +53,11 @@ class Familydetails_Form_familydetails extends Zend_Form {
         $marital->removeDecorator('DtDdWrapper'); 
         $marital->removeDecorator('HtmlTag');
         $marital->removeDecorator('label');
-
+        $number = $formfield->field('Text','number','','','','','','','','','','',0,0);
+        $number->setAttrib('onchange', 'fn('<? echo $this->baseUrl();?>',<? echo $this->id; ?>)');
+ 
         $familymemberid = $formfield->field('Hidden','familymember_id'.$i,'','','','','','','','','','',0,0);
-        $this->addElements(array($name,$age,$gender,$relation,$physical,$marital,$familymemberid));
+        $this->addElements(array($name,$age,$gender,$relation,$physical,$marital,$familymemberid,$number));
 	}
     }
 }
